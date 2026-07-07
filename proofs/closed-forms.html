@@ -17,142 +17,222 @@ window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]
 <h2>N8 — Generating closed forms of higher-index Doppler operators from the \(\Do_{000}\) base case</h2>
 
 <p>
-The rapidity ODE (<a href="ode.html">N3</a>) generates Taylor <em>series</em> to any order. For
-<strong>closed forms valid at all \(\beta\)</strong> one instead climbs up from the \(\Do_{000}\) base case using
-three verified identities: the seed behind \(\Do_{000}\), the \(\ell\)-raising recursion (B10), and
-transposition + parity (B3). The result is a complete algorithm and a structure theorem: every \(m=0\)
-Doppler-operator element is a <em>rational operator function</em> built from one universal special function.
-All formulas on this page are verified in <code>verification/06_closed_forms.wl</code> (checks F1–F8, PASS at
-\(10^{-25}\)–\(10^{-28}\) including \(\beta = 0.7\), i.e. genuinely non-perturbative).
+This page gives <strong>every step</strong> of two independent derivations of the all-\(\beta\) closed forms of
+\(\Do_{101}\) and \(\Do_{020}\): <a href="#route1">Route 1</a> works at the kernel level (transposition B3 +
+\(\ell\)-raising B10 applied to the two factors of \(\Do\)); <a href="#route2">Route 2</a> works entirely at the
+Doppler-operator level using the new recursions N5/N6 and never touches a kernel. They agree exactly
+(harness check F11). <a href="#whynotn3">Section 5</a> explains the structural division of labor: which of the
+new N-results can and cannot produce closed forms, and why. All formulas verified in
+<code>verification/06_closed_forms.wl</code> (F1–F11, at \(\beta\) up to \(0.7\)).
 </p>
 
-<h3>0 &nbsp;The universal function family</h3>
+<h3 id="ingredients">0 &nbsp;Universal functions and verified ingredients</h3>
 <div class="eqbox">
-<div class="head"><span class="name">Definitions</span></div>
+<div class="head"><span class="name">Function family</span></div>
 \[
-  J_w \;\equiv\; \frac{(\gamma+p)^w - (\gamma-p)^w}{w} \;=\; \frac{2\sinh(w\eta)}{w},
-  \qquad
-  E_w \;\equiv\; (\gamma+p)^w + (\gamma-p)^w \;=\; 2\cosh(w\eta),
+  J_w \equiv \frac{(\gamma+p)^w - (\gamma-p)^w}{w} = \frac{2\sinh(w\eta)}{w},\qquad
+  E_w \equiv (\gamma+p)^w + (\gamma-p)^w = 2\cosh(w\eta),
 \]
-<p>using \(\gamma \pm p = e^{\pm\eta}\) (rapidity \(\eta\)). Key properties:
-\(J_{-w} = J_w\), \(E_{-w} = E_w\), \(J_0 = 2\eta\), \(E_0 = 2\), \(E_1 = 2\gamma\),
-\((\gamma+p)(\gamma-p) = 1\), and the <strong>product-collapse rule</strong> (check F6, exact):</p>
-\[
-  J_{a+q}\,J_{b+q} \;=\; \frac{E_{a+b+2q}\; -\; E_{a-b}}{(a+q)(b+q)},
-\]
-<p>whose second term is <em>\(q\)-independent</em> — this is the mechanism by which products of two kernel factors
-collapse into single-difference closed forms.</p>
+<p>with \(\gamma\pm p = e^{\pm\eta}\), so \(J_{-w} = J_w\), \(J_0 = 2\eta\), and the product collapse
+\(J_{a+q}J_{b+q} = \frac{E_{a+b+2q} - E_{a-b}}{(a+q)(b+q)}\) (check F6, exact).</p>
 </div>
-
-<h3>1 &nbsp;The base case, rewritten</h3>
-<p>The seed of everything is the kernel element behind \(\Do_{000}\) (Seed 1 of <a href="seeds.html">N7</a>):</p>
-\[
-  S(d) \equiv {}^{d}\Kk^0_{00}(-\beta) = \frac{(\gamma+p)^{1-d} - (\gamma-p)^{1-d}}{2(1-d)p} = \frac{J_{1-d}}{2p},
-\]
-<p>so that on power laws (\(\Oh \to -q\))</p>
-\[
-  \Do_{000}(q) = \frac{1}{\gamma}\,S(-1-q)\,S(-q) = \frac{J_{2+q}\,J_{1+q}}{4\gamma p^2}
-  \;\overset{\text{collapse}}{=}\;
-  \frac{E_{3+2q} - E_1}{4(2+q)(1+q)\,\gamma p^2}
-  = \frac{(\gamma+p)^{3+2q} + (\gamma-p)^{3+2q} - 2\gamma}{4(2+q)(1+q)\,\gamma p^2},
-\]
-<p>recovering [CR26, Eq. 10a] (checks F5, C11). The \(J\)-product form is the one that generalizes.</p>
-
-<h3>2 &nbsp;Step one: raise the kernel indices (B10)</h3>
-<p>The \(\ell\)-raising recursion (B10) expresses \({}^{d}\Kk^0_{\ell 0}\) through
-\({}^{d}\Kk^0_{\ell-1,0}\), \({}^{d-1}\Kk^0_{\ell-1,0}\), \({}^{d}\Kk^0_{\ell-2,0}\): each step adds one power of
-\(1/p\) and shifts the weight window by one. Starting from \(S(d) = J_{1-d}/2p\), every kernel column element is a
-<em>finite \(J\)-combination</em> with polynomial coefficients. One step (\(C_1 = 1/\sqrt3\)):</p>
-\[
-  {}^{d}\Kk^0_{10}(-\beta) = -\sqrt3\,\frac{\gamma S(d) - S(d-1)}{p}
-  = -\frac{\sqrt3}{2p^2}\Big(\gamma J_{1-d} - J_{2-d}\Big) ,
-\]
-<p>(check F1). A second step (\(C_2 = 2/\sqrt{15}\), \(C_1/C_2 = \sqrt5/2\), using \(\gamma^2 = 1+p^2\)):</p>
-\[
-  {}^{d}\Kk^0_{20}(-\beta)
-  = \frac{\sqrt5}{4p^3}\Big[(3+2p^2)\,J_{1-d} - 6\gamma\,J_{2-d} + 3\,J_{3-d}\Big],
-\]
-<p>(check F2) — equivalent to [CR26, Eq. 9b]. Iterating gives the general pattern</p>
-\[
-  {}^{d}\Kk^0_{\ell 0}(-\beta) = \frac{1}{2\,p^{\ell+1}} \sum_{t=0}^{\ell} a_{\ell t}(\gamma, p^2)\; J_{1-d+t},
-\]
-<p>with polynomial coefficients \(a_{\ell t}\) produced mechanically by B10. Elements
-\({}^{d}\Kk^0_{\ell\ell'}\) with \(\ell' > 0\) follow by raising the other index through transposition
-(B3: \({}^{d}\Kk^0_{\ell\ell'}(-\beta) = {}^{2-d}\Kk^0_{\ell'\ell}(+\beta)\)) plus parity — exactly the moves used
-in <a href="raising.html">N5/N6</a>.</p>
-
-<h3>3 &nbsp;Step two: assemble and collapse</h3>
-<p>On power laws every Doppler-operator element is a product of two such finite \(J\)-combinations:</p>
+<p>All work is on power laws \(\nu^q\) (Lemma L1: \(\Oh \to -q\); operator identities recovered at the end by
+\(q \to -\Oh\)), at \(s = 0\), \(m = 0\). The four verified ingredients:</p>
 <div class="eqbox">
-<div class="head"><span class="name">Assembly</span></div>
+<div class="head"><span class="name">(i) Seed</span> <span class="cite">[CR26, Eq. B1]</span> <span class="badge pass">C2</span></div>
 \[
-  \Do^0_{\ell\ell'\ell''}(q) = \frac{1}{\gamma}\;
-  \underbrace{{}^{-1-q}\Kk^0_{\ell\ell'}(+\beta)}_{\text{via B3/parity/B10: } \sum_t \alpha_t\, J_{2+q+t}\,/\,p^{\#}}
-  \;\;
-  \underbrace{{}^{-q}\Kk^0_{\ell'\ell''}(-\beta)}_{\text{via B10: } \sum_t \beta_t\, J_{1+q+t}\,/\,p^{\#}} .
+  S(d) \equiv {}^{d}\Kk_{00}(-\beta) = {}^{d}\Kk_{00}(+\beta) = \frac{J_{1-d}}{2p}
+\]
+<p>(the two arguments are equal by parity, \((-1)^{0+0} = 1\)).</p>
+</div>
+<div class="eqbox">
+<div class="head"><span class="name">(ii) \(\ell\)-raising B10 at \(s=0, m=0\)</span> <span class="cite">[CR26, Eq. B3]</span> <span class="badge pass">C4</span></div>
+\[
+  {}^{d}\Kk_{\ell\ell'}(-\beta) = -\frac{1}{C_\ell\, p}\Big[\gamma\,{}^{d}\Kk_{\ell-1,\ell'}(-\beta) - {}^{d-1}\Kk_{\ell-1,\ell'}(-\beta)\Big]
+  - \frac{C_{\ell-1}}{C_\ell}\,{}^{d}\Kk_{\ell-2,\ell'}(-\beta),
+  \qquad C_\ell = \frac{\ell}{\sqrt{4\ell^2-1}},
+\]
+<p>so \(C_1 = \tfrac{1}{\sqrt3}\), \(C_2 = \tfrac{2}{\sqrt{15}}\), \(C_1/C_2 = \tfrac{\sqrt5}{2}\), \(C_0 = 0\).</p>
+</div>
+<div class="eqbox">
+<div class="head"><span class="name">(iii) Parity</span> <span class="badge pass">C6</span>
+<span class="name" style="margin-left:2rem">(iv) Transposition</span> <span class="badge pass">D2</span></div>
+\[
+  {}^{d}\Kk_{\ell\ell'}(+\beta) = (-1)^{\ell+\ell'}\,{}^{d}\Kk_{\ell\ell'}(-\beta),
+  \qquad\qquad
+  {}^{d}\Kk_{\ell\ell'}(-\beta) = {}^{2-d}\Kk_{\ell'\ell}(+\beta).
 \]
 </div>
+<p>Target, on \(\nu^q\):
+\(\;\Do_{\ell\ell'\ell''}(q) = \frac{1}{\gamma}\,\underbrace{{}^{-1-q}\Kk_{\ell\ell'}(+\beta)}_{A}\;
+\underbrace{{}^{-q}\Kk_{\ell'\ell''}(-\beta)}_{B}\).
+Base case: \(A = B\)-type seeds give
+\(\Do_{000} = \frac{1}{\gamma}S(-1-q)S(-q) = \frac{J_{2+q}J_{1+q}}{4\gamma p^2}\)
+\(= \frac{E_{3+2q}-2\gamma}{4(2+q)(1+q)\gamma p^2}\) — [CR26, Eq. 10a] (checks F5, C11).</p>
 
-<h3>4 &nbsp;Worked closed forms (new)</h3>
-<div class="newbox">
-<div class="head"><span class="name">\(\Do_{101}\)</span><span class="badge pass">verified F3 (incl. β = 0.7)</span></div>
-\[
-  \Do^0_{101}(\nu,\beta) \;=\; \frac{3}{4\gamma p^4}\,
-  \Big(\gamma J_{2-\Oh} - J_{3-\Oh}\Big)\Big(\gamma J_{1-\Oh} - J_{\Oh}\Big).
-\]
-</div>
-<div class="newbox">
-<div class="head"><span class="name">\(\Do_{020}\)</span><span class="badge pass">verified F4 (incl. β = 0.7)</span></div>
-\[
-  \Do^0_{020}(\nu,\beta) \;=\; \frac{5}{16\gamma p^6}
-  \Big[(3+2p^2) J_{2-\Oh} - 6\gamma J_{1-\Oh} + 3 J_{\Oh}\Big]
-  \Big[(3+2p^2) J_{1-\Oh} - 6\gamma J_{2-\Oh} + 3 J_{3-\Oh}\Big].
-\]
-</div>
-<p>Here \(J_{w-\Oh}\) is the operator function
-\(\big[(\gamma+p)^{w-\Oh} - (\gamma-p)^{w-\Oh}\big]/(w-\Oh)\); on \(\nu^q\), \(\Oh\to-q\) recovers the scalar
-formulas (note \(J_{\Oh} = J_{-\Oh}\) by evenness). Expanding either product with the collapse rule turns it into
-a sum of single terms \(\frac{E_{n+2q} - \text{const}}{(a+q)(b+q)}\), i.e. into <em>rational operator
-functions</em> of \(\Oh\) acting through simple frequency rescalings \((\gamma\pm p)^{-\Oh} n(\nu) = n((\gamma\pm p)\nu)\)
-— the same structure [CR26, Eq. 10a] has, now for every element. Together with thermal averaging over \(p\)
-this gives the exact (all-order in temperature) building blocks of the SZ signal.</p>
+<h3 id="route1">1 &nbsp;Route 1: kernel level (B10 + B3), all steps</h3>
 
-<h3>5 &nbsp;Consistency checks built into the forms</h3>
+<h4>Step 1.1 — the column element \({}^{d}\Kk_{10}(-\beta)\)</h4>
+<p>B10 with \((\ell,\ell') = (1,0)\); the \(\ell-2\) term is absent (\(C_0 = 0\)):</p>
+\[
+  {}^{d}\Kk_{10}(-\beta) = -\frac{1}{C_1 p}\big[\gamma S(d) - S(d-1)\big]
+  = -\frac{\sqrt3}{p}\Big[\gamma\,\frac{J_{1-d}}{2p} - \frac{J_{2-d}}{2p}\Big]
+  = -\frac{\sqrt3}{2p^2}\Big(\gamma J_{1-d} - J_{2-d}\Big). \tag{1.1}
+\]
+<p><span class="badge pass">check F1, 8×10⁻²⁹</span></p>
+
+<h4>Step 1.2 — the column element \({}^{d}\Kk_{20}(-\beta)\)</h4>
+<p>B10 with \((\ell,\ell') = (2,0)\):</p>
+\[
+  {}^{d}\Kk_{20}(-\beta) = -\frac{\sqrt{15}}{2p}\Big[\gamma\,{}^{d}\Kk_{10}(-\beta) - {}^{d-1}\Kk_{10}(-\beta)\Big]
+  - \frac{\sqrt5}{2}\,S(d).
+\]
+<p>Insert (1.1) at weights \(d\) and \(d-1\):</p>
+\[
+  \gamma\,{}^{d}\Kk_{10} - {}^{d-1}\Kk_{10}
+  = -\frac{\sqrt3}{2p^2}\Big[\gamma^2 J_{1-d} - \gamma J_{2-d}\Big]
+    + \frac{\sqrt3}{2p^2}\Big[\gamma J_{2-d} - J_{3-d}\Big]
+  = -\frac{\sqrt3}{2p^2}\Big[\gamma^2 J_{1-d} - 2\gamma J_{2-d} + J_{3-d}\Big],
+\]
+<p>so, using \(S(d) = J_{1-d}/2p\) and \(3\gamma^2 - p^2 = 3(1+p^2) - p^2 = 3+2p^2\),</p>
+\[
+  {}^{d}\Kk_{20}(-\beta)
+  = \frac{3\sqrt5}{4p^3}\Big[\gamma^2 J_{1-d} - 2\gamma J_{2-d} + J_{3-d}\Big] - \frac{\sqrt5}{4p^3}\,p^2 J_{1-d}
+  = \frac{\sqrt5}{4p^3}\Big[(3+2p^2)J_{1-d} - 6\gamma J_{2-d} + 3J_{3-d}\Big]. \tag{1.2}
+\]
+<p><span class="badge pass">check F2, 2×10⁻²⁸</span> — equivalent to [CR26, Eq. 9b].</p>
+
+<h4>Step 1.3 — assembling \(\Do_{101}\)</h4>
+<p><em>Factor \(A = {}^{-1-q}\Kk_{10}(+\beta)\).</em> Parity (iii) with \(\ell+\ell' = 1\) flips the sign of (1.1);
+at \(d = -1-q\) the indices are \(1-d = 2+q\), \(2-d = 3+q\):</p>
+\[
+  A = -\,{}^{-1-q}\Kk_{10}(-\beta) = +\frac{\sqrt3}{2p^2}\Big(\gamma J_{2+q} - J_{3+q}\Big). \tag{1.3a}
+\]
+<p><em>Factor \(B = {}^{-q}\Kk_{01}(-\beta)\).</em> Transposition (iv) with \((\ell,\ell') = (0,1)\), \(d = -q\):
+\(B = {}^{2+q}\Kk_{10}(+\beta)\). Parity flips again:
+\(B = -\,{}^{2+q}\Kk_{10}(-\beta)\). Now (1.1) at \(d = 2+q\) has \(1-d = -1-q\), \(2-d = -q\), and evenness
+\(J_{-w} = J_w\) gives:</p>
+\[
+  B = +\frac{\sqrt3}{2p^2}\Big(\gamma J_{-1-q} - J_{-q}\Big) = \frac{\sqrt3}{2p^2}\Big(\gamma J_{1+q} - J_{q}\Big). \tag{1.3b}
+\]
+<p><em>Product.</em></p>
+\[
+  \boxed{\;\Do_{101}(q) = \frac{A\,B}{\gamma} = \frac{3}{4\gamma p^4}\,
+  \Big(\gamma J_{2+q} - J_{3+q}\Big)\Big(\gamma J_{1+q} - J_{q}\Big)\;} \tag{1.3}
+\]
+<p><span class="badge pass">check F3 vs direct quadrature, β ∈ {0.3, 0.7}</span></p>
+
+<h4>Step 1.4 — assembling \(\Do_{020}\)</h4>
+<p><em>Factor \(B' = {}^{-q}\Kk_{20}(-\beta)\)</em> is (1.2) at \(d = -q\) directly:</p>
+\[
+  B' = \frac{\sqrt5}{4p^3}\Big[(3+2p^2)J_{1+q} - 6\gamma J_{2+q} + 3J_{3+q}\Big]. \tag{1.4a}
+\]
+<p><em>Factor \(A' = {}^{-1-q}\Kk_{02}(+\beta)\).</em> Transposition (iv) with \((\ell,\ell') = (2,0)\) reads
+\({}^{d}\Kk_{20}(-\beta) = {}^{2-d}\Kk_{02}(+\beta)\); matching \(2-d = -1-q\) gives \(d = 3+q\)
+(no parity step needed: \(\ell+\ell' = 2\) is even). So \(A' = {}^{3+q}\Kk_{20}(-\beta)\), i.e. (1.2) at
+\(d = 3+q\): indices \(1-d = -2-q\), \(2-d = -1-q\), \(3-d = -q\), and evenness:</p>
+\[
+  A' = \frac{\sqrt5}{4p^3}\Big[(3+2p^2)J_{2+q} - 6\gamma J_{1+q} + 3J_{q}\Big]. \tag{1.4b}
+\]
+<p><em>Product.</em></p>
+\[
+  \boxed{\;\Do_{020}(q) = \frac{A'B'}{\gamma} = \frac{5}{16\gamma p^6}
+  \Big[(3+2p^2)J_{2+q} - 6\gamma J_{1+q} + 3J_{q}\Big]
+  \Big[(3+2p^2)J_{1+q} - 6\gamma J_{2+q} + 3J_{3+q}\Big]\;} \tag{1.4}
+\]
+<p><span class="badge pass">check F4; series limit vs ODE table, F8</span></p>
+
+<h3 id="route2">2 &nbsp;Route 2: the same forms from the new recursions N5/N6 alone</h3>
+<p>The outer-index recursions <a href="raising.html">N5/N6</a> act directly on the Doppler operator, over the
+weight lattice \({}^{(j,k)}\Do_{\ell\ell'\ell''} = \frac1\gamma\,{}^{-1-j}\Bo(\nu,-\beta)\,{}^{-k}\Bo(\nu,\beta)\).
+No kernel appears below.</p>
+
+<h4>Step 2.1 — lattice base cases (seed only)</h4>
+\[
+  {}^{(j,k)}\Do_{000}(q) = \frac{1}{\gamma}\,S(-1-j-q)\,S(-k-q)
+  = \frac{J_{2+j+q}\,J_{1+k+q}}{4\gamma p^2}. \tag{2.1}
+\]
+<p><span class="badge pass">check F9</span></p>
+
+<h4>Step 2.2 — raise the incoming index with N6</h4>
+<p>N6 at \((\ell,\ell',\ell'') = (0,0,1)\), valid at every lattice point \((j,k)\) (companion shifts
+\(k \to k-1\)); the \(C_0\) and \(\ell''-2\) terms vanish:</p>
+\[
+  {}^{(j,k)}\Do_{001} = \frac{1}{C_1 p}\Big[\gamma\,{}^{(j,k)}\Do_{000} - {}^{(j,k-1)}\Do_{000}\Big]
+  = \frac{\sqrt3}{4\gamma p^3}\, J_{2+j+q}\Big(\gamma J_{1+k+q} - J_{k+q}\Big). \tag{2.2}
+\]
+<p><span class="badge pass">check F10</span></p>
+
+<h4>Step 2.3 — raise the outgoing index with N5</h4>
+<p>N5 at \((\ell,\ell',\ell'') = (1,0,1)\), lattice \((0,0)\) (companion shifts \(j \to j+1\)); the \(\ell-2\)
+term vanishes:</p>
+\[
+  \Do_{101} = \frac{1}{C_1 p}\Big[\gamma\,{}^{(0,0)}\Do_{001} - {}^{(1,0)}\Do_{001}\Big]
+  = \frac{\sqrt3}{p}\cdot\frac{\sqrt3}{4\gamma p^3}\Big[\gamma J_{2+q} - J_{3+q}\Big]\Big(\gamma J_{1+q} - J_{q}\Big)
+  = \frac{3}{4\gamma p^4}\Big(\gamma J_{2+q} - J_{3+q}\Big)\Big(\gamma J_{1+q} - J_{q}\Big),
+\]
+<p>identical to (1.3). <span class="badge pass">check F11</span>. This is the fully "novel-results" derivation:
+seed → (2.1) → N6 → N5, never leaving the Doppler operator.</p>
+
+<h3 id="whynotn3">3 &nbsp;Which N-results can produce closed forms — and why</h3>
 <ul>
-  <li><strong>Reflection (N1).</strong> Under \(q \to -3-q\), evenness gives
-  \(J_{2+q} \to J_{-1-q} = J_{1+q}\) and \(J_{q} \to J_{-3-q} = J_{3+q}\): in both worked forms the two brackets
-  simply <em>swap</em>, so the diagonal elements are manifestly invariant (check F7, exact zero).</li>
-  <li><strong>Parity (N2).</strong> \(J_w\) and \(E_w\) are even in \(\beta \to -\beta\) up to the explicit
-  \(p\)-powers; counting powers of \(p\) reproduces \((-1)^{\ell+\ell''}\).</li>
-  <li><strong>Series limit.</strong> Expanding \(\Do_{020}\) in \(p\) reproduces the ODE-generated table entry
-  \(\tfrac{1}{45}\Oh(\Oh^3-6\Oh^2+5\Oh+12)\,p^4 + \mathcal O(p^6)\) (check F8).</li>
-  <li><strong>Poles are removable.</strong> Apparent poles at \(w=0\) (i.e. \(\Oh\) hitting an integer) are
-  removable: \(J_0 = 2\eta\); the closed forms are entire in \(\Oh\).</li>
+  <li><strong>N5/N6: yes, for the outer indices.</strong> Route 2 is the demonstration. This is no accident and
+  no independent method: N5/N6 were <em>derived from</em> B10 + B3 (see <a href="raising.html">their proof</a>),
+  so Routes 1 and 2 are the same climb performed at two levels — the kernel factors, or the assembled operator.
+  Route 1 was presented first because it also covers the case N5/N6 cannot (next point). Both terminate after
+  finitely many steps because each application only shifts a \(J\)-index by an integer and multiplies by
+  \((\gamma, p)\)-rational factors — closure in the \(J\)-family is preserved at every step.</li>
+  <li><strong>The intermediate index \(\ell'\): only at the kernel level.</strong> \(\ell'\) is a spectator in
+  <em>every</em> \(\Do\)-level relation we have (N3, N5, N6; and the sum rule consumes it entirely). To reach
+  \(\Do_{020}\) one must raise \(\ell'\) from 0 to 2 <em>inside</em> each factor — steps 1.2/1.4 — which is
+  intrinsically a kernel-level move: the two factors share \(\ell'\), and a shift of a shared index cannot be
+  expressed through shifted \(\Do\)-elements (whose two factors would shift together). This is the same
+  obstruction, seen from another side, as the "no closure at \((j,k)=(0,0)\) alone" argument on the
+  <a href="raising.html">N5/N6 page</a>. Physically one rarely needs it: Thomson scattering fixes
+  \(\ell' \in \{0, 2\}\).</li>
+  <li><strong>N3 (rapidity ODE): structurally cannot give closed forms.</strong> The ODE couples
+  \((\ell,\ell'')\) to \((\ell\pm1,\ell'')\) and \((\ell,\ell''\pm1)\): the system is an <em>infinite</em>
+  banded hierarchy. Truncating at any finite order in \(\eta\) yields exactly the polynomial Taylor tables
+  (Section 4 of the main page) — polynomials in \(\Oh\) at each order, as you'd expect from a series generator.
+  The closed forms of this page are the <em>resummation</em> of that tower: what N3 builds order by order,
+  (1.3)/(1.4) state in finite terms. The two are complementary — we use N3 to generate/check series (F8) and
+  N5/N6+seeds (or B10+B3) to resum them.</li>
+  <li><strong>N1/N2 (symmetries): constrain, don't construct.</strong> Reflection acts on (1.3)/(1.4) by swapping
+  the bracket factors (\(J_{2+q}\leftrightarrow J_{1+q}\), \(J_q \leftrightarrow J_{3+q}\) under \(q\to-3-q\)),
+  which is a nontrivial consistency check (F7, exact) and halves the work (N6 follows from N5, \(A'\) from
+  \(B'\)), but does not generate new elements.</li>
 </ul>
 
-<h3>6 &nbsp;Structure theorem</h3>
+<h3>4 &nbsp;Consistency checks and structure theorem</h3>
+<ul>
+  <li><strong>Reflection (N1).</strong> Under \(q \to -3-q\), evenness gives
+  \(J_{2+q} \to J_{1+q}\) and \(J_{q} \to J_{3+q}\): in both worked forms the two brackets swap, so the
+  diagonal elements are manifestly invariant (check F7, exact zero).</li>
+  <li><strong>Parity (N2).</strong> Power counting in \(p\) reproduces \((-1)^{\ell+\ell''}\).</li>
+  <li><strong>Series limit.</strong> Expanding \(\Do_{020}\) in \(p\) reproduces the N3-generated table entry
+  \(\tfrac{1}{45}\Oh\big(\Oh^3-6\Oh^2+5\Oh+12\big)\,p^4 + \mathcal O(p^6)\) (check F8).</li>
+  <li><strong>Removable poles.</strong> \(J_0 = 2\eta\); all closed forms are entire in \(\Oh\).</li>
+</ul>
 <div class="newbox">
-<div class="head"><span class="name">Every element is hyperbolic-rational</span></div>
-<p>For \(m = 0\) and any \((\ell,\ell',\ell'')\), the Doppler operator has the exact form</p>
+<div class="head"><span class="name">Structure theorem (every element is hyperbolic-rational)</span></div>
+<p>For \(m = 0\) and any \((\ell,\ell',\ell'')\):</p>
 \[
   \Do^0_{\ell\ell'\ell''}(\nu,\beta) \;=\; \frac{1}{\gamma\, p^{\,\ell+\ell''+2}}
   \sum_{\text{finite}} c_{ab}(\gamma, p^2)\;
   \frac{E_{a+b-2\Oh} - E_{a-b}}{(a-\Oh)(b-\Oh)},
-  \qquad
-  E_{w} = 2\cosh(w\eta),
+  \qquad E_{w} = 2\cosh(w\eta),
 \]
-<p>with integer index pairs \((a,b)\) in the window \(a \in \{2,\dots,\ell+2\}\), \(b \in \{1,\dots,\ell''+1\}\)
-shifted by the \(\ell'\)-raising, and polynomial coefficients \(c_{ab}\) generated by B10.
-In rapidity variables everything is elementary: \(\cosh\)/\(\sinh\) of \((\text{integer} - 2\Oh)\eta\) over
-polynomial denominators. This is the closed-form counterpart of the statement that the ODE (N3) generates the
-same elements perturbatively.</p>
+<p>with integer pairs \((a,b)\) windowed by the indices and polynomial \(c_{ab}\) generated by the finite climb
+(either route). In rapidity variables everything is elementary — \(\cosh/\sinh\) of \((\text{integer}-2\Oh)\eta\)
+over polynomial denominators. Operator meaning: \((\gamma\pm p)^{-\Oh}n(\nu) = n\big((\gamma\pm p)\nu\big).\)</p>
 </div>
 
 <h3>Verification record</h3>
-<p><code>verification/06_closed_forms.wl</code>: F1–F2 kernel columns (\(10^{-28}\)); F3–F4 the worked
-\(\Do_{101}, \Do_{020}\) closed forms at \(\beta \in \{0.3, 0.7\}\), \(q \in \{-0.7, 0.5, 1.3, 2\}\)
-(\(\le 8\times10^{-25}\)); F5 base case; F6 collapse rule (exact); F7 reflection invariance (exact);
-F8 agreement with the ODE-generated \(p^4\) table entry.</p>
+<p><code>verification/06_closed_forms.wl</code>: F1–F2 kernel columns (10⁻²⁸); F3–F4 the worked
+\(\Do_{101}, \Do_{020}\) at \(\beta \in \{0.3, 0.7\}\), \(q \in \{-0.7, 0.5, 1.3, 2\}\) (≤8×10⁻²⁵);
+F5 base case; F6 collapse rule (exact); F7 reflection invariance (exact); F8 series limit vs N3 table;
+<strong>F9–F11 Route 2</strong>: lattice bases, the N6 step, and the N5 assembly reproducing (1.3)
+(agreement to arithmetic precision).</p>
 
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
 </main>

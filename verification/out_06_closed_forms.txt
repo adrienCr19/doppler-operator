@@ -6,4 +6,6 @@ F5  D000 = J_{2+q}J_{1+q}/(4 g p^2)  (base case, = CR26 10a): PASS  (max dev = S
 F6  J-product collapse to E functions: PASS  (max dev = ScientificForm[0., 3])
 F7  closed-form D101 invariant under q -> -3-q: PASS  (max dev = ScientificForm[0., 3])
 F8  D020 closed form vs O(p^4) ODE series at beta=0.05 (expect ~p^6 ~ 1.6e-8): dev = ScientificForm[1.6192741064213758*^-9, 3]
---- closed-forms harness done ---
+F9  lattice bases (j,k)D_000 = J_{2+j+q}J_{1+k+q}/(4gp^2): PASS  (max dev = ScientificForm[1.1928871175512797*^-27, 3])
+F10 N6 step: (j,0)D_001 closed form: PASS  (max dev = ScientificForm[5.779195392574208*^-29, 3])
+F11 N5 assembly of D101 == kernel-route closed form (F3): PASS  (max dev = ScientificForm[7.632783294297951*^-16, 3])

@@ -70,3 +70,21 @@ dev = Max@Table[With[{b = 1/20}, With[{g = ga[b], p = ga[b] b},
 Print["F8  D020 closed form vs O(p^4) ODE series at beta=0.05 (expect ~p^6 ~ 1.6e-8): dev = ", ScientificForm[N[dev], 3]];
 
 Print["--- closed-forms harness done ---"];
+
+(* ---- Route 2 (novel N5/N6 recursions at the Doppler-operator level): intermediate steps ---- *)
+(* lattice bases from seeds only: (j,k)D_000 = J_{2+j+q} J_{1+k+q} / (4 g p^2) *)
+DL000[j_, k_, q_, b_] := With[{g = ga[b], p = ga[b] b}, JJ[2 + j + q, b] JJ[1 + k + q, b]/(4 g p^2)];
+DLnum[j_, k_, q_, l_, lp_, ldd_, b_] := (1/ga[b]) Kp[-1 - j - q, l, lp, 0, b] Km[-k - q, lp, ldd, 0, b];
+dev = Max@Table[Abs[DLnum[j, k, q, 0, 0, 0, 3/10] - DL000[j, k, q, 3/10]], {j, {0, 1}}, {k, {-1, 0}}, {q, {1/2, -7/10}}];
+report["F9  lattice bases (j,k)D_000 = J_{2+j+q}J_{1+k+q}/(4gp^2)", dev];
+
+(* N6 step: (j,k)D_001 = (Sqrt[3]/(4 g p^3)) J_{2+j+q} (g J_{1+k+q} - J_{k+q}) *)
+DL001[j_, k_, q_, b_] := With[{g = ga[b], p = ga[b] b}, (Sqrt[3]/(4 g p^3)) JJ[2 + j + q, b] (g JJ[1 + k + q, b] - JJ[k + q, b])];
+dev = Max@Table[Abs[DLnum[j, k, q, 0, 0, 1, 3/10] - DL001[j, k, q, 3/10]], {j, {0, 1}}, {k, {0}}, {q, {1/2, -7/10}}];
+report["F10 N6 step: (j,0)D_001 closed form", dev];
+
+(* N5 step assembles D101 = (1/(C1 p))[g D_001 - (1,0)D_001]  ->  must equal F3 form *)
+dev = Max@Table[With[{g = ga[b], p = ga[b] b},
+    Abs[(Sqrt[3]/p) (g DL001[0, 0, q, b] - DL001[1, 0, q, b]) -
+        3/(4 g p^4) (g JJ[2 + q, b] - JJ[3 + q, b]) (g JJ[1 + q, b] - JJ[q, b])]], {b, {3/10, 7/10}}, {q, {1/2, -7/10}}];
+report["F11 N5 assembly of D101 == kernel-route closed form (F3)", dev];
