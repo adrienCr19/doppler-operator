@@ -1,0 +1,9 @@
+F1  K^d_10(-b) = -Sqrt[3]/(2p^2) (g J_{1-d} - J_{2-d}): PASS  (max dev = ScientificForm[7.920187806142663*^-29, 3])
+F2  K^d_20(-b) closed form (matches stag240 9b): PASS  (max dev = ScientificForm[1.8889690409306819*^-28, 3])
+F3  D101(q) = 3/(4 g p^4) (g J_{2+q}-J_{3+q})(g J_{1+q}-J_q): PASS  (max dev = ScientificForm[8.306601637026604*^-25, 3])
+F4  D020(q) closed form: PASS  (max dev = ScientificForm[4.727853366446418*^-28, 3])
+F5  D000 = J_{2+q}J_{1+q}/(4 g p^2)  (base case, = CR26 10a): PASS  (max dev = ScientificForm[2.472719213142488*^-25, 3])
+F6  J-product collapse to E functions: PASS  (max dev = ScientificForm[0., 3])
+F7  closed-form D101 invariant under q -> -3-q: PASS  (max dev = ScientificForm[0., 3])
+F8  D020 closed form vs O(p^4) ODE series at beta=0.05 (expect ~p^6 ~ 1.6e-8): dev = ScientificForm[1.6192741064213758*^-9, 3]
+--- closed-forms harness done ---

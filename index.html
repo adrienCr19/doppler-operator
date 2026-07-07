@@ -470,6 +470,26 @@ the observed \(\Dv\)-structure. Both are supplied below.
   \({}^{(j,k)}\Do^m_{m\ell' m}\) in terms of \({}_2F_1\).</p>
 </div>
 
+<div class="newbox">
+  <div class="head"><span class="name">(N8) Closed forms for higher-index elements from the \(\Do_{000}\) base case</span>
+    <span class="badge new">new</span> <span class="badge pass">verified incl. β = 0.7</span>
+    <span class="prooflink"><a href="proofs/closed-forms.html">proof →</a></span></div>
+  <p>With the universal functions \(J_w = \frac{(\gamma+p)^w - (\gamma-p)^w}{w} = \frac{2\sinh(w\eta)}{w}\)
+  (so the base case is \(\Do_{000} = \frac{J_{2-\Oh}J_{1-\Oh}}{4\gamma p^2}\), equivalent to [CR26, Eq.&nbsp;10a]),
+  climbing B10 + B3 from the seed yields <em>all-\(\beta\)</em> closed forms for every element, e.g.</p>
+  \[
+    \Do^0_{101} = \frac{3}{4\gamma p^4}\Big(\gamma J_{2-\Oh} - J_{3-\Oh}\Big)\Big(\gamma J_{1-\Oh} - J_{\Oh}\Big),
+  \]
+  \[
+    \Do^0_{020} = \frac{5}{16\gamma p^6}
+    \Big[(3+2p^2) J_{2-\Oh} - 6\gamma J_{1-\Oh} + 3 J_{\Oh}\Big]
+    \Big[(3+2p^2) J_{1-\Oh} - 6\gamma J_{2-\Oh} + 3 J_{3-\Oh}\Big],
+  \]
+  <p>and in general every \(m=0\) element is a finite sum of rational operator functions
+  \(\frac{E_{a+b-2\Oh} - E_{a-b}}{(a-\Oh)(b-\Oh)}\) with \(E_w = 2\cosh(w\eta)\) — hyperbolic-rational in the
+  rapidity, entire in \(\Oh\), with the reflection symmetry N1 acting by swapping the two bracket factors.</p>
+</div>
+
 <h2 id="tables">4 &nbsp;Generated tables (from the ODE N3)</h2>
 <p>
 Symbolic elements \(\Do^{m=0}_{\ell\ell'\ell''}(\nu,\beta)\) to \(\mathcal O(p^4)\), generated purely by iterating
@@ -580,6 +600,9 @@ and indices \(\ell,\ell',\ell'' \le 4\). Symbolic checks (T2, T4, N9) are exact 
 <td>ODE-generated series vs direct integration (scaling ∝η⁶ by parity); \(\Do_{000}\) symbolic = closed form to \(p^6\); m-summed \(\Do_{222}\); SZ operator vs [CR26 Eq. 11] (\(p^2,p^4\) symbolic, \(p^6\) numeric + symbolic)</td>
 <td>all PASS</td></tr>
 <tr><td><code>verification/04_additivity.wl</code></td><td>Rapidity additivity (B5)</td><td>PASS (7×10⁻²⁴)</td></tr>
+<tr><td><code>verification/06_closed_forms.wl</code></td>
+<td><strong>N8</strong> closed forms: kernel columns \(K_{10}, K_{20}\); \(\Do_{101}\), \(\Do_{020}\) at \(\beta \in \{0.3, 0.7\}\); \(J\!\cdot\!J \to E\) collapse rule; reflection invariance of the closed forms; series limit vs. ODE table</td>
+<td>all PASS (≤8×10⁻²⁵; F6/F7 exact)</td></tr>
 <tr><td><code>verification/05_export_tables.wl</code></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
 <p>Reproduce with:</p>
