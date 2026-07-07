@@ -1,0 +1,5 @@
+M1  column recursion of K(+b)  [B10 transposed]: PASS  (max dev = ScientificForm[1.873274025427547*^-27, 3])
+M2  middle-index raising (M) for the Doppler operator: PASS  (max dev = ScientificForm[4.213191970350028*^-27, 3])
+M3  (M) at lp=2 reproduces the D020 closed form: PASS  (max dev = ScientificForm[0., 3])
+M4  (M) at shifted lattice points (j,k): PASS  (max dev = ScientificForm[1.77463775246193*^-27, 3])
+--- middle-index harness done ---

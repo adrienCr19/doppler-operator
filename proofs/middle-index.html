@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N10 — Middle-index raising for the Doppler operator</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N10 — Middle-index raising: the \(\ell'\) recursion for the Doppler operator</h2>
+
+<p class="note"><strong>Provenance.</strong> This relation answers the question: since the aberration kernel has
+recursions in <em>both</em> of its indices, the kernel-level moves that shift the scattering multipole \(\ell'\)
+must lift to the Doppler operator. They do. The refined statement of the earlier "spectator" discussion
+(<a href="closed-forms.html#whynotn3">N8, §3</a>) is: no \(\ell'\)-recursion closes on the <em>diagonal</em>
+Doppler family alone — but on the extended family below it closes completely, exactly as the outer-index
+recursions N5/N6 close only on the weight lattice.</p>
+
+<div class="newbox">
+<div class="head"><span class="name">Extended family and statement</span> <span class="badge new">new</span>
+<span class="badge pass">verified ≤4×10⁻²⁷</span></div>
+<p>Define (\(s=0\), any \(m\); on \(\nu^q\), with lattice weights \((j,k)\) as in N5/N6):</p>
+\[
+  {}^{(j,k)}X^m_{\ell;\,\ell_1',\ell_2';\,\ell''} \;\equiv\; \frac1\gamma\,
+  {}^{-1-j}\Bo^m_{\ell\ell_1'}(\nu,-\beta)\;{}^{-k}\Bo^m_{\ell_2'\ell''}(\nu,\beta)
+  \;\;\overset{\nu^q}{=}\;\;
+  \frac1\gamma\,{}^{-1-j-q}\Kk^m_{\ell\ell_1'}(+\beta)\;{}^{-k-q}\Kk^m_{\ell_2'\ell''}(-\beta),
+\]
+<p>with the physical Doppler operator as diagonal slice, \(\Do = X|_{\ell_1'=\ell_2'=\ell'}\). Then
+(\(C_\ell \equiv C^m_\ell\), all at the same \(\beta\), \(q\) suppressed):</p>
+\[
+  \begin{aligned}
+  {}^{(j,k)}\Do^m_{\ell,\ell',\ell''} \;=\;
+  &\;\frac{1}{C_{\ell'}^2\,p^2}\Big[\gamma^2\,{}^{(j,k)}\Do - \gamma\,{}^{(j-1,k)}\Do
+      - \gamma\,{}^{(j,k+1)}\Do + {}^{(j-1,k+1)}\Do\Big]_{\ell,\ell'-1,\ell''} \\[3pt]
+  &+ \frac{C_{\ell'-1}}{C_{\ell'}^2\,p}\Big[\gamma\,{}^{(j,k)}X_{\ell;\ell'-1,\ell'-2;\ell''}
+      - {}^{(j-1,k)}X_{\ell;\ell'-1,\ell'-2;\ell''}\Big] \\[3pt]
+  &+ \frac{C_{\ell'-1}}{C_{\ell'}^2\,p}\Big[\gamma\,{}^{(j,k)}X_{\ell;\ell'-2,\ell'-1;\ell''}
+      - {}^{(j,k+1)}X_{\ell;\ell'-2,\ell'-1;\ell''}\Big]
+  \;+\; \frac{C_{\ell'-1}^2}{C_{\ell'}^2}\,{}^{(j,k)}\Do_{\ell,\ell'-2,\ell''}\,.
+  \end{aligned}
+  \tag{M}
+\]
+<p>Higher middle indices from lower ones, at fixed outer indices — at the cost of the two off-diagonal
+companions \(X_{\ell'-1,\ell'-2}\), \(X_{\ell'-2,\ell'-1}\) and the same weight-lattice shifts as N5/N6.</p>
+</div>
+
+<h3>Step 1 — Ingredient A: column recursion of the \(+\beta\) kernel</h3>
+<p>The verified \(\ell\)-raising B10 recursion acts on the <em>row</em> of a \(-\beta\) kernel. The first factor
+of \(X\) needs its <em>column</em> \(\ell_1'\) shifted, at argument \(+\beta\). Sandwich B10 in the transposition
+identity (B3): write \({}^{a}\Kk_{\ell\ell'}(+\beta) = {}^{2-a}\Kk_{\ell'\ell}(-\beta)\), apply B10 to the row
+\(\ell'\) at weight \(d = 2-a\),</p>
+\[
+  {}^{2-a}\Kk_{\ell'\ell}(-\beta) = -\frac{1}{C_{\ell'}p}\Big[\gamma\,{}^{2-a}\Kk_{\ell'-1,\ell}(-\beta)
+  - {}^{1-a}\Kk_{\ell'-1,\ell}(-\beta)\Big] - \frac{C_{\ell'-1}}{C_{\ell'}}\,{}^{2-a}\Kk_{\ell'-2,\ell}(-\beta),
+\]
+<p>and transpose every term back (\({}^{2-a}\Kk_{\ell'-1,\ell}(-\beta) = {}^{a}\Kk_{\ell,\ell'-1}(+\beta)\),
+\({}^{1-a}\Kk_{\ell'-1,\ell}(-\beta) = {}^{a+1}\Kk_{\ell,\ell'-1}(+\beta)\), etc.):</p>
+\[
+  \boxed{\;{}^{a}\Kk_{\ell\ell'}(+\beta) = -\frac{1}{C_{\ell'}p}\Big[\gamma\,{}^{a}\Kk_{\ell,\ell'-1}(+\beta)
+  - {}^{a+1}\Kk_{\ell,\ell'-1}(+\beta)\Big] - \frac{C_{\ell'-1}}{C_{\ell'}}\,{}^{a}\Kk_{\ell,\ell'-2}(+\beta)\;}
+  \tag{A}
+\]
+<p>Note the weight companion is <em>raised</em> (\(a+1\)), the mirror image of B10's lowered one.
+<span class="badge pass">check M1, 2×10⁻²⁷ (m = 0, 1)</span></p>
+
+<h3>Step 2 — Ingredient B and the one-sided recursions</h3>
+<p>The second factor \({}^{b}\Kk_{\ell_2'\ell''}(-\beta)\) needs its <em>row</em> shifted: that is B10 verbatim,
+with weight companion \(b-1\). Because \(X\) factorizes, multiplying (A) by the untouched second factor gives a
+three-term recursion in \(\ell_1'\) alone (weight companion \(j \to j-1\), since \(a = -1-j-q\)), and multiplying
+B10 by the untouched first factor gives one in \(\ell_2'\) alone (companion \(k \to k+1\), since \(b = -k-q\)).
+On the \(X\)-family the middle indices are therefore <em>fully recursive, independently</em> — your intuition,
+made precise.</p>
+
+<h3>Step 3 — the diagonal step (M)</h3>
+<p>To move the physical (diagonal) index \(\ell' \to \ell'\) from \(\ell'-1, \ell'-2\), apply (A) to factor 1 and
+B10 to factor 2 <em>simultaneously</em> and multiply. With
+\(F_1(\ell_1') = {}^{-1-j-q}\Kk_{\ell\ell_1'}(+\beta)\), \(F_2(\ell_2') = {}^{-k-q}\Kk_{\ell_2'\ell''}(-\beta)\):</p>
+\[
+  \gamma\,\Do^{(j,k)}_{\ell\ell'\ell''} = F_1(\ell')\,F_2(\ell') =
+  \Big[-\tfrac{1}{C_{\ell'}p}\big(\gamma F_1 - F_1^{j-1}\big)(\ell'-1) - \tfrac{C_{\ell'-1}}{C_{\ell'}}F_1(\ell'-2)\Big]
+  \Big[-\tfrac{1}{C_{\ell'}p}\big(\gamma F_2 - F_2^{k+1}\big)(\ell'-1) - \tfrac{C_{\ell'-1}}{C_{\ell'}}F_2(\ell'-2)\Big].
+\]
+<p>Expanding the four products: the \((\ell'-1,\ell'-1)\) terms give the first bracket of (M) (four diagonal
+elements on the weight lattice); the \((\ell'-2,\ell'-2)\) term gives the last; and the two mixed products give
+the off-diagonal companions \(X_{\ell'-1,\ell'-2}\) and \(X_{\ell'-2,\ell'-1}\). Collecting yields (M).
+\(\blacksquare\)</p>
+<p><span class="badge pass">check M2: (M) verified for \(\ell' \le 3\), \(\ell,\ell'' \le 2\), \(m \in \{0,1\}\),
+\(q \in \{0.5, -0.7\}\) at 4×10⁻²⁷; M4: at shifted lattice points \((j,k)\)</span></p>
+
+<h3>Step 4 — closed-form demonstration: \(\Do_{020}\) by middle-index climbing</h3>
+<p>Every element of the extended family is a product of two kernel columns, hence \(J\)-closed
+(<a href="closed-forms.html">N8</a>); (M) is therefore a closed-form-preserving generator in \(\ell'\).
+Applying (M) at \((\ell,\ell',\ell'') = (0,2,0)\) — inputs: \(\Do_{010}\)-family on the weight lattice,
+\(\Do_{000}\), and the four cross elements \(X_{0;1,0;0}, X_{0;0,1;0}\) at shifted weights, all elementary
+\(J\)-products — reproduces the \(\Do_{020}\) closed form of N8 <em>exactly</em>
+(<span class="badge pass">check M3, deviation 0.0</span>). So \(\Do_{020}\) can be reached from the
+\(\Do_{000}\) base case without ever descending to a bare kernel: N6/N5 climb the outer indices,
+(M) climbs the middle one.</p>
+
+<h3>Why the diagonal family alone cannot close</h3>
+<p>The cross terms are unavoidable: a shift of the <em>shared</em> index acts on both factors, and the product of
+two three-term recursions inevitably contains mixed \((\ell'-1,\ell'-2)\) pairings. One can also see it by
+counting: the diagonal family is a codimension-one slice of the \(X\)-family, and one-sided shifts do not
+preserve the slice. This is the precise content of the earlier "spectator" remark — \(\ell'\) is a spectator of
+N3/N5/N6, and its own recursion (M) lives on the extended family. The hierarchy of companions is now complete
+and uniform:</p>
+<div class="tablewrap"><table class="tbl">
+<tr><th>index moved</th><th>relation</th><th>companions required</th></tr>
+<tr><td>rapidity \(\eta\) (series)</td><td>N3 ODE</td><td>none (fixed \(\ell'\), fixed weights)</td></tr>
+<tr><td>outgoing \(\ell\)</td><td>N5</td><td>weight lattice \((j+1,k)\)</td></tr>
+<tr><td>incoming \(\ell''\)</td><td>N6</td><td>weight lattice \((j,k-1)\)</td></tr>
+<tr><td>middle \(\ell'\)</td><td><strong>N10 (M)</strong></td><td>weight lattice + off-diagonal \(X_{\ell_1'\neq\ell_2'}\)</td></tr>
+</table></div>
+
+<h3>Verification record</h3>
+<p><code>verification/10_middle_index.wl</code>: M1 ingredient (A) at \(m \in \{0,1\}\) (2×10⁻²⁷);
+M2 relation (M) across \(\ell' \le 3\), outer indices \(\le 2\), both \(m\) (4×10⁻²⁷);
+M3 exact reproduction of the N8 \(\Do_{020}\) closed form via (M); M4 validity at shifted lattice points.</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>
