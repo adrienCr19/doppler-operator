@@ -490,6 +490,36 @@ the observed \(\Dv\)-structure. Both are supplied below.
   rapidity, entire in \(\Oh\), with the reflection symmetry N1 acting by swapping the two bracket factors.</p>
 </div>
 
+<div class="newbox">
+  <div class="head"><span class="name">(N9) The thermal-average function class: iterated Bessel antiderivatives</span>
+    <span class="badge new">new (characterization)</span> <span class="badge pass">verified 3×10⁻²⁶</span></div>
+  <p>Averaging over the relativistic Maxwellian (measure \(\propto \sinh^2\!\eta\cosh\eta\, e^{-z\cosh\eta}\),
+  \(z = 1/\theta_{\rm e}\)), the hyperbolic-rational structure of N8 collapses each channel to a finite sum</p>
+  \[
+    \big\langle \Do_{\ell\ell'\ell''} \big\rangle = \frac{z}{K_2(z)} \sum_j c_j(\Oh)\, F\!\big(-\tfrac{\sigma}{2}, a_j, z\big),
+    \qquad
+    F(\mu, a, z) = \int_0^\infty e^{-z\cosh\eta}\cosh(a\eta)\sinh^{2\mu}\!\eta\;\dd\eta,
+  \]
+  <p>with \(\sigma = \ell + 2\ell' + \ell''\), operator orders \(a_j = \text{integer} - 2\Oh\), rational
+  \(c_j(\Oh)\) with \(\sum_j c_j = 0\) (the \(\sigma\)-counting and channel tables are due to the companion rSZ
+  working paper, whose \(\Do_{101}\) and \(\langle\Do_{02}\rangle\) data we verified symbolically against N8;
+  harness 08). The class is characterized by the <strong>ladder identity</strong>
+  \((\partial_z^2 - 1)F(\mu,a,z) = F(\mu+1,a,z)\) (from \(\cosh^2 = 1 + \sinh^2\)):</p>
+  \[
+    \Big(\frac{\dd^2}{\dd z^2} - 1\Big)^{\!\sigma/2}\;
+    \Big[\frac{K_2(z)}{z}\,\big\langle \Do_{\ell\ell'\ell''} \big\rangle\Big]
+    \;=\; \sum_j c_j(\Oh)\, K_{a_j}(z).
+  \]
+  <p>So: \(\sigma = 0\) (pure monopole \(\Do_{000}\)) is a finite Bessel-\(K\) ratio — the closed
+  \(\langle\Do_{00}\rangle\) form; every higher index converges to a <em>\(\sigma/2\)-fold iterated Bessel
+  antiderivative</em>: the unique solution, decaying as \(z\to\infty\), of the inhomogeneous equation above.
+  These are provably <em>not</em> finite Bessel combinations, Meijer-\(G\), or Fox-\(H\) functions (closure/rigidity
+  theorem of the companion paper), but admit a convergent Bessel–Struve series and geometric-convergence
+  quadrature. Verified directly on the physical channels: \((\partial_z^2-1)\) applied once to the
+  \(\sigma = 2\) channel \(\Do_{101}\) and twice to the \(\sigma = 4\) channel \(\langle\Do_{02}\rangle\) lands
+  exactly on \(\sum_j c_j K_{a_j}(z)\) (harness 09, \(3\times10^{-26}\) at \(kT_{\rm e} \simeq 25.6\) keV).</p>
+</div>
+
 <h2 id="tables">4 &nbsp;Generated tables (from the ODE N3)</h2>
 <p>
 Symbolic elements \(\Do^{m=0}_{\ell\ell'\ell''}(\nu,\beta)\) to \(\mathcal O(p^4)\), generated purely by iterating
@@ -613,6 +643,9 @@ equals the Maxwell–Jüttner average of the N8 closed form; its \(\Do_{101}\) (
 \(\langle\Do_{02}\rangle\) (σ=4, 8-term) rapidity coefficient tables \(\{a_j, c_j(\Oh)\}\) reconstruct the N8
 closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via both routes at 25 keV</td>
 <td>all PASS (P4a/P4b symbolic zeros; ≤1.7×10⁻²⁴)</td></tr>
+<tr><td><code>verification/09_thermal_class.wl</code></td>
+<td><strong>N9</strong>: ladder characterization of thermal averages — \((\partial_z^2-1)\) maps the σ=2 channel \(\Do_{101}\) and (twice) the σ=4 channel \(\langle\Do_{02}\rangle\) onto their finite Bessel combinations \(\sum_j c_j K_{a_j}(z)\)</td>
+<td>all PASS (≤3.4×10⁻²⁶)</td></tr>
 <tr><td><code>verification/05_export_tables.wl</code></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
 <p>Reproduce with:</p>

@@ -1,0 +1,5 @@
+L1  F(0,a,z) == BesselK (sigma = 0 rung): PASS  (max dev = ScientificForm[0., 3])
+L2  (d2-1) G_101(z) = Sum_j c_j K_{a_j}(z): PASS  (max dev = ScientificForm[3.382653109148958*^-26, 3])
+L3a (d2-1) G_02 = Sum_j c_j F(-1,a_j,z): PASS  (max dev = ScientificForm[0., 3])
+L3b (d2-1)^2 G_02(z) = Sum_j c_j K_{a_j}(z): PASS  (max dev = ScientificForm[2.792020366912942*^-26, 3])
+--- thermal-class harness done ---
