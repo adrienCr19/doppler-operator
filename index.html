@@ -606,6 +606,13 @@ and indices \(\ell,\ell',\ell'' \le 4\). Symbolic checks (T2, T4, N9) are exact 
 <tr><td><code>verification/07_thermal_average.wl</code></td>
 <td>Thermal averages of the N8 closed forms over the relativistic Maxwellian: moments vs [CR26, Eq.&nbsp;13]; \(\hat{\mathcal S}_{\rm th}\) coefficients vs [CR26, Eq.&nbsp;11]; averaged distortion reproduces \(Y_0, Y_1\) of Itoh et al. (1998) <em>exactly</em> (symbolic zero); exact finite-\(\theta_{\rm e}\) averages at 10&nbsp;keV with \(\mathcal O(p^8)\) residual scaling; \(\langle\Do_{101}\rangle\)</td>
 <td>all PASS (T5/T6 exact zeros)</td></tr>
+<tr><td><code>verification/08_paper_tables.wl</code></td>
+<td>Cross-validation against an independent rSZ working paper: its all-orders Bessel form
+\(\langle\Do_{00}\rangle = \frac{K_{3-2\Oh}(1/\theta_{\rm e}) - K_1(1/\theta_{\rm e})}{2\theta_{\rm e}(2-\Oh)(1-\Oh)K_2(1/\theta_{\rm e})}\)
+equals the Maxwell–Jüttner average of the N8 closed form; its \(\Do_{101}\) (σ=2, 5-term) and
+\(\langle\Do_{02}\rangle\) (σ=4, 8-term) rapidity coefficient tables \(\{a_j, c_j(\Oh)\}\) reconstruct the N8
+closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via both routes at 25 keV</td>
+<td>all PASS (P4a/P4b symbolic zeros; ≤1.7×10⁻²⁴)</td></tr>
 <tr><td><code>verification/05_export_tables.wl</code></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
 <p>Reproduce with:</p>
