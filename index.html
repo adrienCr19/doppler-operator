@@ -398,13 +398,14 @@ the observed \(\Dv\)-structure. Both are supplied below.
     <span class="badge new">new — central result</span> <span class="badge pass">verified (FD, 4×10⁻¹²)</span>
     <span class="prooflink"><a href="proofs/ode.html">proof →</a></span></div>
   \[
-   \boxed{\;
-    \partial_\eta \Do^m_{\ell\ell'\ell''} =
-      -(\ell+3-\Oh)\,C^m_{\ell+1}\,\Do^m_{\ell+1,\ell'\ell''}
-      +(\ell-2+\Oh)\,C^m_{\ell}\,\Do^m_{\ell-1,\ell'\ell''}
-      -(\ell''+\Oh)\,C^m_{\ell''+1}\,\Do^m_{\ell,\ell',\ell''+1}
-      +(\ell''+1-\Oh)\,C^m_{\ell''}\,\Do^m_{\ell,\ell',\ell''-1}
-      -\beta\,\Do^m_{\ell\ell'\ell''}\;}
+    \begin{aligned}
+    \partial_\eta \Do^m_{\ell\ell'\ell''} \;=\;
+      &-\big(\ell+3-\Oh\big)\,C^m_{\ell+1}\;\Do^m_{\ell+1,\,\ell',\,\ell''}
+       \;+\;\big(\ell-2+\Oh\big)\,C^m_{\ell}\;\Do^m_{\ell-1,\,\ell',\,\ell''} \\[4pt]
+      &-\big(\ell''+\Oh\big)\,C^m_{\ell''+1}\;\Do^m_{\ell,\,\ell',\,\ell''+1}
+       \;+\;\big(\ell''+1-\Oh\big)\,C^m_{\ell''}\;\Do^m_{\ell,\,\ell',\,\ell''-1} \\[4pt]
+      &-\;\beta\,\Do^m_{\ell\ell'\ell''}
+    \end{aligned}
   \]
   \[
     \Do^m_{\ell\ell'\ell''}\big|_{\eta=0} = \delta_{\ell\ell'}\delta_{\ell'\ell''},\qquad \beta = \tanh\eta .
@@ -541,10 +542,12 @@ agreement term by term (e.g. \(\Do_{000}\), \(\Do_{101}\), \(\Do_{020}\)). For \
   <div class="head"><span class="name">\(\hat{\mathcal S}_{\rm th}\) assembled from the ODE-generated elements</span>
     <span class="badge pass">matches [CR26, Eq. 11] through \(p^6\)</span></div>
   \[
+    \begin{aligned}
     \Do^0_{000} + \tfrac{1}{10}\Do^0_{020} - 1 \;=\;
-    \frac{\Dv}{3}\,p^2
-    \;+\; \frac{7\,\Oh\left(\Oh^3 - 6\Oh^2 + 5\Oh + 12\right)}{150}\,p^4
-    \;+\; \frac{11\,\Oh\left(\Oh^5 - 9\Oh^4 + 13\Oh^3 + 57\Oh^2 - 86\Oh - 120\right)}{3150}\,p^6 + \dots
+    &\;\frac{\Dv}{3}\,p^2
+    \;+\; \frac{7\,\Oh\left(\Oh^3 - 6\Oh^2 + 5\Oh + 12\right)}{150}\,p^4 \\[4pt]
+    &+\; \frac{11\,\Oh\left(\Oh^5 - 9\Oh^4 + 13\Oh^3 + 57\Oh^2 - 86\Oh - 120\right)}{3150}\,p^6 \;+\; \dots
+    \end{aligned}
   \]
   <p>The \(p^2\) and \(p^4\) terms reproduce [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;11] exactly (symbolic identity),
   and the \(p^6\) term matches as well — obtained here in a few lines of recursion instead of momentum-space

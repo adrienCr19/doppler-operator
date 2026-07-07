@@ -21,12 +21,14 @@ window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]
 <p>With \(\beta = \tanh\eta\), \(C^m_\ell = \sqrt{\smash{(\ell^2-m^2)}/(4\ell^2-1)}\), and all coefficients
 understood as commuting functions of \(\Oh\) (\(s=0\)):</p>
 \[
-    \partial_\eta \Do^m_{\ell\ell'\ell''} =
-      -(\ell+3-\Oh)\,C^m_{\ell+1}\,\Do^m_{\ell+1,\ell'\ell''}
-      +(\ell-2+\Oh)\,C^m_{\ell}\,\Do^m_{\ell-1,\ell'\ell''}
-      -(\ell''+\Oh)\,C^m_{\ell''+1}\,\Do^m_{\ell,\ell',\ell''+1}
-      +(\ell''+1-\Oh)\,C^m_{\ell''}\,\Do^m_{\ell,\ell',\ell''-1}
-      -\beta\,\Do^m_{\ell\ell'\ell''},
+    \begin{aligned}
+    \partial_\eta \Do^m_{\ell\ell'\ell''} \;=\;
+      &-\big(\ell+3-\Oh\big)\,C^m_{\ell+1}\;\Do^m_{\ell+1,\,\ell',\,\ell''}
+       \;+\;\big(\ell-2+\Oh\big)\,C^m_{\ell}\;\Do^m_{\ell-1,\,\ell',\,\ell''} \\[4pt]
+      &-\big(\ell''+\Oh\big)\,C^m_{\ell''+1}\;\Do^m_{\ell,\,\ell',\,\ell''+1}
+       \;+\;\big(\ell''+1-\Oh\big)\,C^m_{\ell''}\;\Do^m_{\ell,\,\ell',\,\ell''-1} \\[4pt]
+      &-\;\beta\,\Do^m_{\ell\ell'\ell''}\,,
+    \end{aligned}
 \]
 \[
   \Do^m_{\ell\ell'\ell''}\big|_{\eta=0} = \delta_{\ell\ell'}\delta_{\ell'\ell''}.
