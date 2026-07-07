@@ -1,0 +1,206 @@
+[
+	{
+		"l":0,
+		"lp":0,
+		"ldd":0,
+		"tex":"\\frac{2}{45} \\hat{O}_\\nu \\left(\\hat{O}_\\nu^3-6 \\hat{O}_\\nu^2+5 \\hat{O}_\\nu+12\\right) p^4+\\frac{1}{3} (\\hat{O}_\\nu-3) \\hat{O}_\\nu p^2+1"
+	},
+	{
+		"l":0,
+		"lp":0,
+		"ldd":1,
+		"tex":"-\\frac{\\left(8 \\hat{O}_\\nu^3-42 \\hat{O}_\\nu^2+43 \\hat{O}_\\nu+18\\right) p^3}{30 \\sqrt{3}}-\\frac{(\\hat{O}_\\nu-2) p}{\\sqrt{3}}"
+	},
+	{
+		"l":0,
+		"lp":0,
+		"ldd":2,
+		"tex":"\\frac{\\left(\\hat{O}_\\nu^2-5 \\hat{O}_\\nu+6\\right) p^2}{3 \\sqrt{5}}+\\frac{\\left(5 \\hat{O}_\\nu^4-42 \\hat{O}_\\nu^3+103 \\hat{O}_\\nu^2-42 \\hat{O}_\\nu-72\\right) p^4}{63 \\sqrt{5}}"
+	},
+	{
+		"l":1,
+		"lp":0,
+		"ldd":0,
+		"tex":"\\frac{\\left(8 \\hat{O}_\\nu^3-30 \\hat{O}_\\nu^2+7 \\hat{O}_\\nu+15\\right) p^3}{30 \\sqrt{3}}+\\frac{(\\hat{O}_\\nu-1) p}{\\sqrt{3}}"
+	},
+	{
+		"l":1,
+		"lp":0,
+		"ldd":1,
+		"tex":"\\left(-\\frac{\\hat{O}_\\nu^2}{3}+\\hat{O}_\\nu-\\frac{2}{3}\\right) p^2+\\frac{1}{15} \\left(-\\hat{O}_\\nu^4+6 \\hat{O}_\\nu^3-7 \\hat{O}_\\nu^2-6 \\hat{O}_\\nu+8\\right) p^4"
+	},
+	{
+		"l":1,
+		"lp":0,
+		"ldd":2,
+		"tex":"\\frac{\\left(\\hat{O}_\\nu^3-6 \\hat{O}_\\nu^2+11 \\hat{O}_\\nu-6\\right) p^3}{3 \\sqrt{15}}"
+	},
+	{
+		"l":2,
+		"lp":0,
+		"ldd":0,
+		"tex":"\\frac{\\hat{O}_\\nu \\left(5 \\hat{O}_\\nu^3-18 \\hat{O}_\\nu^2-5 \\hat{O}_\\nu+18\\right) p^4}{63 \\sqrt{5}}+\\frac{(\\hat{O}_\\nu-1) \\hat{O}_\\nu p^2}{3 \\sqrt{5}}"
+	},
+	{
+		"l":2,
+		"lp":0,
+		"ldd":1,
+		"tex":"-\\frac{\\hat{O}_\\nu \\left(\\hat{O}_\\nu^2-3 \\hat{O}_\\nu+2\\right) p^3}{3 \\sqrt{15}}"
+	},
+	{
+		"l":2,
+		"lp":0,
+		"ldd":2,
+		"tex":"\\frac{1}{45} \\hat{O}_\\nu \\left(\\hat{O}_\\nu^3-6 \\hat{O}_\\nu^2+11 \\hat{O}_\\nu-6\\right) p^4"
+	},
+	{
+		"l":0,
+		"lp":2,
+		"ldd":0,
+		"tex":"\\frac{1}{45} \\hat{O}_\\nu \\left(\\hat{O}_\\nu^3-6 \\hat{O}_\\nu^2+5 \\hat{O}_\\nu+12\\right) p^4"
+	},
+	{
+		"l":0,
+		"lp":2,
+		"ldd":1,
+		"tex":"-\\frac{2 \\left(\\hat{O}_\\nu^3-6 \\hat{O}_\\nu^2+5 \\hat{O}_\\nu+12\\right) p^3}{15 \\sqrt{3}}"
+	},
+	{
+		"l":0,
+		"lp":2,
+		"ldd":2,
+		"tex":"\\frac{\\left(\\hat{O}_\\nu^2-7 \\hat{O}_\\nu+12\\right) p^2}{3 \\sqrt{5}}+\\frac{\\left(7 \\hat{O}_\\nu^4-66 \\hat{O}_\\nu^3+155 \\hat{O}_\\nu^2+132 \\hat{O}_\\nu-576\\right) p^4}{63 \\sqrt{5}}"
+	},
+	{
+		"l":0,
+		"lp":2,
+		"ldd":3,
+		"tex":"-\\frac{(\\hat{O}_\\nu-4)^2 (\\hat{O}_\\nu-3) p^3}{5 \\sqrt{7}}"
+	},
+	{
+		"l":0,
+		"lp":2,
+		"ldd":4,
+		"tex":"\\frac{2}{105} (\\hat{O}_\\nu-4)^2 \\left(\\hat{O}_\\nu^2-8 \\hat{O}_\\nu+15\\right) p^4"
+	},
+	{
+		"l":1,
+		"lp":2,
+		"ldd":0,
+		"tex":"\\frac{2 \\hat{O}_\\nu \\left(\\hat{O}_\\nu^2-3 \\hat{O}_\\nu-4\\right) p^3}{15 \\sqrt{3}}"
+	},
+	{
+		"l":1,
+		"lp":2,
+		"ldd":1,
+		"tex":"-\\frac{4}{15} \\left(\\hat{O}_\\nu^2-3 \\hat{O}_\\nu-4\\right) p^2-\\frac{2}{105} \\left(4 \\hat{O}_\\nu^4-24 \\hat{O}_\\nu^3+\\hat{O}_\\nu^2+105 \\hat{O}_\\nu+76\\right) p^4"
+	},
+	{
+		"l":1,
+		"lp":2,
+		"ldd":2,
+		"tex":"\\frac{\\left(17 \\hat{O}_\\nu^3-114 \\hat{O}_\\nu^2+94 \\hat{O}_\\nu+360\\right) p^3}{21 \\sqrt{15}}+\\frac{2 (\\hat{O}_\\nu-4) p}{\\sqrt{15}}"
+	},
+	{
+		"l":1,
+		"lp":2,
+		"ldd":3,
+		"tex":"-\\frac{(\\hat{O}_\\nu-4)^2 \\left(103 \\hat{O}_\\nu^2-314 \\hat{O}_\\nu-753\\right) p^4}{315 \\sqrt{21}}-\\frac{2}{5} \\sqrt{\\frac{3}{7}} (\\hat{O}_\\nu-4)^2 p^2"
+	},
+	{
+		"l":1,
+		"lp":2,
+		"ldd":4,
+		"tex":"\\frac{4 (\\hat{O}_\\nu-5) (\\hat{O}_\\nu-4)^2 p^3}{35 \\sqrt{3}}"
+	},
+	{
+		"l":2,
+		"lp":2,
+		"ldd":0,
+		"tex":"\\frac{\\hat{O}_\\nu (\\hat{O}_\\nu+1) p^2}{3 \\sqrt{5}}-\\frac{\\hat{O}_\\nu \\left(-7 \\hat{O}_\\nu^3+18 \\hat{O}_\\nu^2+61 \\hat{O}_\\nu+36\\right) p^4}{63 \\sqrt{5}}"
+	},
+	{
+		"l":2,
+		"lp":2,
+		"ldd":1,
+		"tex":"\\frac{\\left(-17 \\hat{O}_\\nu^3+39 \\hat{O}_\\nu^2+131 \\hat{O}_\\nu+75\\right) p^3}{21 \\sqrt{15}}-\\frac{2 (\\hat{O}_\\nu+1) p}{\\sqrt{15}}"
+	},
+	{
+		"l":2,
+		"lp":2,
+		"ldd":2,
+		"tex":"\\frac{1}{21} \\left(11 \\hat{O}_\\nu^2-33 \\hat{O}_\\nu-54\\right) p^2+\\frac{2}{441} \\left(23 \\hat{O}_\\nu^4-138 \\hat{O}_\\nu^3-80 \\hat{O}_\\nu^2+861 \\hat{O}_\\nu+864\\right) p^4+1"
+	},
+	{
+		"l":2,
+		"lp":2,
+		"ldd":3,
+		"tex":"-\\frac{\\left(148 \\hat{O}_\\nu^3-1086 \\hat{O}_\\nu^2+1061 \\hat{O}_\\nu+3660\\right) p^3}{126 \\sqrt{35}}-\\frac{3 (\\hat{O}_\\nu-4) p}{\\sqrt{35}}"
+	},
+	{
+		"l":2,
+		"lp":2,
+		"ldd":4,
+		"tex":"\\frac{2 \\left(\\hat{O}_\\nu^2-9 \\hat{O}_\\nu+20\\right) p^2}{7 \\sqrt{5}}+\\frac{2 \\left(241 \\hat{O}_\\nu^4-3014 \\hat{O}_\\nu^3+10667 \\hat{O}_\\nu^2-1078 \\hat{O}_\\nu-35160\\right) p^4}{4851 \\sqrt{5}}"
+	},
+	{
+		"l":3,
+		"lp":2,
+		"ldd":0,
+		"tex":"\\frac{\\hat{O}_\\nu (\\hat{O}_\\nu+1)^2 p^3}{5 \\sqrt{7}}"
+	},
+	{
+		"l":3,
+		"lp":2,
+		"ldd":1,
+		"tex":"-\\frac{(\\hat{O}_\\nu+1)^2 \\left(103 \\hat{O}_\\nu^2-304 \\hat{O}_\\nu-768\\right) p^4}{315 \\sqrt{21}}-\\frac{2}{5} \\sqrt{\\frac{3}{7}} (\\hat{O}_\\nu+1)^2 p^2"
+	},
+	{
+		"l":3,
+		"lp":2,
+		"ldd":2,
+		"tex":"\\frac{3 (\\hat{O}_\\nu+1) p}{\\sqrt{35}}-\\frac{\\left(-148 \\hat{O}_\\nu^3+246 \\hat{O}_\\nu^2+1459 \\hat{O}_\\nu+1065\\right) p^3}{126 \\sqrt{35}}"
+	},
+	{
+		"l":3,
+		"lp":2,
+		"ldd":3,
+		"tex":"\\frac{1}{105} \\left(-7 \\hat{O}_\\nu^4+42 \\hat{O}_\\nu^3+37 \\hat{O}_\\nu^2-300 \\hat{O}_\\nu-288\\right) p^4-\\frac{9}{35} \\left(\\hat{O}_\\nu^2-3 \\hat{O}_\\nu-4\\right) p^2"
+	},
+	{
+		"l":3,
+		"lp":2,
+		"ldd":4,
+		"tex":"\\frac{6 \\left(\\hat{O}_\\nu^3-8 \\hat{O}_\\nu^2+11 \\hat{O}_\\nu+20\\right) p^3}{35 \\sqrt{7}}"
+	},
+	{
+		"l":4,
+		"lp":2,
+		"ldd":0,
+		"tex":"\\frac{2}{105} \\hat{O}_\\nu (\\hat{O}_\\nu+1)^2 (\\hat{O}_\\nu+2) p^4"
+	},
+	{
+		"l":4,
+		"lp":2,
+		"ldd":1,
+		"tex":"-\\frac{4 (\\hat{O}_\\nu+1)^2 (\\hat{O}_\\nu+2) p^3}{35 \\sqrt{3}}"
+	},
+	{
+		"l":4,
+		"lp":2,
+		"ldd":2,
+		"tex":"\\frac{2 \\left(\\hat{O}_\\nu^2+3 \\hat{O}_\\nu+2\\right) p^2}{7 \\sqrt{5}}+\\frac{2 \\left(241 \\hat{O}_\\nu^4+122 \\hat{O}_\\nu^3-3445 \\hat{O}_\\nu^2-7574 \\hat{O}_\\nu-4248\\right) p^4}{4851 \\sqrt{5}}"
+	},
+	{
+		"l":4,
+		"lp":2,
+		"ldd":3,
+		"tex":"\\frac{6 \\left(-\\hat{O}_\\nu^3+\\hat{O}_\\nu^2+10 \\hat{O}_\\nu+8\\right) p^3}{35 \\sqrt{7}}"
+	},
+	{
+		"l":4,
+		"lp":2,
+		"ldd":4,
+		"tex":"\\frac{4}{245} \\left(\\hat{O}_\\nu^4-6 \\hat{O}_\\nu^3-5 \\hat{O}_\\nu^2+42 \\hat{O}_\\nu+40\\right) p^4"
+	}
+]

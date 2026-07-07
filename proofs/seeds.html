@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N7 — Seeds and the exact generation algorithm</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N7 — Seeds and a finite exact-generation algorithm</h2>
+
+<div class="newbox">
+<div class="head"><span class="name">Statement</span></div>
+<p>Every element \({}^{(j,k)}\Do^m_{\ell\ell'\ell''}(\nu,\beta)\) — in particular every physical Doppler-operator
+element — is computable <em>exactly and in finitely many algebraic steps</em> from two closed-form kernel seeds.
+As a by-product, the corner elements admit the new closed form (\(s=0\), any \(m \ge 0\)):</p>
+\[
+  \Do^m_{mmm}(\nu,\beta) \;=\; \gamma^{-2(m+\Oh)}\;
+  {}_2F_1\!\Big(\tfrac{m-1+\Oh}{2},\tfrac{m+\Oh}{2};\tfrac32+m;\beta^2\Big)\;
+  {}_2F_1\!\Big(\tfrac{m+\Oh}{2},\tfrac{m+\Oh+1}{2};\tfrac32+m;\beta^2\Big),
+\]
+<p>which for \(m=0\) reduces to the elementary closed form of [CR26, Eq. 10a].</p>
+</div>
+
+<h3>The two seeds (verified)</h3>
+<div class="eqbox">
+<div class="head"><span class="name">Seed 1</span><span class="cite">[CR26, Eqs. 9a/B1]</span>
+<span class="badge pass">verified 9×10⁻³⁰</span></div>
+\[
+  {}^{d}\Kk^0_{00}(-\beta) = \frac{(\gamma+p)^{1-d} - (\gamma-p)^{1-d}}{2(1-d)\,p}
+\]
+</div>
+<div class="eqbox">
+<div class="head"><span class="name">Seed 2</span><span class="cite">[RC26, Eq. B4]</span>
+<span class="badge pass">verified 9×10⁻²⁹</span></div>
+\[
+  {}^{d}\Kk^m_{mm}(-\beta) = \frac{1}{\gamma^{m+d}}\;
+  {}_2F_1\!\Big(\tfrac{m+d}{2},\tfrac{m+d+1}{2};\tfrac32+m;\beta^2\Big)
+  \qquad (s=0,\ m \ge 0).
+\]
+<p class="note">Seed 1 is the \(m=0\) case of Seed 2 via the quadratic hypergeometric identity
+\({}_2F_1(a, a+\tfrac12; \tfrac32; z^2) = \frac{(1+z)^{1-2a} - (1-z)^{1-2a}}{2z(1-2a)}\) with \(a = d/2\), \(z=\beta\)
+(and \(\gamma^{-d}(1\pm\beta)^{1-d}\gamma^{d-1} = (\gamma\pm p)^{1-d}/\gamma^{\,0}\)-type rearrangement).
+When transcribing [RC26, Eq. B4], note that the printed prefactor belongs to the intermediate integral
+representation; the final \({}_2F_1\) form carries only \(\gamma^{-(m+d)}\) — this was pinned down numerically
+(harness checks C3 → D1).</p>
+</div>
+
+<h3>The algorithm</h3>
+<p>To obtain \({}^{(j,k)}\Do^m_{\ell\ell'\ell''}\) exactly at scalar weight \(q\) (hence, by Lemma L1, as an
+operator to any order):</p>
+<ol>
+  <li><strong>Seed:</strong> evaluate \({}^{d}\Kk^m_{mm}(-\beta)\) for the finitely many weights
+  \(d \in \{-1-j-q - t\} \cup \{-k-q - t\}\), \(t = 0,1,\dots\) required below (Seed 2; each a single
+  \({}_2F_1\)).</li>
+  <li><strong>Raise the row index:</strong> apply the \(\ell\)-raising recursion (B10) — which couples weights
+  \(d\) and \(d-1\), whence the finite list of \(t\)-shifted seeds — to build the kernel columns
+  \({}^{-1-j-q}\Kk^m_{\ell\,\ell'}(\pm\beta)\) and \({}^{2+k+q}\Kk^m_{\ell''\ell'}(\pm\beta)\) up to the required
+  \(\ell,\ell''\). (Parity (B3) converts between \(\pm\beta\) versions; transposition converts row- to
+  column-generation, exactly as in the proofs of <a href="raising.html">N5/N6</a>.)</li>
+  <li><strong>Assemble:</strong>
+  \({}^{(j,k)}\Do^m_{\ell\ell'\ell''}(q) = \tfrac1\gamma\, {}^{-1-j-q}\Kk^m_{\ell\ell'}(+\beta)\;
+  {}^{-k-q}\Kk^m_{\ell'\ell''}(-\beta)\).</li>
+</ol>
+<p>Total cost: \(\mathcal O(\ell + \ell'')\) recursion steps and two seed evaluations per element — no integrals.
+For <em>series</em> tables in \(p\) the rapidity ODE (<a href="ode.html">N3</a>) is even leaner (pure polynomial
+sweeps); the algorithm above is the exact/closed-form route, valid at all \(\beta\).</p>
+
+<h3>Derivation of the corner closed form</h3>
+<p>For \(\ell = \ell' = \ell'' = m\) no raising is needed. On \(\nu^q\):</p>
+\[
+  \Do^m_{mmm}(q) = \frac1\gamma\,{}^{-1-q}\Kk^m_{mm}(+\beta)\; {}^{-q}\Kk^m_{mm}(-\beta)
+  = \frac1\gamma\,{}^{-1-q}\Kk^m_{mm}(-\beta)\; {}^{-q}\Kk^m_{mm}(-\beta),
+\]
+<p>using parity (\((-1)^{m+m}=1\)) on the first factor. Inserting Seed 2 twice:</p>
+\[
+  \Do^m_{mmm}(q) = \frac{\gamma^{-(m-1-q)}\,\gamma^{-(m-q)}}{\gamma}\;
+  {}_2F_1\!\Big(\tfrac{m-1-q}{2},\tfrac{m-q}{2};\tfrac32+m;\beta^2\Big)\,
+  {}_2F_1\!\Big(\tfrac{m-q}{2},\tfrac{m-q+1}{2};\tfrac32+m;\beta^2\Big)
+  = \gamma^{2(q-m)}\,{}_2F_1(\cdot)\,{}_2F_1(\cdot),
+\]
+<p>and \(q \to -\Oh\) gives the boxed operator form. For \(m=0\) one can instead insert Seed 1 twice
+(weights \(d = -1-q\) and \(d = -q\), i.e. exponents \(1-d = 2+q\) and \(1+q\)):</p>
+\[
+  \Do^0_{000}(q) = \frac{\big[(\gamma+p)^{2+q}-(\gamma-p)^{2+q}\big]\big[(\gamma+p)^{1+q}-(\gamma-p)^{1+q}\big]}
+  {4(2+q)(1+q)\,\gamma\,p^2}.
+\]
+<p>Expanding the numerator and using \((\gamma+p)(\gamma-p) = 1\), the cross terms collapse:
+\((\gamma+p)^{2+q}(\gamma-p)^{1+q} = (\gamma+p)\) and \((\gamma+p)^{1+q}(\gamma-p)^{2+q} = (\gamma-p)\), so the
+numerator equals \((\gamma+p)^{3+2q} + (\gamma-p)^{3+2q} - 2\gamma\) — exactly the compact form of
+[CR26, Eq. 10a], \(\Do^0_{000} = \frac{(\gamma+p)^{3+2q} + (\gamma-p)^{3+2q} - 2\gamma}{4(2+q)(1+q)\gamma p^2}\).
+Both forms were verified against direct quadrature (harness C11, \(2\times10^{-29}\)).</p>
+
+<h3>Verification</h3>
+<ul>
+  <li>Seeds: checks C2 (Seed 1) and D1 (Seed 2) of the harness.</li>
+  <li>Raising machinery: check C4 (B10), C6 (parity), D2 (transposition).</li>
+  <li>End-to-end: check C11 assembles \(\Do_{000}\) from quadrature kernels and matches [CR26, Eq. 10a];
+  checks N5/N6 exercise the lattice assembly at shifted weights.</li>
+</ul>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

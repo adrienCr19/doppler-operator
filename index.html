@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Doppler Operator Project — recursion relations for relativistic Compton scattering</title>
+<link rel="stylesheet" href="style.css">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+    macros: {
+      Oh: "\\hat{O}_\\nu",
+      Dv: "\\hat{\\mathcal{D}}_\\nu",
+      Kk: "\\mathcal{K}",
+      Bo: "\\hat{\\mathcal{B}}",
+      Do: "\\hat{\\mathcal{D}}",
+      dd: "\\mathrm{d}"
+    }
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<header class="site">
+  <div class="inner">
+    <h1>The Doppler Operator Project</h1>
+    <p class="sub">A systematic catalog of the properties and recurrence relations of the relativistic
+    <em>boost operator</em>, and the derivation of the missing recursion relations for the
+    <em>Doppler operator</em> of Compton-scattering theory — each accompanied by a linked mathematical proof
+    and an independent machine verification.</p>
+    <p class="status">Status: initial release &middot; July 2026 &middot; all identities verified symbolically/numerically with Wolfram&nbsp;15 (scripts in <code>verification/</code>)</p>
+  </div>
+</header>
+<nav class="toc"><div class="inner">
+  <a href="#notation">0. Notation</a>
+  <a href="#boost">1. Boost operator</a>
+  <a href="#doppler">2. Doppler operator</a>
+  <a href="#new">3. New recursion relations</a>
+  <a href="#tables">4. Generated tables</a>
+  <a href="#verification">5. Verification</a>
+  <a href="#refs">References</a>
+</div></nav>
+
+<main>
+
+<h2 id="intro">Overview</h2>
+<p>
+A series of recent papers by Chluba, Ravenni, Rosenberg, Hoey &amp; Long
+[<a href="#ref-CR25">CR25</a>, <a href="#ref-CR26">CR26</a>, <a href="#ref-RC26">RC26</a>, <a href="#ref-HLC26">HLC26</a>]
+introduced the <strong>boost operator</strong> \({}^d_s\Bo^m_{\ell\ell'}(\nu,\beta)\): the exact transformation law for
+frequency-dependent, spin-weighted spherical-harmonic coefficients of radiation fields between frames in relative motion.
+Its power comes from a small set of <em>recurrence relations</em> that generate any element from a few seeds,
+turning otherwise cumbersome radiative-transfer computations (relativistic SZ effect, Kompaneets equation,
+CMB frame transformations) into mechanical algebra.
+</p>
+<p>
+For actual scattering problems the boost operator always appears in a specific <em>round-trip</em> combination —
+boost into the electron rest frame, project on a scattering multipole, boost back. [<a href="#ref-RC26">RC26</a>]
+named this combination the <strong>Doppler operator</strong> \(\Do^m_{\ell\ell'\ell''}(\nu,\beta)\), tabulated its
+thermal averages, and observed unexplained structure in its coefficients, noting that this
+<em>“hints at another way to simplify matters, a problem we will leave to future work.”</em>
+</p>
+<p>
+This page takes up exactly that problem. <a href="#boost">Section&nbsp;1</a> catalogs all known properties and
+identities of the boost operator, with equation-level citations, emphasizing the recursions that generate higher
+index values from lower ones. <a href="#doppler">Section&nbsp;2</a> defines the Doppler operator, and
+<a href="#new">Section&nbsp;3</a> presents the <strong>new</strong> recursion relations and symmetries we derived for it —
+including a closed rapidity ODE that generates all of its elements, and a reflection symmetry
+\(\Oh \to 3-\Oh\) that <em>proves</em> the empirically observed diffusion-operator structure.
+Every new relation links to a complete proof page and was verified independently by numerical quadrature.
+</p>
+
+<h2 id="notation">0 &nbsp;Notation and conventions</h2>
+<p>
+Electron speed \(\beta = v/c\), Lorentz factor \(\gamma = (1-\beta^2)^{-1/2}\), momentum
+\(p = \gamma\beta\), rapidity \(\eta = \tanh^{-1}\beta\) (so \(\gamma = \cosh\eta\), \(p = \sinh\eta\)).
+Direction cosines \(\mu = \cos\theta\) with respect to the boost axis \(\hat{\boldsymbol\beta} \parallel \hat z\).
+Frequencies transform as \(\nu' = \gamma\nu(1-\beta\mu)\), \(\nu = \gamma\nu'(1+\beta\mu')\), and angles as
+\(\mu' = \frac{\mu-\beta}{1-\beta\mu}\), \(\mu = \frac{\mu'+\beta}{1+\beta\mu'}\)
+[<a href="#ref-CR25">CR25</a>, Eq.&nbsp;5].
+</p>
+<p>
+The <em>energy-shift generator</em> is \(\Oh = -\nu\partial_\nu\) [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;3];
+power laws are its eigenfunctions, \(\Oh\, \nu^{q} = -q\,\nu^{q}\).
+The <em>photon diffusion operator</em> of Kompaneets theory is
+\(\Dv \equiv \nu^{-2}\partial_\nu \nu^4 \partial_\nu = \Oh^2 - 3\Oh\)
+[<a href="#ref-CR26">CR26</a>, Eq.&nbsp;14]. A quantity has <em>Doppler weight</em> \(d\) if it transforms with
+\(d\) powers of the Doppler factor: occupation number \(n(\nu)\) has \(d=0\), thermodynamic temperature \(d=1\),
+specific intensity \(d=3\).
+</p>
+<div class="eqbox">
+  <div class="head"><span class="name">Aberration kernel (defining convention of this site)</span>
+    <span class="badge pass">verified</span>
+    <span class="cite">[<a href="#ref-DC14">DC14</a>; <a href="#ref-CR25">CR25</a>, Eq.&nbsp;7; <a href="#ref-RC26">RC26</a>, Eq.&nbsp;B4]</span></div>
+  \[
+    {}^{d}_{s}\Kk^m_{\ell\ell'}(-\beta) \;=\; \int \dd^2\hat{y}'\;
+    \frac{{}_{-s}Y^*_{\ell m}(\hat y')\, {}_{-s}Y_{\ell' m}(\hat y[\hat y'])}{\left[\gamma(1+\beta\mu')\right]^{d}},
+    \qquad \mu[\mu'] = \frac{\mu'+\beta}{1+\beta\mu'} ,
+  \]
+  <p>with \({}^{d}_{s}\Kk^m_{\ell\ell'}(+\beta)\) obtained by \(\beta\to-\beta\). It describes how multipole
+  coefficients of a frequency-independent, Doppler-weight-\(d\) field mix under a Lorentz boost:
+  \(X'_{\ell m} = \sum_{\ell'} {}^{d}_{-s}\Kk^m_{\ell\ell'}(\nu,\beta)\, X_{\ell' m}\).
+  Coupling coefficients throughout:
+  \({}_s C^m_\ell = \frac{1}{\ell}\sqrt{\frac{(\ell^2-m^2)(\ell^2-s^2)}{4\ell^2-1}}\); for \(s=0\) we write
+  \(C^m_\ell = \sqrt{\frac{\ell^2-m^2}{4\ell^2-1}}\). We state results for \(s = 0\) (the intensity/occupation sector
+  relevant to the unpolarized problem) and cite the spin-weighted generalizations where established.</p>
+</div>
+<p class="note">Different papers use observer vs. field conventions that amount to \(\beta \leftrightarrow -\beta\)
+and transposition. Every identity on this page is written in the single convention above and was
+<em>independently re-verified</em> in it; cited equation numbers indicate provenance, not verbatim transcription.</p>
+
+<h2 id="boost">1 &nbsp;The boost operator: properties and identities</h2>
+<p>
+The boost operator extends the aberration kernel to <em>frequency-dependent</em> fields
+\(X(\nu,\hat y)\):&nbsp; \({}_s X'_{\ell m}(\nu) = \sum_{\ell'} {}^{d}_{-s}\Bo^m_{\ell\ell'}(\nu,\beta)\, {}_s X_{\ell'm}(\nu)\)
+[<a href="#ref-CR25">CR25</a>, Eq.&nbsp;2]. Below, each boxed identity carries its citation and a verification badge
+(<span class="badge pass">verified</span> = re-derived and confirmed numerically by our harness;
+<span class="badge lit">literature</span> = quoted from the cited source).
+</p>
+
+<h3>1.1 Definition and reduction to the aberration kernel</h3>
+<div class="eqbox">
+  <div class="head"><span class="name">(B1) Fundamental identity</span>
+    <span class="badge pass">verified</span>
+    <span class="cite">[<a href="#ref-CR25">CR25</a>, Eqs.&nbsp;3, 12; precursor <a href="#ref-YP17">YP17</a>]</span></div>
+  \[
+    {}^{d}_{s}\Bo^m_{\ell\ell'}(\nu,\beta) \;=\; {}^{\,d+\Oh}_{\;\;s}\Kk^m_{\ell\ell'}(-\beta).
+  \]
+  <p>The boost operator <em>is</em> the aberration kernel with its Doppler weight promoted to the operator
+  \(d + \Oh\). Every kernel identity that is analytic in \(d\) therefore lifts to a boost-operator identity.
+  On power laws it reduces to a scalar-weight kernel:
+  \({}^{d}\Bo^m_{\ell\ell'}(\nu,\beta)\,\nu^q = {}^{d-q}\Kk^m_{\ell\ell'}(-\beta)\,\nu^q\)
+  (see <a href="proofs/power-law-reduction.html">Lemma&nbsp;L1</a>).</p>
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B2) Series representation</span>
+    <span class="badge lit">literature</span>
+    <span class="cite">[<a href="#ref-CR25">CR25</a>, Eqs.&nbsp;9–11]</span></div>
+  \[
+    {}^{d}_{s}\Bo^m_{\ell\ell'}(\nu,\beta) = \sum_{k=0}^{\infty} {}^{d,k}_{\;\;s}\mathcal{H}^m_{\ell\ell'}(\beta)\,
+    \frac{\nu^k\partial_\nu^k}{k!},
+    \qquad
+    {}^{d,k}_{\;\;s}\mathcal{H}^m_{\ell\ell'}(\beta) = \sum_{t=0}^{k}(-1)^{k-t}\binom{k}{t}\, {}^{d-t}_{\;\;s}\Kk^m_{\ell\ell'}(-\beta).
+  \]
+  <p>Since \(\big(\tfrac{\nu'}{\nu}-1\big)^k\) is a polynomial of order \(k\) in \(\gamma\beta\mu'\),
+  a computation to fixed order \(N_\beta\) in \(\beta\) needs only \(k \le N_\beta\) frequency derivatives
+  [<a href="#ref-CR25">CR25</a>, §2.2].</p>
+</div>
+
+<h3>1.2 Symmetries</h3>
+<div class="eqbox">
+  <div class="head"><span class="name">(B3) Parity, \(m\)-flip, conjugation, transposition</span>
+    <span class="badge pass">verified</span>
+    <span class="cite">[<a href="#ref-CR25">CR25</a>, Eqs.&nbsp;13–15; <a href="#ref-DC14">DC14</a>]</span></div>
+  \[
+    {}^{d}_{s}\Kk^m_{\ell\ell'}(-\beta) = (-1)^{\ell+\ell'}\,{}^{d}_{-s}\Kk^m_{\ell\ell'}(\beta), \qquad
+    {}_{-s}\Kk^{-m}_{\ell\ell'} = \big[{}_{s}\Kk^{m}_{\ell\ell'}\big]^* = {}_{s}\Kk^{m}_{\ell\ell'} ,
+  \]
+  \[
+    \textbf{(transposition / weight flip)}\qquad
+    {}^{d}_{s}\Kk^m_{\ell\ell'}(-\beta) \;=\; {}^{\,2-d}_{\;\;s}\Kk^m_{\ell'\ell}(+\beta),
+  \]
+  <p>and the corresponding boost-operator forms with \(d\to d+\Oh\), e.g.
+  \({}^{d}_{s}\Bo^m_{\ell\ell'}(\nu,-\beta) = (-1)^{\ell+\ell'}\, {}^{d}_{-s}\Bo^m_{\ell\ell'}(\nu,\beta)\)
+  [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;14a] and
+  \({}^{d}_{s}\Bo^m_{\ell\ell'}(\nu,\beta) = {}^{\,2-d-\Oh}\Kk^m_{\ell'\ell}(\beta)\)-type relations
+  [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;15]. The transposition identity written above is the form that holds
+  in this site’s convention (weight flip <em>and</em> \(\beta\)-flip); it is central to the new results of
+  <a href="#new">Section&nbsp;3</a>.</p>
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B4) Inversion</span>
+    <span class="badge pass">verified</span>
+    <span class="cite">[<a href="#ref-CR25">CR25</a>, Eqs.&nbsp;16–17]</span></div>
+  \[
+    \sum_{\ell'} {}^{d}_{s}\Kk^m_{\ell\ell'}(\nu,-\beta)\, {}^{d}_{s}\Kk^m_{\ell'\ell''}(\nu,\beta) = \delta_{\ell\ell''},
+    \qquad
+    \sum_{\ell'} {}^{d}_{s}\Bo^m_{\ell\ell'}(\nu,-\beta)\, {}^{d}_{s}\Bo^m_{\ell'\ell''}(\nu,\beta) = \delta_{\ell\ell''}.
+  \]
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B5) Commutation and rapidity additivity</span>
+    <span class="badge pass">verified (additivity)</span>
+    <span class="cite">[<a href="#ref-CR25">CR25</a>, Eqs.&nbsp;18–19]</span></div>
+  \[
+    {}^{d}\Bo^m_{\ell\ell'}(\nu,\beta)\,{}^{d}\Bo^m_{\ell'\ell''}(\nu,\beta') =
+    {}^{d}\Bo^m_{\ell\ell'}(\nu,\beta')\,{}^{d}\Bo^m_{\ell'\ell''}(\nu,\beta)
+    \quad\text{(as \(\Oh\)-functions, they commute)},
+  \]
+  \[
+    \sum_{\ell'} {}^{d}_{s}\Bo^m_{\ell\ell'}(\nu,\eta_1)\, {}^{d}_{s}\Bo^m_{\ell'\ell''}(\nu,\eta_2) =
+    {}^{d}_{s}\Bo^m_{\ell\ell''}(\nu,\eta_1+\eta_2).
+  \]
+  <p>Rapidity is additive; two successive collinear boosts compose exactly. Our harness confirms additivity for
+  the kernel family at the \(10^{-24}\) level (<code>04_additivity.wl</code>).</p>
+</div>
+
+<h3>1.3 Recurrence relations (the generators)</h3>
+<div class="eqbox">
+  <div class="head"><span class="name">(B6) Doppler-weight raising — row-shift form</span>
+    <span class="badge pass">verified</span>
+    <span class="cite">[<a href="#ref-DC14">DC14</a>; <a href="#ref-CR25">CR25</a>, Eq.&nbsp;20; <a href="#ref-HLC26">HLC26</a>, Eq.&nbsp;A.7a]</span></div>
+  \[
+    {}^{d}\Kk^m_{\ell\ell'}(\beta) = \gamma\, {}^{d+1}\Kk^m_{\ell\ell'}(\beta)
+      - \gamma\beta\Big[ C^m_{\ell+1}\,{}^{d+1}\Kk^m_{\ell+1,\ell'}(\beta) + C^m_{\ell}\,{}^{d+1}\Kk^m_{\ell-1,\ell'}(\beta) \Big]
+      \quad (s=0),
+  \]
+  <p>with spin-weighted version carrying the extra \(\tfrac{sm}{\ell(\ell+1)}\) mid-term
+  [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;20a,b]. The boost-operator version follows by \(d \to d+\Oh\), e.g. the
+  weight-\(-1\) reduction used in scattering problems:
+  \({}^{-1}\hat{\mathcal T}^m_{\ell\ell'}(\nu,-\beta) \equiv {}^{-1}\Bo^m_{\ell\ell'}(\nu,-\beta)/\gamma
+   = {}^{0}\Bo^m_{\ell\ell'} - \beta\big[C^m_{\ell+1}\,{}^{0}\Bo^m_{\ell+1\,\ell'} + C^m_{\ell}\,{}^{0}\Bo^m_{\ell-1\,\ell'}\big]\)
+  [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;49].</p>
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B7) Doppler-weight raising — column-shift form</span>
+    <span class="badge pass">verified</span>
+    <span class="cite">[<a href="#ref-DC14">DC14</a>; cf. <a href="#ref-HLC26">HLC26</a>, Eq.&nbsp;A.7b]</span></div>
+  \[
+    {}^{d+1}\Kk^m_{\ell\ell'}(\beta) = \gamma\, {}^{d}\Kk^m_{\ell\ell'}(\beta)
+      + \gamma\beta\Big[ C^m_{\ell'+1}\,{}^{d}\Kk^m_{\ell,\ell'+1}(\beta) + C^m_{\ell'}\,{}^{d}\Kk^m_{\ell,\ell'-1}(\beta) \Big]
+      \quad (s=0).
+  \]
+  <p>B6 and B7 use the three-term recurrence of \(\mu\, {}_sY_{\ell m}\) on the primed and unprimed harmonic
+  respectively; together they let one walk the whole Doppler-weight ladder in either index.</p>
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B8) \(k\)-raising for the \(\mathcal{H}\)-kernels</span>
+    <span class="badge lit">literature</span>
+    <span class="cite">[<a href="#ref-CR25">CR25</a>, Eqs.&nbsp;21–22]</span></div>
+  \[
+    {}^{d,k}\mathcal{H}^m_{\ell\ell'} = {}^{d-1,k-1}\mathcal{H}^m_{\ell\ell'} - {}^{d,k-1}\mathcal{H}^m_{\ell\ell'},
+  \]
+  <p>plus a closed raising relation in \(k\) built on B6 [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;22]; no \(k\)-lowering
+  relation is known. Starting from \({}^{d,0}\mathcal{H} \equiv {}^{d}\Kk(-\beta)\), this generates all
+  \({}^{d,k}\mathcal{H}\) needed in B2.</p>
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B9) Rapidity differential equations (generators)</span>
+    <span class="badge pass">verified (s=0)</span>
+    <span class="cite">[<a href="#ref-DC14">DC14</a>; <a href="#ref-CR25">CR25</a>, Eqs.&nbsp;23–31]</span></div>
+  <p>With the aberration generator \(\hat Y_z = -i\big[\mu + (\mu^2-1)\partial_\mu\big]\) and its general-weight
+  extension \({}^d\hat Y_z = \hat Y_z - i\mu(d-1)\) [<a href="#ref-CR25">CR25</a>, Eqs.&nbsp;24–25], the kernel obeys
+  a closed first-order ODE system (written for \(s=0\), in this site’s convention, at argument \(+\beta(\eta)\)):</p>
+  \[
+    \partial_\eta\, {}^{d}\Kk^m_{\ell\ell'}(\eta) = (\ell'+d)\,C^m_{\ell'+1}\,{}^{d}\Kk^m_{\ell,\ell'+1}
+    - (\ell'+1-d)\,C^m_{\ell'}\,{}^{d}\Kk^m_{\ell,\ell'-1},
+    \qquad {}^{d}\Kk^m_{\ell\ell'}(0) = \delta_{\ell\ell'} ,
+  \]
+  <p>(general \(s,m\): [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;28]). Applying transposition (B3) gives the equivalent
+  <em>row-shift</em> form
+  \(\partial_\eta {}^{d}\Kk^m_{\ell\ell'} = -(\ell+2-d)C^m_{\ell+1}{}^{d}\Kk^m_{\ell+1,\ell'} + (\ell+d-1)C^m_{\ell}{}^{d}\Kk^m_{\ell-1,\ell'}\).
+  Promoting \(d \to d+\Oh\) yields the <em>formal boost-operator ODE</em>
+  [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;31], the workhorse for term-by-term Taylor generation
+  (explicit second-order output: [<a href="#ref-CR25">CR25</a>, Eqs.&nbsp;33–35, A2]).</p>
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B10) \(\ell\)-raising recursion</span>
+    <span class="badge pass">verified (s=0; m=0,1)</span>
+    <span class="cite">[<a href="#ref-CR26">CR26</a>, Eq.&nbsp;B3; <a href="#ref-RC26">RC26</a>, Eq.&nbsp;B3; <a href="#ref-HLC26">HLC26</a>, Eq.&nbsp;A.8]</span></div>
+  \[
+    {}^{d}_{s}\Kk^m_{\ell\ell'}(-\beta) = -\frac{1}{{}_sC^m_\ell}\,
+      \frac{\gamma\,{}^{d}_{s}\Kk^m_{\ell-1,\ell'}(-\beta) - {}^{d-1}_{\;\;s}\Kk^m_{\ell-1,\ell'}(-\beta)}{p}
+      \;-\; \frac{1}{{}_sC^m_\ell}\frac{sm}{\ell(\ell-1)}\, {}^{d}_{s}\Kk^m_{\ell-1,\ell'}(-\beta)
+      \;-\; \frac{{}_sC^m_{\ell-1}}{{}_sC^m_\ell}\, {}^{d}_{s}\Kk^m_{\ell-2,\ell'}(-\beta).
+  \]
+  <p>This is the relation that “allows you to get higher index values of the operator from previous ones”:
+  starting from the seeds (B11) it generates every kernel element — and hence, through B1, every boost-operator
+  element — exactly. Note it couples Doppler weights \(d\) and \(d-1\).</p>
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B11) Seeds / closed forms</span>
+    <span class="badge pass">verified</span>
+    <span class="cite">[<a href="#ref-CR26">CR26</a>, Eqs.&nbsp;9a, B1; <a href="#ref-RC26">RC26</a>, Eqs.&nbsp;B4–B8]</span></div>
+  \[
+    {}^{d}\Kk^0_{00}(-\beta) = \frac{(\gamma+p)^{1-d} - (\gamma-p)^{1-d}}{2(1-d)\,p},
+    \qquad
+    {}^{d}\Kk^m_{mm}(-\beta) = \frac{1}{\gamma^{m+d}}\,
+      {}_2F_1\!\Big(\tfrac{m+d}{2},\tfrac{m+d+1}{2};\tfrac{3}{2}+m;\beta^2\Big) \quad (s=0),
+  \]
+  <p>with \(s=\pm2\) seeds expressible through the integrals
+  \(\mathcal{I}_k(p) = (p_+^k - p_-^k)/k\), \(p_\pm = \gamma \pm p\), which obey their own recursion
+  \((k+1)\mathcal{I}_{k+1} = 2\gamma k\,\mathcal{I}_k - (k-1)\mathcal{I}_{k-1}\)
+  [<a href="#ref-RC26">RC26</a>, Eqs.&nbsp;B5–B8].</p>
+</div>
+<div class="eqbox">
+  <div class="head"><span class="name">(B12) Structure facts</span>
+    <span class="badge lit">literature</span>
+    <span class="cite">[<a href="#ref-C11">C11</a>; <a href="#ref-DC14">DC14</a>; <a href="#ref-CR25">CR25</a>, §2.2, §4]</span></div>
+  <p>(i) \({}^{d}\Kk^m_{\ell\ell'}(0) = \delta_{\ell\ell'}\); (ii) multipoles couple at order
+  \(\beta^{|\ell-\ell'|}\), so at fixed order in \(\beta\) only a finite band of \(\ell\) mixes;
+  (iii) at fixed order in \(\beta\), \({}^{d}\Bo^m_{\ell\ell'}\) is a <em>polynomial</em> in \(\Oh\);
+  (iv) the kernel-ODE route (B9) is the numerically stable way to compute high-\(\ell\) elements
+  [<a href="#ref-DC14">DC14</a>, <a href="#ref-C11">C11</a>].</p>
+</div>
+
+<h2 id="doppler">2 &nbsp;The Doppler operator</h2>
+<p>
+In any single-scattering computation the boost operator appears twice: once to enter the electron rest frame,
+once (with Doppler weight lowered to \(d=-1\) by the transformation of the optical depth, and a factor
+\(1/\gamma\) from the Møller speed) to return to the lab frame, with the Thomson cross-section projecting
+the intermediate field on rest-frame multipoles \(\ell' \in \{0,2\}\). The round-trip combination is the
+<strong>Doppler operator</strong>:
+</p>
+<div class="eqbox">
+  <div class="head"><span class="name">(D0) Definition</span>
+    <span class="badge pass">verified conventions</span>
+    <span class="cite">[<a href="#ref-RC26">RC26</a>, Eq.&nbsp;9; <a href="#ref-CR26">CR26</a>, Eq.&nbsp;3]</span></div>
+  \[
+    \Do^m_{\ell\ell'\ell''}(\nu,\beta) \;\equiv\; \frac{1}{\gamma}\;
+    {}^{-1}\Bo^m_{\ell\ell'}(\nu,-\beta)\;\; {}^{0}\Bo^m_{\ell'\ell''}(\nu,\beta)
+    \qquad (s=0;\ \text{spin-weighted version } {}_{ij}\Do^m_{\ell\ell'\ell''} \text{ in [RC26, Eq. 9]}).
+  \]
+  <p>On power laws (<a href="proofs/power-law-reduction.html">Lemma&nbsp;L1</a>) it reduces to a product of
+  scalar-weight kernels,
+  \(\Do^m_{\ell\ell'\ell''}(\nu,\beta)\,\nu^q = \frac{1}{\gamma}\, {}^{-1-q}\Kk^m_{\ell\ell'}(\beta)\;
+  {}^{-q}\Kk^m_{\ell'\ell''}(-\beta)\,\nu^q\). The Thomson collision term for a single electron of speed
+  \(\beta \parallel \hat z\) reads
+  \(\frac{\dd n_{\ell m}}{\dd\tau}\big|_{\mathrm T} = \sum_{\ell''}\big\{\Do^m_{\ell 0 \ell''} +
+  \tfrac{1}{10}\Do^m_{\ell 2\ell''} - \delta_{\ell\ell''}(1 + \beta\,[\dots])\big\}\, n_{\ell'' m}(\nu)\)
+  [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;3; <a href="#ref-CR25">CR25</a>, Eq.&nbsp;48], and the exact thermal SZ
+  operator is \(\hat{\mathcal S}_{\rm th} = \big\langle \Do^0_{000} + \tfrac{1}{10}\Do^0_{020}\big\rangle_p - 1\)
+  [<a href="#ref-CR26">CR26</a>, Eqs.&nbsp;4–7].</p>
+</div>
+
+<h3>2.1 What was known</h3>
+<ul>
+  <li><strong>Closed forms for the monopole elements</strong>:
+  \(\Do^0_{000} = \frac{(\gamma+p)^{3-2\Oh} + (\gamma-p)^{3-2\Oh} - 2\gamma}{4(2-\Oh)(1-\Oh)\,\gamma\, p^2}\)
+  and a companion for \(\Do^0_{020}\) [<a href="#ref-CR26">CR26</a>, Eqs.&nbsp;10a,b]. <span class="badge pass">verified</span></li>
+  <li><strong>Sum rule</strong> over the intermediate index (from B4 + B6):
+  \(\sum_{\ell'} \Do^m_{\ell\ell'\ell''} = \delta_{\ell\ell''} - \beta\big[C^m_{\ell''+1}\delta_{\ell,\ell''+1} + C^m_{\ell''}\delta_{\ell,\ell''-1}\big]\)
+  [<a href="#ref-CR25">CR25</a>, §4.2; <a href="#ref-RC26">RC26</a>, Eqs.&nbsp;10–11]. <span class="badge pass">verified</span></li>
+  <li><strong>Averaged tables</strong> \(\langle{}_{ij}\Do_{\ell\ell'\ell''}\rangle\) to \(\mathcal O(p^4)\), obtained by
+  brute-force assembly of boost-operator products [<a href="#ref-RC26">RC26</a>, Eqs.&nbsp;9a,b (App.&nbsp;B4)],
+  and the exact SZ operator expansion to \(p^8\) [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;11].</li>
+  <li><strong>An unexplained observation</strong>: <em>“all the required operators are linear combinations of powers of
+  the diffusion operator \(\Dv\). In addition, significant structure is visible in the related coefficients,
+  hinting at another way to simplify matters, a problem we will leave to future work.”</em>
+  [<a href="#ref-RC26">RC26</a>, §2.3]</li>
+</ul>
+<p>
+What was <em>missing</em> is what exists for the boost operator itself: recursion relations that generate the
+Doppler operator’s elements directly — without assembling products of boost operators — and an explanation of
+the observed \(\Dv\)-structure. Both are supplied below.
+</p>
+
+<h2 id="new">3 &nbsp;New recursion relations and symmetries</h2>
+<p>Each result below links to a complete derivation. All were verified numerically at the
+\(10^{-27}\) level (exact identities) or against finite differences (ODEs); see <a href="#verification">Section&nbsp;5</a>.</p>
+
+<div class="newbox">
+  <div class="head"><span class="name">Lemma L1 — power-law reduction</span>
+    <span class="badge new">foundation</span>
+    <span class="prooflink"><a href="proofs/power-law-reduction.html">proof →</a></span></div>
+  <p>Operator identities among \(\{\Bo, \Do\}\) hold <em>iff</em> the corresponding scalar-weight kernel identities
+  hold for all real weights. Power laws \(\nu^q\) are eigenfunctions of \(\Oh\); at fixed order in \(\beta\) all
+  operators are polynomials in \(\Oh\), so agreement at infinitely many \(q\) implies operator equality.
+  This turns every derivation and every numerical verification below into a statement about ordinary functions.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N1) Reflection symmetry</span>
+    <span class="badge new">new</span> <span class="badge pass">verified 7×10⁻²⁸</span>
+    <span class="prooflink"><a href="proofs/reflection.html">proof →</a></span></div>
+  \[
+    \Do^m_{\ell\ell'\ell''}(\nu,\beta)\Big|_{\Oh} \;=\; \Do^m_{\ell''\ell'\ell}(\nu,\beta)\Big|_{\Oh \to 3-\Oh}.
+  \]
+  <p>Transposing the outer indices of the Doppler operator is equivalent to the substitution \(\Oh \to 3-\Oh\).
+  A two-line consequence of the kernel transposition identity (B3). The fixed point of the reflection is
+  \(\Oh = 3/2\), and the invariant combination is precisely \(\Oh(\Oh-3) = \Dv\).</p>
+  <p><strong>Corollary N1a.</strong> Diagonal elements (\(\ell = \ell''\)) are invariant under \(\Oh\to3-\Oh\);
+  since each Taylor coefficient in \(\beta\) is a polynomial in \(\Oh\), every diagonal element — and every
+  thermal average of one — is a <em>polynomial in the diffusion operator</em> \(\Dv\) alone.
+  This <em>proves</em> the empirical observation of [<a href="#ref-RC26">RC26</a>, §2.3] and explains the
+  “significant structure” in their coefficient tables: e.g. the \(\mathcal O(p^2)\) coefficient of
+  \(\Do_{000}\) is \(\tfrac13\Dv\), of \(\Do_{222}\) is \(\tfrac{1}{21}(11\Dv - 54)\), etc.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N2) Parity law</span>
+    <span class="badge new">new</span> <span class="badge pass">verified exactly</span>
+    <span class="prooflink"><a href="proofs/parity.html">proof →</a></span></div>
+  \[
+    \Do^m_{\ell\ell'\ell''}(\nu,-\beta) = (-1)^{\ell+\ell''}\, \Do^m_{\ell\ell'\ell''}(\nu,\beta).
+  \]
+  <p>The intermediate index drops out of the parity phase. Consequently the Taylor series of
+  \(\Do^m_{\ell\ell'\ell''}\) contains only powers \(p^k\) with \(k \equiv \ell+\ell'' \pmod 2\) —
+  visible throughout the tables of <a href="#tables">Section&nbsp;4</a>.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N3) Rapidity ODE — the Doppler-operator generator</span>
+    <span class="badge new">new — central result</span> <span class="badge pass">verified (FD, 4×10⁻¹²)</span>
+    <span class="prooflink"><a href="proofs/ode.html">proof →</a></span></div>
+  \[
+   \boxed{\;
+    \partial_\eta \Do^m_{\ell\ell'\ell''} =
+      -(\ell+3-\Oh)\,C^m_{\ell+1}\,\Do^m_{\ell+1,\ell'\ell''}
+      +(\ell-2+\Oh)\,C^m_{\ell}\,\Do^m_{\ell-1,\ell'\ell''}
+      -(\ell''+\Oh)\,C^m_{\ell''+1}\,\Do^m_{\ell,\ell',\ell''+1}
+      +(\ell''+1-\Oh)\,C^m_{\ell''}\,\Do^m_{\ell,\ell',\ell''-1}
+      -\beta\,\Do^m_{\ell\ell'\ell''}\;}
+  \]
+  \[
+    \Do^m_{\ell\ell'\ell''}\big|_{\eta=0} = \delta_{\ell\ell'}\delta_{\ell'\ell''},\qquad \beta = \tanh\eta .
+  \]
+  <p>A <em>closed</em>, exact, first-order system at <strong>fixed intermediate index</strong> \(\ell'\):
+  only the outer indices shift, no Doppler-weight companions appear, and all coefficients commute
+  (they are functions of \(\Oh\)). This is the direct analog of the boost-operator ODE
+  [<a href="#ref-CR25">CR25</a>, Eq.&nbsp;31] — but for the physically assembled round-trip operator, so
+  Taylor tables of \(\Do\) are generated term by term <em>without ever multiplying two boost operators</em>.
+  Note the manifest covariance under N1 (swap \(\ell\leftrightarrow\ell''\), \(\Oh\to3-\Oh\): the first pair of
+  terms maps onto the second). It reproduces: the tables of [<a href="#ref-RC26">RC26</a>, Eqs.&nbsp;9a,b],
+  the closed form [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;10a] (symbolically, to \(\mathcal O(p^6)\)), and the exact
+  SZ operator [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;11] through \(\mathcal O(p^6)\) — see
+  <a href="#tables">Section&nbsp;4</a>.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N4) Sum rule (re-derivation)</span>
+    <span class="badge lit">known</span> <span class="badge pass">verified 10⁻¹⁷</span>
+    <span class="prooflink"><a href="proofs/sumrule.html">proof →</a></span></div>
+  \[
+    \sum_{\ell'} \Do^m_{\ell\ell'\ell''}(\nu,\beta) = \delta_{\ell\ell''}
+      - \beta\Big[C^m_{\ell''+1}\,\delta_{\ell,\ell''+1} + C^m_{\ell''}\,\delta_{\ell,\ell''-1}\Big].
+  \]
+  <p>Included for completeness with a two-step proof from B4 + B6 (first given in
+  [<a href="#ref-CR25">CR25</a>, §4.2; <a href="#ref-RC26">RC26</a>, Eqs.&nbsp;10–11]). Physical content: summed over
+  the scattering multipole, the round trip is the identity up to the \(\mathcal O(\beta)\) optical-depth dipole —
+  photon number is conserved.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N5, N6) Outer-index raising recursions on the weight lattice</span>
+    <span class="badge new">new</span> <span class="badge pass">verified 5×10⁻²⁷</span>
+    <span class="prooflink"><a href="proofs/raising.html">proof →</a></span></div>
+  <p>Define the <em>generalized Doppler operators</em>
+  \({}^{(j,k)}\Do^m_{\ell\ell'\ell''} \equiv \frac{1}{\gamma}\,{}^{-1-j}\Bo^m_{\ell\ell'}(\nu,-\beta)\,{}^{-k}\Bo^m_{\ell'\ell''}(\nu,\beta)\)
+  (physical case \((j,k)=(0,0)\)). Then, for \(s=0\):</p>
+  \[
+    \textbf{(N5)}\quad
+    \Do^m_{\ell\ell'\ell''} = \frac{1}{C^m_{\ell}\,p}\Big[\gamma\,\Do^m_{\ell-1,\ell'\ell''} - {}^{(1,0)}\Do^m_{\ell-1,\ell'\ell''}\Big]
+    - \frac{C^m_{\ell-1}}{C^m_{\ell}}\,\Do^m_{\ell-2,\ell'\ell''},
+  \]
+  \[
+    \textbf{(N6)}\quad
+    \Do^m_{\ell\ell'\ell''} = \frac{1}{C^m_{\ell''}\,p}\Big[\gamma\,\Do^m_{\ell\ell',\ell''-1} - {}^{(0,-1)}\Do^m_{\ell\ell',\ell''-1}\Big]
+    - \frac{C^m_{\ell''-1}}{C^m_{\ell''}}\,\Do^m_{\ell\ell',\ell''-2}.
+  \]
+  <p>Higher outer indices from lower ones at <em>fixed</em> \(\ell'\) and fixed \(\beta\)-order, at the cost of one
+  weight-shifted companion — mirroring how the boost-operator recursion B10 couples weights \(d\) and \(d-1\).
+  N5 and N6 map onto each other under the reflection N1 (with \(j \leftrightarrow -k\)), a consistency check of the
+  whole system. We also show why <em>no</em> recursion can close on \((j,k)=(0,0)\) alone.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N7) Seeds and a finite exact-generation algorithm</span>
+    <span class="badge new">new (assembled)</span> <span class="badge pass">verified</span>
+    <span class="prooflink"><a href="proofs/seeds.html">proof →</a></span></div>
+  <p>Every element \({}^{(j,k)}\Do^m_{\ell\ell'\ell''}\) at any \(q\) (hence any operator element) is computed
+  <em>exactly, in finitely many steps</em>: seeds B11 → \(\ell\)-raising B10 → weight ladder B6/B7 → product.
+  Includes the closed forms
+  \(\Do^0_{000}\) [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;10a] and new generalized seeds
+  \({}^{(j,k)}\Do^m_{m\ell' m}\) in terms of \({}_2F_1\).</p>
+</div>
+
+<h2 id="tables">4 &nbsp;Generated tables (from the ODE N3)</h2>
+<p>
+Symbolic elements \(\Do^{m=0}_{\ell\ell'\ell''}(\nu,\beta)\) to \(\mathcal O(p^4)\), generated purely by iterating
+the rapidity ODE (N3) from its \(\delta\)-seed — no boost-operator products, no angular integrals. Entries are
+polynomials in \(\Oh\); note the parity law N2 (only \(p^{\ell+\ell'' \bmod 2}\)-type powers appear) and the
+reflection N1 (the \((\ell,\ell'')\) and \((\ell'',\ell)\) entries map under \(\Oh\to3-\Oh\); diagonal entries are
+polynomials in \(\Dv = \Oh^2 - 3\Oh\)).
+</p>
+
+<h3>4.1 Monopole scattering channel \(\ell' = 0\)</h3>
+<div class="tablewrap"><table class="tbl">
+<tr><th>\(\ell \backslash \ell''\)</th><th>0</th><th>1</th><th>2</th></tr>
+<tr><th>0</th>
+<td>\(1+\frac{1}{3} (\Oh-3) \Oh\, p^2+\frac{2}{45} \Oh \left(\Oh^3-6 \Oh^2+5 \Oh+12\right) p^4\)</td>
+<td>\(-\frac{(\Oh-2)\, p}{\sqrt{3}}-\frac{\left(8 \Oh^3-42 \Oh^2+43 \Oh+18\right) p^3}{30 \sqrt{3}}\)</td>
+<td>\(\frac{\left(\Oh^2-5 \Oh+6\right) p^2}{3 \sqrt{5}}+\frac{\left(5 \Oh^4-42 \Oh^3+103 \Oh^2-42 \Oh-72\right) p^4}{63 \sqrt{5}}\)</td></tr>
+<tr><th>1</th>
+<td>\(\frac{(\Oh-1)\, p}{\sqrt{3}}+\frac{\left(8 \Oh^3-30 \Oh^2+7 \Oh+15\right) p^3}{30 \sqrt{3}}\)</td>
+<td>\(-\frac13\left(\Oh^2-3\Oh+2\right) p^2-\frac{1}{15} \left(\Oh^4-6 \Oh^3+7 \Oh^2+6 \Oh-8\right) p^4\)</td>
+<td>\(\frac{\left(\Oh^3-6 \Oh^2+11 \Oh-6\right) p^3}{3 \sqrt{15}}\)</td></tr>
+<tr><th>2</th>
+<td>\(\frac{(\Oh-1) \Oh\, p^2}{3 \sqrt{5}}+\frac{\Oh \left(5 \Oh^3-18 \Oh^2-5 \Oh+18\right) p^4}{63 \sqrt{5}}\)</td>
+<td>\(-\frac{\Oh \left(\Oh^2-3 \Oh+2\right) p^3}{3 \sqrt{15}}\)</td>
+<td>\(\frac{1}{45} \Oh \left(\Oh^3-6 \Oh^2+11 \Oh-6\right) p^4\)</td></tr>
+</table></div>
+
+<h3>4.2 Quadrupole scattering channel \(\ell' = 2\)</h3>
+<div class="tablewrap"><table class="tbl">
+<tr><th>\(\ell \backslash \ell''\)</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
+<tr><th>0</th>
+<td>\(\frac{1}{45} \Oh \left(\Oh^3-6 \Oh^2+5 \Oh+12\right) p^4\)</td>
+<td>\(-\frac{2 \left(\Oh^3-6 \Oh^2+5 \Oh+12\right) p^3}{15 \sqrt{3}}\)</td>
+<td>\(\frac{\left(\Oh^2-7 \Oh+12\right) p^2}{3 \sqrt{5}}+\frac{\left(7 \Oh^4-66 \Oh^3+155 \Oh^2+132 \Oh-576\right) p^4}{63 \sqrt{5}}\)</td>
+<td>\(-\frac{(\Oh-4)^2 (\Oh-3)\, p^3}{5 \sqrt{7}}\)</td>
+<td>\(\frac{2}{105} (\Oh-4)^2 \left(\Oh^2-8 \Oh+15\right) p^4\)</td></tr>
+<tr><th>1</th>
+<td>\(\frac{2 \Oh \left(\Oh^2-3 \Oh-4\right) p^3}{15 \sqrt{3}}\)</td>
+<td>\(-\frac{4}{15} \left(\Oh^2-3 \Oh-4\right) p^2-\frac{2}{105} \left(4 \Oh^4-24 \Oh^3+\Oh^2+105 \Oh+76\right) p^4\)</td>
+<td>\(\frac{2 (\Oh-4)\, p}{\sqrt{15}}+\frac{\left(17 \Oh^3-114 \Oh^2+94 \Oh+360\right) p^3}{21 \sqrt{15}}\)</td>
+<td>\(-\frac{2}{5} \sqrt{\frac{3}{7}} (\Oh-4)^2 p^2-\frac{(\Oh-4)^2 \left(103 \Oh^2-314 \Oh-753\right) p^4}{315 \sqrt{21}}\)</td>
+<td>\(\frac{4 (\Oh-5) (\Oh-4)^2 p^3}{35 \sqrt{3}}\)</td></tr>
+<tr><th>2</th>
+<td>\(\frac{\Oh (\Oh+1)\, p^2}{3 \sqrt{5}}+\frac{\Oh \left(7 \Oh^3-18 \Oh^2-61 \Oh-36\right) p^4}{63 \sqrt{5}}\)</td>
+<td>\(-\frac{2 (\Oh+1)\, p}{\sqrt{15}}+\frac{\left(-17 \Oh^3+39 \Oh^2+131 \Oh+75\right) p^3}{21 \sqrt{15}}\)</td>
+<td>\(1+\frac{1}{21} \left(11 \Oh^2-33 \Oh-54\right) p^2+\frac{2}{441} \left(23 \Oh^4-138 \Oh^3-80 \Oh^2+861 \Oh+864\right) p^4\)</td>
+<td>\(-\frac{3 (\Oh-4)\, p}{\sqrt{35}}-\frac{\left(148 \Oh^3-1086 \Oh^2+1061 \Oh+3660\right) p^3}{126 \sqrt{35}}\)</td>
+<td>\(\frac{2 \left(\Oh^2-9 \Oh+20\right) p^2}{7 \sqrt{5}}+\frac{2 \left(241 \Oh^4-3014 \Oh^3+10667 \Oh^2-1078 \Oh-35160\right) p^4}{4851 \sqrt{5}}\)</td></tr>
+<tr><th>3</th>
+<td>\(\frac{\Oh (\Oh+1)^2\, p^3}{5 \sqrt{7}}\)</td>
+<td>\(-\frac{2}{5} \sqrt{\frac{3}{7}} (\Oh+1)^2 p^2-\frac{(\Oh+1)^2 \left(103 \Oh^2-304 \Oh-768\right) p^4}{315 \sqrt{21}}\)</td>
+<td>\(\frac{3 (\Oh+1)\, p}{\sqrt{35}}+\frac{\left(148 \Oh^3-246 \Oh^2-1459 \Oh-1065\right) p^3}{126 \sqrt{35}}\)</td>
+<td>\(-\frac{9}{35} \left(\Oh^2-3 \Oh-4\right) p^2-\frac{1}{105} \left(7 \Oh^4-42 \Oh^3-37 \Oh^2+300 \Oh+288\right) p^4\)</td>
+<td>\(\frac{6 \left(\Oh^3-8 \Oh^2+11 \Oh+20\right) p^3}{35 \sqrt{7}}\)</td></tr>
+<tr><th>4</th>
+<td>\(\frac{2}{105} \Oh (\Oh+1)^2 (\Oh+2)\, p^4\)</td>
+<td>\(-\frac{4 (\Oh+1)^2 (\Oh+2)\, p^3}{35 \sqrt{3}}\)</td>
+<td>\(\frac{2 \left(\Oh^2+3 \Oh+2\right) p^2}{7 \sqrt{5}}+\frac{2 \left(241 \Oh^4+122 \Oh^3-3445 \Oh^2-7574 \Oh-4248\right) p^4}{4851 \sqrt{5}}\)</td>
+<td>\(-\frac{6 \left(\Oh^3-\Oh^2-10 \Oh-8\right) p^3}{35 \sqrt{7}}\)</td>
+<td>\(\frac{4}{245} \left(\Oh^4-6 \Oh^3-5 \Oh^2+42 \Oh+40\right) p^4\)</td></tr>
+</table></div>
+
+<p class="note">These are the \(m=0\) elements. For elements with \(\ell'=0\) they coincide with the
+\(m\)-summed operators of [<a href="#ref-RC26">RC26</a>, Eq.&nbsp;9a] (only \(m=0\) contributes), and we verified
+agreement term by term (e.g. \(\Do_{000}\), \(\Do_{101}\), \(\Do_{020}\)). For \(\ell'=2\) the paper tabulates
+\(\sum_m \Do^m\); our \(m\)-summed series agree with direct numerical integration to truncation accuracy
+(<code>03_tables.wl</code>, check T3).</p>
+
+<h3>4.3 Application: the exact thermal SZ operator</h3>
+<div class="eqbox">
+  <div class="head"><span class="name">\(\hat{\mathcal S}_{\rm th}\) assembled from the ODE-generated elements</span>
+    <span class="badge pass">matches [CR26, Eq. 11] through \(p^6\)</span></div>
+  \[
+    \Do^0_{000} + \tfrac{1}{10}\Do^0_{020} - 1 \;=\;
+    \frac{\Dv}{3}\,p^2
+    \;+\; \frac{7\,\Oh\left(\Oh^3 - 6\Oh^2 + 5\Oh + 12\right)}{150}\,p^4
+    \;+\; \frac{11\,\Oh\left(\Oh^5 - 9\Oh^4 + 13\Oh^3 + 57\Oh^2 - 86\Oh - 120\right)}{3150}\,p^6 + \dots
+  \]
+  <p>The \(p^2\) and \(p^4\) terms reproduce [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;11] exactly (symbolic identity),
+  and the \(p^6\) term matches as well — obtained here in a few lines of recursion instead of momentum-space
+  integrals. By Corollary N1a each coefficient is a polynomial in \(\Dv\): using
+  \(\Dv^2 = \Oh^4-6\Oh^3+9\Oh^2\) and \(\Dv^3 = \Oh^6-9\Oh^5+27\Oh^4-27\Oh^3\), the series reads
+  \[
+    \hat{\mathcal S}_{\rm th}(\nu,p) = \frac{\Dv}{3}\,p^2 + \frac{7\big(\Dv^2 - 4\Dv\big)}{150}\,p^4
+      + \frac{11\big(\Dv^3 - 14\Dv^2 + 40\Dv\big)}{3150}\,p^6 + \dots
+  \]
+  Thermal averaging with \(\langle p^{k}\rangle\) moments [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;13] then yields the
+  relativistic SZ distortion to any temperature order.</p>
+</div>
+
+<h2 id="verification">5 &nbsp;Verification</h2>
+<p>
+All identities were verified with Wolfram&nbsp;15 (<code>wolframscript</code>) by high-precision numerical quadrature
+of the defining integrals (30-digit working precision), on power-law test spectra at multiple non-integer
+weights \(q\), speeds \(\beta = 0.3\) (and \(0.05\) for series checks), \(m \in \{0,1\}\) (plus seeds to \(m=3\)),
+and indices \(\ell,\ell',\ell'' \le 4\). Symbolic checks (T2, T4, N9) are exact polynomial identities.
+</p>
+<div class="tablewrap"><table class="tbl">
+<tr><th>Script</th><th>Verifies</th><th>Result</th></tr>
+<tr><td><code>verification/01_conventions.wl</code></td>
+<td>Kernel conventions; seeds (B11); ℓ-raising (B10); weight raising (B6); parity (B3); kernel ODE (B9) sign conventions; inversion (B4); \(\Do_{000}\) closed form [CR26 10a]</td>
+<td>all PASS (≤10⁻²⁸; ODE vs FD 3×10⁻¹²)</td></tr>
+<tr><td><code>verification/02_doppler.wl</code></td>
+<td>Transposition (B3, verified form); column weight relation (B7); <strong>N1</strong> reflection; <strong>N2</strong> parity; <strong>N3</strong> rapidity ODE; <strong>N4</strong> sum rule; <strong>N5/N6</strong> raisings; <strong>N1a</strong> \(q\to-3-q\) invariance of diagonals (symbolic)</td>
+<td>all PASS (≤7×10⁻²⁷; ODE vs FD 4×10⁻¹²)</td></tr>
+<tr><td><code>verification/03_tables.wl</code></td>
+<td>ODE-generated series vs direct integration (scaling ∝η⁶ by parity); \(\Do_{000}\) symbolic = closed form to \(p^6\); m-summed \(\Do_{222}\); SZ operator vs [CR26 Eq. 11] (\(p^2,p^4\) symbolic, \(p^6\) numeric + symbolic)</td>
+<td>all PASS</td></tr>
+<tr><td><code>verification/04_additivity.wl</code></td><td>Rapidity additivity (B5)</td><td>PASS (7×10⁻²⁴)</td></tr>
+<tr><td><code>verification/05_export_tables.wl</code></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
+</table></div>
+<p>Reproduce with:</p>
+<pre><code>cd verification
+wolframscript -file 01_conventions.wl   # etc.</code></pre>
+
+<h2 id="refs">References</h2>
+<ol class="refs">
+  <li id="ref-CR25">[CR25] J. Chluba &amp; A. Ravenni, <em>The boost operator: properties, computation, and applications</em>,
+    MNRAS <strong>548</strong>, 1–13 (2026), <a href="https://doi.org/10.1093/mnras/stag698">doi:10.1093/mnras/stag698</a>;
+    <a href="https://arxiv.org/abs/2505.02080">arXiv:2505.02080</a>.</li>
+  <li id="ref-CR26">[CR26] J. Chluba &amp; E. Rosenberg, <em>Boost operator approach to the relativistic SZ effect</em>,
+    MNRAS <strong>547</strong>, 1–6 (2026), <a href="https://doi.org/10.1093/mnras/stag240">doi:10.1093/mnras/stag240</a>.</li>
+  <li id="ref-RC26">[RC26] E. Rosenberg &amp; J. Chluba, <em>Boost operator approach to the relativistic polarized SZ effect</em>,
+    MNRAS <strong>547</strong>, 1–14 (2026), <a href="https://doi.org/10.1093/mnras/stag331">doi:10.1093/mnras/stag331</a>;
+    <a href="https://arxiv.org/abs/2511.11377">arXiv:2511.11377</a>.</li>
+  <li id="ref-HLC26">[HLC26] A. Hoey, J. Long &amp; J. Chluba, <em>Derivation of the Kompaneets equation using the boost operator approach</em>,
+    <a href="https://arxiv.org/abs/2603.23572">arXiv:2603.23572</a> (2026).</li>
+  <li id="ref-DC14">[DC14] L. Dai &amp; J. Chluba, <em>New operator approach to the CMB aberration kernels in harmonic space</em>,
+    Phys. Rev. D <strong>89</strong>, 123504 (2014), <a href="https://doi.org/10.1103/PhysRevD.89.123504">doi:10.1103/PhysRevD.89.123504</a>.</li>
+  <li id="ref-C11">[C11] J. Chluba, <em>Fast and accurate computation of the aberration kernel</em>,
+    MNRAS <strong>415</strong>, 3227 (2011), <a href="https://arxiv.org/abs/1102.3415">arXiv:1102.3415</a>.</li>
+  <li id="ref-YP17">[YP17] S. Yasini &amp; E. Pierpaoli, Phys. Rev. D <strong>96</strong>, 103502 (2017),
+    <a href="https://doi.org/10.1103/PhysRevD.96.103502">doi:10.1103/PhysRevD.96.103502</a>.</li>
+  <li id="ref-CvL02">[CvL02] A. Challinor &amp; F. van Leeuwen, Phys. Rev. D <strong>65</strong>, 103001 (2002),
+    <a href="https://doi.org/10.1103/PhysRevD.65.103001">doi:10.1103/PhysRevD.65.103001</a>.</li>
+</ol>
+
+<footer>
+  <p>The Doppler Operator Project &middot; derivations and verification prepared with Claude (Anthropic) and Wolfram&nbsp;15.
+  All new results (N1–N7) should be regarded as research notes: machine-verified, but not peer-reviewed.
+  Source and verification scripts live in this repository.</p>
+</footer>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N5, N6 — Outer-index raising recursions</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N5, N6 — Outer-index raising recursions on the weight lattice</h2>
+
+<div class="newbox">
+<div class="head"><span class="name">Setting</span></div>
+<p>Define the <em>generalized Doppler operators</em> (\(s=0\); physical case \((j,k) = (0,0)\)):</p>
+\[
+  {}^{(j,k)}\Do^m_{\ell\ell'\ell''}(\nu,\beta) \;\equiv\; \frac{1}{\gamma}\;
+  {}^{-1-j}\Bo^m_{\ell\ell'}(\nu,-\beta)\;\; {}^{-k}\Bo^m_{\ell'\ell''}(\nu,\beta)
+  \;\;\overset{\text{on }\nu^q}{=}\;\;
+  \frac{1}{\gamma}\, {}^{-1-j-q}\Kk^m_{\ell\ell'}(+\beta)\;{}^{-k-q}\Kk^m_{\ell'\ell''}(-\beta)\,.
+\]
+<div class="head" style="margin-top:1rem"><span class="name">Statement</span></div>
+\[
+  \textbf{(N5)}\qquad
+  \Do^m_{\ell\ell'\ell''} = \frac{1}{C^m_{\ell}\,p}\Big[\gamma\,\Do^m_{\ell-1,\ell'\ell''} - {}^{(1,0)}\Do^m_{\ell-1,\ell'\ell''}\Big]
+  - \frac{C^m_{\ell-1}}{C^m_{\ell}}\,\Do^m_{\ell-2,\ell'\ell''}\,,
+\]
+\[
+  \textbf{(N6)}\qquad
+  \Do^m_{\ell\ell'\ell''} = \frac{1}{C^m_{\ell''}\,p}\Big[\gamma\,\Do^m_{\ell\ell',\ell''-1} - {}^{(0,-1)}\Do^m_{\ell\ell',\ell''-1}\Big]
+  - \frac{C^m_{\ell''-1}}{C^m_{\ell''}}\,\Do^m_{\ell\ell',\ell''-2}\,,
+\]
+<p>with the same relations holding at every lattice point \((j,k)\) (shift \(j\) or \(k\) accordingly).
+Together with the seeds (<a href="seeds.html">N7</a>) these generate all elements at arbitrary outer indices,
+at fixed intermediate \(\ell'\).</p>
+</div>
+
+<h3>Ingredient — the kernel \(\ell\)-raising recursion at \(+\beta\)</h3>
+<p>The verified literature recursion (B10; [CR26, Eq. B3], [RC26, Eq. B3]; harness check C4) reads, at
+argument \(-\beta\) and \(s=0\):</p>
+\[
+  {}^{d}\Kk^m_{\ell\ell'}(-\beta) = -\frac{1}{C^m_\ell}\,
+  \frac{\gamma\,{}^{d}\Kk^m_{\ell-1,\ell'}(-\beta) - {}^{d-1}\Kk^m_{\ell-1,\ell'}(-\beta)}{p}
+  - \frac{C^m_{\ell-1}}{C^m_\ell}\,{}^{d}\Kk^m_{\ell-2,\ell'}(-\beta).
+\]
+<p>Applying the parity identity \({}^{d}\Kk^m_{\ell\ell'}(\pm\beta) = (-1)^{\ell+\ell'}{}^{d}\Kk^m_{\ell\ell'}(\mp\beta)\)
+(B3) to every term — which flips the sign of the \((\ell-1)\)-terms relative to the \(\ell\)- and
+\((\ell-2)\)-terms — gives the \(+\beta\) version:</p>
+\[
+  {}^{d}\Kk^m_{\ell\ell'}(+\beta) = +\frac{1}{C^m_\ell}\,
+  \frac{\gamma\,{}^{d}\Kk^m_{\ell-1,\ell'}(+\beta) - {}^{d-1}\Kk^m_{\ell-1,\ell'}(+\beta)}{p}
+  - \frac{C^m_{\ell-1}}{C^m_\ell}\,{}^{d}\Kk^m_{\ell-2,\ell'}(+\beta).
+\]
+
+<h3>Proof of N5</h3>
+<p>On power laws the first factor of \(\Do^m_{\ell\ell'\ell''}\) is \({}^{-1-q}\Kk^m_{\ell\ell'}(+\beta)\); its
+row index \(\ell\) is the outgoing index and its column \(\ell'\) is the spectator. Apply the \(+\beta\) recursion
+with \(d = -1-q\) and multiply through by the untouched second factor
+\(\tfrac1\gamma {}^{-q}\Kk^m_{\ell'\ell''}(-\beta)\). The \(d\)-term products reassemble into
+\(\Do^m_{\ell-1,\ell'\ell''}\) and \(\Do^m_{\ell-2,\ell'\ell''}\); the \((d-1)\)-term has first weight
+\(-2-q = -1-(1)-q\), i.e. the lattice point \((j,k)=(1,0)\). \(\blacksquare\)</p>
+
+<h3>Proof of N6</h3>
+<p>The second factor \({}^{-q}\Kk^m_{\ell'\ell''}(-\beta)\) needs a recursion in its <em>column</em> \(\ell''\).
+Transpose it (B3): \({}^{-q}\Kk^m_{\ell'\ell''}(-\beta) = {}^{2+q}\Kk^m_{\ell''\ell'}(+\beta)\), apply the
+\(+\beta\) row recursion above with \(d = 2+q\) and row index \(\ell''\), then transpose each term back:
+\({}^{2+q}\Kk^m_{\ell''-1,\ell'}(+\beta) = {}^{-q}\Kk^m_{\ell',\ell''-1}(-\beta)\) and
+\({}^{1+q}\Kk^m_{\ell''-1,\ell'}(+\beta) = {}^{1-q}\Kk^m_{\ell',\ell''-1}(-\beta)\). The latter has second weight
+\(-k-q\) with \(k = -1\): the lattice point \((0,-1)\). Multiplying by the untouched first factor completes the
+proof. \(\blacksquare\)</p>
+
+<h3>Reflection duality</h3>
+<p>Under the reflection N1 (\(\ell \leftrightarrow \ell''\), \(\Oh \to 3-\Oh\), which on the lattice acts as
+\((j,k) \to (-k,-j)\)), relation N5 maps exactly onto relation N6 — deriving either one yields the other for free,
+and any implementation can generate one outer index and obtain the other by symmetry.</p>
+
+<h3>Why no recursion closes at \((j,k)=(0,0)\) alone</h3>
+<p>One might hope to eliminate the companion \({}^{(1,0)}\Do\) using the weight-raising relation (B6),
+\({}^{-2-q}\Kk^m_{\ell-1,\ell'}(\beta) = \gamma\,{}^{-1-q}\Kk^m_{\ell-1,\ell'}(\beta) -
+\gamma\beta\big[C^m_{\ell}{}^{-1-q}\Kk^m_{\ell,\ell'}(\beta) + C^m_{\ell-1}{}^{-1-q}\Kk^m_{\ell-2,\ell'}(\beta)\big]\).
+Substituting it into N5 collapses the relation to the tautology \(\Do_{\ell\ell'\ell''} = \Do_{\ell\ell'\ell''}\):
+the \(\ell\)-raising recursion and the weight-raising relation are not independent, so the weight companion carries
+genuinely new information. Closure without companions is achieved only by the rapidity ODE
+(<a href="ode.html">N3</a>), which trades weight shifts for a derivative in \(\eta\). This mirrors the situation
+for the boost operator itself, where the \(\ell\)-raising recursion (B10) inevitably couples Doppler weights
+\(d\) and \(d-1\).</p>
+
+<h3>Verification</h3>
+<p>Checks N5 and N6 of <code>02_doppler.wl</code>: max deviations \(4.6\times10^{-27}\) and
+\(2.1\times10^{-27}\) at \(\beta = 0.3\), for \(q \in \{0.5, -0.7\}\), \(m \in \{0,1\}\), raised index up to 3,
+spectator and other index up to 2. The lattice companions were evaluated from their defining kernel products.</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,27 @@
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -42
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -41
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -41                                                                                         -42
+
+C1  K(beta=0) = delta: PASS  (max dev = ScientificForm[1.1809761975520865*^-40, 3])
+C2  seed K00 closed form (stag240 B1): PASS  (max dev = ScientificForm[9.105454012417912*^-30, 3])
+C3  seed Kmm 2F1 closed form (stag331 B4): FAIL  (max dev = ScientificForm[0.5241424183609591, 3])
+C4  l-raising recursion (stag331 B3 / stag240 B3): PASS  (max dev = ScientificForm[1.0269576868700678*^-28, 3])
+C5  transposition K^d_{lp l}(b) = K^{2-d}_{l lp}(b) (stag698 13a): FAIL  (max dev = ScientificForm[1.4650300162829133, 3])
+C6  parity (stag698 13b): PASS  (max dev = ScientificForm[1.392027651502938*^-40, 3])
+C7  Doppler-weight raising (HLC26 A.7a): PASS  (max dev = ScientificForm[5.946836187606896*^-28, 3])
+C8  Doppler-weight lowering (HLC26 A.7b): FAIL  (max dev = ScientificForm[0.07912087912087912, 3])
+C9  kernel rapidity ODE (stag698 28): FD tolerance ~1e-8
+     d/deta Kp = +ODE28[Kp]: ScientificForm[2.786279936776117*^-12, 3] | -ODE28[Kp]: ScientificForm[3.3141075173899615, 3]
+     d/deta Km = +ODE28[Km]: ScientificForm[3.3141075173899615, 3] | -ODE28[Km]: ScientificForm[2.786279936776117*^-12, 3]
+
+                                                                                                                                                                                                                 -41                                       -42
+C10 inversion (stag698 16), Lmax=14: max dev = ScientificForm[7.505957036184199*^-18, 3]  (limited by truncation)
+C11 Dhat_000 closed form (stag240 10a): PASS  (max dev = ScientificForm[2.3795804256305057*^-29, 3])
+--- conventions harness done ---

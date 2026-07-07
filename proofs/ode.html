@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N3 — Rapidity ODE for the Doppler operator</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N3 — The rapidity ODE: a closed generator for the Doppler operator</h2>
+
+<div class="newbox">
+<div class="head"><span class="name">Statement</span></div>
+<p>With \(\beta = \tanh\eta\), \(C^m_\ell = \sqrt{\smash{(\ell^2-m^2)}/(4\ell^2-1)}\), and all coefficients
+understood as commuting functions of \(\Oh\) (\(s=0\)):</p>
+\[
+    \partial_\eta \Do^m_{\ell\ell'\ell''} =
+      -(\ell+3-\Oh)\,C^m_{\ell+1}\,\Do^m_{\ell+1,\ell'\ell''}
+      +(\ell-2+\Oh)\,C^m_{\ell}\,\Do^m_{\ell-1,\ell'\ell''}
+      -(\ell''+\Oh)\,C^m_{\ell''+1}\,\Do^m_{\ell,\ell',\ell''+1}
+      +(\ell''+1-\Oh)\,C^m_{\ell''}\,\Do^m_{\ell,\ell',\ell''-1}
+      -\beta\,\Do^m_{\ell\ell'\ell''},
+\]
+\[
+  \Do^m_{\ell\ell'\ell''}\big|_{\eta=0} = \delta_{\ell\ell'}\delta_{\ell'\ell''}.
+\]
+<p>The system is <em>closed</em>: only the outer indices \(\ell,\ell''\) shift, the intermediate (scattering)
+index \(\ell'\) is a spectator, and no Doppler-weight companions appear. It is the Doppler-operator analog of the
+boost-operator ODE [CR25, Eq. 31].</p>
+</div>
+
+<h3>Ingredient 1 — kernel rapidity ODE, column form</h3>
+<p>In this site’s convention (established by harness check C9 against finite differences; cf. [DC14; CR25, Eq. 28]),
+the kernel at argument \(+\beta(\eta)\) obeys</p>
+\[
+  \partial_\eta\, {}^{d}\Kk^m_{\ell\ell'}(+\beta) =
+    (\ell'+d)\,C^m_{\ell'+1}\,{}^{d}\Kk^m_{\ell,\ell'+1}(+\beta)
+    - (\ell'+1-d)\,C^m_{\ell'}\,{}^{d}\Kk^m_{\ell,\ell'-1}(+\beta),
+\]
+<p>and consequently the kernel at \(-\beta(\eta)\) obeys the same relation with an overall minus sign
+(chain rule under \(\eta \to -\eta\)). No Doppler weight is shifted — this is what ultimately keeps the
+Doppler-operator system weight-closed.</p>
+
+<h3>Ingredient 2 — row form via transposition</h3>
+<p>The derivative of the <em>first</em> factor of \(\Do\) must shift its <em>row</em> index (the column is the
+spectator \(\ell'\)). Apply the transposition identity (B3, proved <a href="reflection.html">here</a>)
+\({}^{d}\Kk^m_{\ell\ell'}(+\beta) = {}^{2-d}\Kk^m_{\ell'\ell}(-\beta)\), differentiate with Ingredient 1
+(at \(-\beta\), weight \(2-d\), column index now \(\ell\)), and transpose each term back:</p>
+\[
+  \partial_\eta\, {}^{d}\Kk^m_{\ell\ell'}(+\beta) =
+    -(\ell+2-d)\,C^m_{\ell+1}\,{}^{d}\Kk^m_{\ell+1,\ell'}(+\beta)
+    + (\ell+d-1)\,C^m_{\ell}\,{}^{d}\Kk^m_{\ell-1,\ell'}(+\beta).
+\]
+
+<h3>Assembly</h3>
+<p>On power laws (Lemma L1), \(\Do^m_{\ell\ell'\ell''}(q,\eta) = \frac{1}{\gamma}\,F_1 F_2\) with
+\(F_1 = {}^{-1-q}\Kk^m_{\ell\ell'}(+\beta(\eta))\), \(F_2 = {}^{-q}\Kk^m_{\ell'\ell''}(-\beta(\eta))\).
+Product rule with three pieces:</p>
+<p><strong>(a)</strong> \(\partial_\eta F_1\) by the row form with \(d = -1-q\):
+\(\;-(\ell+3+q)C^m_{\ell+1} F_1[\ell{+}1] + (\ell-2-q)C^m_{\ell} F_1[\ell{-}1]\).</p>
+<p><strong>(b)</strong> \(\partial_\eta F_2\) by the column form at \(-\beta\) with \(d = -q\):
+\(\;-(\ell''-q)C^m_{\ell''+1} F_2[\ell''{+}1] + (\ell''+1+q)C^m_{\ell''} F_2[\ell''{-}1]\).</p>
+<p><strong>(c)</strong> \(\partial_\eta \gamma^{-1} = -\sinh\eta/\cosh^2\eta = -\beta\,\gamma^{-1}\).</p>
+<p>Each term in (a) multiplies the untouched \(F_2\) (and vice versa), so every product is again a
+\(\Do\)-element with one outer index shifted and the same \(\ell'\), \(q\), and weights. Collecting and replacing
+\(q \to -\Oh\) (Lemma L1(ii)) gives the boxed ODE. \(\blacksquare\)</p>
+
+<h3>Structural checks</h3>
+<ul>
+  <li><strong>Reflection covariance (N1).</strong> Under \(\ell \leftrightarrow \ell''\), \(\Oh\to3-\Oh\):
+  \(-(\ell+3-\Oh) \to -(\ell''+\Oh)\) and \((\ell-2+\Oh) \to (\ell''+1-\Oh)\) — the first pair of terms maps
+  exactly onto the second pair. The ODE is manifestly N1-covariant.</li>
+  <li><strong>Parity (N2).</strong> Each application of the generator shifts \(\ell+\ell''\) by one and adds one
+  power of \(\eta\); the \(-\beta\Do\) term adds even powers. Hence \(p^k\) appears only with
+  \(k \equiv \ell+\ell'' \pmod 2\), re-deriving N2 order by order.</li>
+  <li><strong>Sum rule (N4).</strong> Summing the boxed ODE over \(\ell'\) at fixed \((\ell,\ell'')\) and using the
+  initial condition reproduces the \(\eta\)-derivative of the sum rule.</li>
+  <li><strong>Weight-lattice generalization.</strong> For the generalized operators
+  \({}^{(j,k)}\Do\) (see <a href="raising.html">N5/N6</a>) the identical derivation gives the same ODE with
+  \((\ell+3-\Oh)\to(\ell+3+j-\Oh)\), \((\ell-2+\Oh)\to(\ell-2-j+\Oh)\),
+  \((\ell''+\Oh)\to(\ell''+k+\Oh)\), \((\ell''+1-\Oh)\to(\ell''+1-k-\Oh)\): the whole lattice is generated by one
+  formula.</li>
+</ul>
+
+<h3>Taylor-generation algorithm</h3>
+<pre><code>c[0][l,l''] = δ(l,l') δ(l',l'')                      # seed at η = 0
+c[k][l,l''] = (1/k) * (
+    -(l+3+q)  C(l+1)  c[k-1][l+1,l'']
+    +(l-2-q)  C(l)    c[k-1][l-1,l'']
+    -(l''-q)  C(l''+1) c[k-1][l,l''+1]
+    +(l''+1+q) C(l'')  c[k-1][l,l''-1]
+    - Σ_{j≥1} tanh_j · c[k-1-j][l,l''] )              # tanh η = Σ_j tanh_j η^j
+then  D(η) = Σ_k c[k] η^k ,   p-series via η = arcsinh(p),  q = -Ô.</code></pre>
+<p>Each order costs one sweep over the (finitely banded) \((\ell,\ell'')\) grid — no boost-operator products,
+no angular or momentum-space integrals. This is how all tables in Section 4 were produced
+(<code>05_export_tables.wl</code>).</p>
+
+<h3>Verification record</h3>
+<ul>
+  <li><strong>Direct FD check</strong> (N3, <code>02_doppler.wl</code>): the boxed right-hand side matches the central
+  finite difference \(\partial_\eta \Do\) of the quadrature-evaluated operator at \(\beta = 0.3\) to
+  \(4\times10^{-12}\) (FD-limited), for \(q\in\{0.5,-0.7\}\), \(m\in\{0,1\}\), \(\ell,\ell',\ell''\le2\).</li>
+  <li><strong>Series vs. quadrature</strong> (T1, T3, <code>03_tables.wl</code>): order-4 series agree with direct
+  integration at \(\beta=0.05\) to truncation accuracy; the truncation error scales as \(\eta^6\) for
+  parity-even elements (ratio 64 under \(\beta\)-halving), as predicted by N2.</li>
+  <li><strong>Against closed forms</strong> (T2): the generated \(\Do_{000}\) series equals the exact operator
+  closed form [CR26, Eq. 10a] symbolically through \(\mathcal O(p^6)\).</li>
+  <li><strong>Against the literature tables</strong>: reproduces the \(m\)-resolved entries of
+  [RC26, Eq. 9a] (e.g. \(\Do_{000}, \Do_{101}, \Do_{020}\)) exactly, and the exact SZ operator
+  [CR26, Eq. 11] through \(\mathcal O(p^6)\) (T4; \(p^2,p^4\) as symbolic identities, \(p^6\) symbolically
+  generated and numerically cross-checked by Richardson extrapolation).</li>
+</ul>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

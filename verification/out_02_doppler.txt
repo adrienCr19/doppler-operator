@@ -1,0 +1,50 @@
+D1  seed K^m_mm 2F1 (stag331 B4, corrected reading): PASS  (max dev = ScientificForm[9.185388919666699*^-29, 3])
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -41                                                                                         -42
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -42
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -41
+
+D2  kernel transposition K^d_{llp}(-b)=K^{2-d}_{lpl}(b): PASS  (max dev = ScientificForm[5.855781736579197*^-28, 3])
+D3  weight raising, column-shift form: PASS  (max dev = ScientificForm[6.233978201937497*^-28, 3])
+N1  reflection symmetry D(Ohat) = D^T(3-Ohat): PASS  (max dev = ScientificForm[7.214630864401233*^-28, 3])
+N2  parity D(-beta) = (-1)^(l+l'') D(beta): PASS  (max dev = ScientificForm[0., 3])
+N3  rapidity ODE for Doppler operator (FD check): PASS  (max dev = ScientificForm[3.982498513349202*^-12, 3])
+N4  sum rule over intermediate lp, Lmax=14: max dev = ScientificForm[1.2700968687451108*^-17, 3] (truncation-limited)
+N5  outgoing-index raising w/ weight companion: PASS  (max dev = ScientificForm[4.563673705225552*^-27, 3])
+N6  incoming-index raising w/ weight companion: PASS  (max dev = ScientificForm[2.05050930298459*^-27, 3])
+N7  (companion is lattice point (j,k)=(1,0); no elementwise reduction â by design)
+N8  ODE-generated Taylor series vs direct integration at beta=0.05 (O(eta^5)~3e-7 expected): max dev = ScientificForm[2.2022228102676707*^-6, 3]
+--- symbolic tables (m=0, q = -Ohat): ---
+D_{0,0,0}(q) = 1 + (pp^2*q*(3 + q))/3 + (2*pp^4*q*(-12 + 5*q + 6*q^2 + q^3))/45
+D_{0,0,1}(q) = (pp*(2 + q))/Sqrt[3] + (pp^3*(2 + q)*(-9 + 26*q + 8*q^2))/(30*Sqrt[3])
+D_{0,0,2}(q) = (pp^2*(2 + q)*(3 + q))/(3*Sqrt[5]) + (pp^4*(2 + q)*(3 + q)*(-12 + 17*q + 5*q^2))/(63*Sqrt[5])
+D_{1,0,0}(q) = -((pp*(1 + q))/Sqrt[3]) - (pp^3*(1 + q)*(-15 + 22*q + 8*q^2))/(30*Sqrt[3])
+D_{1,0,1}(q) = -1/3*(pp^2*(2 + 3*q + q^2)) - (pp^4*(-4 + 3*q + q^2)*(2 + 3*q + q^2))/15
+D_{1,0,2}(q) = -1/3*(pp^3*(3 + q)*(2 + 3*q + q^2))/Sqrt[15]
+D_{2,0,0}(q) = (pp^2*q*(1 + q))/(3*Sqrt[5]) + (pp^4*q*(1 + q)*(-18 + 13*q + 5*q^2))/(63*Sqrt[5])
+D_{2,0,1}(q) = (pp^3*q*(2 + 3*q + q^2))/(3*Sqrt[15])
+D_{2,0,2}(q) = (pp^4*q*(3 + q)*(2 + 3*q + q^2))/45
+D_{0,2,0}(q) = (pp^4*q*(-12 + 5*q + 6*q^2 + q^3))/45
+D_{0,2,1}(q) = (2*pp^3*(3 + q)*(-4 + 3*q + q^2))/(15*Sqrt[3])
+D_{0,2,2}(q) = (pp^2*(3 + q)*(4 + q))/(3*Sqrt[5]) + (pp^4*(3 + q)*(4 + q)*(-48 + 17*q + 7*q^2))/(63*Sqrt[5])
+D_{0,2,3}(q) = (pp^3*(3 + q)*(4 + q)^2)/(5*Sqrt[7])
+D_{1,2,0}(q) = (-2*pp^3*q*(-4 + 3*q + q^2))/(15*Sqrt[3])
+D_{1,2,1}(q) = (-4*pp^2*(-4 + 3*q + q^2))/15 - (2*pp^4*(-4 + 3*q + q^2)*(-19 + 12*q + 4*q^2))/105
+D_{1,2,2}(q) = (-2*pp*(4 + q))/Sqrt[15] - (pp^3*(4 + q)*(-90 + 46*q + 17*q^2))/(21*Sqrt[15])
+D_{1,2,3}(q) = (-2*Sqrt[3/7]*pp^2*(4 + q)^2)/5 - (pp^4*(4 + q)^2*(-753 + 314*q + 103*q^2))/(315*Sqrt[21])
+D_{2,2,0}(q) = (pp^2*(-1 + q)*q)/(3*Sqrt[5]) + (pp^4*(-1 + q)*q*(-36 + 25*q + 7*q^2))/(63*Sqrt[5])
+D_{2,2,1}(q) = (2*pp*(-1 + q))/Sqrt[15] + (pp^3*(-1 + q)*(-75 + 56*q + 17*q^2))/(21*Sqrt[15])
+D_{2,2,2}(q) = 1 + (pp^2*(-54 + 33*q + 11*q^2))/21 + (2*pp^4*(864 - 861*q - 80*q^2 + 138*q^3 + 23*q^4))/441
+D_{2,2,3}(q) = (3*pp*(4 + q))/Sqrt[35] + (pp^3*(4 + q)*(-915 + 494*q + 148*q^2))/(126*Sqrt[35])
+D_{3,2,0}(q) = -1/5*(pp^3*(-1 + q)^2*q)/Sqrt[7]
+D_{3,2,1}(q) = (-2*Sqrt[3/7]*pp^2*(-1 + q)^2)/5 - (pp^4*(-1 + q)^2*(-768 + 304*q + 103*q^2))/(315*Sqrt[21])
+D_{3,2,2}(q) = (-3*pp*(-1 + q))/Sqrt[35] - (pp^3*(-1 + q)*(-1065 + 394*q + 148*q^2))/(126*Sqrt[35])
+D_{3,2,3}(q) = (-9*pp^2*(-4 + 3*q + q^2))/35 - (pp^4*(-4 + 3*q + q^2)*(-72 + 21*q + 7*q^2))/105
+N9  diagonal elements invariant under q -> -3-q (=> functions of Dhat_nu): PASS  (max dev = ScientificForm[-Infinity, 3])
+--- doppler harness done ---

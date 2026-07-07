@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N2 — Parity law for the Doppler operator</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N2 — Parity law \(\;\Do(-\beta) = (-1)^{\ell+\ell''}\Do(\beta)\)</h2>
+
+<div class="newbox">
+<div class="head"><span class="name">Statement</span></div>
+\[
+  \Do^m_{\ell\ell'\ell''}(\nu,-\beta) \;=\; (-1)^{\ell+\ell''}\; \Do^m_{\ell\ell'\ell''}(\nu,\beta) \qquad (s=0).
+\]
+<p><strong>Corollary.</strong> The expansion of \(\Do^m_{\ell\ell'\ell''}\) in \(p=\gamma\beta\) contains only powers
+\(p^k\) with \(k \equiv \ell + \ell'' \pmod 2\). The intermediate index \(\ell'\) plays no role in the parity.</p>
+</div>
+
+<h3>Step 1 — kernel parity</h3>
+<p>Claim ([CR25, Eq. 13b] in this site’s convention; harness check C6):</p>
+\[
+  {}^{d}\Kk^m_{\ell\ell'}(-\beta) = (-1)^{\ell+\ell'}\; {}^{d}\Kk^m_{\ell\ell'}(+\beta).
+\]
+<p><em>Proof.</em> In the defining integral substitute \(\hat y' \to -\hat y'\) (i.e. \(\mu' \to -\mu'\),
+\(\phi' \to \phi'+\pi\)). Then \(1+\beta\mu' \to 1-\beta\mu'\) (the weight of the \(+\beta\) kernel), and the
+aberration map satisfies \(\mu_+[-\mu';\beta] = -\mu_-[\mu';\beta] = -\mu_+[\mu';-\beta]\), so the second harmonic’s
+argument also flips. Under the antipodal map \({}_sY_{\ell m}(-\hat y) = (-1)^{\ell}\,{}_{-s}Y_{\ell m}(\hat y)\);
+for \(s = 0\) each harmonic contributes \((-1)^{\ell}\), giving the phase \((-1)^{\ell+\ell'}\)
+(for general spin one picks up the \(s\to-s\) flip of [CR25, Eq. 13a/14a]). \(\blacksquare\)</p>
+
+<h3>Step 2 — assembly</h3>
+<p>On power laws,
+\(\Do^m_{\ell\ell'\ell''}(q,\beta) = \frac1\gamma\,{}^{-1-q}\Kk^m_{\ell\ell'}(+\beta)\,{}^{-q}\Kk^m_{\ell'\ell''}(-\beta)\).
+Sending \(\beta\to-\beta\) (note \(\gamma\) is even):</p>
+\[
+  \Do^m_{\ell\ell'\ell''}(q,-\beta)
+  = \frac1\gamma\,\underbrace{{}^{-1-q}\Kk^m_{\ell\ell'}(-\beta)}_{(-1)^{\ell+\ell'}\,{}^{-1-q}\Kk^m_{\ell\ell'}(+\beta)}
+    \;\underbrace{{}^{-q}\Kk^m_{\ell'\ell''}(+\beta)}_{(-1)^{\ell'+\ell''}\,{}^{-q}\Kk^m_{\ell'\ell''}(-\beta)}
+  = (-1)^{\ell+2\ell'+\ell''}\,\Do^m_{\ell\ell'\ell''}(q,\beta),
+\]
+<p>and \((-1)^{2\ell'} = 1\): the intermediate index cancels. Lemma L1(ii) lifts the statement to operators.
+\(\blacksquare\)</p>
+
+<h3>Physical reading and verification</h3>
+<p>
+Reversing the electron’s velocity is a spatial reflection of the scattering geometry; the round trip picks up
+the product of the parities of the incoming (\(\ell''\)) and outgoing (\(\ell\)) multipoles only — the rest-frame
+projection multipole \(\ell'\) is traversed twice and its parity cancels. Practically: elements with
+\(\ell+\ell''\) even are even series in \(p\) (e.g. \(\Do_{000}, \Do_{101}, \Do_{222}\)), those with
+\(\ell+\ell''\) odd start at \(\mathcal O(p)\) (e.g. \(\Do_{122}, \Do_{001}\)) — exactly as seen in the tables of
+Section 4 and in [RC26, Eqs. 9a,b].
+</p>
+<p>Numerics: check N2 of <code>02_doppler.wl</code> — deviation exactly \(0.0\) (the quadrature evaluates
+identical integrands after the substitution). An indirect dynamical check: the truncation error of the order-4
+ODE series for \(\Do_{101}\) scales as \(\eta^6\), not \(\eta^5\) (check T1 ratio \(64\), not \(32\)), because the
+\(\eta^5\) term is forbidden by this parity law.</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

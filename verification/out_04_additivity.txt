@@ -1,0 +1,14 @@
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -42
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -41
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -41
+
+
+                                                                                                                                                                                                                 -41                                       -42
+A1 rapidity additivity (CR25 19), Lmax=16: max dev = ScientificForm[6.73095340879044*^-24, 3]

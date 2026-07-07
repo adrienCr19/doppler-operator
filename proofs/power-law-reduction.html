@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lemma L1 — power-law reduction</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>Lemma L1 — power-law reduction</h2>
+
+<div class="newbox">
+<div class="head"><span class="name">Statement</span></div>
+<p><strong>(i)</strong> On power-law spectra,
+\[
+  {}^{d}\Bo^m_{\ell\ell'}(\nu,\beta)\,\nu^{q} \;=\; {}^{d-q}\Kk^m_{\ell\ell'}(-\beta)\;\nu^{q},
+\qquad
+  \Do^m_{\ell\ell'\ell''}(\nu,\beta)\,\nu^{q} \;=\; \frac{1}{\gamma}\;
+  {}^{-1-q}\Kk^m_{\ell\ell'}(+\beta)\;\, {}^{-q}\Kk^m_{\ell'\ell''}(-\beta)\;\nu^{q}.
+\]
+<strong>(ii)</strong> An identity between finite combinations of boost/Doppler operators (with coefficients that are
+polynomials in \(\Oh\)) holds as an operator identity <em>iff</em> the corresponding scalar-weight kernel identity
+holds for all real \(q\); and it suffices to check it for infinitely many values of \(q\) at each order in \(\beta\).</p>
+</div>
+
+<h3>Proof of (i)</h3>
+<p>
+The energy-shift generator \(\Oh = -\nu\partial_\nu\) acts on power laws as
+\(\Oh\,\nu^q = -q\,\nu^q\); hence for any (formal) function \(f\),
+\(f(\Oh)\,\nu^q = f(-q)\,\nu^q\), because \(f(\Oh)\) is defined through its action
+\(e^{a\Oh} n(\nu) = n(e^{-a}\nu)\), which on \(\nu^q\) gives \(e^{-aq}\nu^q\).
+The boost operator is the kernel at operator weight (identity B1, [CR25, Eqs. 3, 12]):
+\({}^{d}\Bo^m_{\ell\ell'}(\nu,\beta) = {}^{d+\Oh}\Kk^m_{\ell\ell'}(-\beta)\), where the kernel depends on its weight
+analytically (the weight enters only through \([\gamma(1+\beta\mu')]^{-w}\) inside a convergent integral).
+Substituting \(\Oh \to -q\) proves the first relation.
+</p>
+<p>
+For the Doppler operator, apply the two factors in order. First,
+\({}^{0}\Bo^m_{\ell'\ell''}(\nu,\beta)\,\nu^q = {}^{-q}\Kk^m_{\ell'\ell''}(-\beta)\,\nu^q\); the result is a
+<em>number</em> times \(\nu^q\). Then
+\({}^{-1}\Bo^m_{\ell\ell'}(\nu,-\beta) = {}^{-1+\Oh}\Kk^m_{\ell\ell'}(+\beta)\)
+(the sign flip \(\beta\to-\beta\) in B1 flips the kernel argument), acting on \(\nu^q\) gives
+\({}^{-1-q}\Kk^m_{\ell\ell'}(+\beta)\,\nu^q\). Multiplying and inserting the \(1/\gamma\) of the definition
+completes (i). \(\blacksquare\)
+</p>
+
+<h3>Proof of (ii)</h3>
+<p>
+At any fixed order \(N\) in \(\beta\), each boost operator is a <em>polynomial</em> in \(\Oh\) of degree \(\le N\)
+[CR25, §2.2]: in the series representation (B2) only \(k \le N\) frequency derivatives survive at order
+\(\beta^N\). A finite combination of such operators (with polynomial-in-\(\Oh\) coefficients — note all such
+objects commute, being functions of the single operator \(\Oh\)) is again a polynomial in \(\Oh\) at each order in
+\(\beta\). Two polynomials that agree at infinitely many points \(-q\) are identical; hence coefficient-wise
+equality as polynomials in \(\Oh\), order by order in \(\beta\), i.e. an operator identity. The converse is
+immediate by evaluation on \(\nu^q\). \(\blacksquare\)
+</p>
+
+<div class="note">
+<strong>Why this matters.</strong> Every derivation on this site can be carried out with ordinary functions of the
+real variable \(q\) in place of operator-valued Doppler weights, and every numerical verification (quadrature at a
+handful of non-integer \(q\)) certifies the corresponding operator identity order by order in \(\beta\). Non-integer
+\(q\) values are used in the harness precisely so that no accidental integer-weight degeneracies
+(e.g. poles of \((1-d)^{-1}\) in seed formulas) are hit.
+</div>
+
+<h3>Verification</h3>
+<p>Implicit in every check of <code>verification/01_conventions.wl</code> and <code>02_doppler.wl</code>;
+in particular check C11 (closed form of \(\Do_{000}\) from [CR26, Eq. 10a], PASS at \(2\times10^{-29}\))
+evaluates both sides on \(\nu^q\) for \(q \in \{-0.7, 0.5, 1.3, 2\}\).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>
