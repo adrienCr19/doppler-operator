@@ -196,7 +196,7 @@ The boost operator extends the aberration kernel to <em>frequency-dependent</em>
     {}^{d}_{s}\Bo^m_{\ell\ell''}(\nu,\eta_1+\eta_2).
   \]
   <p>Rapidity is additive; two successive collinear boosts compose exactly. Our harness confirms additivity for
-  the kernel family at the \(10^{-24}\) level (<code>04_additivity.wl</code>).</p>
+  the kernel family at the \(10^{-24}\) level (<a href="verification/04_additivity.html"><code>04_additivity.wl</code></a>).</p>
 </div>
 
 <h3>1.3 Recurrence relations (the generators)</h3>
@@ -503,7 +503,7 @@ the observed \(\Dv\)-structure. Both are supplied below.
   <p>with \(\sigma = \ell + 2\ell' + \ell''\), operator orders \(a_j = \text{integer} - 2\Oh\), rational
   \(c_j(\Oh)\) with \(\sum_j c_j = 0\) (the \(\sigma\)-counting and channel tables are due to the companion rSZ
   working paper, whose \(\Do_{101}\) and \(\langle\Do_{02}\rangle\) data we verified symbolically against N8;
-  harness 08). The class is characterized by the <strong>ladder identity</strong>
+  <a href="verification/08_paper_tables.html">harness 08</a>). The class is characterized by the <strong>ladder identity</strong>
   \((\partial_z^2 - 1)F(\mu,a,z) = F(\mu+1,a,z)\) (from \(\cosh^2 = 1 + \sinh^2\)):</p>
   \[
     \Big(\frac{\dd^2}{\dd z^2} - 1\Big)^{\!\sigma/2}\;
@@ -517,7 +517,7 @@ the observed \(\Dv\)-structure. Both are supplied below.
   theorem of the companion paper), but admit a convergent Bessel–Struve series and geometric-convergence
   quadrature. Verified directly on the physical channels: \((\partial_z^2-1)\) applied once to the
   \(\sigma = 2\) channel \(\Do_{101}\) and twice to the \(\sigma = 4\) channel \(\langle\Do_{02}\rangle\) lands
-  exactly on \(\sum_j c_j K_{a_j}(z)\) (harness 09, \(3\times10^{-26}\) at \(kT_{\rm e} \simeq 25.6\) keV).</p>
+  exactly on \(\sum_j c_j K_{a_j}(z)\) (<a href="verification/09_thermal_class.html">harness 09</a>, \(3\times10^{-26}\) at \(kT_{\rm e} \simeq 25.6\) keV).</p>
 </div>
 
 <div class="newbox">
@@ -599,7 +599,7 @@ polynomials in \(\Dv = \Oh^2 - 3\Oh\)).
 \(m\)-summed operators of [<a href="#ref-RC26">RC26</a>, Eq.&nbsp;9a] (only \(m=0\) contributes), and we verified
 agreement term by term (e.g. \(\Do_{000}\), \(\Do_{101}\), \(\Do_{020}\)). For \(\ell'=2\) the paper tabulates
 \(\sum_m \Do^m\); our \(m\)-summed series agree with direct numerical integration to truncation accuracy
-(<code>03_tables.wl</code>, check T3).</p>
+(<a href="verification/03_tables.html"><code>03_tables.wl</code></a>, check T3).</p>
 
 <h3>4.3 Application: the exact thermal SZ operator</h3>
 <div class="eqbox">
@@ -634,38 +634,40 @@ and indices \(\ell,\ell',\ell'' \le 4\). Symbolic checks (T2, T4, N9) are exact 
 </p>
 <div class="tablewrap"><table class="tbl">
 <tr><th>Script</th><th>Verifies</th><th>Result</th></tr>
-<tr><td><code>verification/01_conventions.wl</code></td>
+<tr><td><a href="verification/01_conventions.html"><code>verification/01_conventions.wl</code></a></td>
 <td>Kernel conventions; seeds (B11); ℓ-raising (B10); weight raising (B6); parity (B3); kernel ODE (B9) sign conventions; inversion (B4); \(\Do_{000}\) closed form [CR26 10a]</td>
 <td>all PASS (≤10⁻²⁸; ODE vs FD 3×10⁻¹²)</td></tr>
-<tr><td><code>verification/02_doppler.wl</code></td>
+<tr><td><a href="verification/02_doppler.html"><code>verification/02_doppler.wl</code></a></td>
 <td>Transposition (B3, verified form); column weight relation (B7); <strong>N1</strong> reflection; <strong>N2</strong> parity; <strong>N3</strong> rapidity ODE; <strong>N4</strong> sum rule; <strong>N5/N6</strong> raisings; <strong>N1a</strong> \(q\to-3-q\) invariance of diagonals (symbolic)</td>
 <td>all PASS (≤7×10⁻²⁷; ODE vs FD 4×10⁻¹²)</td></tr>
-<tr><td><code>verification/03_tables.wl</code></td>
+<tr><td><a href="verification/03_tables.html"><code>verification/03_tables.wl</code></a></td>
 <td>ODE-generated series vs direct integration (scaling ∝η⁶ by parity); \(\Do_{000}\) symbolic = closed form to \(p^6\); m-summed \(\Do_{222}\); SZ operator vs [CR26 Eq. 11] (\(p^2,p^4\) symbolic, \(p^6\) numeric + symbolic)</td>
 <td>all PASS</td></tr>
-<tr><td><code>verification/04_additivity.wl</code></td><td>Rapidity additivity (B5)</td><td>PASS (7×10⁻²⁴)</td></tr>
-<tr><td><code>verification/06_closed_forms.wl</code></td>
+<tr><td><a href="verification/04_additivity.html"><code>verification/04_additivity.wl</code></a></td><td>Rapidity additivity (B5)</td><td>PASS (7×10⁻²⁴)</td></tr>
+<tr><td><a href="verification/06_closed_forms.html"><code>verification/06_closed_forms.wl</code></a></td>
 <td><strong>N8</strong> closed forms, two routes: kernel columns \(K_{10}, K_{20}\) (Route 1: B10+B3); lattice bases, N6 and N5 steps (Route 2: Doppler-operator level, F9–F11) agreeing with Route 1; \(\Do_{101}\), \(\Do_{020}\) at \(\beta \in \{0.3, 0.7\}\); \(J\!\cdot\!J \to E\) collapse rule; reflection invariance; series limit vs. ODE table</td>
 <td>all PASS (≤8×10⁻²⁵; F6/F7 exact)</td></tr>
-<tr><td><code>verification/07_thermal_average.wl</code></td>
+<tr><td><a href="verification/07_thermal_average.html"><code>verification/07_thermal_average.wl</code></a></td>
 <td>Thermal averages of the N8 closed forms over the relativistic Maxwellian: moments vs [CR26, Eq.&nbsp;13]; \(\hat{\mathcal S}_{\rm th}\) coefficients vs [CR26, Eq.&nbsp;11]; averaged distortion reproduces \(Y_0, Y_1\) of Itoh et al. (1998) <em>exactly</em> (symbolic zero); exact finite-\(\theta_{\rm e}\) averages at 10&nbsp;keV with \(\mathcal O(p^8)\) residual scaling; \(\langle\Do_{101}\rangle\)</td>
 <td>all PASS (T5/T6 exact zeros)</td></tr>
-<tr><td><code>verification/08_paper_tables.wl</code></td>
+<tr><td><a href="verification/08_paper_tables.html"><code>verification/08_paper_tables.wl</code></a></td>
 <td>Cross-validation against an independent rSZ working paper: its all-orders Bessel form
 \(\langle\Do_{00}\rangle = \frac{K_{3-2\Oh}(1/\theta_{\rm e}) - K_1(1/\theta_{\rm e})}{2\theta_{\rm e}(2-\Oh)(1-\Oh)K_2(1/\theta_{\rm e})}\)
 equals the Maxwell–Jüttner average of the N8 closed form; its \(\Do_{101}\) (σ=2, 5-term) and
 \(\langle\Do_{02}\rangle\) (σ=4, 8-term) rapidity coefficient tables \(\{a_j, c_j(\Oh)\}\) reconstruct the N8
 closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via both routes at 25 keV</td>
 <td>all PASS (P4a/P4b symbolic zeros; ≤1.7×10⁻²⁴)</td></tr>
-<tr><td><code>verification/09_thermal_class.wl</code></td>
+<tr><td><a href="verification/09_thermal_class.html"><code>verification/09_thermal_class.wl</code></a></td>
 <td><strong>N9</strong>: ladder characterization of thermal averages — \((\partial_z^2-1)\) maps the σ=2 channel \(\Do_{101}\) and (twice) the σ=4 channel \(\langle\Do_{02}\rangle\) onto their finite Bessel combinations \(\sum_j c_j K_{a_j}(z)\)</td>
 <td>all PASS (≤3.4×10⁻²⁶)</td></tr>
-<tr><td><code>verification/10_middle_index.wl</code></td>
+<tr><td><a href="verification/10_middle_index.html"><code>verification/10_middle_index.wl</code></a></td>
 <td><strong>N10</strong>: column recursion of the \(+\beta\) kernel; the middle-index relation (M) for \(\ell' \le 3\), \(m \in \{0,1\}\), incl. shifted lattice points; exact reproduction of the \(\Do_{020}\) closed form by middle-index climbing</td>
 <td>all PASS (≤4.2×10⁻²⁷; M3 exact)</td></tr>
-<tr><td><code>verification/05_export_tables.wl</code></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
+<tr><td><a href="verification/05_export_tables.html"><code>verification/05_export_tables.wl</code></a></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
-<p>Reproduce with:</p>
+<p>Every script is browsable with its full source and recorded PASS log at the
+<a href="verification/index.html"><strong>verification scripts index</strong></a>; the raw <code>.wl</code>
+files can be downloaded from each page. Reproduce with:</p>
 <pre><code>cd verification
 wolframscript -file 01_conventions.wl   # etc.</code></pre>
 

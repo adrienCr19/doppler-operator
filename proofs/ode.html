@@ -102,14 +102,14 @@ c[k][l,l''] = (1/k) * (
 then  D(η) = Σ_k c[k] η^k ,   p-series via η = arcsinh(p),  q = -Ô.</code></pre>
 <p>Each order costs one sweep over the (finitely banded) \((\ell,\ell'')\) grid — no boost-operator products,
 no angular or momentum-space integrals. This is how all tables in Section 4 were produced
-(<code>05_export_tables.wl</code>).</p>
+(<a href="../verification/05_export_tables.html"><code>05_export_tables.wl</code></a>).</p>
 
 <h3>Verification record</h3>
 <ul>
-  <li><strong>Direct FD check</strong> (N3, <code>02_doppler.wl</code>): the boxed right-hand side matches the central
+  <li><strong>Direct FD check</strong> (N3, <a href="../verification/02_doppler.html"><code>02_doppler.wl</code></a>): the boxed right-hand side matches the central
   finite difference \(\partial_\eta \Do\) of the quadrature-evaluated operator at \(\beta = 0.3\) to
   \(4\times10^{-12}\) (FD-limited), for \(q\in\{0.5,-0.7\}\), \(m\in\{0,1\}\), \(\ell,\ell',\ell''\le2\).</li>
-  <li><strong>Series vs. quadrature</strong> (T1, T3, <code>03_tables.wl</code>): order-4 series agree with direct
+  <li><strong>Series vs. quadrature</strong> (T1, T3, <a href="../verification/03_tables.html"><code>03_tables.wl</code></a>): order-4 series agree with direct
   integration at \(\beta=0.05\) to truncation accuracy; the truncation error scales as \(\eta^6\) for
   parity-even elements (ratio 64 under \(\beta\)-halving), as predicted by N2.</li>
   <li><strong>Against closed forms</strong> (T2): the generated \(\Do_{000}\) series equals the exact operator

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04_additivity.wl — Rapidity additivity of the aberration kernel</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>04_additivity.wl</code></h2>
+<p>Rapidity additivity of the aberration kernel. Run with <code>wolframscript -file 04_additivity.wl</code> (Wolfram 14+/15).
+Download: <a href="04_additivity.wl" download>04_additivity.wl</a> &middot; recorded output below (also <a href="out_04_additivity.txt">out_04_additivity.txt</a>)</p>
+<h3>Source</h3>
+<pre><code>prec = 30;
+nint[f_] := NIntegrate[f, {mu, -1, 1}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 15, MaxRecursion -&gt; 20];
+Ybar[l_, m_, x_] := Sqrt[(2 l + 1)/(4 Pi) Factorial[l - m]/Factorial[l + m]] LegendreP[l, m, x];
+ga[b_] := 1/Sqrt[1 - b^2];
+KmRaw[d_?NumericQ, l_, lp_, m_, b_] := Module[{g = ga[b]}, 2 Pi nint[Ybar[l, m, mu] Ybar[lp, m, (mu + b)/(1 + b mu)]/(g (1 + b mu))^d]];
+Km[d_?NumericQ, l_, lp_, m_, b_] /; l &lt; Abs[m] || lp &lt; Abs[m] := 0;
+Km[d_?NumericQ, l_, lp_, m_, b_] := Km[d, l, lp, m, b] = KmRaw[d, l, lp, m, b];
+e1 = 2/10; e2 = 3/10; Lmax = 16;
+(* rapidity additivity (CR25 Eq. 19) for the kernel at -beta family: K(e1)K(e2) = K(e1+e2) *)
+dev = Max@Table[Abs[Sum[Km[d, l, lp, m, Tanh[e1]] Km[d, lp, ldd, m, Tanh[e2]], {lp, Abs[m], Lmax}] - Km[d, l, ldd, m, Tanh[e1 + e2]]],
+   {d, {0, 1}}, {m, 0, 1}, {l, m, 2}, {ldd, m, 2}];
+Print[&quot;A1 rapidity additivity (CR25 19), Lmax=&quot;, Lmax, &quot;: max dev = &quot;, ScientificForm[N[dev], 3]];
+</code></pre>
+<h3>Recorded output</h3>
+<pre><code>-42                                                                                         -42
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -41
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -41
+
+
+                                                                                                                                                                                                                 -41                                       -42
+A1 rapidity additivity (CR25 19), Lmax=16: max dev = ScientificForm[6.73095340879044*^-24, 3]</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
+</main>
+</body>
+</html>

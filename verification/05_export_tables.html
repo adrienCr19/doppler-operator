@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05_export_tables.wl — Export of Section-4 symbolic tables (Ô_ν form)</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>05_export_tables.wl</code></h2>
+<p>Export of Section-4 symbolic tables (Ô_ν form). Run with <code>wolframscript -file 05_export_tables.wl</code> (Wolfram 14+/15).
+Download: <a href="05_export_tables.wl" download>05_export_tables.wl</a> &middot; recorded output below (also <a href="out_05_export_tables.txt">out_05_export_tables.txt</a>)</p>
+<h3>Source</h3>
+<pre><code>Cm[l_, m_] := If[l &lt;= Abs[m], 0, Sqrt[(l^2 - m^2)/(4 l^2 - 1)]];
+buildC[lp_, m_] := Module[{c},
+  c[k_][l_, ldd_] /; l &lt; Abs[m] || ldd &lt; Abs[m] := 0;
+  c[0][l_, ldd_] := If[l == lp &amp;&amp; ldd == lp, 1, 0];
+  c[k_][l_, ldd_] := c[k][l, ldd] = Expand[(1/k) (
+      -(l + 3 + q) Cm[l + 1, m] c[k - 1][l + 1, ldd] + (l - 2 - q) Cm[l, m] c[k - 1][l - 1, ldd]
+      - (ldd - q) Cm[ldd + 1, m] c[k - 1][l, ldd + 1] + (ldd + 1 + q) Cm[ldd, m] c[k - 1][l, ldd - 1]
+      - Sum[SeriesCoefficient[Tanh[x], {x, 0, j}] c[k - 1 - j][l, ldd], {j, 1, k - 1}])];
+  c];
+toP[c_, l_, ldd_, ordE_] := Collect[Normal@Series[Sum[c[k][l, ldd] et^k, {k, 0, ordE}] /. et -&gt; ArcSinh[pp], {pp, 0, ordE}] /. q -&gt; -OO, pp, Simplify];
+c04 = buildC[0, 0]; c24 = buildC[2, 0];
+fmt[e_] := StringReplace[ToString[TeXForm[e /. OO -&gt; Global`\[ScriptCapitalO]]], &quot;\\text{$\\scriptcapitalo$}&quot; -&gt; &quot;\\hat{O}&quot;];
+fmt2[e_] := StringReplace[ToString[TeXForm[e]], {&quot;\\text{OO}&quot; -&gt; &quot;\\hat{O}_\\nu&quot;, &quot;OO&quot; -&gt; &quot;\\hat{O}_\\nu&quot;, &quot;\\text{pp}&quot; -&gt; &quot;p&quot;, &quot;pp&quot; -&gt; &quot;p&quot;}];
+tab = Join[
+   Flatten[#, 1] &amp;@Table[{l, 0, ldd, fmt2[toP[c04, l, ldd, 4]]}, {l, 0, 2}, {ldd, 0, 2}],
+   Flatten[#, 1] &amp;@Table[{l, 2, ldd, fmt2[toP[c24, l, ldd, 4]]}, {l, 0, 4}, {ldd, 0, 4}]];
+Export[&quot;doppler_tables_O.json&quot;, Map[&lt;|&quot;l&quot; -&gt; #[[1]], &quot;lp&quot; -&gt; #[[2]], &quot;ldd&quot; -&gt; #[[3]], &quot;tex&quot; -&gt; #[[4]]|&gt; &amp;, tab], &quot;JSON&quot;];
+(* S_th assembly to p^6 *)
+c06 = buildC[0, 0]; c26 = buildC[2, 0];
+toP6[c_, l_, ldd_] := Collect[Normal@Series[Sum[c[k][l, ldd] et^k, {k, 0, 6}] /. et -&gt; ArcSinh[pp], {pp, 0, 6}] /. q -&gt; -OO, pp, Simplify];
+S = Collect[Expand[toP6[c06, 0, 0] + toP6[c26, 0, 0]/10 - 1], pp, Simplify];
+Print[&quot;Sth p2: &quot;, fmt2[Coefficient[S, pp, 2]]];
+Print[&quot;Sth p4: &quot;, fmt2[Coefficient[S, pp, 4]]];
+Print[&quot;Sth p6: &quot;, fmt2[Coefficient[S, pp, 6]]];
+Print[&quot;done&quot;];
+</code></pre>
+<h3>Recorded output</h3>
+<pre><code>Sth p2: \frac{1}{3} (\hat{O}_\nu-3) \hat{O}_\nu
+Sth p4: \frac{7}{150} \hat{O}_\nu \left(\hat{O}_\nu^3-6 \hat{O}_\nu^2+5 \hat{O}_\nu+12\right)
+Sth p6: \frac{11 \hat{O}_\nu \left(\hat{O}_\nu^5-9 \hat{O}_\nu^4+13 \hat{O}_\nu^3+57 \hat{O}_\nu^2-86 \hat{O}_\nu-120\right)}{3150}
+done</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
+</main>
+</body>
+</html>

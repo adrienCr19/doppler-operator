@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09_thermal_class.wl — N9 — iterated-Bessel-antiderivative ladder on physical channels</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>09_thermal_class.wl</code></h2>
+<p>N9 — iterated-Bessel-antiderivative ladder on physical channels. Run with <code>wolframscript -file 09_thermal_class.wl</code> (Wolfram 14+/15).
+Download: <a href="09_thermal_class.wl" download>09_thermal_class.wl</a> &middot; recorded output below (also <a href="out_09_thermal_class.txt">out_09_thermal_class.txt</a>)</p>
+<h3>Source</h3>
+<pre><code>(* ::Package:: *)
+(* 09_thermal_class.wl — Characterize the function class of thermally averaged Doppler operators.
+   Claims:
+   (L1) ladder: (d^2/dz^2 - 1) F(mu, a, z) = F(mu+1, a, z),  F(mu,a,z) = Int e^{-z cosh} cosh(a eta) sinh^{2mu}
+        [immediate by cosh^2 = 1 + sinh^2; generalizes the sigma=2 telescoper of the companion work]
+   (L2) sigma=2 channel (D101): G(z) := Sum_j c_j F(-1, a_j, z) satisfies
+        (d^2/dz^2 - 1) G(z) = Sum_j c_j K_{a_j}(z)
+   (L3) sigma=4 channel (D02):  (d^2/dz^2 - 1)^2 G(z) = Sum_j c_j K_{a_j}(z)
+   So  K_2(z)/z * &lt;D_{l l&#x27; l&#x27;&#x27;}&gt; is annihilated onto a finite Bessel combination by (d^2/dz^2-1)^{sigma/2},
+   sigma = l + 2l&#x27; + l&#x27;&#x27;.  Verified by high-precision finite differences in z. *)
+
+prec = 40;
+Ffun[mu_, a_, z_?NumericQ] := NIntegrate[Exp[-z Cosh[e]] Cosh[a e] Sinh[e]^(2 mu), {e, 0, Infinity},
+   WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 25, MaxRecursion -&gt; 20];
+report[name_, dev_, tol_] := Print[name, &quot;: &quot;, If[TrueQ[N[dev] &lt; tol] || PossibleZeroQ[dev], &quot;PASS&quot;, &quot;FAIL&quot;], &quot;  (max dev = &quot;, ScientificForm[N[dev], 3], &quot;)&quot;];
+
+(* channel data (Ohat -&gt; -q), from 08_paper_tables.wl (verified against N8 closed forms) *)
+tab101[q_] := With[{O = -q}, {
+    {1, 3 (O^2 - 3 O + 6)/(8 O (O - 1) (O - 2) (O - 3))},
+    {3, -3/(8 O (O - 3))},
+    {1 - 2 O, -3/(8 O (O - 1))},
+    {3 - 2 O, 3 (O^2 - 3 O + 1)/(4 O (O - 1) (O - 2) (O - 3))},
+    {5 - 2 O, -3/(8 (O - 2) (O - 3))}}];
+tab02[q_] := With[{O = -q, D1 = (-q - 1) (-q - 2)}, {
+    {1, -5 (O^4 - 6 O^3 + 17 O^2 - 24 O + 72)/(16 O (O - 1)^2 (O - 2)^2 (O - 3))},
+    {3, 15 (O^2 - 3 O + 6)/(32 D1^2)},
+    {5, -5/(32 D1)},
+    {1 - 2 O, -5 (2 O^3 - 12 O^2 + 13 O + 12)/(16 O D1^2)},
+    {3 - 2 O, 15 (O^2 - 3 O - 3)/(16 D1^2)},
+    {5 - 2 O, -5 (O + 1) (2 O^2 - 8 O + 3)/(16 (O - 3) D1^2)},
+    {7 - 2 O, 5 O (O + 1)/(32 (O - 1) (O - 2)^2 (O - 3))},
+    {1 + 2 O, 5 (O - 3) (O - 4)/(32 O (O - 1)^2 (O - 2))}}];
+
+(* combined (regularized) channel integrals *)
+Gchan[tab_, sig_, z_?NumericQ] := NIntegrate[
+   Exp[-z Cosh[e]] (Total[tab /. {a_?NumericQ, c_} :&gt; c Cosh[a e]])/Sinh[e]^sig,
+   {e, 0, Infinity}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 25, MaxRecursion -&gt; 20];
+
+(* high-order central second derivative, 7-point, h chosen for 40-digit arithmetic *)
+d2[f_, z_, h_] := (2 f[z - 3 h] - 27 f[z - 2 h] + 270 f[z - h] - 490 f[z] + 270 f[z + h] - 27 f[z + 2 h] + 2 f[z + 3 h])/(180 h^2);
+
+z0 = 20; h = 1/100;  (* z = 1/theta = 20  &lt;-&gt;  kT ~ 25.6 keV *)
+qv = 1/2;
+
+(* ---- L1: base of the ladder. NOTE: individual F(mu&lt;0, a, z) diverge at eta -&gt; 0 (csch pole);
+   only the Sum_j c_j = 0 regularized channel combinations exist, tested in L2/L3. ---- *)
+dev = Max@Table[Abs[Ffun[0, a, z0] - BesselK[a, z0]], {a, {1, 3 + 2 qv}}];
+report[&quot;L1  F(0,a,z) == BesselK (sigma = 0 rung)&quot;, dev, 10^-25];
+
+(* ---- L2: sigma=2 channel annihilated to Bessel in one step ---- *)
+bess[tab_, z_] := Total[tab /. {a_?NumericQ, c_} :&gt; c BesselK[a, z]];
+G101[z_?NumericQ] := Gchan[tab101[qv], 2, z];
+dev = Abs[d2[G101, z0, h] - G101[z0] - bess[tab101[qv], z0]];
+report[&quot;L2  (d2-1) G_101(z) = Sum_j c_j K_{a_j}(z)&quot;, dev, 10^-15];
+
+(* ---- L3: sigma=4 channel annihilated in two steps ---- *)
+G02[z_?NumericQ] := Gchan[tab02[qv], 4, z];
+step1[z_?NumericQ] := d2[G02, z, h] - G02[z];              (* = Sum c_j F(-1, a_j, z) *)
+dev1 = Abs[step1[z0] - Total[tab02[qv] /. {a_?NumericQ, c_} :&gt; c Ffun[-1, a, z0]]];
+report[&quot;L3a (d2-1) G_02 = Sum_j c_j F(-1,a_j,z)&quot;, dev1, 10^-13];
+dev2 = Abs[d2[step1, z0, 1/50] - step1[z0] - bess[tab02[qv], z0]];
+report[&quot;L3b (d2-1)^2 G_02(z) = Sum_j c_j K_{a_j}(z)&quot;, dev2, 10^-9];
+
+Print[&quot;--- thermal-class harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3>
+<pre><code>L1  F(0,a,z) == BesselK (sigma = 0 rung): PASS  (max dev = ScientificForm[0., 3])
+L2  (d2-1) G_101(z) = Sum_j c_j K_{a_j}(z): PASS  (max dev = ScientificForm[3.382653109148958*^-26, 3])
+L3a (d2-1) G_02 = Sum_j c_j F(-1,a_j,z): PASS  (max dev = ScientificForm[0., 3])
+L3b (d2-1)^2 G_02(z) = Sum_j c_j K_{a_j}(z): PASS  (max dev = ScientificForm[2.792020366912942*^-26, 3])
+--- thermal-class harness done ---</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
+</main>
+</body>
+</html>

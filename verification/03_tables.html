@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03_tables.wl — Table generation — ODE series vs closed forms and quadrature</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>03_tables.wl</code></h2>
+<p>Table generation — ODE series vs closed forms and quadrature. Run with <code>wolframscript -file 03_tables.wl</code> (Wolfram 14+/15).
+Download: <a href="03_tables.wl" download>03_tables.wl</a> &middot; recorded output below (also <a href="out_03_tables.txt">out_03_tables.txt</a>)</p>
+<h3>Source</h3>
+<pre><code>(* ::Package:: *)
+(* 03_tables.wl — Generate Doppler-operator Taylor tables from the NEW rapidity ODE and
+   validate: (a) truncation scaling, (b) closed-form D000 (stag240 10a), (c) m-summed elements
+   vs direct integration, (d) assembly of the exact thermal SZ operator (stag240 Eq. 11). *)
+
+prec = 30;
+nint[f_] := NIntegrate[f, {mu, -1, 1}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 15, MaxRecursion -&gt; 20];
+Ybar[l_, m_, x_] := Sqrt[(2 l + 1)/(4 Pi) Factorial[l - m]/Factorial[l + m]] LegendreP[l, m, x];
+ga[b_] := 1/Sqrt[1 - b^2];
+KmRaw[d_?NumericQ, l_, lp_, m_, b_] := Module[{g = ga[b]},
+   2 Pi nint[ Ybar[l, m, mu] Ybar[lp, m, (mu + b)/(1 + b mu)] / (g (1 + b mu))^d ]];
+Km[d_?NumericQ, l_, lp_, m_, b_] /; l &lt; Abs[m] || lp &lt; Abs[m] := 0;
+Km[d_?NumericQ, l_, lp_, m_, b_] := Km[d, l, lp, m, b] = KmRaw[d, l, lp, m, b];
+Kp[d_?NumericQ, l_, lp_, m_, b_] := Km[d, l, lp, m, -b];
+Cm[l_, m_] := If[l &lt;= Abs[m], 0, Sqrt[(l^2 - m^2)/(4 l^2 - 1)]];
+DD[q_, l_, lp_, ldd_, m_, b_] := (1/ga[b]) Kp[-1 - q, l, lp, m, b] Km[-q, lp, ldd, m, b];
+report[name_, dev_, tol_: 10^-10] := Print[name, &quot;: &quot;, If[dev &lt; tol, &quot;PASS&quot;, &quot;FAIL&quot;], &quot;  (max dev = &quot;, ScientificForm[N[dev], 3], &quot;)&quot;];
+
+(* --- ODE series generator, general m (s=0) --- *)
+buildC[lp_, m_, ordE_] := Module[{c},
+  c[k_][l_, ldd_] /; l &lt; Abs[m] || ldd &lt; Abs[m] := 0;
+  c[0][l_, ldd_] := If[l == lp &amp;&amp; ldd == lp, 1, 0];
+  c[k_][l_, ldd_] := c[k][l, ldd] = Expand[(1/k) (
+      -(l + 3 + q) Cm[l + 1, m] c[k - 1][l + 1, ldd] + (l - 2 - q) Cm[l, m] c[k - 1][l - 1, ldd]
+      - (ldd - q) Cm[ldd + 1, m] c[k - 1][l, ldd + 1] + (ldd + 1 + q) Cm[ldd, m] c[k - 1][l, ldd - 1]
+      - Sum[SeriesCoefficient[Tanh[x], {x, 0, j}] c[k - 1 - j][l, ldd], {j, 1, k - 1}])];
+  c];
+toP[c_, l_, ldd_, ordE_] := Collect[Normal@Series[Sum[c[k][l, ldd] et^k, {k, 0, ordE}] /. et -&gt; ArcSinh[pp], {pp, 0, ordE}], pp, Simplify];
+
+(* ---- T1: truncation scaling of the ODE series (order 4): err ~ eta^5 ---- *)
+c00 = buildC[0, 0, 4];
+err[b_] := Abs[DD[1/2, 1, 0, 1, 0, b] - (Sum[c00[k][1, 1] et^k, {k, 0, 4}] /. {et -&gt; ArcTanh[b], q -&gt; 1/2})];
+r = err[1/20]/err[1/40];
+Print[&quot;T1  truncation scaling err(0.05)/err(0.025) = &quot;, N[r, 4], &quot;  (expect ~32 for O(eta^5)): &quot;, If[Abs[r - 32] &lt; 8, &quot;PASS&quot;, &quot;FAIL&quot;]];
+
+(* ---- T2: ODE series vs closed form stag240 (10a) for D000, symbolic to O(p^6) ---- *)
+c006 = buildC[0, 0, 6];
+serD000 = toP[c006, 0, 0, 6];
+cf = ((g + pp)^(3 + 2 q) + (g - pp)^(3 + 2 q) - 2 g)/(4 (2 + q) (1 + q) g pp^2) /. g -&gt; Sqrt[1 + pp^2];
+cfSer = Normal@Series[cf, {pp, 0, 6}];
+dev = Max@Abs@CoefficientList[Expand[Simplify[serD000 - cfSer]] /. pp -&gt; zz, {zz, q}];
+report[&quot;T2  D000 ODE series == closed form (stag240 10a) to O(p^6)&quot;, dev];
+
+(* ---- T3: m-summed element  Sum_m D^m_{222}  vs direct integration (beta = 0.05) ---- *)
+c2m[m_] := c2m[m] = buildC[2, m, 4];
+bS = 1/20; qv = 1/2;
+serSum = Sum[Sum[c2m[m][k][2, 2] et^k, {k, 0, 4}] /. {et -&gt; ArcTanh[bS], q -&gt; qv}, {m, -2, 2}] /. Cm -&gt; Cm;
+(* note: Cm uses |m| symmetrically; m and -m series identical for s=0 *)
+numSum = Sum[DD[qv, 2, 2, 2, m, bS], {m, -2, 2}];
+Print[&quot;T3  m-summed D_{222}: series = &quot;, N[serSum, 10], &quot;  direct = &quot;, N[numSum, 10],
+  &quot;  dev = &quot;, ScientificForm[N[Abs[serSum - numSum]], 3], &quot;  (O(eta^5) truncation)&quot;];
+
+(* ---- T4: assemble exact thermal SZ operator S = D000 + D020/10 - 1 from ODE tables;
+        compare with stag240 Eq. (11):  p^2 [Ohat^2-3Ohat]/3 + p^4 [42/5 Ohat + 7/2 Ohat^2 - 21/5 Ohat^3 + 7/10 Ohat^4]/15
+        (Ohat -&gt; -q) ---- *)
+c026 = buildC[2, 0, 6];
+serD020 = toP[c026, 0, 0, 6];
+Ssz = Collect[Expand[serD000 + serD020/10 - 1], pp, Simplify];
+p2paper = (q^2 + 3 q)/3;                                          (* [Oh^2-3Oh]/3, Oh-&gt;-q: (q^2+3q)/3 *)
+p4paper = (42/5 (-q) + 7/2 q^2 - 21/5 (-q)^3 + 7/10 q^4)/15;
+dev = Max[Abs@CoefficientList[Simplify[Coefficient[Ssz, pp, 2] - p2paper], q],
+   Abs@CoefficientList[Simplify[Coefficient[Ssz, pp, 4] - p4paper], q]];
+report[&quot;T4  S_th p^2,p^4 coefficients == stag240 Eq. (11)&quot;, dev];
+Print[&quot;T4b S_th p^6 coefficient (NEW, generated by the ODE): &quot;, Simplify[Coefficient[Ssz, pp, 6]]];
+
+(* numeric check of the p^6 coefficient against direct integration *)
+SnumF[qq_, b_] := DD[qq, 0, 0, 0, 0, b] + DD[qq, 0, 2, 0, 0, b]/10 - 1;
+p6check[b_] := (SnumF[qv, b] - ((p2paper /. q -&gt; qv) (ga[b] b)^2 + (p4paper /. q -&gt; qv) (ga[b] b)^4))/(ga[b] b)^6;
+Print[&quot;T4c p^6 coefficient: extrapolated numeric = &quot;, N[p6check[1/40], 8], &quot; / &quot;, N[p6check[1/60], 8],
+   &quot;   symbolic at q=1/2: &quot;, N[Coefficient[Ssz, pp, 6] /. q -&gt; qv, 8]];
+
+(* ---- T5: export full symbolic tables for the website (lp=0 and lp=2, m=0; orders to p^4) ---- *)
+c04 = buildC[0, 0, 4]; c24 = buildC[2, 0, 4];
+tab = Flatten[#, 1] &amp;@ Join[
+    Table[{l, 0, ldd, ToString[TeXForm[toP[c04, l, ldd, 4]]]}, {l, 0, 2}, {ldd, 0, 2}],
+    Table[{l, 2, ldd, ToString[TeXForm[toP[c24, l, ldd, 4]]]}, {l, 0, 4}, {ldd, 0, 4}]];
+Export[&quot;doppler_tables.json&quot;, Map[&lt;|&quot;l&quot; -&gt; #[[1]], &quot;lp&quot; -&gt; #[[2]], &quot;ldd&quot; -&gt; #[[3]], &quot;tex&quot; -&gt; #[[4]]|&gt; &amp;, tab], &quot;JSON&quot;];
+Print[&quot;T5  exported &quot;, Length[tab], &quot; symbolic table entries to doppler_tables.json&quot;];
+
+Print[&quot;--- tables harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3>
+<pre><code>T1  truncation scaling err(0.05)/err(0.025) = 64.1946527980855810846`4.  (expect ~32 for O(eta^5)): FAIL
+T2  D000 ODE series == closed form (stag240 10a) to O(p^6): PASS  (max dev = ScientificForm[-Infinity, 3])
+T3  m-summed D_{222}: series = 4.9822967104149872435`10.  direct = 4.9822966578863187272`10.  dev = ScientificForm[5.252866851628538*^-8, 3]  (O(eta^5) truncation)
+T4  S_th p^2,p^4 coefficients == stag240 Eq. (11): PASS  (max dev = ScientificForm[-Infinity, 3])
+T4b S_th p^6 coefficient (NEW, generated by the ODE): (11*q*(120 - 86*q - 57*q^2 + 13*q^3 + 9*q^4 + q^5))/3150
+T4c p^6 coefficient: extrapolated numeric = 0.113384294619315451`8. / 0.1134138546398281291`8.   symbolic at q=1/2: 0.1134375`8.
+T5  exported 34 symbolic table entries to doppler_tables.json
+--- tables harness done ---</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
+</main>
+</body>
+</html>

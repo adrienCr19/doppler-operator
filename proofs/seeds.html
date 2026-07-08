@@ -50,7 +50,7 @@ As a by-product, the corner elements admit the new closed form (\(s=0\), any \(m
 (and \(\gamma^{-d}(1\pm\beta)^{1-d}\gamma^{d-1} = (\gamma\pm p)^{1-d}/\gamma^{\,0}\)-type rearrangement).
 When transcribing [RC26, Eq. B4], note that the printed prefactor belongs to the intermediate integral
 representation; the final \({}_2F_1\) form carries only \(\gamma^{-(m+d)}\) — this was pinned down numerically
-(harness checks C3 → D1).</p>
+(harness checks C3 of <a href="../verification/01_conventions.html"><code>01_conventions.wl</code></a> → D1 of <a href="../verification/02_doppler.html"><code>02_doppler.wl</code></a>).</p>
 </div>
 
 <h3>The algorithm</h3>
@@ -96,14 +96,14 @@ sweeps); the algorithm above is the exact/closed-form route, valid at all \(\bet
 \((\gamma+p)^{2+q}(\gamma-p)^{1+q} = (\gamma+p)\) and \((\gamma+p)^{1+q}(\gamma-p)^{2+q} = (\gamma-p)\), so the
 numerator equals \((\gamma+p)^{3+2q} + (\gamma-p)^{3+2q} - 2\gamma\) — exactly the compact form of
 [CR26, Eq. 10a], \(\Do^0_{000} = \frac{(\gamma+p)^{3+2q} + (\gamma-p)^{3+2q} - 2\gamma}{4(2+q)(1+q)\gamma p^2}\).
-Both forms were verified against direct quadrature (harness C11, \(2\times10^{-29}\)).</p>
+Both forms were verified against direct quadrature (check C11 of <a href="../verification/01_conventions.html"><code>01_conventions.wl</code></a>, \(2\times10^{-29}\)).</p>
 
 <h3>Verification</h3>
 <ul>
-  <li>Seeds: checks C2 (Seed 1) and D1 (Seed 2) of the harness.</li>
-  <li>Raising machinery: check C4 (B10), C6 (parity), D2 (transposition).</li>
+  <li>Seeds: checks C2 (Seed 1) of <a href="../verification/01_conventions.html"><code>01_conventions.wl</code></a> and D1 (Seed 2) of <a href="../verification/02_doppler.html"><code>02_doppler.wl</code></a>.</li>
+  <li>Raising machinery: checks C4 (B10) and C6 (parity) of <a href="../verification/01_conventions.html"><code>01_conventions.wl</code></a>, D2 (transposition) of <a href="../verification/02_doppler.html"><code>02_doppler.wl</code></a>.</li>
   <li>End-to-end: check C11 assembles \(\Do_{000}\) from quadrature kernels and matches [CR26, Eq. 10a];
-  checks N5/N6 exercise the lattice assembly at shifted weights.</li>
+  checks N5/N6 of <a href="../verification/02_doppler.html"><code>02_doppler.wl</code></a> exercise the lattice assembly at shifted weights.</li>
 </ul>
 
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>

@@ -1,0 +1,4 @@
+Sth p2: \frac{1}{3} (\hat{O}_\nu-3) \hat{O}_\nu
+Sth p4: \frac{7}{150} \hat{O}_\nu \left(\hat{O}_\nu^3-6 \hat{O}_\nu^2+5 \hat{O}_\nu+12\right)
+Sth p6: \frac{11 \hat{O}_\nu \left(\hat{O}_\nu^5-9 \hat{O}_\nu^4+13 \hat{O}_\nu^3+57 \hat{O}_\nu^2-86 \hat{O}_\nu-120\right)}{3150}
+done
