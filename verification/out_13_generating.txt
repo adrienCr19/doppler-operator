@@ -1,0 +1,6 @@
+G0  Funk-Hecke eigenvalues of HG kernel = t^l: PASS  (dev = ScientificForm[0., 3])
+G1a multipole sum (Lmax=16): 1.03383372175979950691150934663087726331`12.   tail est ~ ScientificForm[4.097412138670777*^-33, 2]
+G1b HG round-trip quadrature: 1.03383372177240601983653822910640466007`12.
+G1  Sum_l' t^l' D_{0l'0} == HG round trip: PASS  (dev = ScientificForm[1.2193946337492244*^-11, 3])
+G2  Thomson Funk-Hecke weights = {1, 0, 1/10, 0, 0}: PASS  (dev = ScientificForm[1.4071829269566697*^-19, 3])
+--- generating-function harness done ---

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12_selfadjoint.wl — N12 — self-adjointness on photon phase space (S1–S4)</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>12_selfadjoint.wl</code></h2>
+<p>N12 — self-adjointness on photon phase space (S1–S4). Run with <code>wolframscript -file 12_selfadjoint.wl</code> (Wolfram 14+/15).
+Download: <a href="12_selfadjoint.wl" download>12_selfadjoint.wl</a> &middot; recorded output below (also <a href="out_12_selfadjoint.txt">out_12_selfadjoint.txt</a>)</p>
+<h3>Source</h3>
+<pre><code>(* ::Package:: *)
+(* 12_selfadjoint.wl — N12: the Doppler operator is self-adjoint on photon phase space
+   L^2(nu^2 dnu) x (sphere), and N1 is its coordinate expression.
+   Key facts verified here on NON-power-law spectra:
+     S1  Ohat^dagger = 3 - Ohat on L^2(nu^2 dnu):  &lt;f, e^{a Ohat} g&gt; = &lt;e^{a(3-Ohat)} f, g&gt;
+     S2  diagonal element self-adjoint:   &lt;f, D101 g&gt; = &lt;D101 f, g&gt;
+     S3  off-diagonal adjoint pair:       &lt;f, D001 g&gt; = &lt;D100 f, g&gt;
+   Operator action via the integral representation  J_{w-Ohat} g(nu) = Int_{-eta}^{eta} e^{w u} g(e^u nu) du
+   (from J_w = int_{-eta}^{eta} e^{wu} du and e^{c Ohat} g(nu) = g(e^{-c} nu)).
+   Inner product: &lt;f,g&gt; = Int_0^inf f(nu) g(nu) nu^2 dnu.  *)
+
+prec = 20;
+b = 3/10; g0 = 1/Sqrt[1 - b^2]; p0 = g0 b; eta0 = ArcTanh[b];
+f1[nu_] := Exp[-nu]; f2[nu_] := Exp[-2 nu];   (* non-power-law test spectra *)
+report[name_, dev_, tol_: 10^-8] := Print[name, &quot;: &quot;, If[TrueQ[N[dev] &lt; tol], &quot;PASS&quot;, &quot;FAIL&quot;], &quot;  (dev = &quot;, ScientificForm[N[dev], 3], &quot;)&quot;];
+
+(* ---- S1: Ohat adjoint ---- *)
+a0 = 3/10;
+lhs = NIntegrate[nu^2 f1[nu] f2[Exp[-a0] nu], {nu, 0, Infinity}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 12];
+rhs = NIntegrate[nu^2 Exp[3 a0] f1[Exp[a0] nu] f2[nu], {nu, 0, Infinity}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 12];
+report[&quot;S1  &lt;f, e^{a Ohat} g&gt; = &lt;e^{a(3-Ohat)} f, g&gt;&quot;, Abs[lhs - rhs], 10^-10];
+
+(* ---- operator pairings via the 3D integral representation ----
+   D101 = (3/(4 g p^4)) (g J_{2-O} - J_{3-O})(g J_{1-O} - J_{O})
+   D001 = (Sqrt[3]/(4 g p^3)) J_{2-O} (g J_{1-O} - J_{O})
+   D100 = (Sqrt[3]/(4 g p^3)) (g J_{2-O} - J_{3-O}) J_{1-O}
+   &lt;f, Op g&gt; = pref * Int nu^2 f(nu) W1(u) W2(v) g(e^{u+v} nu) du dv dnu  *)
+(* nu-integral done analytically for exponential test spectra:
+   f = e^{-alpha nu}, g = e^{-beta nu}:  Int nu^2 f(nu) g(c nu) dnu = 2/(alpha + beta c)^3, c = e^{u+v} *)
+pairE[W1_, W2_, pref_, alpha_, beta_] := pref NIntegrate[
+   W1[u] W2[v] 2/(alpha + beta Exp[u + v])^3,
+   {u, -eta0, eta0}, {v, -eta0, eta0},
+   WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 14, MaxRecursion -&gt; 15];
+W2m3[u_] := g0 Exp[2 u] - Exp[3 u];   (* g J_{2-O} - J_{3-O} *)
+W1m0[v_] := g0 Exp[v] - 1;            (* g J_{1-O} - J_{O}   *)
+Wj2[u_] := Exp[2 u];                  (* J_{2-O}             *)
+Wj1[v_] := Exp[v];                    (* J_{1-O}             *)
+
+(* S2: diagonal self-adjointness, f = e^{-nu}, g = e^{-2nu} *)
+prefD101 = 3/(4 g0 p0^4);
+lhs = pairE[W2m3, W1m0, prefD101, 1, 2];      (* &lt;f, D101 g&gt; *)
+rhs = pairE[W2m3, W1m0, prefD101, 2, 1];      (* &lt;D101 f, g&gt; *)
+report[&quot;S2  &lt;f, D101 g&gt; = &lt;D101 f, g&gt;  (non-power-law spectra)&quot;, Abs[lhs - rhs]/Abs[lhs], 10^-10];
+
+(* S3: off-diagonal adjoint pair D001^dagger = D100 *)
+prefD3 = Sqrt[3]/(4 g0 p0^3);
+lhs = pairE[Wj2, W1m0, prefD3, 1, 2];         (* &lt;f, D001 g&gt; *)
+rhs = pairE[W2m3, Wj1, prefD3, 2, 1];         (* &lt;D100 f, g&gt; *)
+report[&quot;S3  &lt;f, D001 g&gt; = &lt;D100 f, g&gt;  (adjoint pair)&quot;, Abs[lhs - rhs]/Abs[lhs], 10^-10];
+
+(* S4: sanity anchor — the same pairing evaluated on power laws reproduces the closed form:
+   &lt;nu^s e^{-nu}, D101 g&gt; with g = nu^q ... instead simplest: apply operator rep to nu^q and
+   compare with closed-form scalar (already F3); here check the rep itself on one power law *)
+qv = 1/2;
+JJ[w_] := If[w == 0, 2 eta0, ((g0 + p0)^w - (g0 - p0)^w)/w];
+opOnPow = prefD101 NIntegrate[W2m3[u] W1m0[v] Exp[(u + v) qv], {u, -eta0, eta0}, {v, -eta0, eta0},
+    WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 12];
+cf = prefD101 (g0 JJ[2 + qv] - JJ[3 + qv]) (g0 JJ[1 + qv] - JJ[qv]);
+report[&quot;S4  integral rep on nu^q == closed form D101(q)&quot;, Abs[opOnPow - cf], 10^-12];
+
+Print[&quot;--- self-adjointness harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3>
+<pre><code>S1  &lt;f, e^{a Ohat} g&gt; = &lt;e^{a(3-Ohat)} f, g&gt;: PASS  (dev = ScientificForm[0., 3])
+S2  &lt;f, D101 g&gt; = &lt;D101 f, g&gt;  (non-power-law spectra): PASS  (dev = ScientificForm[0., 3])
+S3  &lt;f, D001 g&gt; = &lt;D100 f, g&gt;  (adjoint pair): PASS  (dev = ScientificForm[0., 3])
+S4  integral rep on nu^q == closed form D101(q): PASS  (dev = ScientificForm[5.412533923634264*^-18, 3])
+--- self-adjointness harness done ---</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
+</main>
+</body>
+</html>

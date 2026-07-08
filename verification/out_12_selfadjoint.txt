@@ -1,0 +1,5 @@
+S1  <f, e^{a Ohat} g> = <e^{a(3-Ohat)} f, g>: PASS  (dev = ScientificForm[0., 3])
+S2  <f, D101 g> = <D101 f, g>  (non-power-law spectra): PASS  (dev = ScientificForm[0., 3])
+S3  <f, D001 g> = <D100 f, g>  (adjoint pair): PASS  (dev = ScientificForm[0., 3])
+S4  integral rep on nu^q == closed form D101(q): PASS  (dev = ScientificForm[5.412533923634264*^-18, 3])
+--- self-adjointness harness done ---

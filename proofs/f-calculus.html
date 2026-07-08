@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N11 — The F-calculus: recurrence toolkit for the thermal-average functions</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N11 — The F-calculus: a complete recurrence toolkit for the thermal-average class</h2>
+
+<p>
+By N9, every thermally averaged Doppler operator is a finite \(c_j(\Oh)\)-combination of
+\(F(-\tfrac\sigma2, a_j, z)\). This page equips that function class with the same kind of toolkit that makes
+Bessel functions usable — ladder, recurrences, derivative relations, special values — so that the non-closed
+channels can be manipulated symbolically rather than only integrated numerically. The even sector needs an odd
+partner (exactly as \(K_\nu\) needs the Struve-type companion):
+</p>
+<div class="eqbox">
+<div class="head"><span class="name">The function pair</span></div>
+\[
+  F(\mu,a,z) = \int_0^\infty e^{-z\cosh\eta}\cosh(a\eta)\,\sinh^{2\mu}\!\eta\;\dd\eta,
+  \qquad
+  L(\mu,a,z) = \int_0^\infty e^{-z\cosh\eta}\sinh(a\eta)\,\sinh^{2\mu}\!\eta\;\dd\eta,
+\]
+<p>convergent for \(\mu > -\tfrac12\) (all \(a\), \(z>0\)) and, for the physical \(\mu = -\sigma/2 \le -1\),
+as the \(\sum_j c_j = 0\)-regularized channel combinations. \(F\) is even in \(a\), \(L\) odd; \(L(\mu,0,z)=0\).
+The physical channels live on integer \(\mu \le 0\) with operator orders \(a_j = \mathrm{integer} - 2\Oh\);
+the calculus below naturally extends over the half-integer \(\mu\)-lattice.</p>
+</div>
+
+<h3>The five relations</h3>
+<div class="newbox">
+<div class="head"><span class="name">(FC1) μ-ladder</span> <span class="badge pass">FC1a/b</span></div>
+\[
+  \Big(\frac{\dd^2}{\dd z^2} - 1\Big) F(\mu,a,z) = F(\mu+1,a,z), \qquad \text{same for } L.
+\]
+<p><em>Proof:</em> \(\partial_z^2\) brings down \(\cosh^2\eta = 1 + \sinh^2\eta\) in the integrand. (This is N9's
+ladder, now stated for both sectors.)</p>
+</div>
+<div class="newbox">
+<div class="head"><span class="name">(FC2) a-recurrence, even step</span> <span class="badge pass">FC2a/b</span></div>
+\[
+  F(\mu,a+1,z) + F(\mu,a-1,z) = -2\,\partial_z F(\mu,a,z), \qquad \text{same for } L.
+\]
+<p><em>Proof:</em> \(\cosh((a{+}1)\eta) + \cosh((a{-}1)\eta) = 2\cosh(a\eta)\cosh\eta\), and \(\cosh\eta\)
+in the integrand is \(-\partial_z\). At \(\mu = 0\) this is the classical
+\(K_{a+1} + K_{a-1} = -2K_a'\) — FC2 is its \(\mu\)-deformation.</p>
+</div>
+<div class="newbox">
+<div class="head"><span class="name">(FC3) a-recurrence, odd step (couples the sectors)</span> <span class="badge pass">FC3a/b (exact)</span></div>
+\[
+  F(\mu,a+1,z) - F(\mu,a-1,z) = 2\,L(\mu+\tfrac12,a,z),
+  \qquad
+  L(\mu,a+1,z) - L(\mu,a-1,z) = 2\,F(\mu+\tfrac12,a,z).
+\]
+<p><em>Proof:</em> \(\cosh((a{+}1)\eta) - \cosh((a{-}1)\eta) = 2\sinh(a\eta)\sinh\eta\) and its
+\(\sinh\)-analog; the extra \(\sinh\eta\) is a half-step in \(\mu\).</p>
+</div>
+<div class="newbox">
+<div class="head"><span class="name">(FC4) z-relations (integration by parts)</span> <span class="badge pass">FC4, FC4', FC4b</span></div>
+\[
+  z\,F(\mu+1,a,z) = a\,L(\mu+\tfrac12,a,z) - (2\mu+1)\,\partial_z F(\mu,a,z) \qquad (\mu > -\tfrac12),
+\]
+\[
+  z\,L(\mu+1,a,z) = a\,F(\mu+\tfrac12,a,z) - (2\mu+1)\,\partial_z L(\mu,a,z) \qquad (\mu \ge -\tfrac12),
+\]
+<p><em>Proof:</em> integrate \(\frac{\dd}{\dd\eta}\big[e^{-z\cosh\eta}\,{\cosh\atop\sinh}(a\eta)\,\sinh^{2\mu+1}\eta\big]\)
+over \((0,\infty)\); the three integrand terms give the three members. The boundary at \(\eta = 0\) vanishes for
+\(\mu > -\tfrac12\) (and always in the odd sector); at the edge case \(\mu = -\tfrac12\) of the even sector it
+contributes \(e^{-z}\), giving the <strong>boundary-corrected relation</strong></p>
+\[
+  z\,F(\tfrac12,a,z) = a\,L(0,a,z) + e^{-z}. \tag{FC4b}
+\]
+</div>
+<div class="newbox">
+<div class="head"><span class="name">(FC5) Special values and the closed upper half</span> <span class="badge pass">FC5a–c, FC4'b (exact)</span></div>
+\[
+  F(0,a,z) = K_a(z), \qquad L(\tfrac12,a,z) = \frac{a}{z}K_a(z), \qquad
+  F(\tfrac12,a,z) = \frac{a\,L(0,a,z) + e^{-z}}{z},
+\]
+\[
+  F(1,a,z) = \Big(\frac{\dd^2}{\dd z^2}-1\Big)K_a(z) = \frac{a^2}{z^2}K_a(z) - \frac{K_a'(z)}{z}
+  \quad\text{(Bessel ODE)},
+\]
+<p>and by iterating FC1/FC4: <strong>every \(F(\mu,a,z)\) and \(L(\mu,a,z)\) with \(\mu > 0\) is a finite closed
+combination of \(K_a(z)\), \(L(0,a,z) \equiv L_a(z)\) and \(e^{-z}\)</strong> with rational-in-\((a,1/z)\)
+coefficients — integer \(\mu\) even sector needs only \(K_a\); half-integer rungs bring in \(L_a\) and
+\(e^{-z}\). The genuinely transcendental directions are \(L_a\) itself and the downward (\(\mu<0\)) rungs — the
+physical channels — for which the ladder runs the other way (N9) and closure is excluded by the rigidity theorem.</p>
+</div>
+
+<h3>Channel-regularized form</h3>
+<p>For physical channels (\(\mu = -\sigma/2 \le -1\)) the relations hold for the regularized combinations.
+Example (verified, FC6): FC4 at \(\mu = -1\) applied to the \(\Do_{101}\) channel data \(\{a_j, c_j\}\):</p>
+\[
+  z\sum_j c_j\,K_{a_j}(z) \;=\; \sum_j c_j\,a_j\,L(-\tfrac12,a_j,z) \;+\; \partial_z \sum_j c_j F(-1,a_j,z),
+\]
+<p>where \(L(-\tfrac12,a,z)\) is individually convergent (\(\sinh(a\eta)/\sinh\eta \to a\)) and
+\(\sum_j c_j F(-1,a_j,z)\) is the regularized channel integral. Together with FC1 this expresses the
+\(z\)-derivative of any channel through one lower object and Bessel functions — useful for building ODE systems
+and for error control of the superasymptotic tower.</p>
+
+<h3>Summary table</h3>
+<div class="tablewrap"><table class="tbl">
+<tr><th>move</th><th>relation</th><th>couples</th></tr>
+<tr><td>\(\mu \to \mu+1\)</td><td>FC1: \((\partial_z^2-1)\)</td><td>same sector</td></tr>
+<tr><td>\(a \to a\pm1\) (even)</td><td>FC2: \(-2\partial_z\)</td><td>same sector</td></tr>
+<tr><td>\(a \to a\pm1\) (odd)</td><td>FC3</td><td>\(F \leftrightarrow L\), \(\mu+\tfrac12\)</td></tr>
+<tr><td>\(z\)-multiplication</td><td>FC4/FC4′</td><td>both sectors, \(\mu\), \(\mu+\tfrac12\), \(\mu+1\)</td></tr>
+<tr><td>base values</td><td>FC5</td><td>\(K_a\), \(L_a\), \(e^{-z}\)</td></tr>
+</table></div>
+<p class="note">Structurally, \((F, L)\) is the \(\sinh^{2\mu}\)-deformation of the modified Bessel/Struve pair,
+with FC2 deforming the Bessel recurrence and FC4b/FC4′b the analogs of the Struve inhomogeneity. On operator
+orders \(a = n - 2\Oh\) all relations hold verbatim (coefficients commute).</p>
+
+<h3>Verification record</h3>
+<p><a href="../verification/11_f_calculus.html"><code>verification/11_f_calculus.wl</code></a>: FC1–FC4′ against
+40-digit quadrature and high-order finite differences at \(z = 12\), orders \(a \in \{1.5, 2\}\),
+\(\mu \in \{0, \tfrac12, 1\}\) (FD-limited \(10^{-15}\)–\(10^{-21}\)); FC3, FC4b, FC4′b, FC5a/b as exact
+quadrature identities (\(10^{-45}\)); FC5c builds \(F(\tfrac32)\) from the elementary \(F(\tfrac12)\) rung by the
+ladder; FC6 the channel-regularized FC4 on the \(\Do_{101}\) data (\(7\times10^{-17}\)).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

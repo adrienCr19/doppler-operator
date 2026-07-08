@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N12 — The reflection symmetry is self-adjointness on photon phase space</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N12 — The origin of the reflection symmetry: self-adjointness on photon phase space</h2>
+
+<p>N1 was discovered algebraically (\(\Do(\Oh) = \Do^{\mathsf T}(3-\Oh)\)) and proved from the kernel
+transposition identity. This page identifies <em>what it is</em>: the statement that the single-scattering
+Doppler operator is <strong>self-adjoint on the photon phase-space Hilbert space</strong></p>
+\[
+  \mathcal H \;=\; L^2\big(\mathbb R_+,\, \nu^2\dd\nu\big) \otimes L^2(S^2),
+\]
+<p>whose measure \(\nu^2\dd\nu\,\dd\hat y\) is the photon-mode density. The two "mysterious" numbers of the
+symmetry are dimensions: the frequency shadow \(\Oh \to 3-\Oh\) carries the \(3\) of momentum space, the sphere
+transposition \(d \to 2-d\) carries the \(2\) of the celestial sphere.</p>
+
+<h3>Lemma 1 — the frequency shadow: \(\Oh^\dagger = 3-\Oh\)</h3>
+<p>On \(L^2(\nu^2\dd\nu)\), integrate by parts:</p>
+\[
+  \langle f, \Oh g\rangle = -\!\int_0^\infty\! f\,(\nu\partial_\nu g)\;\nu^2\dd\nu
+  = -\!\int_0^\infty\! \nu^3 f\,\partial_\nu g\;\dd\nu
+  = \int_0^\infty\! g\,\partial_\nu\big(\nu^3 f\big)\,\dd\nu
+  = \int_0^\infty\! g\,\big(3f + \nu\partial_\nu f\big)\,\nu^2\dd\nu = \langle (3-\Oh)f,\, g\rangle .
+\]
+<p>Equivalently, for dilations: \(\langle f, e^{a\Oh}g\rangle = \int f(\nu)g(e^{-a}\nu)\nu^2\dd\nu
+= e^{3a}\!\int f(e^{a}\mu)g(\mu)\mu^2\dd\mu = \langle e^{a(3-\Oh)}f, g\rangle\)
+(substitution \(\mu = e^{-a}\nu\); the \(e^{3a}\) is the Jacobian of the phase-space measure). Hence
+\(f(\Oh)^\dagger = f(3-\Oh)\) for real-coefficient operator functions.
+<span class="badge pass">check S1 (exact)</span>. The self-dual spectra are \(\nu^{q}\) with \(q = -3/2\)
+(eigenvalue at the fixed point \(\Oh = 3/2\)): precisely the spectra for which \(|f|^2\nu^2\dd\nu = \dd\nu/\nu\)
+is scale-invariant.</p>
+
+<h3>Lemma 2 — the sphere shadow: transposition = conformal adjoint</h3>
+<p>A boost acts on the celestial sphere as a conformal (Möbius) transformation \(\hat y \mapsto \hat y_+[\hat y]\)
+whose conformal factor is the Doppler factor: \(\dd\hat y_+/\dd\hat y = D_+(\mu)^{-2}\) (the aberration Jacobian
+used throughout, e.g. in the <a href="reflection.html">N1 proof</a>). A Doppler-weight-\(d\) field is a conformal
+density of weight \(d\), and the \(L^2(S^2)\) pairing of a weight-\(d\) with a weight-\((2-d)\) field is
+boost-invariant — the Jacobian exponent \(2\) is saturated. The matrix expression of this adjointness in the
+orthonormal harmonic basis is exactly the verified transposition identity
+\({}^{d}\Kk^m_{\ell\ell'}(-\beta) = {}^{2-d}\Kk^m_{\ell'\ell}(+\beta)\) (B3): <em>the transpose of a boost at
+weight \(d\) is the inverse boost at the shadow weight \(2-d\)</em>. This is the same weight reflection
+\(\Delta \to 2-\Delta\) familiar as the shadow transform of conformal field theory on \(S^2\).</p>
+
+<h3>Theorem — \(\Do^\dagger = \Do\), and it is N1</h3>
+<p>Take the adjoint of \(\Do^m_{\ell\ell'\ell''}(\nu,\beta)\) on \(\mathcal H\): the frequency part maps
+\(\Oh \to 3-\Oh\) (Lemma 1), the sphere part transposes the multipole matrix, \((\ell,\ell'')\to(\ell'',\ell)\)
+(orthonormal basis; Lemma 2 supplies the weight bookkeeping that makes the round trip transpose consistently).
+Hence</p>
+\[
+  \big[\Do^m_{\ell\ell'\ell''}(\nu,\beta)\big]^\dagger \;=\; \Do^m_{\ell''\ell'\ell}(\nu,\beta)\Big|_{\Oh\to3-\Oh}
+  \;\overset{\text{N1}}{=}\; \Do^m_{\ell\ell'\ell''}(\nu,\beta).
+\]
+<p>So N1 \(\iff\) self-adjointness of the scattering round trip on photon phase space. \(\blacksquare\)</p>
+
+<div class="newbox">
+<div class="head"><span class="name">Direct verification on non-power-law spectra</span>
+<span class="badge pass">S2/S3 (exact)</span></div>
+<p>Self-adjointness was checked without any power-law reduction, using a new integral representation that makes
+the closed forms act on <em>arbitrary</em> spectra:</p>
+\[
+  J_{w-\Oh}\,g(\nu) \;=\; \int_{-\eta}^{\eta} e^{w u}\, g\big(e^{u}\nu\big)\,\dd u
+  \qquad\Big(\text{from } J_w = \int_{-\eta}^{\eta}e^{wu}\dd u \text{ and } e^{-u\Oh}g(\nu) = g(e^u\nu)\Big),
+\]
+<p>so e.g. \(\Do_{101}g(\nu) = \frac{3}{4\gamma p^4}\iint_{[-\eta,\eta]^2}
+(\gamma e^{2u} - e^{3u})(\gamma e^{v} - 1)\,g(e^{u+v}\nu)\,\dd u\,\dd v\). With \(f = e^{-\nu}\),
+\(g = e^{-2\nu}\): \(\langle f, \Do_{101}g\rangle = \langle \Do_{101}f, g\rangle\) (S2) and the off-diagonal
+adjoint pair \(\langle f, \Do_{001}g\rangle = \langle \Do_{100}f, g\rangle\) (S3), both to full quadrature
+precision. Analytically, the substitution \(\mu = e^{u+v}\nu\) maps each weight to
+\(\widetilde W(u) = e^{3u}W(-u)\), which sends \(\gamma e^{2u}-e^{3u} \leftrightarrow \gamma e^{u}-1\):
+the adjoint <em>swaps the two bracket factors</em> — the same swap that appears in every reflection check of the
+closed forms (F7, F15).</p>
+</div>
+
+<h3>Corollaries and physical reading</h3>
+<ul>
+  <li><strong>Why \(\Dv\) and only \(\Dv\) (N1a, explained).</strong> \(\Dv = \Oh(\Oh-3) = -(\Oh-\tfrac32)^2 + \tfrac94\)
+  is the canonical self-adjoint quadratic in \(\Oh\) — the Casimir of the frequency dilation sector. Diagonal
+  (hence symmetric) blocks of a self-adjoint operator that are functions of \(\Oh\) alone <em>must</em> be
+  functions of the invariant combination: the empirical "\(\Dv\)-structure" of the SZ tables is representation
+  theory, not accident.</li>
+  <li><strong>Kernel symmetry.</strong> Self-adjointness on \(\nu^2\dd\nu\) is the operator form of the classical
+  symmetry of the Compton scattering kernel in logarithmic frequency (cf. the symmetrized kernels of
+  Sazonov &amp; Sunyaev 2000): reciprocity of the Thomson round trip. It guarantees a real spectral decomposition
+  of the scattering operator — the natural starting point for multiple-scattering expansions.</li>
+  <li><strong>Duality of spectra.</strong> The reflection pairs \(\nu^{q}\) with \(\nu^{-3-q}\); the product is
+  \(\nu^{-3}\), the scale-invariant phase-space density. In particular it exchanges "occupation-like" and
+  "intensity-like" power laws (\(I_\nu \propto \nu^3 n\)), tying the shadow to the \(d=0\) vs \(d=3\) Doppler
+  weights of \(n\) and \(I_\nu\).</li>
+  <li><strong>Two shadows, one identity.</strong> The sphere shadow \(d \to 2-d\) (transposition B3) and the
+  frequency shadow \(\Oh \to 3-\Oh\) (Lemma 1) are the same construction on the two factors of phase space; N1 is
+  their product. This predicts the form of the spin-weighted generalization: polarized fields are still conformal
+  densities on \(S^2\), so the polarized N1 should hold with the same \(3-\Oh\) and the \(s\to-s\) flip of the
+  spin-weighted pairing — a concrete target for the \(s=\pm2\) extension.</li>
+</ul>
+
+<h3>Verification record</h3>
+<p><a href="../verification/12_selfadjoint.html"><code>verification/12_selfadjoint.wl</code></a>:
+S1 dilation adjoint on \(L^2(\nu^2\dd\nu)\) (exact); S2 diagonal self-adjointness and S3 off-diagonal adjoint
+pair \(\Do_{001}^\dagger = \Do_{100}\) on exponential (non-power-law) spectra via the \(J_{w-\Oh}\) integral
+representation (exact); S4 the representation itself against the closed form on \(\nu^q\)
+(\(5\times10^{-18}\)). The underlying N1 was verified at \(7\times10^{-28}\) (<code>02_doppler.wl</code>).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

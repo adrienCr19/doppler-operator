@@ -1,0 +1,4 @@
+R1  e^{aO} x^s = x^s e^{a(O-s)} (spot check): PASS  (max dev = ScientificForm[0., 3])
+R2  w'^s insertion == (s,0) lattice element: PASS  (max dev = ScientificForm[0., 3])
+R3  lattice-generalized N3 ODE at rungs (j,k) in {1,2,0}x{0,-1}: PASS  (max dev = ScientificForm[6.060231877588226*^-12, 3])
+--- recoil-lattice harness done ---

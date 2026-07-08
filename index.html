@@ -535,6 +535,59 @@ the observed \(\Dv\)-structure. Both are supplied below.
   the Doppler operator is now recursively reachable from the \(\Do_{000}\) base case at the operator level.</p>
 </div>
 
+<div class="newbox">
+  <div class="head"><span class="name">(N11) The F-calculus: a Bessel-like toolkit for the thermal-average class</span>
+    <span class="badge new">new</span> <span class="badge pass">verified (14 checks)</span>
+    <span class="prooflink"><a href="proofs/f-calculus.html">proof →</a></span></div>
+  <p>The pair \(F(\mu,a,z)\), \(L(\mu,a,z)\) (even/odd sectors of the thermal averages, N9) obeys a complete
+  recurrence calculus: the μ-ladder \((\partial_z^2-1)\), the a-recurrence
+  \(F(\mu,a{+}1)+F(\mu,a{-}1) = -2\partial_z F\) (the μ-deformation of the Bessel recurrence), sector-coupling
+  a-difference relations, and integration-by-parts z-relations with the boundary-corrected special values
+  \(F(0,a) = K_a\), \(L(\tfrac12,a) = \tfrac{a}{z}K_a\), \(zF(\tfrac12,a) = aL_a + e^{-z}\),
+  \(F(1,a) = \tfrac{a^2}{z^2}K_a - \tfrac{K_a'}{z}\). All upper rungs (\(\mu > 0\)) are closed in
+  \(K_a, L_a, e^{-z}\); the relations survive channel regularization at physical \(\mu \le -1\).</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N12) The origin of N1: self-adjointness on photon phase space</span>
+    <span class="badge new">new — conceptual</span> <span class="badge pass">verified on non-power-law spectra</span>
+    <span class="prooflink"><a href="proofs/self-adjoint.html">proof →</a></span></div>
+  <p>The reflection symmetry is not an algebraic accident:
+  \(\Oh^\dagger = 3-\Oh\) on \(L^2(\nu^2\dd\nu)\) (the 3 of momentum space) and the kernel transposition
+  \(d \to 2-d\) is the conformal <em>shadow</em> on the celestial sphere (the 2 of \(S^2\)); together they say
+  the single-scattering Doppler operator is <strong>self-adjoint on photon phase space</strong>, and N1 is its
+  coordinate expression. Corollary: the \(\Dv\)-structure of diagonals is representation theory (the invariant
+  of the frequency-dilation Casimir). Verified directly on exponential spectra via the new representation
+  \(J_{w-\Oh}\,g(\nu) = \int_{-\eta}^{\eta}e^{wu}g(e^u\nu)\dd u\), which also makes every closed form
+  applicable to arbitrary spectra by 2D quadrature.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N13) The \(\ell'\) generating function = Henyey–Greenstein round trip</span>
+    <span class="badge new">new</span> <span class="badge pass">verified 10⁻¹¹ (3D quadrature)</span>
+    <span class="prooflink"><a href="proofs/generating.html">proof →</a></span></div>
+  \[
+    \sum_{\ell'} t^{\ell'}\, \Do^m_{\ell\ell'\ell''}(\nu,\beta) \;=\;
+    \Big[\tfrac1\gamma\,\Bo(-\beta)\circ \mathsf P_{t}\circ \Bo(\beta)\Big]^m_{\ell\ell''},
+  \]
+  <p>where \(\mathsf P_t\) scatters with the Henyey–Greenstein phase function of asymmetry \(t\)
+  (Funk–Hecke eigenvalues exactly \(t^{\ell'}\)). More generally, any axisymmetric rest-frame phase function
+  enters only through its Funk–Hecke weights \(w_{\ell'}\), with Thomson the special case
+  \(w = \{1, 0, \tfrac1{10}\}\); the \(t \to 1\) limit reproduces the sum rule N4.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N14) Finite recoil: the recoil ladder is the weight lattice</span>
+    <span class="badge new">new — structural</span> <span class="badge pass">verified (R1–R3)</span>
+    <span class="prooflink"><a href="proofs/recoil-lattice.html">proof →</a></span></div>
+  <p>With \([\Oh, x] = -x\) (dictionary \(f(\Oh)x^s = x^s f(\Oh-s)\)), a rest-frame energy insertion
+  \(x'^s\) between the boosts lands exactly on the weight-lattice element \({}^{(s,0)}\Do\): the recoil ladder
+  of the exact scattering operator <em>is</em> the \((j,k)\) lattice that N5/N6/N10 introduced for closure, and
+  all recursions — including the lattice-generalized rapidity ODE, verified at rungs up to \(j=2\) — extend
+  verbatim to every rung. Per-rung reflection symmetry breaks for \(j \neq -k\) (recoil breaks elastic
+  reciprocity), consistent with the companion paper's no-closure theorem for recoil thermal averages.</p>
+</div>
+
 <h2 id="tables">4 &nbsp;Generated tables (from the ODE N3)</h2>
 <p>
 Symbolic elements \(\Do^{m=0}_{\ell\ell'\ell''}(\nu,\beta)\) to \(\mathcal O(p^4)\), generated purely by iterating
@@ -664,6 +717,18 @@ closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via b
 <tr><td><a href="verification/10_middle_index.html"><code>verification/10_middle_index.wl</code></a></td>
 <td><strong>N10</strong>: column recursion of the \(+\beta\) kernel; the middle-index relation (M) for \(\ell' \le 3\), \(m \in \{0,1\}\), incl. shifted lattice points; exact reproduction of the \(\Do_{020}\) closed form by middle-index climbing; M5 symbolic identity of the worked rederivation</td>
 <td>all PASS (≤4.2×10⁻²⁷; M3 exact)</td></tr>
+<tr><td><code>verification/11_f_calculus.wl</code></td>
+<td><strong>N11</strong>: μ-ladder, a-recurrences, z-relations FC1–FC4′ for \(F\) and \(L\); boundary-corrected FC4b; special values and closed rungs FC5; channel-regularized FC6 on the \(\Do_{101}\) data</td>
+<td>all PASS (FD-limited 10⁻¹⁵–10⁻²¹; identities exact)</td></tr>
+<tr><td><code>verification/12_selfadjoint.wl</code></td>
+<td><strong>N12</strong>: \(\Oh^\dagger = 3-\Oh\); self-adjointness \(\langle f,\Do_{101}g\rangle = \langle\Do_{101}f,g\rangle\) and adjoint pair \(\Do_{001}^\dagger = \Do_{100}\) on exponential spectra; the \(J_{w-\Oh}\) integral representation vs closed forms</td>
+<td>all PASS (S1–S3 exact; S4 5×10⁻¹⁸)</td></tr>
+<tr><td><code>verification/13_generating.wl</code></td>
+<td><strong>N13</strong>: HG Funk–Hecke eigenvalues \(=t^\ell\); multipole sum \(\sum t^{\ell'}\Do_{0\ell'0}\) vs direct 3D HG round-trip quadrature; Thomson weights \(\{1,0,\tfrac1{10}\}\)</td>
+<td>all PASS (G1 1.2×10⁻¹¹, quadrature-limited)</td></tr>
+<tr><td><code>verification/14_recoil_lattice.wl</code></td>
+<td><strong>N14</strong>: commutation dictionary; \(x'^s\) insertion \(=\) lattice element \((s,0)\); lattice-generalized N3 ODE at recoil rungs \((j,k)\in\{1,2,0\}\times\{0,-1\}\)</td>
+<td>all PASS (R1/R2 exact; R3 6×10⁻¹²)</td></tr>
 <tr><td><a href="verification/05_export_tables.html"><code>verification/05_export_tables.wl</code></a></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
 <p>Every script is browsable with its full source and recorded PASS log at the

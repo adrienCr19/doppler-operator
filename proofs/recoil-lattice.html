@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N14 — Recoil rungs live on the weight lattice</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N14 — Finite recoil: the recoil ladder is the weight lattice, and every recursion extends verbatim</h2>
+
+<p>
+Everything on this site so far is the Thomson (no-recoil) limit. At finite photon energy
+\(x = h\nu/m_ec^2\), the rest-frame cross-section and energy shift acquire corrections in powers of the
+<em>rest-frame</em> photon energy \(x' \), and the operator algebra becomes noncommutative: \([\Oh, x] = -x\).
+The companion rSZ working paper organizes this into a normal-ordered <em>recoil ladder</em>
+\(\sum_s x^s f_s(\Oh)\) whose rung functions \(f_s\) are assembled from round trips with rest-frame energy
+insertions. This page establishes the structural result that makes the whole N-toolkit apply at finite recoil:
+<strong>the rest-frame insertions land exactly on the weight lattice \({}^{(j,k)}\Do\) that the recursions
+N5/N6/N10 already required</strong> — the lattice, introduced as a formal closure device, <em>is</em> the recoil
+ladder.
+</p>
+
+<div class="newbox">
+<div class="head"><span class="name">(i) Commutation dictionary</span> <span class="badge pass">R1 (exact)</span></div>
+\[
+  [\Oh, x] = -x \qquad\Longleftrightarrow\qquad f(\Oh)\,x^{s} = x^{s} f(\Oh - s)
+  \quad\text{for analytic } f .
+\]
+<p><em>Proof:</em> on dilations, \(e^{a\Oh}\big[x^s g(x)\big] = (e^{-a}x)^s g(e^{-a}x) = x^s e^{-as}\,[e^{a\Oh}g](x)\),
+i.e. \(e^{a\Oh}x^s = x^s e^{a(\Oh-s)}\); expand in \(a\). Moving explicit energy powers through any
+\(\Oh\)-function — including every closed form on this site — costs only the shift \(\Oh \to \Oh - s\).</p>
+</div>
+
+<div class="newbox">
+<div class="head"><span class="name">(ii) Rest-frame insertion = lattice shift</span> <span class="badge pass">R2 (exact)</span></div>
+<p>A recoil correction inserts powers of the <em>rest-frame</em> energy \(x'\) between the two boosts. On a
+power law \(\nu^q\), the round trip with an \(x'^s\) insertion evaluates to</p>
+\[
+  \frac1\gamma\,\Bo(-\beta)\Big[\,x'^s\cdot\big(\Bo(\beta)\,\nu^q\big)\Big]
+  \;=\; x^{s}\;\Big[\tfrac1\gamma\,{}^{-1-s-q}\Kk_{\ell\ell'}(+\beta)\,{}^{-q}\Kk_{\ell'\ell''}(-\beta)\Big]\,\nu^{q}
+  \;=\; x^{s}\;{}^{(s,0)}\Do_{\ell\ell'\ell''}(q),
+\]
+<p>because the returned spectrum \(\nu^{q+s}\) presents the first boost with weight \(-1-(q+s)\): precisely the
+lattice point \((j,k) = (s,0)\). Insertions on the incoming leg populate \(k\), and the Klein–Nishina angular
+structure only reweights the \(\ell'\)-channels (which <a href="generating.html">N13</a> handles for arbitrary
+phase functions). So the \(s\)-th recoil rung of the exact single-scattering operator is</p>
+\[
+  \text{rung } s: \qquad x^{s} \sum_{\ell'} w^{(s)}_{\ell'}(\Oh)\; {}^{(j,k)\,\in\,\text{level } s}\Do_{\ell\ell'\ell''},
+\]
+<p>a finite combination of level-\(s\) lattice elements with rational rest-frame coefficients — the operator form
+of the companion paper's normal-ordered ladder \(\sum_s x^s f_s(\Oh)\) (whose static limits give
+\(R_1 = 4-\Oh\), \(R_2 = \tfrac{7}{10}(\Oh^2 - 5\Oh)\), …).</p>
+</div>
+
+<div class="newbox">
+<div class="head"><span class="name">(iii) All recursions extend verbatim to every rung</span>
+<span class="badge pass">R3; M4; N5/N6 at lattice points</span></div>
+<p>The N-relations were derived — and verified — at <em>general</em> lattice point \((j,k)\), so they apply to
+each recoil rung unchanged. In particular the lattice-generalized rapidity ODE,</p>
+\[
+  \begin{aligned}
+  \partial_\eta\, {}^{(j,k)}\Do^m_{\ell\ell'\ell''} \;=\;
+    &-(\ell+3+j-\Oh)\,C^m_{\ell+1}\,{}^{(j,k)}\Do^m_{\ell+1,\ell'\ell''}
+     +(\ell-2-j+\Oh)\,C^m_{\ell}\,{}^{(j,k)}\Do^m_{\ell-1,\ell'\ell''} \\[2pt]
+    &-(\ell''+k+\Oh)\,C^m_{\ell''+1}\,{}^{(j,k)}\Do^m_{\ell,\ell',\ell''+1}
+     +(\ell''+1-k-\Oh)\,C^m_{\ell''}\,{}^{(j,k)}\Do^m_{\ell,\ell',\ell''-1}
+     \;-\;\beta\,{}^{(j,k)}\Do^m_{\ell\ell'\ell''},
+  \end{aligned}
+\]
+<p>was verified by finite differences at the recoil-relevant rungs \((j,k) \in \{1,2,0\}\times\{0,-1\}\)
+(<span class="badge pass">R3, 6×10⁻¹²</span>); the raising recursions N5/N6 and the middle-index relation N10
+hold at shifted lattice points by their proofs (checks N5/N6, M4). The closed-form machinery (N8) applies too:
+lattice elements are the same \(J\)-products with shifted indices, e.g.
+\({}^{(s,0)}\Do_{000}(q) = J_{2+s+q}J_{1+q}/(4\gamma p^2)\).</p>
+</div>
+
+<h3>What does <em>not</em> extend, and why</h3>
+<p>Two Thomson-limit features fail at finite recoil, both for identified reasons:</p>
+<ul>
+  <li><strong>Reflection/self-adjointness per rung.</strong> N1 maps \((j,k) \to (-k,-j)\)
+  (see <a href="raising.html">N5/N6</a>): individual rungs with \(j \neq -k\) are <em>not</em> self-conjugate —
+  only appropriately paired insertions on the two legs are. This is the operator-level trace of energy exchange:
+  recoil breaks the elastic reciprocity that made the Thomson round trip self-adjoint on photon phase space
+  (<a href="self-adjoint.html">N12</a>); the full recoil operator instead satisfies detailed balance with the
+  Planck weight, not symmetry with the vacuum weight.</li>
+  <li><strong>Bessel closure of thermal averages.</strong> The companion paper proves the recoil ladder's thermal
+  average is only asymptotic in general (the Maxwellian tail crosses the Klein–Nishina branch point on
+  \(\Oh\)-eigenmodes; superasymptotic ambiguity \(\sim e^{-\cosh\eta_*/\theta_{\rm e}}\)). The lattice structure
+  is consistent with this: rung \(s\) shifts \(a_j \to a_j \pm s\) inside the same \(F(\mu,a,z)\) class (N9/N11),
+  so each rung individually remains in the class, while the \(s\)-resummation is where convergence is lost.</li>
+</ul>
+
+<h3>Practical upshot</h3>
+<p>To compute recoil-corrected SZ signals in this framework: (1) expand the rest-frame cross-section and energy
+shift to the desired order in \(x'\) — this fixes the channel weights \(w^{(s)}_{\ell'}(\Oh)\) (Klein–Nishina
+angular terms enter as Funk–Hecke weights via N13); (2) evaluate the required lattice elements
+\({}^{(j,k)}\Do\) by the N3 ODE (series) or N8 closed forms (all \(\beta\)); (3) thermally average with N9/N11,
+respecting the superasymptotic truncation \(N_* \sim 1/\theta_{\rm e}\). Every ingredient is already verified;
+what remains application-specific is only the rest-frame expansion in step (1) — the route by which
+[HLC26] obtain the Kompaneets equation and the companion paper obtains \(R_1, R_2, R_3\).</p>
+
+<h3>Verification record</h3>
+<p><a href="../verification/14_recoil_lattice.html"><code>verification/14_recoil_lattice.wl</code></a>:
+R1 commutation dictionary (exact); R2 rest-frame \(x'^s\) insertion \(=\) lattice element \((s,0)\)
+(exact, \(s \in \{1,2\}\), all indices \(\le 1\)); R3 lattice-generalized N3 ODE at rungs
+\((j,k) \in \{1,2,0\}\times\{0,-1\}\) by finite differences (\(6\times10^{-12}\)).
+Cf. also <code>10_middle_index.wl</code> check M4 and <code>02_doppler.wl</code> checks N5/N6 for the other
+relations at shifted lattice points.</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>
