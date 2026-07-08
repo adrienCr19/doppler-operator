@@ -23,6 +23,32 @@ must lift to the Doppler operator. They do. The refined statement of the earlier
 Doppler family alone — but on the extended family below it closes completely, exactly as the outer-index
 recursions N5/N6 close only on the weight lattice.</p>
 
+<h3>0 &nbsp;What is being done, in words</h3>
+<p>The Doppler operator is a product of two kernels that <em>share</em> the scattering-multipole index:</p>
+\[
+  \Do_{\ell\,\ell'\,\ell''} \;\propto\;
+  \underbrace{{}^{a}\Kk_{\ell\,\boxed{\ell'}}(+\beta)}_{\text{factor 1: } \ell' \text{ is its \emph{column}}}\;\;
+  \underbrace{{}^{b}\Kk_{\boxed{\ell'}\,\ell''}(-\beta)}_{\text{factor 2: } \ell' \text{ is its \emph{row}}}.
+\]
+<p>The plan has three moves:</p>
+<ol>
+  <li><strong>Find a kernel recursion for each slot separately.</strong> The literature \(\ell\)-raising (B10)
+  steps the <em>row</em> of a \(-\beta\) kernel — that is exactly what factor 2 needs (Ingredient B).
+  Factor 1 needs its <em>column</em> stepped at \(+\beta\); no such relation is in the literature, but it follows
+  by conjugating B10 with the transposition identity B3 (Ingredient A, Step 1 below). Each ingredient is a
+  three-term recursion \(\ell' \to \ell'-1, \ell'-2\) that unavoidably drags in one <em>weight-shifted</em>
+  kernel — the same weight companions as in N5/N6.</li>
+  <li><strong>Step both factors at once.</strong> A shift of the <em>shared</em> index must act on both factors
+  simultaneously: solve Ingredient A for factor 1 at index \(\ell'\), Ingredient B for factor 2 at index
+  \(\ell'\), and multiply the two right-hand sides. Each right-hand side has three terms, so the product has
+  nine.</li>
+  <li><strong>Sort the nine products.</strong> Five of them have <em>matched</em> intermediate indices
+  \((\ell'-1,\ell'-1)\) or \((\ell'-2,\ell'-2)\) — these reassemble into genuine Doppler-operator elements
+  (on the weight lattice, because of the companions). The remaining cross products have <em>mismatched</em>
+  indices \((\ell'-1,\ell'-2)\) and \((\ell'-2,\ell'-1)\) — these are the off-diagonal companions
+  \(X\): still exact, still closed-form, but not diagonal. The result is relation (M).</li>
+</ol>
+
 <div class="newbox">
 <div class="head"><span class="name">Extended family and statement</span> <span class="badge new">new</span>
 <span class="badge pass">verified ≤4×10⁻²⁷</span></div>
@@ -48,11 +74,27 @@ recursions N5/N6 close only on the weight lattice.</p>
   \end{aligned}
   \tag{M}
 \]
-<p>Higher middle indices from lower ones, at fixed outer indices — at the cost of the two off-diagonal
-companions \(X_{\ell'-1,\ell'-2}\), \(X_{\ell'-2,\ell'-1}\) and the same weight-lattice shifts as N5/N6.</p>
 </div>
 
-<h3>Step 1 — Ingredient A: column recursion of the \(+\beta\) kernel</h3>
+<p>At the physical point \((j,k) = (0,0)\), for the quadrupole step \(\ell' = 2\) at \(m = 0\)
+(\(C_2^2 = \tfrac{4}{15}\), so \(\tfrac{1}{C_2^2} = \tfrac{15}{4}\),
+\(\tfrac{C_1}{C_2^2} = \tfrac{5\sqrt3}{4}\), \(\tfrac{C_1^2}{C_2^2} = \tfrac{5}{4}\)),
+the relation reads <strong>explicitly</strong>:</p>
+\[
+  \begin{aligned}
+  \Do_{\ell,2,\ell''} \;=\;
+  &\;\frac{15}{4p^2}\Big[\gamma^2\,{}^{(0,0)}\Do - \gamma\,{}^{(-1,0)}\Do - \gamma\,{}^{(0,1)}\Do
+     + {}^{(-1,1)}\Do\Big]_{\ell,1,\ell''} \\[3pt]
+  &+ \frac{5\sqrt3}{4p}\Big[\gamma\,{}^{(0,0)}X_{\ell;1,0;\ell''} - {}^{(-1,0)}X_{\ell;1,0;\ell''}\Big]
+   + \frac{5\sqrt3}{4p}\Big[\gamma\,{}^{(0,0)}X_{\ell;0,1;\ell''} - {}^{(0,1)}X_{\ell;0,1;\ell''}\Big]
+   \;+\; \frac{5}{4}\,\Do_{\ell,0,\ell''}\,.
+  \end{aligned}
+  \tag{M\('_2\)}
+\]
+<p>Higher middle indices from lower ones, at fixed outer indices — at the cost of the two off-diagonal
+companions and the same weight-lattice shifts as N5/N6.</p>
+
+<h3>1 &nbsp;Ingredient A: column recursion of the \(+\beta\) kernel</h3>
 <p>The verified \(\ell\)-raising B10 recursion acts on the <em>row</em> of a \(-\beta\) kernel. The first factor
 of \(X\) needs its <em>column</em> \(\ell_1'\) shifted, at argument \(+\beta\). Sandwich B10 in the transposition
 identity (B3): write \({}^{a}\Kk_{\ell\ell'}(+\beta) = {}^{2-a}\Kk_{\ell'\ell}(-\beta)\), apply B10 to the row
@@ -71,18 +113,16 @@ identity (B3): write \({}^{a}\Kk_{\ell\ell'}(+\beta) = {}^{2-a}\Kk_{\ell'\ell}(-
 <p>Note the weight companion is <em>raised</em> (\(a+1\)), the mirror image of B10's lowered one.
 <span class="badge pass">check M1, 2×10⁻²⁷ (m = 0, 1)</span></p>
 
-<h3>Step 2 — Ingredient B and the one-sided recursions</h3>
+<h3>2 &nbsp;Ingredient B and the one-sided recursions</h3>
 <p>The second factor \({}^{b}\Kk_{\ell_2'\ell''}(-\beta)\) needs its <em>row</em> shifted: that is B10 verbatim,
 with weight companion \(b-1\). Because \(X\) factorizes, multiplying (A) by the untouched second factor gives a
 three-term recursion in \(\ell_1'\) alone (weight companion \(j \to j-1\), since \(a = -1-j-q\)), and multiplying
 B10 by the untouched first factor gives one in \(\ell_2'\) alone (companion \(k \to k+1\), since \(b = -k-q\)).
-On the \(X\)-family the middle indices are therefore <em>fully recursive, independently</em> — your intuition,
-made precise.</p>
+On the \(X\)-family the middle indices are therefore <em>fully recursive, independently</em>.</p>
 
-<h3>Step 3 — the diagonal step (M)</h3>
-<p>To move the physical (diagonal) index \(\ell' \to \ell'\) from \(\ell'-1, \ell'-2\), apply (A) to factor 1 and
-B10 to factor 2 <em>simultaneously</em> and multiply. With
-\(F_1(\ell_1') = {}^{-1-j-q}\Kk_{\ell\ell_1'}(+\beta)\), \(F_2(\ell_2') = {}^{-k-q}\Kk_{\ell_2'\ell''}(-\beta)\):</p>
+<h3>3 &nbsp;The diagonal step (M)</h3>
+<p>With \(F_1(\ell_1') = {}^{-1-j-q}\Kk_{\ell\ell_1'}(+\beta)\),
+\(F_2(\ell_2') = {}^{-k-q}\Kk_{\ell_2'\ell''}(-\beta)\), and \(F_1^{j-1}, F_2^{k+1}\) the weight companions:</p>
 \[
   \gamma\,\Do^{(j,k)}_{\ell\ell'\ell''} = F_1(\ell')\,F_2(\ell') =
   \Big[-\tfrac{1}{C_{\ell'}p}\big(\gamma F_1 - F_1^{j-1}\big)(\ell'-1) - \tfrac{C_{\ell'-1}}{C_{\ell'}}F_1(\ell'-2)\Big]
@@ -95,17 +135,104 @@ the off-diagonal companions \(X_{\ell'-1,\ell'-2}\) and \(X_{\ell'-2,\ell'-1}\).
 <p><span class="badge pass">check M2: (M) verified for \(\ell' \le 3\), \(\ell,\ell'' \le 2\), \(m \in \{0,1\}\),
 \(q \in \{0.5, -0.7\}\) at 4×10⁻²⁷; M4: at shifted lattice points \((j,k)\)</span></p>
 
-<h3>Step 4 — closed-form demonstration: \(\Do_{020}\) by middle-index climbing</h3>
-<p>Every element of the extended family is a product of two kernel columns, hence \(J\)-closed
-(<a href="closed-forms.html">N8</a>); (M) is therefore a closed-form-preserving generator in \(\ell'\).
-Applying (M) at \((\ell,\ell',\ell'') = (0,2,0)\) — inputs: \(\Do_{010}\)-family on the weight lattice,
-\(\Do_{000}\), and the four cross elements \(X_{0;1,0;0}, X_{0;0,1;0}\) at shifted weights, all elementary
-\(J\)-products — reproduces the \(\Do_{020}\) closed form of N8 <em>exactly</em>
-(<span class="badge pass">check M3, deviation 0.0</span>). So \(\Do_{020}\) can be reached from the
-\(\Do_{000}\) base case without ever descending to a bare kernel: N6/N5 climb the outer indices,
-(M) climbs the middle one.</p>
+<h3>4 &nbsp;Worked rederivation of \(\Do_{020}\) from (M\('_2\))</h3>
+<p>Set \((\ell,\ell'') = (0,0)\) in (M\('_2\)). Shorthand throughout: \(J_n \equiv J_{n+q}\) with
+\(J_w = \frac{(\gamma+p)^w-(\gamma-p)^w}{w}\), \(J_{-w} = J_w\).</p>
 
-<h3>Why the diagonal family alone cannot close</h3>
+<h4>W1 — the input elements in closed form</h4>
+<p>Only <em>middle-index ≤ 1</em> elements are needed. Their factors, from the N8 machinery
+(<a href="closed-forms.html#route1">Eq. 1.1 there</a>, plus transposition):</p>
+\[
+  {}^{-1-j-q}\Kk_{00}(+\beta) = \frac{J_{2+j+q}}{2p},\qquad
+  {}^{-k-q}\Kk_{00}(-\beta) = \frac{J_{1+k+q}}{2p} \qquad\text{(seeds)},
+\]
+\[
+  {}^{a}\Kk_{01}(+\beta) \overset{\text{B3}}{=} {}^{2-a}\Kk_{10}(-\beta)
+  \overset{(1.1)}{=} -\frac{\sqrt3}{2p^2}\big(\gamma J_{a-1} - J_{a}\big)
+  \;\;\Rightarrow\;\;
+  {}^{-1-j-q}\Kk_{01}(+\beta) = -\frac{\sqrt3}{2p^2}\big(\gamma J_{2+j+q} - J_{1+j+q}\big),
+\]
+\[
+  {}^{-k-q}\Kk_{10}(-\beta) \overset{(1.1)}{=} -\frac{\sqrt3}{2p^2}\big(\gamma J_{1+k+q} - J_{2+k+q}\big),
+\]
+<p>(evenness \(J_{-w}=J_w\) used in the third line). Hence the lattice-diagonal middle-index-1 elements
+(product of two minus signs):</p>
+\[
+  {}^{(j,k)}\Do_{010} = \frac{3}{4\gamma p^4}\,
+  \big(\gamma J_{2+j+q} - J_{1+j+q}\big)\big(\gamma J_{1+k+q} - J_{2+k+q}\big),
+\]
+<p>and the cross elements:</p>
+\[
+  {}^{(j,k)}X_{0;1,0;0} = -\frac{\sqrt3}{4\gamma p^3}\big(\gamma J_{2+j+q} - J_{1+j+q}\big)\,J_{1+k+q},
+  \qquad
+  {}^{(j,k)}X_{0;0,1;0} = -\frac{\sqrt3}{4\gamma p^3}\,J_{2+j+q}\,\big(\gamma J_{1+k+q} - J_{2+k+q}\big).
+\]
+
+<h4>W2 — the lattice block factorizes</h4>
+<p>The four-element bracket of (M\('_2\)) involves \(j \in \{0,-1\}\) (touching only factor 1) and
+\(k \in \{0,1\}\) (touching only factor 2); it therefore factorizes into two independent combinations:</p>
+\[
+  \Big[\gamma^2\,{}^{(0,0)}\Do - \gamma\,{}^{(-1,0)}\Do - \gamma\,{}^{(0,1)}\Do + {}^{(-1,1)}\Do\Big]_{010}
+  = \frac{3}{4\gamma p^4}\,
+  \underbrace{\Big[\gamma\big(\gamma J_2 - J_1\big) - \big(\gamma J_1 - J_0\big)\Big]}_{\textstyle A}\;
+  \underbrace{\Big[\gamma\big(\gamma J_1 - J_2\big) - \big(\gamma J_2 - J_3\big)\Big]}_{\textstyle B},
+\]
+\[
+  A = \gamma^2 J_2 - 2\gamma J_1 + J_0, \qquad B = \gamma^2 J_1 - 2\gamma J_2 + J_3 .
+\]
+
+<h4>W3 — the cross combinations produce the same \(A, B\)</h4>
+\[
+  \gamma\,{}^{(0,0)}X_{0;1,0;0} - {}^{(-1,0)}X_{0;1,0;0}
+  = -\frac{\sqrt3}{4\gamma p^3}\Big[\gamma\big(\gamma J_2 - J_1\big) - \big(\gamma J_1 - J_0\big)\Big] J_1
+  = -\frac{\sqrt3}{4\gamma p^3}\,A\,J_1,
+\]
+\[
+  \gamma\,{}^{(0,0)}X_{0;0,1;0} - {}^{(0,1)}X_{0;0,1;0}
+  = -\frac{\sqrt3}{4\gamma p^3}\,J_2\,\Big[\gamma\big(\gamma J_1 - J_2\big) - \big(\gamma J_2 - J_3\big)\Big]
+  = -\frac{\sqrt3}{4\gamma p^3}\,J_2\,B .
+\]
+
+<h4>W4 — assembly</h4>
+<p>Insert W2, W3 and \(\Do_{000} = J_2 J_1/(4\gamma p^2)\) into (M\('_2\)):</p>
+\[
+  \Do_{020}
+  = \frac{15}{4p^2}\cdot\frac{3AB}{4\gamma p^4}
+  \;+\; \frac{5\sqrt3}{4p}\cdot\Big(\!-\frac{\sqrt3\,A J_1}{4\gamma p^3}\Big)
+  \;+\; \frac{5\sqrt3}{4p}\cdot\Big(\!-\frac{\sqrt3\,J_2 B}{4\gamma p^3}\Big)
+  \;+\; \frac{5}{4}\cdot\frac{J_2 J_1}{4\gamma p^2}
+\]
+\[
+  = \frac{5}{16\gamma p^6}\Big[\,9AB \;-\; 3p^2\big(A J_1 + J_2 B\big) \;+\; p^4 J_1 J_2\,\Big]
+  \;=\; \frac{5}{16\gamma p^6}\,\big(3A - p^2 J_2\big)\big(3B - p^2 J_1\big),
+\]
+<p>where the last step is the factorization of the quadratic form (multiply out to check:
+\((3A - p^2J_2)(3B - p^2J_1) = 9AB - 3p^2 AJ_1 - 3p^2 J_2 B + p^4 J_1 J_2\)).</p>
+
+<h4>W5 — match with the N8 closed form</h4>
+<p>Finally, using \(3\gamma^2 - p^2 = 3(1+p^2) - p^2 = 3+2p^2\):</p>
+\[
+  3A - p^2 J_2 = (3\gamma^2 - p^2)J_2 - 6\gamma J_1 + 3J_0 = (3+2p^2)J_2 - 6\gamma J_1 + 3J_0 \;=\; U,
+\]
+\[
+  3B - p^2 J_1 = (3+2p^2)J_1 - 6\gamma J_2 + 3J_3 \;=\; V,
+\]
+\[
+  \boxed{\;\Do_{020}(q) = \frac{5}{16\gamma p^6}\,
+  \Big[(3+2p^2)J_{2+q} - 6\gamma J_{1+q} + 3J_{q}\Big]
+  \Big[(3+2p^2)J_{1+q} - 6\gamma J_{2+q} + 3J_{3+q}\Big]\;}
+\]
+<p>— identically the closed form obtained by Route 1 in <a href="closed-forms.html">N8, Eq. (1.4)</a>.
+\(\blacksquare\)</p>
+<p><span class="badge pass">check M3: the full numeric assembly of (M) at \(\ell'=2\) equals the N8 form,
+deviation 0.0</span> &nbsp; <span class="badge pass">check M5: W4–W5 verified as an exact polynomial identity
+in free symbols \(J_0,\dots,J_3\) modulo \(\gamma^2 = 1+p^2\)</span></p>
+<p class="note">Note how the pieces conspire: the lattice block alone gives \(9AB\), which is <em>not</em> the
+answer; the two off-diagonal cross terms and the \(\ell'-2\) term supply exactly \(-3p^2(AJ_1 + J_2B) + p^4J_1J_2\),
+completing the product \((3A - p^2J_2)(3B - p^2J_1)\). Dropping the \(X\)-companions would therefore give a
+wrong result — they are not a technical artifact but half of the answer.</p>
+
+<h3>5 &nbsp;Why the diagonal family alone cannot close</h3>
 <p>The cross terms are unavoidable: a shift of the <em>shared</em> index acts on both factors, and the product of
 two three-term recursions inevitably contains mixed \((\ell'-1,\ell'-2)\) pairings. One can also see it by
 counting: the diagonal family is a codimension-one slice of the \(X\)-family, and one-sided shifts do not
@@ -121,9 +248,12 @@ and uniform:</p>
 </table></div>
 
 <h3>Verification record</h3>
-<p><a href="../verification/10_middle_index.html"><code>verification/10_middle_index.wl</code></a>: M1 ingredient (A) at \(m \in \{0,1\}\) (2×10⁻²⁷);
+<p><a href="../verification/10_middle_index.html"><code>verification/10_middle_index.wl</code></a>:
+M1 ingredient (A) at \(m \in \{0,1\}\) (2×10⁻²⁷);
 M2 relation (M) across \(\ell' \le 3\), outer indices \(\le 2\), both \(m\) (4×10⁻²⁷);
-M3 exact reproduction of the N8 \(\Do_{020}\) closed form via (M); M4 validity at shifted lattice points.</p>
+M3 exact reproduction of the N8 \(\Do_{020}\) closed form via (M);
+M4 validity at shifted lattice points;
+M5 the worked W4–W5 algebra as an exact symbolic polynomial identity.</p>
 
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
 </main>

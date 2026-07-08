@@ -3,3 +3,4 @@ M2  middle-index raising (M) for the Doppler operator: PASS  (max dev = Scientif
 M3  (M) at lp=2 reproduces the D020 closed form: PASS  (max dev = ScientificForm[0., 3])
 M4  (M) at shifted lattice points (j,k): PASS  (max dev = ScientificForm[1.77463775246193*^-27, 3])
 --- middle-index harness done ---
+M5  worked D020 rederivation: 9AB - 3p^2(A J1 + J2 B) + p^4 J1 J2 - UV  ==  0 (PASS, exact polynomial identity mod g^2 = 1+p^2)

@@ -62,3 +62,17 @@ dev = Max@Table[Abs[DD[j, k, q, 1, 2, 1, 0, bb] - Mrel[j, k, q, 1, 2, 1, 0, bb]]
 report["M4  (M) at shifted lattice points (j,k)", dev];
 
 Print["--- middle-index harness done ---"];
+
+(* ---- M5: symbolic verification of the worked D020 rederivation (page N10, worked example).
+   With A = g^2 J2 - 2 g J1 + J0,  B = g^2 J1 - 2 g J2 + J3  (lattice-block factors) the assembled (M) gives
+   D020 = (5/(16 g p^6)) [ 9 A B - 3 p^2 (A J1 + J2 B) + p^4 J1 J2 ]
+   which must equal the N8 closed form (5/(16 g p^6)) U V with
+   U = (3+2p^2) J2 - 6 g J1 + 3 J0,  V = (3+2p^2) J1 - 6 g J2 + 3 J3,
+   as a POLYNOMIAL identity in the free symbols J0..J3, using only g^2 = 1 + p^2. ---- *)
+Clear[g, p, J0, J1, J2, J3];
+A = g^2 J2 - 2 g J1 + J0; B = g^2 J1 - 2 g J2 + J3;
+U = (3 + 2 p^2) J2 - 6 g J1 + 3 J0; V = (3 + 2 p^2) J1 - 6 g J2 + 3 J3;
+lhs = 9 A B - 3 p^2 (A J1 + J2 B) + p^4 J1 J2;
+diff = PolynomialReduce[Expand[lhs - U V], {g^2 - 1 - p^2}, {g, p, J0, J1, J2, J3}][[2]];
+Print["M5  worked D020 rederivation: 9AB - 3p^2(A J1 + J2 B) + p^4 J1 J2 - UV  ==  ",
+  If[diff === 0, "0 (PASS, exact polynomial identity mod g^2 = 1+p^2)", diff]];
