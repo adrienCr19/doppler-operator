@@ -16,32 +16,71 @@ window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]
 <a class="backlink" href="../index.html#new">← back to main page</a>
 <h2>N5, N6 — Outer-index raising recursions on the weight lattice</h2>
 
+<h3>0 &nbsp;What is being done, in words</h3>
+<p>The Doppler operator is a product of two kernels, and its two <em>outer</em> indices are each private to one
+factor:</p>
+\[
+  \Do_{\boxed{\ell}\,\ell'\,\boxed{\ell''}} \;\propto\;
+  \underbrace{{}^{a}\Kk_{\boxed{\ell}\,\ell'}(+\beta)}_{\ell \text{ is factor 1's \emph{row}}}\;\;
+  \underbrace{{}^{b}\Kk_{\ell'\,\boxed{\ell''}}(-\beta)}_{\ell'' \text{ is factor 2's \emph{column}}}.
+\]
+<p>This makes raising them structurally <em>easier</em> than the shared middle index
+(<a href="middle-index.html">N10</a>): a one-sided kernel recursion applied to one factor, with the other factor
+untouched, immediately reassembles into Doppler elements — no off-diagonal cross terms can appear. The plan:</p>
+<ol>
+  <li><strong>For \(\ell\) (outgoing, N5):</strong> factor 1 needs its row stepped at argument \(+\beta\). The
+  literature \(\ell\)-raising B10 is stated at \(-\beta\); the parity identity (sign flip \((-1)^{\ell+\ell'}\)
+  per element) converts it. B10 unavoidably couples the Doppler weight \(d\) to \(d-1\); on the first factor,
+  whose weight is \(a = -1-j-q\), this shifts the lattice label \(j \to j+1\). That weight-shifted element is the
+  <em>companion</em>.</li>
+  <li><strong>For \(\ell''\) (incoming, N6):</strong> factor 2 needs its column stepped at \(-\beta\). Transpose
+  it (B3), apply the \(+\beta\) row recursion, transpose back. The weight companion now acts on
+  \(b = -k-q\), shifting \(k \to k-1\).</li>
+  <li><strong>Multiply by the spectator factor.</strong> Every term of the kernel recursion carries the same
+  untouched second (resp. first) factor, so each term is itself a Doppler element on the weight lattice
+  \((j,k)\). The recursion closes.</li>
+</ol>
+
 <div class="newbox">
-<div class="head"><span class="name">Setting</span></div>
-<p>Define the <em>generalized Doppler operators</em> (\(s=0\); physical case \((j,k) = (0,0)\)):</p>
+<div class="head"><span class="name">Setting and statement</span></div>
+<p>Generalized Doppler operators on the weight lattice (\(s=0\); physical case \((j,k) = (0,0)\)):</p>
 \[
   {}^{(j,k)}\Do^m_{\ell\ell'\ell''}(\nu,\beta) \;\equiv\; \frac{1}{\gamma}\;
   {}^{-1-j}\Bo^m_{\ell\ell'}(\nu,-\beta)\;\; {}^{-k}\Bo^m_{\ell'\ell''}(\nu,\beta)
   \;\;\overset{\text{on }\nu^q}{=}\;\;
   \frac{1}{\gamma}\, {}^{-1-j-q}\Kk^m_{\ell\ell'}(+\beta)\;{}^{-k-q}\Kk^m_{\ell'\ell''}(-\beta)\,.
 \]
-<div class="head" style="margin-top:1rem"><span class="name">Statement</span></div>
+<p>Then, at every lattice point \((j,k)\), for \(s=0\):</p>
 \[
   \textbf{(N5)}\qquad
-  \Do^m_{\ell\ell'\ell''} = \frac{1}{C^m_{\ell}\,p}\Big[\gamma\,\Do^m_{\ell-1,\ell'\ell''} - {}^{(1,0)}\Do^m_{\ell-1,\ell'\ell''}\Big]
-  - \frac{C^m_{\ell-1}}{C^m_{\ell}}\,\Do^m_{\ell-2,\ell'\ell''}\,,
+  {}^{(j,k)}\Do^m_{\ell\ell'\ell''} = \frac{1}{C^m_{\ell}\,p}\Big[\gamma\,{}^{(j,k)}\Do^m_{\ell-1,\ell'\ell''}
+   - {}^{(j+1,k)}\Do^m_{\ell-1,\ell'\ell''}\Big]
+  - \frac{C^m_{\ell-1}}{C^m_{\ell}}\,{}^{(j,k)}\Do^m_{\ell-2,\ell'\ell''}\,,
 \]
 \[
   \textbf{(N6)}\qquad
-  \Do^m_{\ell\ell'\ell''} = \frac{1}{C^m_{\ell''}\,p}\Big[\gamma\,\Do^m_{\ell\ell',\ell''-1} - {}^{(0,-1)}\Do^m_{\ell\ell',\ell''-1}\Big]
-  - \frac{C^m_{\ell''-1}}{C^m_{\ell''}}\,\Do^m_{\ell\ell',\ell''-2}\,,
+  {}^{(j,k)}\Do^m_{\ell\ell'\ell''} = \frac{1}{C^m_{\ell''}\,p}\Big[\gamma\,{}^{(j,k)}\Do^m_{\ell\ell',\ell''-1}
+   - {}^{(j,k-1)}\Do^m_{\ell\ell',\ell''-1}\Big]
+  - \frac{C^m_{\ell''-1}}{C^m_{\ell''}}\,{}^{(j,k)}\Do^m_{\ell\ell',\ell''-2}\,.
 \]
-<p>with the same relations holding at every lattice point \((j,k)\) (shift \(j\) or \(k\) accordingly).
-Together with the seeds (<a href="seeds.html">N7</a>) these generate all elements at arbitrary outer indices,
+<p>Together with the seeds (<a href="seeds.html">N7</a>) these generate all elements at arbitrary outer indices,
 at fixed intermediate \(\ell'\).</p>
 </div>
 
-<h3>Ingredient — the kernel \(\ell\)-raising recursion at \(+\beta\)</h3>
+<p>At \(m=0\), the coefficients for the first two steps of each ladder are explicit numbers
+(\(C_1 = \tfrac1{\sqrt3}\), \(C_2 = \tfrac2{\sqrt{15}}\), \(C_1/C_2 = \tfrac{\sqrt5}2\), \(C_0 = 0\)):</p>
+\[
+  \textbf{(N6, } \ell''\!: 0\to1\textbf{)}\quad
+  {}^{(j,k)}\Do_{\ell\ell'1} = \frac{\sqrt3}{p}\Big[\gamma\,{}^{(j,k)}\Do_{\ell\ell'0} - {}^{(j,k-1)}\Do_{\ell\ell'0}\Big],
+\]
+\[
+  \textbf{(N6, } \ell''\!: 1\to2\textbf{)}\quad
+  {}^{(j,k)}\Do_{\ell\ell'2} = \frac{\sqrt{15}}{2p}\Big[\gamma\,{}^{(j,k)}\Do_{\ell\ell'1} - {}^{(j,k-1)}\Do_{\ell\ell'1}\Big]
+  - \frac{\sqrt5}{2}\,{}^{(j,k)}\Do_{\ell\ell'0},
+\]
+<p>and identically for N5 with \(\ell\)-steps and companions \((j+1,k)\).</p>
+
+<h3>1 &nbsp;Ingredient — the kernel \(\ell\)-raising recursion at \(+\beta\)</h3>
 <p>The verified literature recursion (B10; [CR26, Eq. B3], [RC26, Eq. B3]; harness check C4) reads, at
 argument \(-\beta\) and \(s=0\):</p>
 \[
@@ -58,30 +97,114 @@ argument \(-\beta\) and \(s=0\):</p>
   - \frac{C^m_{\ell-1}}{C^m_\ell}\,{}^{d}\Kk^m_{\ell-2,\ell'}(+\beta).
 \]
 
-<h3>Proof of N5</h3>
-<p>On power laws the first factor of \(\Do^m_{\ell\ell'\ell''}\) is \({}^{-1-q}\Kk^m_{\ell\ell'}(+\beta)\); its
-row index \(\ell\) is the outgoing index and its column \(\ell'\) is the spectator. Apply the \(+\beta\) recursion
-with \(d = -1-q\) and multiply through by the untouched second factor
-\(\tfrac1\gamma {}^{-q}\Kk^m_{\ell'\ell''}(-\beta)\). The \(d\)-term products reassemble into
-\(\Do^m_{\ell-1,\ell'\ell''}\) and \(\Do^m_{\ell-2,\ell'\ell''}\); the \((d-1)\)-term has first weight
-\(-2-q = -1-(1)-q\), i.e. the lattice point \((j,k)=(1,0)\). \(\blacksquare\)</p>
+<h3>2 &nbsp;Proof of N5</h3>
+<p>On power laws the first factor of \({}^{(j,k)}\Do^m_{\ell\ell'\ell''}\) is
+\({}^{-1-j-q}\Kk^m_{\ell\ell'}(+\beta)\); its row index \(\ell\) is the outgoing index and its column \(\ell'\)
+is the spectator. Apply the \(+\beta\) recursion with \(d = -1-j-q\) and multiply through by the untouched second
+factor \(\tfrac1\gamma {}^{-k-q}\Kk^m_{\ell'\ell''}(-\beta)\). The \(d\)-term products reassemble into
+\({}^{(j,k)}\Do^m_{\ell-1,\ell'\ell''}\) and \({}^{(j,k)}\Do^m_{\ell-2,\ell'\ell''}\); the \((d-1)\)-term has first
+weight \(-2-j-q = -1-(j{+}1)-q\), i.e. the lattice point \((j+1,k)\). \(\blacksquare\)</p>
 
-<h3>Proof of N6</h3>
-<p>The second factor \({}^{-q}\Kk^m_{\ell'\ell''}(-\beta)\) needs a recursion in its <em>column</em> \(\ell''\).
-Transpose it (B3): \({}^{-q}\Kk^m_{\ell'\ell''}(-\beta) = {}^{2+q}\Kk^m_{\ell''\ell'}(+\beta)\), apply the
-\(+\beta\) row recursion above with \(d = 2+q\) and row index \(\ell''\), then transpose each term back:
-\({}^{2+q}\Kk^m_{\ell''-1,\ell'}(+\beta) = {}^{-q}\Kk^m_{\ell',\ell''-1}(-\beta)\) and
-\({}^{1+q}\Kk^m_{\ell''-1,\ell'}(+\beta) = {}^{1-q}\Kk^m_{\ell',\ell''-1}(-\beta)\). The latter has second weight
-\(-k-q\) with \(k = -1\): the lattice point \((0,-1)\). Multiplying by the untouched first factor completes the
+<h3>3 &nbsp;Proof of N6</h3>
+<p>The second factor \({}^{-k-q}\Kk^m_{\ell'\ell''}(-\beta)\) needs a recursion in its <em>column</em> \(\ell''\).
+Transpose it (B3): \({}^{-k-q}\Kk^m_{\ell'\ell''}(-\beta) = {}^{2+k+q}\Kk^m_{\ell''\ell'}(+\beta)\), apply the
+\(+\beta\) row recursion above with \(d = 2+k+q\) and row index \(\ell''\), then transpose each term back:
+\({}^{2+k+q}\Kk^m_{\ell''-1,\ell'}(+\beta) = {}^{-k-q}\Kk^m_{\ell',\ell''-1}(-\beta)\) and
+\({}^{1+k+q}\Kk^m_{\ell''-1,\ell'}(+\beta) = {}^{1-k-q}\Kk^m_{\ell',\ell''-1}(-\beta)\). The latter has second
+weight \(-(k{-}1)-q\): the lattice point \((j,k-1)\). Multiplying by the untouched first factor completes the
 proof. \(\blacksquare\)</p>
 
-<h3>Reflection duality</h3>
+<h3>4 &nbsp;Reflection duality</h3>
 <p>Under the reflection N1 (\(\ell \leftrightarrow \ell''\), \(\Oh \to 3-\Oh\), which on the lattice acts as
 \((j,k) \to (-k,-j)\)), relation N5 maps exactly onto relation N6 — deriving either one yields the other for free,
 and any implementation can generate one outer index and obtain the other by symmetry.</p>
 
-<h3>Why no recursion closes at \((j,k)=(0,0)\) alone</h3>
-<p>One might hope to eliminate the companion \({}^{(1,0)}\Do\) using the weight-raising relation (B6),
+<h3>5 &nbsp;Worked rederivation: \(\Do_{202}\) from the \(\Do_{000}\) base case, four steps</h3>
+<p>The four-step climb \( (0,\!0,\!0) \xrightarrow{\text{N6}} (0,\!0,\!1) \xrightarrow{\text{N6}} (0,\!0,\!2)
+\xrightarrow{\text{N5}} (1,\!0,\!2) \xrightarrow{\text{N5}} (2,\!0,\!2)\) exercises everything: both ladders, the
+weight companions at every step, and (in steps W2, W4) the \(C_{\ell-1}\) three-term tail. Shorthand:
+\(J_n \equiv J_{n+q}\), \(J_w = \frac{(\gamma+p)^w - (\gamma-p)^w}{w}\), \(J_{-w} = J_w\).
+It produces a <em>new</em> closed form not derived elsewhere on this site.</p>
+
+<h4>W0 — lattice base cases (seed only)</h4>
+\[
+  {}^{(j,k)}\Do_{000} = \frac{J_{2+j}\,J_{1+k}}{4\gamma p^2}
+  \qquad\text{(<a href="closed-forms.html#route2">N8, Eq. 2.1</a>; check F9)}.
+\]
+
+<h4>W1 — N6 step \(\ell''\!: 0 \to 1\)</h4>
+<p>The companion difference touches only factor 2 (\(k\)-label):</p>
+\[
+  \gamma\,{}^{(j,k)}\Do_{000} - {}^{(j,k-1)}\Do_{000}
+  = \frac{J_{2+j}}{4\gamma p^2}\big(\gamma J_{1+k} - J_{k}\big)
+  \;\;\Rightarrow\;\;
+  {}^{(j,k)}\Do_{001} = \frac{\sqrt3}{4\gamma p^3}\, J_{2+j}\big(\gamma J_{1+k} - J_{k}\big).
+  \tag{W1}
+\]
+<p><span class="badge pass">check F10</span></p>
+
+<h4>W2 — N6 step \(\ell''\!: 1 \to 2\) (first appearance of the three-term tail)</h4>
+\[
+  \gamma\,{}^{(j,k)}\Do_{001} - {}^{(j,k-1)}\Do_{001}
+  = \frac{\sqrt3}{4\gamma p^3}\,J_{2+j}\Big[\gamma\big(\gamma J_{1+k} - J_k\big) - \big(\gamma J_k - J_{k-1}\big)\Big]
+  = \frac{\sqrt3}{4\gamma p^3}\,J_{2+j}\Big[\gamma^2 J_{1+k} - 2\gamma J_k + J_{k-1}\Big],
+\]
+\[
+  {}^{(j,k)}\Do_{002} = \frac{\sqrt{15}}{2p}\cdot\frac{\sqrt3\,J_{2+j}}{4\gamma p^3}\Big[\gamma^2 J_{1+k} - 2\gamma J_k + J_{k-1}\Big]
+   - \frac{\sqrt5}{2}\cdot\frac{J_{2+j} J_{1+k}}{4\gamma p^2}
+  = \frac{\sqrt5\,J_{2+j}}{8\gamma p^4}\Big[3\gamma^2 J_{1+k} - 6\gamma J_k + 3J_{k-1} - p^2 J_{1+k}\Big],
+\]
+<p>and with \(3\gamma^2 - p^2 = 3+2p^2\) (the same collapse as everywhere in N8/N10):</p>
+\[
+  {}^{(j,k)}\Do_{002} = \frac{\sqrt5}{8\gamma p^4}\, J_{2+j}\; V_k,
+  \qquad
+  V_k \equiv (3+2p^2)\,J_{1+k} - 6\gamma\,J_{k} + 3\,J_{k-1}.
+  \tag{W2}
+\]
+<p><span class="badge pass">check F12 (exact)</span>. Note \(V_0\) is precisely the second bracket of the
+\(\Do_{020}\) closed form — the same universal quadrupole bracket, now produced by the \(\ell''\)-ladder.</p>
+
+<h4>W3 — N5 step \(\ell\!: 0 \to 1\)</h4>
+<p>Now the companion difference touches only factor 1 (\(j\)-label), with \(V_k\) a spectator:</p>
+\[
+  \gamma\,{}^{(0,k)}\Do_{002} - {}^{(1,k)}\Do_{002}
+  = \frac{\sqrt5}{8\gamma p^4}\big(\gamma J_{2} - J_{3}\big)V_k
+  \;\;\Rightarrow\;\;
+  {}^{(0,k)}\Do_{102} = \frac{\sqrt{15}}{8\gamma p^5}\big(\gamma J_{2} - J_{3}\big) V_k .
+  \tag{W3}
+\]
+<p><span class="badge pass">check F13, 6×10⁻³²</span> &nbsp;(here we set \(j=0\); the general-\(j\) form has
+\(J_{2+j}, J_{3+j}\)).</p>
+
+<h4>W4 — N5 step \(\ell\!: 1 \to 2\) and the final form</h4>
+\[
+  \gamma\,{}^{(0,0)}\Do_{102} - {}^{(1,0)}\Do_{102}
+  = \frac{\sqrt{15}}{8\gamma p^5}\Big[\gamma\big(\gamma J_2 - J_3\big) - \big(\gamma J_3 - J_4\big)\Big]V_0
+  = \frac{\sqrt{15}}{8\gamma p^5}\Big[\gamma^2 J_2 - 2\gamma J_3 + J_4\Big]V_0,
+\]
+\[
+  \Do_{202} = \frac{\sqrt{15}}{2p}\cdot\frac{\sqrt{15}}{8\gamma p^5}\Big[\gamma^2 J_2 - 2\gamma J_3 + J_4\Big]V_0
+  - \frac{\sqrt5}{2}\cdot\frac{\sqrt5\,J_2\,V_0}{8\gamma p^4}
+  = \frac{5\,V_0}{16\gamma p^6}\Big[3\gamma^2 J_2 - 6\gamma J_3 + 3J_4 - p^2 J_2\Big],
+\]
+<p>and the \(3\gamma^2 - p^2 = 3+2p^2\) collapse once more:</p>
+\[
+  \boxed{\;\Do_{202}(q) = \frac{5}{16\gamma p^6}
+  \Big[(3+2p^2)J_{2+q} - 6\gamma J_{3+q} + 3J_{4+q}\Big]
+  \Big[(3+2p^2)J_{1+q} - 6\gamma J_{q} + 3J_{q-1}\Big]\;}
+  \tag{W4}
+\]
+<p><span class="badge pass">check F14 vs direct quadrature, β ∈ {0.3, 0.7} — a new closed form</span></p>
+<p><strong>Consistency.</strong> \(\Do_{202}\) is diagonal (\(\ell = \ell''\)), so N1a requires invariance under
+\(q \to -3-q\). Indeed, evenness maps \(J_{2+q}\!\to\!J_{1+q}\), \(J_{3+q}\!\to\!J_{q}\),
+\(J_{4+q}\!\to\!J_{q-1}\): the two brackets <em>swap</em>, exactly as in \(\Do_{101}\) and \(\Do_{020}\)
+(<span class="badge pass">check F15, exact</span>). Its \(p\)-series
+\(\tfrac{1}{45}\Oh(\Oh^3-6\Oh^2+11\Oh-6)p^4 + \dots\) starts at \(p^4\), consistent with the Section-4 table entry
+\(\Do_{2,0,2}\). The simpler two-step example (\(\Do_{101}\), no three-term tails) is worked as Route 2 on the
+<a href="closed-forms.html#route2">N8 page</a> (checks F9–F11).</p>
+
+<h3>6 &nbsp;Why no recursion closes at \((j,k)=(0,0)\) alone</h3>
+<p>One might hope to eliminate the companion \({}^{(j+1,k)}\Do\) using the weight-raising relation (B6),
 \({}^{-2-q}\Kk^m_{\ell-1,\ell'}(\beta) = \gamma\,{}^{-1-q}\Kk^m_{\ell-1,\ell'}(\beta) -
 \gamma\beta\big[C^m_{\ell}{}^{-1-q}\Kk^m_{\ell,\ell'}(\beta) + C^m_{\ell-1}{}^{-1-q}\Kk^m_{\ell-2,\ell'}(\beta)\big]\).
 Substituting it into N5 collapses the relation to the tautology \(\Do_{\ell\ell'\ell''} = \Do_{\ell\ell'\ell''}\):
@@ -89,12 +212,17 @@ the \(\ell\)-raising recursion and the weight-raising relation are not independe
 genuinely new information. Closure without companions is achieved only by the rapidity ODE
 (<a href="ode.html">N3</a>), which trades weight shifts for a derivative in \(\eta\). This mirrors the situation
 for the boost operator itself, where the \(\ell\)-raising recursion (B10) inevitably couples Doppler weights
-\(d\) and \(d-1\).</p>
+\(d\) and \(d-1\) — and the middle index continues the pattern with one more companion type
+(<a href="middle-index.html">N10</a>).</p>
 
-<h3>Verification</h3>
-<p>Checks N5 and N6 of <a href="../verification/02_doppler.html"><code>02_doppler.wl</code></a>: max deviations \(4.6\times10^{-27}\) and
-\(2.1\times10^{-27}\) at \(\beta = 0.3\), for \(q \in \{0.5, -0.7\}\), \(m \in \{0,1\}\), raised index up to 3,
-spectator and other index up to 2. The lattice companions were evaluated from their defining kernel products.</p>
+<h3>Verification record</h3>
+<p>Relations N5/N6: checks N5 and N6 of <a href="../verification/02_doppler.html"><code>02_doppler.wl</code></a>
+(max deviations \(4.6\times10^{-27}\) and \(2.1\times10^{-27}\) at \(\beta = 0.3\), \(q \in \{0.5, -0.7\}\),
+\(m \in \{0,1\}\), raised index up to 3; companions evaluated from their defining kernel products).
+Worked climb: checks F9–F15 of
+<a href="../verification/06_closed_forms.html"><code>06_closed_forms.wl</code></a> — lattice bases (F9),
+W1 (F10), W2 (F12), W3 (F13), the final \(\Do_{202}\) closed form at \(\beta\) up to \(0.7\) (F14), and its
+N1a reflection invariance (F15, exact); the \(\Do_{101}\) two-step variant is F11.</p>
 
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
 </main>

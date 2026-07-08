@@ -88,3 +88,24 @@ dev = Max@Table[With[{g = ga[b], p = ga[b] b},
     Abs[(Sqrt[3]/p) (g DL001[0, 0, q, b] - DL001[1, 0, q, b]) -
         3/(4 g p^4) (g JJ[2 + q, b] - JJ[3 + q, b]) (g JJ[1 + q, b] - JJ[q, b])]], {b, {3/10, 7/10}}, {q, {1/2, -7/10}}];
 report["F11 N5 assembly of D101 == kernel-route closed form (F3)", dev];
+
+(* ---- Worked N5/N6 climb to D202 (page N5/N6 worked example): intermediate closed forms ----
+   Step A (N6, ldd 0->1):  (j,k)D_001 = (Sqrt[3]/(4 g p^3)) J_{2+j+q} (g J_{1+k+q} - J_{k+q})       [= F10]
+   Step B (N6, ldd 1->2):  (j,k)D_002 = (Sqrt[5]/(8 g p^4)) J_{2+j+q} V_k,
+                           V_k = (3+2p^2) J_{1+k+q} - 6 g J_{k+q} + 3 J_{k-1+q}
+   Step C (N5, l 0->1):    (j,k)D_102 = (Sqrt[15]/(8 g p^5)) (g J_{2+j+q} - J_{3+j+q}) V_k
+   Step D (N5, l 1->2):    D_202 = (5/(16 g p^6)) U' V,  U' = (3+2p^2) J_{2+q} - 6 g J_{3+q} + 3 J_{4+q} *)
+Vk[k_, q_, b_] := With[{g = ga[b], p = ga[b] b}, (3 + 2 p^2) JJ[1 + k + q, b] - 6 g JJ[k + q, b] + 3 JJ[k - 1 + q, b]];
+DL002[j_, k_, q_, b_] := With[{g = ga[b], p = ga[b] b}, (Sqrt[5]/(8 g p^4)) JJ[2 + j + q, b] Vk[k, q, b]];
+DL102[j_, k_, q_, b_] := With[{g = ga[b], p = ga[b] b}, (Sqrt[15]/(8 g p^5)) (g JJ[2 + j + q, b] - JJ[3 + j + q, b]) Vk[k, q, b]];
+D202cf[q_, b_] := With[{g = ga[b], p = ga[b] b},
+   (5/(16 g p^6)) ((3 + 2 p^2) JJ[2 + q, b] - 6 g JJ[3 + q, b] + 3 JJ[4 + q, b]) Vk[0, q, b]];
+dev = Max@Table[Abs[DLnum[j, 0, q, 0, 0, 2, 3/10] - DL002[j, 0, q, 3/10]], {j, {0, 1}}, {q, {1/2, -7/10}}];
+report["F12 N6 second step: (j,0)D_002 closed form", dev];
+dev = Max@Table[Abs[DLnum[j, 0, q, 1, 0, 2, 3/10] - DL102[j, 0, q, 3/10]], {j, {0, 1}}, {q, {1/2, -7/10}}];
+report["F13 N5 first step: (j,0)D_102 closed form", dev];
+dev = Max@Table[Abs[DLnum[0, 0, q, 2, 0, 2, b] - D202cf[q, b]], {b, {3/10, 7/10}}, {q, {1/2, -7/10, 13/10}}];
+report["F14 N5 second step: D_202 closed form (NEW element)", dev];
+(* reflection consistency: D202 diagonal => brackets swap under q -> -3-q *)
+dev = Max@Table[Abs[D202cf[q, 3/10] - D202cf[-3 - q, 3/10]], {q, {1/2, -7/10}}];
+report["F15 D_202 invariant under q -> -3-q (N1a)", dev];
