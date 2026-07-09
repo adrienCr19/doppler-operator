@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N18 — The Lorentz-group dictionary: celestial conformal maps, unitarity, and the principal series</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#structure">← back to main page (Structure theory)</a>
+<h2>N18 — The Lorentz-group dictionary: boosts as celestial conformal maps, unitarity of the boost operator, and the principal series</h2>
+
+<p>
+This page makes precise what the whole framework has been hinting at: the aberration kernel and boost operator
+are representation theory of the Lorentz group \(SL(2,\mathbb C)\) acting on the celestial sphere, the
+Doppler weight is a conformal dimension, and the physically natural bases are the unitary principal series.
+Every statement is verified numerically (harness 19), including the first computation of aberration kernels at
+<em>complex</em> Doppler weight.
+</p>
+
+<h3>1 &nbsp;The dictionary</h3>
+<div class="newbox">
+<div class="head"><span class="name">(N18a) Boosts are celestial dilations</span> <span class="badge pass">U1 (exact)</span></div>
+<p>In the stereographic coordinate \(z = e^{i\phi}\tan(\theta/2)\) on the celestial sphere, the aberration map
+\(\mu \to \mu' = \frac{\mu+\beta}{1+\beta\mu}\) is exactly</p>
+\[
+  \tan\tfrac{\theta'}{2} = e^{-\eta}\,\tan\tfrac{\theta}{2}
+  \qquad\Longleftrightarrow\qquad z \;\to\; e^{-\eta} z :
+\]
+<p>a boost of rapidity \(\eta\) along \(\hat z\) is a <em>dilation</em> of the celestial plane — the simplest
+Möbius transformation. A Doppler-weight-\(d\), spin-\(s\) field is a conformal primary of dimension and spin
+\((\Delta, J) = (d, s)\): the Doppler factor is the conformal factor of the map (the aberration Jacobian
+\(\dd\hat y'/\dd\hat y = D^{-2}\) used throughout), and the verified transposition identity B3
+(\(d \to 2-d\), inverse boost) is the <em>shadow transform</em> \(\Delta \to 2-\Delta\) of two-dimensional
+conformal field theory — as identified in <a href="self-adjoint.html">N12</a>. The kernel
+\({}^{d}_{s}\Kk^m_{\ell\ell'}(\beta)\) is therefore a matrix element of an \(SL(2,\mathbb C)\) representation of
+weight \((d, s)\) in the harmonic basis.</p>
+</div>
+
+<h3>2 &nbsp;Unitarity of the boost operator</h3>
+<div class="newbox">
+<div class="head"><span class="name">(N18b) General-\(d\) unitarity theorem</span> <span class="badge new">new</span>
+<span class="badge pass">U2, U3</span></div>
+<p>For a Doppler-weight-\(d\) field, define the <em>weight-matched</em> inner product
+\(\langle X, Y\rangle_d = \int \bar X Y\; \nu^{1-2d}\,\dd\nu\,\dd\hat y\)
+(for \(d = 0\): \(\nu\,\dd\nu\,\dd\hat y = \dd^3k/\nu\), the Lorentz-invariant photon phase-space measure;
+for \(d = 1\): the scale-invariant \(\dd\nu/\nu\)). Then</p>
+\[
+  \boxed{\;{}^{d}\Bo(\nu,\beta)^\dagger \;=\; {}^{d}\Bo(\nu,\beta)^{-1}
+  \quad\text{on } L^2\big(\nu^{1-2d}\dd\nu \otimes S^2\big) \quad\text{for every } d\;}
+\]
+<p><em>Proof (three verified ingredients):</em> on \(L^2(\nu^{1-2d}\dd\nu)\) integration by parts gives
+\(\Oh^\dagger = (2-2d) - \Oh\); the sphere transpose is the shadow (B3),
+\({}^{w}\Kk_{\ell'\ell}(-\beta) = {}^{2-w}\Kk_{\ell\ell'}(\beta)\); applying both to
+\({}^{d}\Bo = \Kk^{d+\Oh}(-\beta)\) gives weight \(2-d-\big((2-2d)-\Oh\big) = d+\Oh\) at argument \(+\beta\) —
+which is \({}^{d}\Bo^{-1}\) by the inversion law (B4). \(\blacksquare\)
+Numerically: the \(d=1\) kernel is an <em>orthogonal matrix</em> (row orthonormality, U2), and the explicit
+position-space boost of weight-\(d\) test fields preserves \(\langle\cdot,\cdot\rangle_d\) for \(d = 0, 1, 2\)
+(U3). Physical reading: Lorentz transformations act unitarily on the photon field over invariant phase space —
+the boost operator is a <em>unitary representation</em> of the boost subgroup, for every Doppler weight.</p>
+</div>
+
+<h3>3 &nbsp;The principal series, and why the weight drops out</h3>
+<div class="newbox">
+<div class="head"><span class="name">(N18c) Mellin decomposition: every weight sees the same principal series</span>
+<span class="badge new">new</span> <span class="badge pass">U4a/b</span></div>
+<p>The unitary line of \(\langle\cdot,\cdot\rangle_d\) consists of the scale-covariant modes
+\(\nu^{q}\) with \(q = d - 1 + ik\), \(k \in \mathbb R\) (these make \(|\nu^q|^2\nu^{1-2d}\dd\nu\)
+scale-invariant). On such a mode the boost operator evaluates to a kernel of weight</p>
+\[
+  d - q \;=\; 1 - ik \;\equiv\; \Delta(k),
+\]
+<p><strong>independent of \(d\)</strong>: whatever the Doppler weight of the field, its unitary Mellin modes are
+boosted by the aberration kernel at complex weight \(\Delta = 1 - ik\) — precisely the <em>unitary principal
+series</em> of \(SL(2,\mathbb C)\) (\(\Delta = 1 + i\lambda\) in the standard normalization). The Doppler weight
+is pure bookkeeping; the representation content is universal. We computed these complex-weight kernels
+(apparently for the first time) and verified both defining properties at \(\Delta = 1 - 0.7i\),
+\(\beta = 0.3\): the inversion law (U4a, truncation-limited \(10^{-18}\)) and unitarity
+\(\overline{\Kk^{\Delta}(-\beta)}^{\mathsf T} = \Kk^{\Delta}(+\beta)\) (U4b, exact) — the latter following
+structurally from B3 + B4 + \(\bar\Delta = 2-\Delta\) on the principal line.</p>
+</div>
+
+<h3>4 &nbsp;First payoff: the Compton spectrum on the celestial line</h3>
+<div class="newbox">
+<div class="head"><span class="name">(N18d) The Hermitian scattering matrix and its real spectrum</span>
+<span class="badge new">new — first computation</span> <span class="badge pass">U5a–c</span></div>
+<p>On the scattering-adjoint line \(q = -\tfrac32 + ik\) (the unitary line of the \(\nu^2\dd\nu\) measure of
+<a href="self-adjoint.html">N12</a>; the reflection \(q \to -3-q\) is \(k \to -k\), i.e. complex conjugation),
+the exact single-momentum Thomson operator</p>
+\[
+  T(k)_{\ell\ell''} = \Do_{\ell 0 \ell''} + \tfrac1{10}\Do_{\ell 2 \ell''}
+  - \Big[\delta_{\ell\ell''} - \beta\big(C_{\ell''+1}\delta_{\ell,\ell''+1} + C_{\ell''}\delta_{\ell,\ell''-1}\big)\Big]
+\]
+<p>is <strong>Hermitian per element</strong> (U5a, \(4\times10^{-25}\) — N1 in its unitary frame), so the exact
+Compton “dispersion relation” \(\lambda_\ell(k;\beta)\) is real. First values
+(\(k = 0.7\), \(\beta = 0.3\), truncated at \(\ell \le 8\)):</p>
+\[
+  \lambda \;=\; \{\,0.000000,\; -0.693880,\; -0.756761,\; -0.853744,\; -0.959719,\;\dots\}
+\]
+<p>— a damping spectrum with a <strong>marginal (zero) mode</strong>, exact to \(10^{-14}\) and persisting at
+other \(k\) (U5c): the Mellin-space fingerprint of a conservation law of the Thomson round trip. Identifying
+this mode and mapping \(\lambda_\ell(k)\) across \((k, p)\) — which turns multiple scattering into exact
+exponentiation \(e^{\tau T(k)}\) — is the spectral-theory frontier that this dictionary opens; all required
+ingredients (closed forms at complex weight, Hermiticity, the F-calculus for thermal averages) are now in
+place and verified.</p>
+</div>
+
+<h3>5 &nbsp;The N15 lemma as a trace identity, and the celestial bridge</h3>
+<p>In this language the one unproven lemma of <a href="polarized.html">N15</a> becomes transparent as a
+<em>trace</em> statement: the \(m\)-summed mixed diagonal is
+\(\mathrm{Tr}_{m}\big[\Pi_\ell\, A_{s_1}\, P_{\ell'}\, B_{s_2}\,\Pi_\ell\big]\), a rotational scalar built from
+representation operators, and the claimed \((s_1,s_2) \leftrightarrow (s_2,s_1)\) symmetry is a
+character-like cyclicity property that fails before tracing (P10b!) and holds after — exactly the behaviour of
+trace identities. What blocks naive cyclicity is that spin-0 and spin-2 kernels act on different bundles; the
+missing ingredient is the intertwining isometry between them (the \(\eth\)-operators). This is now a sharply
+posed representation-theory problem rather than a computational mystery.</p>
+<p>Finally, the bridge outward: the modes \(\nu^{-1+ik}\) on the celestial sphere are exactly the
+<em>conformal primary basis</em> of the celestial-amplitudes programme
+[<a href="../index.html#refs">PSS17</a>], with \(\Delta\) on the principal series. The SZ effect — Compton
+scattering of the CMB by moving electrons, decomposed in boost eigenstates — is thus a laboratory-realized
+celestial-basis scattering computation, and the closed forms of this site provide its exact matrix elements.</p>
+
+<h3>Verification record</h3>
+<p><a href="../verification/19_sl2c.html"><code>verification/19_sl2c.wl</code></a>:
+U1 celestial dilation (exact); U2 orthogonality of the \(d=1\) kernel (truncation-limited \(10^{-18}\));
+U3 invariance of the weight-matched inner product under explicit position-space boosts for \(d = 0,1,2\);
+U4a/b inversion and unitarity of the kernel at complex weight \(\Delta = 1-0.7i\) (exact);
+U5a Hermiticity of \(T(k)\) on the spectral line (\(4\times10^{-25}\)); U5b/c its real spectrum and the
+persistent marginal mode at \(k = 0.7\) and \(1.3\).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

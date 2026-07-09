@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reconciliation with the independent generation paper</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#structure">← back to main page</a>
+<h2>Reconciliation with <em>“The Doppler Operator Generated from Its Seed”</em></h2>
+
+<p>
+An independent document — <em>The Doppler Operator Generated from Its Seed: Explicit Theorems and Closed Forms</em>
+(9 July 2026; companion script <code>doppler_generator.wl</code>), the third of a series that also derives the
+kernel-level inputs — restates the raising machinery as a closed, self-contained calculus on the Doppler operator
+itself. We re-derived and independently verified its claims against this project’s results
+(<a href="../verification/20_reconcile_generation.html"><code>verification/20_reconcile_generation.wl</code></a>,
+all checks by high-precision quadrature on \(\nu^q\)). <strong>Verdict: the two developments agree everywhere they
+overlap; the paper contributes several genuinely new results; and its rapidity ODE surfaced a transcription error
+on our N14 page, now corrected.</strong></p>
+
+<h3>1 &nbsp;Dictionary: their objects are ours</h3>
+<div class="tablewrap"><table class="tbl">
+<tr><th>Generation paper</th><th>This site</th><th>Status</th></tr>
+<tr><td>Extended family \({}^{(j,k)}X_{\ell;\ell_1',\ell_2';\ell''}\), diagonal slice \(= \Do\)</td>
+    <td>Off-diagonal family \(X\) + weight lattice (N10, N14)</td><td>identical definition</td></tr>
+<tr><td>\(J_w\), \(C^m_\ell\), seed \(\;{}^{(j,k)}X_{0;0,0;0} = \frac{J_{2+j+q}J_{1+k+q}}{4\gamma p^2}\) (G0)</td>
+    <td>\(J\)-family, base case \(\Do_{000}\) (N8, checks F5/F9)</td><td>identical (R-seed)</td></tr>
+<tr><td>Four ladders G1-\(\ell\), \(\ell_1'\), \(\ell_2'\), \(\ell''\)</td>
+    <td>N5, N6 (outer) + the two independent middle ladders of N10 §2</td><td>same relations</td></tr>
+<tr><td>Reflection G2a, parity G2b</td><td>N1, N2</td><td>identical</td></tr>
+<tr><td>Generation theorem G3; factorization G4</td>
+    <td>N8 structure theorem; the observed two-bracket product form</td><td>same content, made algorithmic</td></tr>
+<tr><td>\(F\)-bracket family G4b, assembly \(\Do_{hk'l} = \frac{(-1)^{k'+l}}\gamma F_{hk'}(q)F_{k'l}(q{-}1)\)</td>
+    <td>Kernel columns \({}^{-1-q}\Kk_{hk'}(+\beta)\) (N8, N16)</td><td>\(F_{hk'} = {}^{-1-q}\Kk_{hk'}(+\beta)\), verified R7/R8</td></tr>
+<tr><td>\(\Do_{121}\) closed form; \(M_{11}\)</td><td>N16</td><td>identical (R8)</td></tr>
+<tr><td>Outer-flow G5a (lattice rapidity ODE)</td><td>N3 / N14</td><td>agree — <strong>and correct our N14 typo</strong> (R2)</td></tr>
+</table></div>
+<p>Every overlapping identity was reproduced: the seed (R-seed), the \(F\)-bracket table \(F_{00}, F_{11}, F_{22}\)
+against our kernel columns (R7, \(10^{-30}\)), the bilinear assembly of the new \(\Do_{121}\) (R8, exact), and the
+reflection-invariance of their “new” elements \(\Do_{212}, \Do_{222}, \Do_{303}\) (R9).</p>
+
+<h3>2 &nbsp;What the paper adds (verified here)</h3>
+<ul>
+  <li><strong>The gauge identity (G2c):</strong>
+  \({}^{(j+1,k+1)}X(q) = {}^{(j,k)}X(q+1)\) <span class="badge pass">R1, exact</span>. A genuinely useful new
+  observation: a diagonal move on the weight lattice is a unit shift of the power-law exponent, so the 2D lattice
+  collapses to the single label \(j-k\) (plus the \(q\)-exponent). This is the engine behind their pure-physical
+  relations — it lets a lattice companion be rewritten as a physical element at shifted \(q\).</li>
+  <li><strong>Pure-physical relations P0–P4</strong> — every term a physical \(\Do\), no auxiliary family:
+    <ul>
+      <li><strong>P1 outer-pair relation</strong> <span class="badge pass">R3, \(10^{-27}\)</span>:
+      \(C_{\ell+1}\Do_{\ell+1,\ell'\ell''}(q) + C_\ell\Do_{\ell-1,\ell'\ell''}(q) - C_{\ell''+1}\Do_{\ell,\ell',\ell''+1}(q{+}1) - C_{\ell''}\Do_{\ell,\ell',\ell''-1}(q{+}1) = \tfrac\gamma p[\Do_{\ell\ell'\ell''}(q) - \Do_{\ell\ell'\ell''}(q{+}1)]\).
+      This is new relative to the site — our N5/N6 always carried a lattice companion; here the two outer ladders
+      are combined and the companion cancels via the gauge identity.</li>
+      <li><strong>P0 axis ladders</strong> <span class="badge pass">R4/R4b, exact</span>: an explicit one-index
+      raising seeded by \(\Do_{000}\) alone, e.g.
+      \(C_1\Do_{100}(q) = \tfrac\gamma p\Do_{000}(q) - \tfrac1p\tfrac{J_{1+q}}{J_{2+q}}\Do_{000}(q{+}1)\).</li>
+      <li><strong>P2 rank-one</strong> <span class="badge pass">R5, exact</span>: at fixed \(\ell', q\) the array
+      \(\Do_{h\ell'l}\) is rank one, \(\Do_{h\ell'l} = \Do_{h\ell'0}\Do_{0\ell'l}/\Do_{0\ell'0}\) — a clean
+      corollary of the factorization, and a compression: one row and column determine everything.</li>
+      <li><strong>P3 pure-physical middle step</strong> (nonlinear; a ratio of physical elements). Consistent with
+      our N10 finding that a <em>linear</em> middle recursion needs the off-diagonal companions — they show the
+      companion-free version exists but must be nonlinear, exactly because the diagonal slice is codimension one.</li>
+    </ul></li>
+  <li><strong>The mirror rapidity flow (G5b)</strong> <span class="badge pass">R6, \(10^{-12}\)</span>: a second,
+  complementary rapidity ODE in which only the <em>middle</em> indices move (outer indices spectate) — the mirror
+  of our N3, in which the middle index spectates. New; verified on off-diagonal elements.</li>
+  <li><strong>The two middle ladders kept separate.</strong> Where our N10 combines the two middle-index steps into
+  one diagonal relation (M) with off-diagonal companions, the paper keeps G1-\(\ell_1'\), G1-\(\ell_2'\) separate on
+  the full off-diagonal family — cleaner and strictly more general (M is their diagonal-restricted product). We had
+  noted the independent recursiveness (N10 §2); they make it the primary object. A genuine improvement in framing.</li>
+</ul>
+
+<h3>3 &nbsp;The correction the paper surfaced</h3>
+<div class="newbox">
+<div class="head"><span class="name">N14 lattice ODE: \(k\)-sign typo, now fixed</span>
+<span class="badge pass">R2 decisive</span></div>
+<p>Our <a href="recoil-lattice.html">N14 page</a> displayed the lattice-generalized rapidity ODE with the
+\(\ell''\)-term signs of \(k\) flipped. Finite differences of the quadrature-defined operator at \(k = \pm1\)
+match the paper’s G5a (\(5\times10^{-12}\)) and <em>reject</em> our displayed form (deviation \(1.7\)):</p>
+\[
+  \text{correct (paper G5a, our harness):}\quad
+  -(\ell''-k+\Oh)\,C_{\ell''+1}\Do_{\dots,\ell''+1} + (\ell''+1+k-\Oh)\,C_{\ell''}\Do_{\dots,\ell''-1},
+\]
+\[
+  \text{our earlier N14 display (wrong):}\quad
+  -(\ell''+k+\Oh)\,C_{\ell''+1}\Do_{\dots,\ell''+1} + (\ell''+1-k-\Oh)\,C_{\ell''}\Do_{\dots,\ell''-1}.
+\]
+<p>Crucially, our verification harness <code>14_recoil_lattice.wl</code> always used the <em>correct</em> signs
+(which is why its check R3 legitimately passed at \(6\times10^{-12}\)) — the error was confined to the HTML
+transcription and affected no downstream result. The physical N3 (\(k=0\)) is unaffected, since the two forms
+coincide at \(k=0\). The page is corrected and carries a dated note. This is exactly the value of an independent
+re-derivation: a display typo that the internal checks could not catch (they tested the code, not the prose) was
+caught by cross-referencing a second formulation.</p>
+</div>
+
+<h3>4 &nbsp;Verdict</h3>
+<p><strong>Do they agree?</strong> Yes — completely, on every shared object and identity (R1, R3–R9 all pass;
+the one apparent disagreement, R2, was our transcription error, not a substantive one).
+<strong>Is the work useful?</strong> Yes. Beyond confirming the framework independently, it delivers: the gauge
+identity reducing the lattice to one label; the pure-physical relation set P0–P4 (removing the auxiliary family
+from the outer-index recursions entirely, and characterizing why the middle index cannot be linearized); the
+mirror rapidity flow; the \(F\)-bracket consolidation; and the rank-one structure — plus the catch of our N14
+display error. Its framing (a generation calculus that never references kernels, boosts, integrals, or
+derivatives) is a cleaner packaging of the N8 structure theorem, and its “keep the middle ladders separate” stance
+is a modest but real improvement over our (M). We recommend adopting the gauge identity and P1/P0 into the core
+toolkit, and the mirror flow G5b as a companion to N3.</p>
+
+<h3>Verification record</h3>
+<p><a href="../verification/20_reconcile_generation.html"><code>verification/20_reconcile_generation.wl</code></a>:
+R1 gauge (exact); R2 the decisive ODE \(k\)-sign test (paper form matches FD, our old display fails);
+R3 P1 (\(10^{-27}\)); R4/R4b P0 (exact); R5 P2 rank-one (exact); R6 G5b mirror flow (\(10^{-12}\));
+R7 \(F\)-bracket table vs our kernel columns (\(10^{-30}\)); R8 the \(\Do_{121}\) bilinear assembly (exact);
+R9 the paper’s new elements reflection-invariant (\(10^{-29}\)).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — reconciliation notes</p></footer>
+</main>
+</body>
+</html>

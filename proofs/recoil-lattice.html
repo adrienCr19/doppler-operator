@@ -70,12 +70,18 @@ each recoil rung unchanged. In particular the lattice-generalized rapidity ODE,<
   \partial_\eta\, {}^{(j,k)}\Do^m_{\ell\ell'\ell''} \;=\;
     &-(\ell+3+j-\Oh)\,C^m_{\ell+1}\,{}^{(j,k)}\Do^m_{\ell+1,\ell'\ell''}
      +(\ell-2-j+\Oh)\,C^m_{\ell}\,{}^{(j,k)}\Do^m_{\ell-1,\ell'\ell''} \\[2pt]
-    &-(\ell''+k+\Oh)\,C^m_{\ell''+1}\,{}^{(j,k)}\Do^m_{\ell,\ell',\ell''+1}
-     +(\ell''+1-k-\Oh)\,C^m_{\ell''}\,{}^{(j,k)}\Do^m_{\ell,\ell',\ell''-1}
+    &-(\ell''-k+\Oh)\,C^m_{\ell''+1}\,{}^{(j,k)}\Do^m_{\ell,\ell',\ell''+1}
+     +(\ell''+1+k-\Oh)\,C^m_{\ell''}\,{}^{(j,k)}\Do^m_{\ell,\ell',\ell''-1}
      \;-\;\beta\,{}^{(j,k)}\Do^m_{\ell\ell'\ell''},
   \end{aligned}
 \]
-<p>was verified by finite differences at the recoil-relevant rungs \((j,k) \in \{1,2,0\}\times\{0,-1\}\)
+<p class="note"><strong>Correction (2026-07-09).</strong> An earlier version of this page displayed the \(\ell''\)
+terms with the sign of \(k\) flipped (\(-(\ell''{+}k{+}\Oh)\), \(+(\ell''{+}1{-}k{-}\Oh)\)). The verification
+harness always used the correct form above; the error was in the transcription only. The correct signs were
+confirmed independently by finite differences (reconciliation harness 20, check R2) and agree with the
+lattice-form rapidity ODE (G5a) of the companion generation paper — see the
+<a href="reconciliation.html">reconciliation note</a>.</p>
+<p>The relation was verified by finite differences at the recoil-relevant rungs \((j,k) \in \{1,2,0\}\times\{0,-1\}\)
 (<span class="badge pass">R3, 6×10⁻¹²</span>); the raising recursions N5/N6 and the middle-index relation N10
 hold at shifted lattice points by their proofs (checks N5/N6, M4). The closed-form machinery (N8) applies too:
 lattice elements are the same \(J\)-products with shifted indices, e.g.

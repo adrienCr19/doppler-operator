@@ -1,0 +1,11 @@
+U1  boost = dilation: tan(th'/2) = e^-eta tan(th/2): PASS  (max dev = ScientificForm[0., 3])
+U2  d=1 kernel orthogonality (Lmax=16): max dev = ScientificForm[6.809808430338287*^-18, 3] (truncation-limited)
+U3  <X',Y'> = <X,Y> on nu^(1-2d) dnu dy (explicit boost, d = 0,1,2): PASS  (max dev = ScientificForm[3.3820169864662794*^-13, 3])
+U4a inversion at Delta = 1 - ik (Lmax=16): max dev = ScientificForm[7.591512960512259*^-18, 3] (truncation-limited)
+U4b unitarity: conj(K^Delta(-b))^T = K^Delta(+b) at Delta = 1 - ik: PASS  (max dev = ScientificForm[0., 3])
+U5a T(k) Hermitian on the spectral line (per-element exact): PASS  (max dev = ScientificForm[3.955882708111902*^-25, 3])
+U5b Compton eigenvalues on the celestial line (k=0.7, beta=0.3, truncated at l<=8):
+     {NumberForm[-5.5745025759599443*^-14, 6], NumberForm[-0.6938796528884528, 6], NumberForm[-0.7567610916666672, 6], NumberForm[-0.8537442784790549, 6], NumberForm[-0.9597188313357897, 6]}
+     max |Im(eigenvalue)| = ScientificForm[0, 2] (should be ~0 by Hermiticity)
+U5c top eigenvalues at k = 1.3: {NumberForm[-1.2188642357138444*^-13, 6], NumberForm[-0.6938797231693082, 6], NumberForm[-0.7567609296028895, 6]}   (marginal mode persists: YES)
+--- SL(2,C) dictionary harness done ---

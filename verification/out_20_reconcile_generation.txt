@@ -1,0 +1,13 @@
+R1  gauge G2c: (j+1,k+1)X(q) = (j,k)X(q+1): PASS  (dev = ScientificForm[0., 3])
+R2  rapidity ODE k-sign at k = +-1 (FD-limited ~1e-8):
+     OUR N14 form:  dev = ScientificForm[1.6876039618119036, 3]   FAILS
+     PAPER G5a form: dev = ScientificForm[5.199146704538238*^-12, 3]   MATCHES FD
+R3  P1 outer pair relation (pure physical): PASS  (dev = ScientificForm[1.1992127333145405*^-27, 3])
+R4  P0 axis ladder (D_a00), J-ratio coefficient: PASS  (dev = ScientificForm[1.01226086445064*^-30, 3])
+R4b P0 seeded: C1 D100(q) = (g/p)D000(q) - (1/p)(J1/J2)D000(q+1): PASS  (dev = ScientificForm[0., 3])
+R5  P2 rank-one: D_{h1 l' l1} D_{h2 l' l2} = D_{h1 l' l2} D_{h2 l' l1}: PASS  (dev = ScientificForm[0., 3])
+R6  G5b mirror rapidity ODE (moves only middle indices): PASS  (dev = ScientificForm[8.476139839766956*^-12, 3])
+R7  F-bracket table (F00, F11, F22) == our kernel columns ^{-1-q}K(+b): PASS  (dev = ScientificForm[5.0506206914924186*^-30, 3])
+R8  D121 bilinear assembly (paper G4b) == direct definition: PASS  (dev = ScientificForm[0., 3])
+R9  new diagonal elements (D212,D222,D303) reflection-invariant (N1a): PASS  (dev = ScientificForm[1.7233099377466141*^-29, 3])
+--- reconciliation harness done ---
