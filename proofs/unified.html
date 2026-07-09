@@ -3,137 +3,171 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The unified index-raising formulation</title>
+<title>The unified formulation: it is all the aberration kernel</title>
 <link rel="stylesheet" href="../style.css">
 <script>
 window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
-  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}", Ff: "\\mathsf{F}" } } };
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 </head>
 <body>
 <main>
 <a class="backlink" href="../index.html#new">← back to main page</a>
-<h2>The unified index-raising formulation</h2>
+<h2>The unified formulation: it is all the aberration kernel</h2>
 
-<p>
-Every index-raising result on this site — the outer recursions (N5/N6), the middle-index relation (N10), the
-closed forms (N8), the kinematic element (N16) — and every result of the independent
-<a href="reconciliation.html">generation paper</a> (its four ladders, gauge identity, pure-physical relations
-P0–P4, factorization, \(F\)-brackets) is one statement seen from different sides. This page is that statement:
-<strong>one object, one seed, one recurrence (in two mirror slots), three symmetries.</strong>
-All boxed equations are verified end-to-end in
+<div class="newbox">
+<div class="head"><span class="name">Thesis</span></div>
+<p>The Doppler operator looks like it needs a theory of its own: a three-index object
+\(\Do_{\ell\ell'\ell''}\) on a two-dimensional weight lattice, with bespoke raising recursions (N5/N6/N10),
+closed forms (N8), and — in the two independent developments, this site and the
+<a href="reconciliation.html">generation paper</a> — a dozen separate-looking theorems. <strong>It needs none of
+that.</strong> It is a bilinear pairing of the ordinary <em>aberration kernel</em> — an object whose recursions
+and closed forms were established a decade ago (Dai&nbsp;&amp;&nbsp;Chluba&nbsp;2014; Chluba&nbsp;2011). This page
+makes that precise. Three concrete payoffs:</p>
+<ol>
+  <li><strong>No new special function is needed to generate the operator.</strong> Every element — every closed
+  form on this site — is built from aberration-kernel columns alone. (Contrast the <em>thermal average</em>,
+  which genuinely does need a new transcendent, N9/N11 — a different problem; see the honesty note below.)</li>
+  <li><strong>The apparent degrees of freedom collapse.</strong> Outer indices, the shared middle index, the
+  \((j,k)\) weight lattice, the spectral exponent \(q\), the two boost directions — five apparent labels — reduce
+  to <em>one</em> two-index kernel family at <em>one</em> spectral parameter.</li>
+  <li><strong>Two independent developments are one calculus.</strong> Our N-results and the generation paper's
+  ladders, gauge identity, factorization, and pure-physical relations are the same statement in different
+  variables; the dictionary is the table below.</li>
+</ol>
+<p>All boxed identities are verified end-to-end in
 <a href="../verification/21_unified.html"><code>verification/21_unified.wl</code></a> (\(s=0\), \(m=0\)).</p>
+</div>
 
-<h3>The one object</h3>
+<h3>1 &nbsp;The one object — the aberration-kernel column</h3>
 <div class="eqbox">
-<div class="head"><span class="name">The bracket \(\Ff\) — a single boost-operator column</span></div>
+<div class="head"><span class="name">Definition (a shorthand, not a new function)</span></div>
 \[
-  \Ff_{ab}(q) \;\equiv\; {}^{-1-q}\Kk_{ab}(+\beta)
-  \qquad(a = \text{row},\; b = \text{column};\ \text{a weight-}(-1-q)\text{ aberration kernel}).
+  \Kk_{ab}(q) \;\equiv\; {}^{-1-q}\Kk_{ab}(+\beta):
 \]
-<p>The entire Doppler operator is a <strong>bilinear form</strong> in this one family
-<span class="badge pass">V1, exact</span>:</p>
+<p>the site’s aberration kernel \({}^{d}\Kk_{ab}(\beta)\), with its Doppler weight <em>locked</em> to the
+physical value \(d = -1-q\) and its boost to \(+\beta\), read as a function of the spectral exponent \(q\).
+The single argument \(q\) (versus the usual \(\beta\)) signals this locked slice. Equivalently, on the operator
+level it is the return-leg boost operator on a power law:
+\(\Kk_{ab}(q) = \big[{}^{-1}\Bo_{ab}(\nu,-\beta)\big]\nu^q / \nu^q\) (weight \(-1\) = the SZ scattering rate;
+\(\Oh\to -q\) on \(\nu^q\)). It is <em>not</em> a new object — the generation paper calls this column \(F\); it
+is one element of the aberration kernel, whose theory is already complete. (Not to be confused with the thermal
+transcendent \(F(\mu,a,z)\) of <a href="f-calculus.html">N11</a>, an unrelated object.)</p>
+</div>
+
+<h3>2 &nbsp;The bilinear identity — and what it does and doesn’t say</h3>
+<div class="eqbox">
+<div class="head"><span class="name">Every Doppler element is a kernel pairing</span> <span class="badge pass">V1, exact</span></div>
 \[
   \boxed{\;\Do_{\ell\ell'\ell''}(q) \;=\; \frac{(-1)^{\ell'+\ell''}}{\gamma}\;
-  \Ff_{\ell\ell'}(q)\;\Ff_{\ell'\ell''}(q-1)\;}
+  \Kk_{\ell\ell'}(q)\;\Kk_{\ell'\ell''}(q-1)\;}
 \]
-<p>(the two scattering legs are \(\Ff_{\ell\ell'}(q)\) and, via parity, \(\Ff_{\ell'\ell''}(q-1)\)). Raising any
-of the three physical indices \(\ell, \ell', \ell''\) is therefore raising an index of \(\Ff\).</p>
+</div>
+<p class="note"><strong>Honest reading.</strong> The Doppler operator is <em>defined</em> as a product of two
+boost operators, so “it factorizes into two kernel elements” is close to the definition, not a discovery. The
+non-trivial content is the two refinements that make it useful: (i) by parity the two legs — a weight-\(-1\)
+boost along \(-\beta\) and a weight-\(0\) boost along \(+\beta\), which look like different objects — are the
+<em>same</em> family \(\Kk_{ab}\) evaluated at \(q\) and \(q-1\); and (ii) the middle index \(\ell'\) is a
+<em>contraction</em> index of the pairing, not a third free label. Raising any of \(\ell, \ell', \ell''\) is
+therefore raising an index of the one family \(\Kk\).</p>
+
+<h3>3 &nbsp;The dimensional reduction (the actual content)</h3>
+<p>What looked like an operator on a large index set is a function of far fewer variables. The collapse:</p>
+<div class="tablewrap"><table class="tbl">
+<tr><th>Apparent freedom</th><th>Collapses because…</th><th>Result</th></tr>
+<tr><td>two boost directions \(\pm\beta\)</td><td>parity \({}^{d}\Kk_{ab}(-\beta)=(-1)^{a+b}{}^{d}\Kk_{ab}(+\beta)\)</td><td>one direction \(+\beta\)</td></tr>
+<tr><td>outer \((\ell,\ell'')\) + shared middle \(\ell'\)</td><td>the bilinear identity: \(\ell'\) is the contracted index</td><td>one 2-index family \(\Kk_{ab}\)</td></tr>
+<tr><td>weight lattice \((j,k)\in\mathbb Z^2\)</td><td>gauge identity \({}^{(j+1,k+1)}X(q)={}^{(j,k)}X(q+1)\)</td><td>a shift of \(q\) (no separate lattice)</td></tr>
+<tr><td>Doppler weight \(d\)</td><td>locked to the physical \(-1-q\) (rate/number)</td><td>absorbed into \(q\)</td></tr>
+</table></div>
+<p>So the entire apparatus is <strong>one bivariate function \(\Kk_{ab}(q)\)</strong>. That is the substance of
+the unification: not that a product factorizes, but that everything the Doppler operator carries — indices,
+lattice, weights, directions — reduces to a single object the literature already solved.</p>
+
+<h3>4 &nbsp;The one recurrence and the one seed</h3>
+<p>The column inherits the aberration kernel’s own three-term recurrence (Dai&nbsp;&amp;&nbsp;Chluba; the
+\(\ell\)-raising B10). Applied to the row or the column of \(\Kk_{ab}\) it gives two forms, transposes of each
+other, whose <em>only</em> companion is the same column at a neighbouring \(q\) — this is where the weight lattice
+went (row&nbsp;\(\to q{+}1\), column&nbsp;\(\to q{-}1\)). With \(C_\ell = \ell/\sqrt{4\ell^2-1}\) (\(m=0\)):</p>
+<div class="eqbox">
+<div class="head"><span class="name">Raise the row \(a\)</span> <span class="badge pass">V2a</span>
+<span class="name" style="margin-left:1.5rem">Raise the column \(b\)</span> <span class="badge pass">V2b</span></div>
+\[
+  \Kk_{ab}(q) = \frac{\gamma\,\Kk_{a-1,b}(q) - \Kk_{a-1,b}(q{+}1)}{C_a\,p} - \frac{C_{a-1}}{C_a}\,\Kk_{a-2,b}(q),
+\]
+\[
+  \Kk_{ab}(q) = -\frac{\gamma\,\Kk_{a,b-1}(q) - \Kk_{a,b-1}(q{-}1)}{C_b\,p} - \frac{C_{b-1}}{C_b}\,\Kk_{a,b-2}(q).
+\]
+</div>
+<div class="eqbox">
+<div class="head"><span class="name">Seed</span>, with \(J_w = \dfrac{(\gamma+p)^w-(\gamma-p)^w}{w}\)</div>
+\[
+  \Kk_{00}(q) = \frac{J_{2+q}}{2p}
+  \qquad\Big(\text{general } m:\ {}^{d}\Kk^m_{mm} = \gamma^{-(m+d)}\,{}_2F_1\big(\tfrac{m+d}{2},\tfrac{m+d+1}{2};\tfrac32{+}m;\beta^2\big)\Big).
+\]
 </div>
 
-<h3>The one seed</h3>
+<h3>5 &nbsp;The symmetries</h3>
 <div class="eqbox">
-<div class="head"><span class="name">\(\Ff_{00}\), with \(J_w = \dfrac{(\gamma+p)^w-(\gamma-p)^w}{w} = \dfrac{2\sinh w\eta}{w}\)</span></div>
+<div class="head"><span class="name">Column reflection, kernel parity; and their Doppler images</span> <span class="badge pass">V3</span></div>
 \[
-  \Ff_{00}(q) \;=\; \frac{J_{2+q}}{2p}
-  \qquad\Big(\text{general } m:\ \Ff \text{ seeded by } {}^{d}\Kk^m_{mm} = \gamma^{-(m+d)}\,{}_2F_1\big(\tfrac{m+d}{2},\tfrac{m+d+1}{2};\tfrac32{+}m;\beta^2\big)\Big).
-\]
-</div>
-
-<h3>The one recurrence (two mirror slots)</h3>
-<p>A single three-term recurrence raises an index of \(\Ff\); applied to the row or the column it gives the two
-forms below, which are transposes of each other under the \(\Ff\)-reflection. Here
-\(C_\ell = \ell/\sqrt{4\ell^2-1}\) (\(m=0\)); each rule references only smaller indices, and its lone companion
-is the <em>same bracket at a neighbouring \(q\)</em>:</p>
-<div class="eqbox">
-<div class="head"><span class="name">Raise the row \(a\)</span> <span class="badge pass">V2a</span></div>
-\[
-  \Ff_{ab}(q) = \frac{1}{C_a\,p}\Big(\gamma\,\Ff_{a-1,b}(q) - \Ff_{a-1,b}(q{+}1)\Big) - \frac{C_{a-1}}{C_a}\,\Ff_{a-2,b}(q).
-\]
-</div>
-<div class="eqbox">
-<div class="head"><span class="name">Raise the column \(b\)</span> <span class="badge pass">V2b</span></div>
-\[
-  \Ff_{ab}(q) = -\frac{1}{C_b\,p}\Big(\gamma\,\Ff_{a,b-1}(q) - \Ff_{a,b-1}(q{-}1)\Big) - \frac{C_{b-1}}{C_b}\,\Ff_{a,b-2}(q).
-\]
-</div>
-<p>The companion \(q\)-shift (\(+1\) for the row, \(-1\) for the column) <em>is</em> the weight-lattice shift of
-the generation paper (its \((j,k)\) label), collapsed to a \(q\)-shift by the gauge identity
-\({}^{(j+1,k+1)}X(q) = {}^{(j,k)}X(q+1)\) — so the extended \((j,k)\) lattice is not a separate structure, just
-these \(q\)-shifted companions.</p>
-
-<h3>The three symmetries</h3>
-<div class="eqbox">
-<div class="head"><span class="name">Reflection, parity, evenness</span> <span class="badge pass">V3</span></div>
-\[
-  \textbf{(reflection)}\quad \Ff_{ab}(q) = (-1)^{a+b}\,\Ff_{ba}(-4-q),
+  \Kk_{ab}(q) = (-1)^{a+b}\,\Kk_{ba}(-4-q),
   \qquad
-  \textbf{(evenness)}\quad J_{-w} = J_w,
-\]
-\[
-  \textbf{(Doppler reflection, N1)}\quad \Do_{\ell\ell'\ell''}(q) = \Do_{\ell''\ell'\ell}(-3-q),
+  \Do_{\ell\ell'\ell''}(q) = \Do_{\ell''\ell'\ell}(-3-q)\;\text{(N1)},
   \qquad
-  \textbf{(parity, N2)}\quad \Do(-\beta) = (-1)^{\ell+\ell''}\Do(\beta).
+  \Do(-\beta) = (-1)^{\ell+\ell''}\Do(\beta)\;\text{(N2)}.
 \]
-<p>The \(\Ff\)-reflection is what makes the two raising slots mirror images; the Doppler reflection is its
-image under the bilinear map, and forces every diagonal element (\(\ell=\ell''\)) to be a polynomial in the
+<p>The column reflection is what makes the two recurrences mirror images; its image under the bilinear pairing is
+the Doppler reflection N1, which forces every diagonal element (\(\ell=\ell''\)) to be a polynomial in the
 diffusion operator \(\Dv = \Oh^2-3\Oh\).</p>
 </div>
 
-<h3>Generation from the seed</h3>
-<p>Fill the \(\Ff\)-table from \(\Ff_{00}\): raise the row to build column \(b=0\), then raise the column;
-assemble any \(\Do\) by the bilinear form. Verified end-to-end — from the seed alone, with no kernels,
-integrals, or boosts — for e.g. \(\Do_{313}, \Do_{212}, \Do_{303}, \Do_{222}\)
-<span class="badge pass">V4, exact</span>:</p>
-<pre><code>F(0,0,q) = J[2+q]/(2p)                                   # the seed
-F(a,0,q) = (1/(C_a p))(γ F(a-1,0,q) - F(a-1,0,q+1)) - (C_{a-1}/C_a) F(a-2,0,q)   # row-raise
-F(a,b,q) = -(1/(C_b p))(γ F(a,b-1,q) - F(a,b-1,q-1)) - (C_{b-1}/C_b) F(a,b-2,q)  # col-raise
-D(l,l',l'',q) = ((-1)^(l'+l'') / γ) F(l,l',q) F(l',l'',q-1)                      # assemble</code></pre>
-<p>Termination: each raise lowers an index; the seed carries \(1/(2p)\), so \(\Do_{\ell\ell'\ell''}\) lands in
+<h3>6 &nbsp;Generation from the seed</h3>
+<p>Fill the \(\Kk\)-table from the seed by the two recurrences, then pair. Verified end-to-end — from the seed
+alone, no integrals — for \(\Do_{313}, \Do_{212}, \Do_{303}, \Do_{222}\) <span class="badge pass">V4, exact</span>:</p>
+<pre><code>K(0,0,q) = J[2+q]/(2p)                                    # seed (the diagonal kernel element)
+K(a,0,q) = (γ K(a-1,0,q) - K(a-1,0,q+1))/(C_a p) - (C_{a-1}/C_a) K(a-2,0,q)   # raise row
+K(a,b,q) = -(γ K(a,b-1,q) - K(a,b-1,q-1))/(C_b p) - (C_{b-1}/C_b) K(a,b-2,q)  # raise column
+D(l,l',l'',q) = ((-1)^(l'+l'') / γ) K(l,l',q) K(l',l'',q-1)                   # pair</code></pre>
+<p>Each raise lowers an index and the seed carries \(1/(2p)\), so \(\Do_{\ell\ell'\ell''}\) lands in
 \(\frac{1}{4\gamma p^{\,2+\ell+2\ell'+\ell''}}\,\mathbb Q[\gamma,p]\)-span\(\{J_{a+q}J_{b+q}\}\) — the N8
-structure theorem, now the output of a two-line algorithm.</p>
+structure theorem, now the output of a four-line algorithm on a known object.</p>
 
-<h3>How every prior result is a view of this</h3>
+<h3>7 &nbsp;The dictionary: every result is a view of this</h3>
 <div class="tablewrap"><table class="tbl">
-<tr><th>Result</th><th>In the unified formulation</th></tr>
-<tr><td>N5/N6 (outer raising, this site)</td><td>row-raise and column-raise of the <em>outer</em> factor</td></tr>
-<tr><td>N10 middle relation (M)</td><td>row-raise ∘ column-raise on the <em>shared</em> index (the off-diagonal companions are just \(\Ff\) at intermediate indices)</td></tr>
-<tr><td>N8 closed forms / structure theorem</td><td>the output of the generation algorithm + the \(J\)-span landing</td></tr>
-<tr><td>N16 \(\Do_{121}\)</td><td>\(\tfrac{-1}{\gamma}\Ff_{12}(q)\Ff_{21}(q-1)\)</td></tr>
-<tr><td>Paper G1 four ladders</td><td>the two master recurrences, one per factor</td></tr>
-<tr><td>Paper G2c gauge identity</td><td>the companion \(q\)-shift (lattice \(\Rightarrow\) \(q\)-shift)</td></tr>
-<tr><td>Paper G4/G4b factorization, \(F\)-brackets</td><td>the bilinear master identity; \(\Ff\) <em>is</em> their \(F\)</td></tr>
-<tr><td>Paper P1/P0 pure-physical</td><td>eliminate \(\Ff\) via the bilinear identity + gauge, staying in \(\Do\)'s</td></tr>
-<tr><td>Paper P2 rank-one</td><td>\(\Do_{h\ell'l} = \Ff_{h\ell'}\Ff_{\ell'l}(q{-}1)\cdot(\dots)\) is a rank-one outer product in \((h,l)\)</td></tr>
-<tr><td>N3 / mirror G5b (rapidity ODEs)</td><td>the infinitesimal (\(\eta\)-derivative) form of the same two slots</td></tr>
+<tr><th>Result</th><th>In this formulation</th></tr>
+<tr><td>N5/N6 outer raising</td><td>row- and column-raise of the outer factor \(\Kk\)</td></tr>
+<tr><td>N10 middle relation (M)</td><td>row-raise ∘ column-raise on the contracted index</td></tr>
+<tr><td>N8 closed forms / structure theorem</td><td>the generation algorithm’s output; the \(J\)-span landing</td></tr>
+<tr><td>N16 \(\Do_{121}\)</td><td>\(-\tfrac{1}{\gamma}\Kk_{12}(q)\Kk_{21}(q-1)\)</td></tr>
+<tr><td>Paper’s four ladders (G1)</td><td>the two recurrences, one per factor</td></tr>
+<tr><td>Paper’s gauge identity (G2c)</td><td>the companion \(q\)-shift (lattice \(\Rightarrow q\))</td></tr>
+<tr><td>Paper’s factorization / \(F\)-brackets (G4)</td><td>the bilinear identity; their \(F\) is our column \(\Kk_{ab}(q)\)</td></tr>
+<tr><td>Paper’s pure-physical P0/P1/P2</td><td>eliminate the column via the pairing + gauge, staying in \(\Do\)'s</td></tr>
+<tr><td>N3 / mirror G5b (rapidity ODEs)</td><td>the \(\eta\)-derivative form of the same two slots</td></tr>
 </table></div>
 
-<h3>Two levels of use</h3>
+<h3>8 &nbsp;What this is, and what it is not</h3>
 <ul>
-  <li><strong>Bracket level (simplest).</strong> Work in \(\Ff\): one seed, two recurrences, one reflection.
-  Assemble \(\Do\) at the end. This is the whole calculus.</li>
-  <li><strong>Pure-physical level.</strong> If every intermediate must be a physical \(\Do\), use the bilinear
-  identity + gauge to trade brackets for \(\Do\)'s at shifted \(q\): the outer axes close linearly
-  (paper P0/P1), the middle index only nonlinearly (paper P3), and the rank-one structure (P2) fills the rest.</li>
+  <li><strong>It is</strong> a reduction: the Doppler-operator <em>generation</em> problem is bookkeeping on the
+  aberration kernel — one object, one recurrence, one seed, and the two projects’ theorems are its views. It tells
+  you where to compute anything not yet written down (raise the kernel), and that no new function is needed to do
+  so.</li>
+  <li><strong>It is not</strong> a new hard theorem: the bilinear identity is close to the definition, and the
+  kernel recurrence is prior work. The value is organizational — fewer objects, a known base, one dictionary.</li>
+  <li><strong>It does not</strong> touch the genuinely new mathematics of the project, which lives <em>after</em>
+  the electron average: the thermal Doppler operators are iterated Bessel antiderivatives \(F(\mu,a,z)\)
+  (<a href="f-calculus.html">N9/N11</a>), provably outside the classical special-function library. The
+  generation problem reduces to the kernel; the <em>averaging</em> problem does not — and that boundary is itself
+  one of the project’s results.</li>
 </ul>
 
 <h3>Verification record</h3>
 <p><a href="../verification/21_unified.html"><code>verification/21_unified.wl</code></a>:
-V1 the bilinear master identity (exact); V2a/V2b the two master recurrences (\(10^{-27}\)); V3 the
-\(\Ff\)-reflection (\(10^{-29}\)); V4 end-to-end generation of \(\Do_{313}, \Do_{212}, \Do_{303}, \Do_{222}\)
-from the seed \(\Ff_{00}\) alone (exact). Supersedes nothing — it re-expresses N5–N16 and the generation paper
-in one frame; each component is independently verified on its own page.</p>
+V1 the bilinear identity (exact); V2a/V2b the two recurrences (\(10^{-27}\)); V3 the column reflection
+(\(10^{-29}\)); V4 end-to-end generation of \(\Do_{313}, \Do_{212}, \Do_{303}, \Do_{222}\) from the seed alone
+(exact).</p>
 
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — synthesis</p></footer>
 </main>

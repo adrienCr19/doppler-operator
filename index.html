@@ -368,18 +368,21 @@ grouped here by role, not by number.</p>
   <div class="head"><span class="name">★ The unified formulation — read this first</span>
     <span class="badge new">synthesis</span> <span class="badge pass">verified end-to-end</span>
     <span class="prooflink"><a href="proofs/unified.html">full statement →</a></span></div>
-  <p>All of the below — and the independent <a href="proofs/reconciliation.html">generation paper</a> — is
-  <strong>one object, one seed, one recurrence, three symmetries</strong>. Every Doppler element is a bilinear
-  form in a single family of boost-operator columns \(\Ff_{ab}(q) = {}^{-1-q}\Kk_{ab}(+\beta)\):
+  <p>The Doppler operator looks like it needs a theory of its own — a three-index object on a weight lattice,
+  with bespoke recursions and closed forms. It does not: <strong>it is a bilinear pairing of the ordinary
+  aberration kernel</strong>, a pre-solved object. Writing \(\Kk_{ab}(q) \equiv {}^{-1-q}\Kk_{ab}(+\beta)\) for
+  one kernel column (weight locked to the physical \(-1-q\); the generation paper calls this \(F\)),</p>
   \[
-    \Do_{\ell\ell'\ell''}(q) = \frac{(-1)^{\ell'+\ell''}}{\gamma}\,\Ff_{\ell\ell'}(q)\,\Ff_{\ell'\ell''}(q-1),
-    \qquad \Ff_{00}(q) = \frac{J_{2+q}}{2p},
+    \Do_{\ell\ell'\ell''}(q) = \frac{(-1)^{\ell'+\ell''}}{\gamma}\,\Kk_{\ell\ell'}(q)\,\Kk_{\ell'\ell''}(q-1),
+    \qquad \Kk_{00}(q) = \frac{J_{2+q}}{2p},
   \]
-  and any index of \(\Ff\) is raised by one three-term recurrence (row or column form), whose lone companion is
-  the same bracket at \(q\pm1\) — the weight lattice, collapsed by the gauge identity. From the seed alone this
-  generates every element (e.g. \(\Do_{313}, \Do_{222}\), verified exact). The recursions N5/N6/N10, the closed
-  forms N8, and the paper's ladders/gauge/pure-physical relations P0–P4 are all views of this one statement — see
-  the <a href="proofs/unified.html">unified formulation</a> for the map.</p>
+  <p>and every index is raised by the kernel’s own recurrence (Dai&nbsp;&amp;&nbsp;Chluba), whose lone companion
+  is the same column at \(q\pm1\) — the weight lattice, collapsed to a spectral shift. The payoff is a
+  <em>dimensional reduction</em>: outer indices, the shared middle index, the \((j,k)\) lattice, the weight, and
+  the two boost directions all reduce to one two-index kernel family at one parameter \(q\) — and our N-results
+  and the paper’s ladders/gauge/pure-physical relations P0–P4 become one calculus. (The genuinely new mathematics
+  is elsewhere: the <em>thermal average</em> of these operators, N9/N11, does not reduce to the kernel.) See the
+  <a href="proofs/unified.html">unified formulation</a> for the full statement and dictionary.</p>
 </div>
 
 <div class="newbox">
