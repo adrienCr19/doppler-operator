@@ -1,0 +1,7 @@
+C1  seed D000: pure-physical == closed form: PASS  (dev = ScientificForm[0, 3])
+C2  D101 (lp=0): P0+rank-one == N8 closed form: PASS  (dev = ScientificForm[0``78.03407144143004, 3])
+C3  D202 (lp=0): P0+rank-one == N8 closed form: PASS  (dev = ScientificForm[0``77.71481429288819, 3])
+C4  D020 (lp=2): P3 middle climb == N8 closed form: PASS  (dev = ScientificForm[1.60232727951012511932957372737`1.717744976374558*^-29, 3])
+C5  D121 (lp=2): P3 climb + N1 + rank-one == N16 closed form: PASS  (dev = ScientificForm[2.31848108965`1.6266152934582423*^-27, 3])
+C6  pure-physical == direct definition (spot: D101,D202,D020,D121): PASS  (dev = ScientificForm[2.1982313395`0.2578126783873685*^-28, 3])
+--- cross-check harness done ---
