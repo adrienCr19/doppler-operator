@@ -1,0 +1,10 @@
+V1  D_{l l' l''} = ((-1)^{l'+l''}/g) F_{l l'}(q) F_{l' l''}(q-1): PASS  (dev = ScientificForm[0., 3])
+V2a row-raise: F_{ab}(q) = (1/C_a p)(g F_{a-1,b}(q) - F_{a-1,b}(q+1)) - (C_{a-1}/C_a)F_{a-2,b}(q): PASS  (dev = ScientificForm[1.3591882501935797*^-27, 3])
+V2b col-raise: F_{ab}(q) = -(1/C_b p)(g F_{a,b-1}(q) - F_{a,b-1}(q-1)) - (C_{b-1}/C_b)F_{a,b-2}(q): PASS  (dev = ScientificForm[1.873274025427547*^-27, 3])
+V3  F-reflection: F_{ab}(q) = (-1)^{a+b} F_{ba}(-4-q): PASS  (dev = ScientificForm[3.330293107367862*^-29, 3])
+V4  END-TO-END from seed F00 only:
+     D_313 generated vs direct: PASS  (dev = ScientificForm[0., 3])
+     D_212 generated vs direct: PASS  (dev = ScientificForm[1.7278963319389213*^-29, 3])
+     D_303 generated vs direct: PASS  (dev = ScientificForm[0., 3])
+     D_222 generated vs direct: PASS  (dev = ScientificForm[0., 3])
+--- unified formulation harness done ---
