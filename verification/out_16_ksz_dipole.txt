@@ -1,0 +1,12 @@
+K1a K^d_01(-b) J-form: PASS  (max dev = ScientificForm[5.771377166674596*^-29, 3])
+K1b K^d_11(-b) J-form: PASS  (max dev = ScientificForm[1.4598995174489942*^-28, 3])
+K1c K^d_21(-b) J-form (two B10 steps): PASS  (max dev = ScientificForm[3.4849525065647106*^-28, 3])
+K1  D121 closed form (NEW): PASS  (max dev = ScientificForm[3.746524687982654*^-27, 3])
+K2  diagonal assembly S1 = (-42*q)/25 - (156*q^2)/25 - (52*q^3)/25   physical S1 = (-17*q)/5 - (26*q^2)/5 - (7*q^3)/5
+K2  gap = -1/25*((-1 + q)*q*(43 + 17*q))   (nonzero, with root q=1: the temperature-dipole weight)
+K2  physical S1/(-q) as fn of u=q^2+3q? 7q^2+26q+17 = 7u + 5q + 17 -> residual 5q != 0 => NOT f(Dv): PASS (obstruction)
+K3  M11(q=1/2, th=0.01): exact = -0.0358233897622154244320472084423312657`12.   p^6-series+moments = -0.03582616084455353010190616469557673434`12.
+K3  residual(0.01)/residual(0.005) = 16.5460958732081461586`3.  (expect ~16 for O(p^8) truncation)
+K4  <M11>(q,th) = (-3*(14 + 27*q + 9*q^2)*th)/25 - (3*(-38 - 21*q + 227*q^2 + 156*q^3 + 26*q^4)*th^2)/70 + ((810 - 2127*q + 15995*q^2 - 4524*q^3 - 13804*q^4 - 5220*q^5 - 580*q^6)*th^3)/840 + O(th^4)   [dipole-scattering tower, generated]
+K4b tower coefficients reflection-invariant (should be {0,0,0}): {0, 0, 0}
+--- kSZ dipole harness done ---

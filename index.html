@@ -42,6 +42,7 @@ window.MathJax = {
   <a href="#new">3. New recursion relations</a>
   <a href="#tables">4. Generated tables</a>
   <a href="#verification">5. Verification</a>
+  <a href="data/index.html">Data</a>
   <a href="#refs">References</a>
 </div></nav>
 
@@ -588,6 +589,35 @@ the observed \(\Dv\)-structure. Both are supplied below.
   reciprocity), consistent with the companion paper's no-closure theorem for recoil thermal averages.</p>
 </div>
 
+<div class="newbox">
+  <div class="head"><span class="name">(N15) The polarized sector — and [RC26]'s unproven identity, settled to all orders</span>
+    <span class="badge new">new</span> <span class="badge pass">verified (P1–P12)</span>
+    <span class="prooflink"><a href="proofs/polarized.html">proof →</a></span></div>
+  <p>The spin-weighted (\(s = \pm2\)) foundations — transposition, parity (now flipping \(s\to-s\)),
+  \(\ell\)-raising and rapidity ODE with their \(sm\)-terms — verified at \(s=2\); three reflection theorems
+  follow: <strong>polarized N1</strong> (proves the \(\Dv\)-structure of the polarization tables
+  [RC26, Eq. 21a]), <strong>mixed-spin reflection</strong>
+  \(T(s_1,s_2)(\Oh) = T(s_2,s_1)^{\mathsf T}(3-\Oh)\) (the \(I\!\to\!P\) and \(P\!\to\!I\) blocks are
+  adjoints), and <strong>polarized parity</strong>. The identity [RC26, Eq. 20]
+  (\({}_{0,\pm2}\hat S_\ell \equiv {}_{\pm2,0}\hat S_\ell\)) that the authors <em>"were unable to explicitly
+  prove"</em> is verified <strong>operator-exactly, all orders in \(\beta\)</strong> at \(\ell = 2,3,4\), shown
+  to be <em>collective</em> (it fails per-\(m\) — why leg-by-leg proofs cannot work), and proven equivalent to
+  reflection invariance of the \(m\)-summed mixed diagonal.</p>
+</div>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N16) The kinematic dipole: \(\Do_{121}\) closed form, the exact \(M_{11}\) tower, and a reflection obstruction</span>
+    <span class="badge new">new</span> <span class="badge pass">verified (K1–K4)</span>
+    <span class="prooflink"><a href="proofs/ksz-dipole.html">proof →</a></span></div>
+  <p>The last missing element of the exact SZ system, \(\Do_{121}\), in closed form; the dipole-scattering
+  operator \(M_{11} = \langle\Do_{101}\rangle + \tfrac1{10}\langle\Do_{121}\rangle\) generated to
+  \(\mathcal O(\theta_{\rm e}^3)\) (every coefficient a \(\Dv\)-polynomial, exactly as N1a demands) and
+  evaluated exactly by quadrature. And a sharp negative result: the physical kSZ operator
+  \(-q(7q^2+26q+17)/5\) is <em>provably not</em> \(-q\,f(\Dv)\), so the kinematic signal cannot be assembled
+  from diagonal Doppler elements — the incident temperature dipole carries Doppler weight 1 and its round trip
+  lives on the weight lattice (N14).</p>
+</div>
+
 <h2 id="tables">4 &nbsp;Generated tables (from the ODE N3)</h2>
 <p>
 Symbolic elements \(\Do^{m=0}_{\ell\ell'\ell''}(\nu,\beta)\) to \(\mathcal O(p^4)\), generated purely by iterating
@@ -729,6 +759,15 @@ closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via b
 <tr><td><code>verification/14_recoil_lattice.wl</code></td>
 <td><strong>N14</strong>: commutation dictionary; \(x'^s\) insertion \(=\) lattice element \((s,0)\); lattice-generalized N3 ODE at recoil rungs \((j,k)\in\{1,2,0\}\times\{0,-1\}\)</td>
 <td>all PASS (R1/R2 exact; R3 6×10⁻¹²)</td></tr>
+<tr><td><code>verification/15_polarized.wl</code></td>
+<td><strong>N15</strong>: spin-weighted foundations at \(s=2\) (P1–P6, P12); polarized/mixed reflections and parity (P7–P9); [RC26, Eq. 20] operator-exact at \(\ell=2,3,4\) (P10); per-\(m\) failure (P10b); reflection invariance of the mixed diagonal (P11)</td>
+<td>all PASS (mostly exact; P10 ≤4×10⁻²⁴)</td></tr>
+<tr><td><code>verification/16_ksz_dipole.wl</code></td>
+<td><strong>N16</strong>: kernel columns and the \(\Do_{121}\) closed form (K1); the reflection obstruction for the physical kSZ operator (K2, symbolic); exact \(M_{11}\) vs series (K3, ratio 16.5); the \(\theta_{\rm e}\)-tower with \(\Dv\)-invariant coefficients (K4)</td>
+<td>all PASS (K1 ≤4×10⁻²⁷)</td></tr>
+<tr><td><code>verification/17_tables_p8.wl</code></td>
+<td><strong>Data</strong>: \(\mathcal O(p^8)\) tables (501 entries, channels \(\ell' \le 3\), outer \(\le 6\)) — spot checks vs closed forms, \(p^8\) quadrature extrapolation, exact reflection symmetry of all entries</td>
+<td>all PASS; <a href="data/index.html">data page</a></td></tr>
 <tr><td><a href="verification/05_export_tables.html"><code>verification/05_export_tables.wl</code></a></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
 <p>Every script is browsable with its full source and recorded PASS log at the

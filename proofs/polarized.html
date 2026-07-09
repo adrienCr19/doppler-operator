@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N15 — The polarized sector: spin-weighted reflection symmetries and RC26's unproven identity</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N15 — The polarized sector: spin-weighted reflections, and the status of [RC26, Eq. 20]</h2>
+
+<p>
+Polarization promotes the photon field to spin-weighted components (\(s = 0, \pm2\)) and the Doppler operator to
+mixed-spin round trips: the return leg carries the spin of the observed component, the ingoing leg the spin of
+the source component. This page extends the reflection framework to that sector and settles — at the operator
+level, to all orders in \(\beta\) — the identity that [RC26] stated they <em>“were unable to explicitly
+prove”</em> (their Eq. 20).
+</p>
+
+<h3>0 &nbsp;Setting and conventions</h3>
+<p>Spin-weighted kernels in this site’s convention (harmonics \({}_sY_{\ell m}\) in the standard phase, measured
+recurrence \(\mu\,{}_sY_{\ell m} = {}_sC^m_{\ell+1}\,{}_sY_{\ell+1,m} - \tfrac{sm}{\ell(\ell+1)}{}_sY_{\ell m}
++ {}_sC^m_{\ell}\,{}_sY_{\ell-1,m}\)):</p>
+\[
+  {}_s\Kk^{d,m}_{\ell\ell'}(-\beta) = \int \dd^2\hat y'\,
+  \frac{{}_sY^*_{\ell m}(\hat y')\;{}_sY_{\ell' m}(\hat y_+[\hat y'])}{[\gamma(1+\beta\mu')]^d},
+  \qquad
+  T(s_1,s_2)^m_{\ell\ell'\ell''}(q) \equiv \frac1\gamma\,{}_{s_1}\Kk^{-1-q,m}_{\ell\ell'}(+\beta)\;
+  {}_{s_2}\Kk^{-q,m}_{\ell'\ell''}(-\beta),
+\]
+<p>the mixed-spin Doppler operator on \(\nu^q\) (physical polarized case: \(s_i \in \{0,\pm2\}\),
+intermediate \(\ell' = 2\); [RC26, Eqs. 8–9, 18]).
+<span class="badge pass">foundations P1–P6, P12</span>: orthonormality, \(\delta\)-limit, transposition
+(same \(s\), same form as B3), parity (now flipping \(s \to -s\)), the \(\ell\)-raising B10 and the kernel
+rapidity ODE with their \(sm\)-terms, and the RC26 B5 seed integral, all verified at \(s = 2\),
+\(m \in \{0,1,2\}\).</p>
+<p class="note"><strong>Convention dictionary.</strong> The papers build kernels from \({}_{-s}Y\); ours use
+\({}_sY\). Consequently every explicit \(sm\)-term flips sign relative to the printed [RC26, Eq. B3] and
+[CR25, Eq. 28] (their own footnote flags the same flip). Parity (P4) converts between the two exactly:
+\({}_s\Kk^{d}(-\beta) = (-1)^{\ell+\ell'}\,{}_{-s}\Kk^{d}(+\beta)\). All identities below are convention-robust
+(diagonals and \(\pm s\)-summed objects are invariant under the rephasing).</p>
+
+<h3>1 &nbsp;The three polarized reflection theorems</h3>
+<div class="newbox">
+<div class="head"><span class="name">(N15a) Polarized N1 — same spin</span> <span class="badge pass">P7 (exact)</span></div>
+\[
+  {}_s\Do^m_{\ell\ell'\ell''}(\Oh) = {}_s\Do^m_{\ell''\ell'\ell}(3-\Oh)
+\]
+<p><em>Proof:</em> identical to <a href="reflection.html">N1</a> — the transposition identity is spin-diagonal
+(P3), so the two-line factor-wise proof goes through verbatim. <strong>Corollary:</strong> same-spin diagonal
+elements are polynomials in \(\Dv\) — this proves the \(\Dv\)-structure of the polarization-to-polarization
+tables [RC26, Eq. 21a] (e.g. their \({}_{\pm\pm}\hat S_2\) coefficient \(\tfrac13 + \tfrac{\Oh}{10} - \tfrac{\Oh^2}{30}\)
+contains \(\tfrac{3\Oh - \Oh^2}{30} = -\Dv/30\)), exactly as N1a proved it for the intensity tables.</p>
+</div>
+<div class="newbox">
+<div class="head"><span class="name">(N15b) Mixed-spin reflection</span> <span class="badge new">new</span> <span class="badge pass">P8 (exact)</span></div>
+\[
+  T(s_1,s_2)^m_{\ell\ell'\ell''}(\Oh) \;=\; T(s_2,s_1)^m_{\ell''\ell'\ell}(3-\Oh):
+\]
+<p>under the phase-space reflection the <em>spins ride along with the legs</em> — transposing the round trip
+swaps which leg carries the polarization. <em>Proof:</em> apply the spin-diagonal transposition to each factor;
+the weight bookkeeping is unchanged from N1. Via <a href="self-adjoint.html">N12</a> this says the intensity→polarization
+and polarization→intensity blocks of the scattering operator are mutual <em>adjoints</em> on polarized photon
+phase space.</p>
+</div>
+<div class="newbox">
+<div class="head"><span class="name">(N15c) Polarized parity</span> <span class="badge pass">P9 (exact)</span></div>
+\[
+  T(s_1,s_2)^m_{\ell\ell'\ell''}(\beta) = (-1)^{\ell+\ell''}\,T(-s_1,-s_2)^m_{\ell\ell'\ell''}(-\beta).
+\]
+<p>Reversing the boost flips both spins (a spatial reflection swaps the two circular/spin components), with the
+same outer-index phase as N2.</p>
+</div>
+
+<h3>2 &nbsp;The status of [RC26, Eq. 20]: \({}_{0,\pm2}\hat S_\ell \equiv {}_{\pm2,0}\hat S_\ell\)</h3>
+<p>[RC26] confirmed this identity term by term in a \(p\)-expansion but could not prove it. Three results:</p>
+<div class="newbox">
+<div class="head"><span class="name">(i) Operator-exact verification, all orders</span>
+<span class="badge pass">P10: ℓ = 2, 3, 4; q ∈ {0.5, −0.7}; β ∈ {0.3, 0.7}</span></div>
+\[
+  \sum_{m} T(0,2)^m_{\ell,2,\ell}(q,\beta) \;=\; \sum_{m} T(2,0)^m_{\ell,2,\ell}(q,\beta)
+\]
+<p>holds to \(10^{-24}\) (quadrature-limited) at generic non-integer \(q\) and \(\beta\) up to \(0.7\) — by
+Lemma L1 this certifies the <em>operator</em> identity order by order in \(\beta\), upgrading the paper’s
+series check to all orders in both expansion parameters.</p>
+</div>
+<div class="newbox">
+<div class="head"><span class="name">(ii) The identity is collective in \(m\)</span>
+<span class="badge new">new structural fact</span> <span class="badge pass">P10b</span></div>
+<p>Per-\(m\), the identity <em>fails</em> badly (differences of order \(0.07\)–\(0.8\) at \(\ell=2\),
+\(\beta=0.3\)): \(T(0,2)^m \neq T(2,0)^m\). Only the \(m\)-sum — the rotational average over boost directions
+that defines \({}_{ij}\hat S_\ell\) — restores the equality. Any attempted proof that works \(m\)-by-\(m\) must
+therefore fail; this explains why the boost-engine route of [RC26] could not reach it.</p>
+</div>
+<div class="newbox">
+<div class="head"><span class="name">(iii) Equivalence theorem: Eq. 20 ⟺ mixed reflection invariance</span>
+<span class="badge pass">P11 (exact)</span></div>
+<p>By N15b at \(\ell = \ell''\), \(m\)-summed:
+\(\sum_m T(0,2)_{\ell2\ell}(3-\Oh) = \sum_m T(2,0)_{\ell2\ell}(\Oh)\). Hence</p>
+\[
+  \text{[RC26, Eq. 20]} \quad\Longleftrightarrow\quad
+  \sum_m T(0,2)_{\ell 2 \ell}(\Oh) = \sum_m T(0,2)_{\ell 2 \ell}(3-\Oh),
+\]
+<p>i.e. the unproven identity is <em>exactly</em> the statement that the \(m\)-summed mixed diagonal is
+reflection-invariant — equivalently (N12 language) that the direction-averaged \(I\!\to\!P\) coupling is
+self-adjoint on photon phase space, i.e. scattering reciprocity between intensity and polarization. Both sides
+of the equivalence are verified exactly (P10, P11); a full analytic proof now reduces to a single rotational-invariance
+lemma for the \(m\)-summed round trip — sharply localized, and manifestly a collective-\(m\) statement,
+consistent with (ii). Corollary of the equivalence: the mixed \({}_{0\pm}\hat S_\ell\) operators are also
+polynomials in \(\Dv\), as their printed tables show.</p>
+</div>
+
+<h3>Verification record</h3>
+<p><a href="../verification/15_polarized.html"><code>verification/15_polarized.wl</code></a>:
+P1–P6, P12 spin-weighted foundations (transposition, parity, B10 and rapidity ODE with \(sm\)-terms, RC26 B5
+seed) at \(s=2\), \(m \le 2\), most exact; P7–P9 the three reflection theorems (exact); P10 the Eq.-20 identity
+at \(\ell = 2,3,4\), operator-exact; P10b the per-\(m\) failure; P11 the reflection invariance of the mixed
+diagonal (exact). The \(sm\)-sign dictionary between conventions was pinned by direct measurement of
+\(\langle{}_sY_{\ell m}|\mu|{}_sY_{\ell'm}\rangle\).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

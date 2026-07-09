@@ -1,0 +1,6 @@
+generating channels lp = 0..3 to O(p^8) ...
+exported 501 nonzero (l,lp,ldd,order) entries to data/doppler_tables_p8.json
+T81 D020 series-to-p^8 vs closed form at beta=0.05: dev = ScientificForm[-1.6304391088514626*^-15, 3] (expect ~p^10 ~ 1e-13)
+T82 S_th p^8 coefficient at q=1/2: symbolic = -0.08511904761904761904761904761904761905`10.   quadrature-extrapolated = -0.0850754037145938185`8. / -0.0850996512585634001`8.
+T83 reflection symmetry of all exported (l,ldd <= 4) entries: PASS (exact)
+--- p^8 tables harness done ---

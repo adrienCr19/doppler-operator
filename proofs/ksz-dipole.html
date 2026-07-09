@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N16 — The kinematic dipole channel: D121 closed form, the exact M11 tower, and a reflection obstruction</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N16 — The kinematic (kSZ) dipole channel</h2>
+
+<p>The kinematic SZ effect is carried by the dipole scattering channel
+\(M_{11} = \langle\Do_{101}\rangle + \tfrac1{10}\langle\Do_{121}\rangle\) (companion paper, App. B.3).
+This page completes its exact ingredients — a new closed form for \(\Do_{121}\) and the all-orders
+\(M_{11}\) operator — and proves a sharp structural fact about where the physical kSZ signal can and cannot
+live.</p>
+
+<h3>1 &nbsp;Closed form for \(\Do_{121}\) (new)</h3>
+<div class="newbox">
+<div class="head"><span class="name">Statement</span> <span class="badge pass">K1, 4×10⁻²⁷ incl. β = 0.7</span></div>
+<p>With the \(\ell' = 1\) kernel columns built by the standard climb (seeds → B10; checks K1a–c):</p>
+\[
+  {}^{d}\Kk_{01}(-\beta) = \frac{\sqrt3}{2p^2}\big(\gamma J_{d-1} - J_{d}\big),\qquad
+  {}^{d}\Kk_{11}(-\beta) = -\frac{3}{2p^3}\Big[(\gamma^2{+}1)J_{d-1} - \gamma\big(J_{d} + J_{d-2}\big)\Big],
+\]
+\[
+  {}^{d}\Kk_{21}(-\beta) = -\frac{\sqrt{15}}{2p}\Big[\gamma\,{}^{d}\Kk_{11} - {}^{d-1}\Kk_{11}\Big]
+   - \frac{\sqrt5}{2}\,{}^{d}\Kk_{01},
+\]
+<p>(all \(J\)-family, \(J_w = 2\sinh(w\eta)/w\), evenness \(J_{-w} = J_w\)), transposition gives
+\({}^{-1-q}\Kk_{12}(+\beta) = {}^{3+q}\Kk_{21}(-\beta)\), and</p>
+\[
+  \boxed{\;\Do_{121}(q) \;=\; \frac1\gamma\; {}^{3+q}\Kk_{21}(-\beta)\;\; {}^{-q}\Kk_{21}(-\beta)\;}
+\]
+<p>— the last of the four elements of the exact thermal+kinematic SZ system
+(\(\Do_{000}, \Do_{020}, \Do_{101}, \Do_{121}\)) in closed form.</p>
+</div>
+
+<h3>2 &nbsp;The exact dipole-scattering operator \(M_{11}\)</h3>
+<div class="newbox">
+<div class="head"><span class="name">Generated tower and exact evaluation</span>
+<span class="badge pass">K3 (O(p⁸) residual scaling 16.5), K4b (exact)</span></div>
+\[
+  \big\langle M_{11}\big\rangle(\theta_{\rm e}) = -\frac{3\,(9\Dv + 14)}{25}\,\theta_{\rm e}
+  \;-\; \frac{3\,(26\Dv^2 - 7\Dv - 38)}{70}\,\theta_{\rm e}^2
+  \;+\; \frac{-580\Dv^3 + 1856\Dv^2 - 709\Dv + 810}{840}\,\theta_{\rm e}^3 \;+\; \mathcal O(\theta_{\rm e}^4),
+\]
+<p>generated from the N3 ODE tables + exact Maxwell–Jüttner moments; every coefficient is a polynomial in
+\(\Dv\) alone — verified exactly (K4b), as N1a requires for a sum of diagonal elements. The exact
+(all-\(\theta_{\rm e}\)) operator is one quadrature of the closed forms
+(check K3: series vs quadrature at \(\theta_{\rm e} = 0.01\), residual ratio \(16.5 \approx 16\), confirming
+\(\mathcal O(p^8)\) truncation and the exactness of the quadrature route).</p>
+</div>
+
+<h3>3 &nbsp;A reflection obstruction: where the physical kSZ signal cannot live</h3>
+<div class="newbox">
+<div class="head"><span class="name">Theorem (obstruction)</span> <span class="badge new">new</span> <span class="badge pass">K2 (symbolic)</span></div>
+<p>The physical first-order kinematic operator (equivalent forms: [CR26, Eq. 29]; the classical
+\(C_1\) of Nozawa et al. 1998 and SZpack’s \(D[0]\)),</p>
+\[
+  \hat S^{(1)}_{\rm kin} = -\Big[10\,x\partial_x + \tfrac{47}{5}x^2\partial_x^2 + \tfrac75 x^3\partial_x^3\Big]
+  \;\widehat{=}\; -\,q\,\frac{7q^2 + 26q + 17}{5},
+\]
+<p>is <em>not</em> of the form \(-q\,f(q^2{+}3q)\) (test: the \(q\)-coefficient \(26 \neq 3\times7\)). But by the
+reflection symmetry N1a, <em>any</em> assembly \(-q\,[\alpha M_{00} - a\Do_{101} - c\Do_{121}]\) of diagonal
+Doppler elements with an \(\Oh\)-prefactor <em>is</em> of that form. Hence:</p>
+\[
+  \boxed{\;\text{the kSZ signal cannot be assembled from diagonal Doppler elements alone.}\;}
+\]
+<p>The explicit gap of the naive diagonal assembly is
+\(-\tfrac{1}{25}q\,(q-1)(17q + 43)\) — with a root at \(q = 1\), the fingerprint of the missing ingredient:
+the incident temperature dipole carries <em>Doppler weight 1</em>, so its round trip lives on the weight
+lattice \({}^{(j,k)}\Do\) (<a href="recoil-lattice.html">N14</a>), whose elements are not
+reflection-diagonal. Physically: unlike the thermal monopole, the kinematic dipole is not an elastic
+round trip of a weight-0 field — the frame transformations of the dipole (optical depth and temperature
+weights) break the self-adjointness that forces the \(\Dv\)-structure. The complete frame-exact assembly of
+the \(C_k\) from lattice elements is the identified follow-up; the ingredients (lattice closed forms and their
+recursions) are all in place.</p>
+</div>
+
+<h3>Verification record</h3>
+<p><a href="../verification/16_ksz_dipole.html"><code>verification/16_ksz_dipole.wl</code></a>:
+K1a–c kernel columns \(\Kk_{01}, \Kk_{11}, \Kk_{21}\) in \(J\)-form (10⁻²⁸); K1 the \(\Do_{121}\) closed form
+vs quadrature at \(\beta \in \{0.3, 0.7\}\); K2 the obstruction (symbolic, with the factored gap);
+K3 exact \(M_{11}\) quadrature vs \(p^6\)-series + exact Bessel moments (residual ratio 16.5 ≈ 16);
+K4 the \(\theta_{\rm e}\)-tower to third order with K4b reflection-invariance of every coefficient (exact zeros).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>
