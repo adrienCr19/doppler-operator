@@ -40,7 +40,7 @@ window.MathJax = {
   <a href="#boost">1. Boost operator</a>
   <a href="#doppler">2. Doppler operator</a>
   <a href="#new">3. Core recursions</a>
-  <a href="proofs/unified.html">★ Unified formulation</a>
+  <a href="proofs/unified.html">★ Generation scheme</a>
   <a href="#structure">4. Structure theory</a>
   <a href="#extensions">5. Sectors &amp; applications</a>
   <a href="#tables">6. Tables</a>
@@ -365,24 +365,18 @@ the \(10^{-27}\) level (exact identities) or against finite differences (ODEs); 
 grouped here by role, not by number.</p>
 
 <div class="newbox" style="border-width:2px">
-  <div class="head"><span class="name">★ The unified formulation — read this first</span>
-    <span class="badge new">synthesis</span> <span class="badge pass">verified end-to-end</span>
-    <span class="prooflink"><a href="proofs/unified.html">full statement →</a></span></div>
-  <p>The Doppler operator looks like it needs a theory of its own — a three-index object on a weight lattice,
-  with bespoke recursions and closed forms. It does not: <strong>it is a bilinear pairing of the ordinary
-  aberration kernel</strong>, a pre-solved object. Writing \(\Kk_{ab}(q) \equiv {}^{-1-q}\Kk_{ab}(+\beta)\) for
-  one kernel column (weight locked to the physical \(-1-q\); the generation paper calls this \(F\)),</p>
-  \[
-    \Do_{\ell\ell'\ell''}(q) = \frac{(-1)^{\ell'+\ell''}}{\gamma}\,\Kk_{\ell\ell'}(q)\,\Kk_{\ell'\ell''}(q-1),
-    \qquad \Kk_{00}(q) = \frac{J_{2+q}}{2p},
-  \]
-  <p>and every index is raised by the kernel’s own recurrence (Dai&nbsp;&amp;&nbsp;Chluba), whose lone companion
-  is the same column at \(q\pm1\) — the weight lattice, collapsed to a spectral shift. The payoff is a
-  <em>dimensional reduction</em>: outer indices, the shared middle index, the \((j,k)\) lattice, the weight, and
-  the two boost directions all reduce to one two-index kernel family at one parameter \(q\) — and our N-results
-  and the paper’s ladders/gauge/pure-physical relations P0–P4 become one calculus. (The genuinely new mathematics
-  is elsewhere: the <em>thermal average</em> of these operators, N9/N11, does not reduce to the kernel.) See the
-  <a href="proofs/unified.html">unified formulation</a> for the full statement and dictionary.</p>
+  <div class="head"><span class="name">★ Generating operators without kernel products — read this first</span>
+    <span class="badge new">generation scheme</span> <span class="badge pass">verified end-to-end</span>
+    <span class="prooflink"><a href="proofs/unified.html">the scheme →</a></span></div>
+  <p>The aim of everything below is to compute a new Doppler operator <em>by recurrence from ones already
+  computed</em> — or from the single seed \(\Do_{000}\) — <strong>without ever multiplying two boost / aberration
+  kernels</strong>. The strongest form (pure-physical, from the <a href="proofs/reconciliation.html">generation
+  paper</a>) keeps <em>every</em> intermediate a genuine Doppler operator: the axis ladders (P0) build
+  \(\Do_{a00}, \Do_{00b}\) from the seed, the middle step (P3) climbs \(\ell'\), reflection (N1) mirrors it, and
+  the rank-one identity (P2) \(\Do_{h\ell'l} = \Do_{h\ell'0}\Do_{0\ell'l}/\Do_{0\ell'0}\) fills the interior —
+  verified end-to-end (e.g. \(\Do_{303}\) built from \(\Do_{000}\), no kernels). The site’s own N3 (rapidity ODE),
+  N5/N6 and N10 are the other Doppler-level generators. See the
+  <a href="proofs/unified.html">generation scheme</a> for the relations and the map of which is which.</p>
 </div>
 
 <div class="newbox">

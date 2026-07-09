@@ -1,0 +1,7 @@
+PP1  P0 axis ladder D_{a00} from D000 (a<=4): PASS  (dev = ScientificForm[2.912302191513319*^-31, 3])
+PP2  P0 axis ladder D_{00b} from D000 (b<=4): PASS  (dev = ScientificForm[5.278323895996364*^-29, 3])
+PP3  P2 rank-one D_{h0l} = D_{h00}D_{00l}/D000 (h,l<=4): PASS  (dev = ScientificForm[5.278323895996364*^-29, 3])
+PP4  END-TO-END D_303 from D000 (axes + rank-one, no kernels): PASS  (dev = ScientificForm[0., 3])
+PP5  P3a: F_{ab}(q) = (-1)^b J_q D_{ab0}(q)/(2p D_{b00}(q-1)): PASS  (dev = ScientificForm[1.027009705241687*^-29, 3])
+PP6  P3 middle step D_{h,lp+1,0} closes (structure) vs direct: PASS  (dev = ScientificForm[6.165997304613453*^-30, 3])
+--- pure-physical generation harness done ---
