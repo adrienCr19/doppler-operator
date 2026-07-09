@@ -618,6 +618,21 @@ the observed \(\Dv\)-structure. Both are supplied below.
   lives on the weight lattice (N14).</p>
 </div>
 
+<div class="newbox">
+  <div class="head"><span class="name">(N17) The exact thermal SZ operator, assembled</span>
+    <span class="badge new">new — assembly</span> <span class="badge pass">two routes agree at 2×10⁻²¹</span>
+    <span class="prooflink"><a href="proofs/exact-tsz.html">proof →</a></span></div>
+  <p>Can \(\langle\Do_{02}\rangle\) be put in the same closed Bessel form as \(\langle\Do_{00}\rangle\)?
+  <strong>Provably not</strong> (closure/rigidity theorem; the σ = 4 channel is a two-fold iterated Bessel
+  antiderivative, N9). The optimal closed form is assembled instead:
+  \(\hat{\mathcal S}_{\rm th} = \frac{K_{3-2\Oh}(z) - K_1(z)}{2\theta_{\rm e}(2-\Oh)(1-\Oh)K_2(z)}
+  + \frac{z}{10 K_2(z)}\sum_{j=1}^{8} c_j(\Oh) F(-2,a_j,z) - 1\) — elementary + Bessel + exactly one
+  irremovable transcendent with a complete calculus (N11) and three exact evaluation routes. Quantitatively:
+  at 50 keV the \(p^8\) tower errs by ~10% (and is <em>worse</em> than \(p^4\) — genuinely asymptotic)
+  while the assembly is exact; at integer spectral indices the single-momentum operator truncates
+  (\(\Do_{000}(q{=}{-}4) = 1+\tfrac43 p^2\)), a useful implementation anchor.</p>
+</div>
+
 <h2 id="tables">4 &nbsp;Generated tables (from the ODE N3)</h2>
 <p>
 Symbolic elements \(\Do^{m=0}_{\ell\ell'\ell''}(\nu,\beta)\) to \(\mathcal O(p^4)\), generated purely by iterating
@@ -768,6 +783,9 @@ closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via b
 <tr><td><code>verification/17_tables_p8.wl</code></td>
 <td><strong>Data</strong>: \(\mathcal O(p^8)\) tables (501 entries, channels \(\ell' \le 3\), outer \(\le 6\)) — spot checks vs closed forms, \(p^8\) quadrature extrapolation, exact reflection symmetry of all entries</td>
 <td>all PASS; <a href="data/index.html">data page</a></td></tr>
+<tr><td><code>verification/18_exact_tsz.wl</code></td>
+<td><strong>N17</strong>: the assembled exact \(\hat{\mathcal S}_{\rm th}\) — Bessel+F route vs Maxwell–Jüttner route at 25/50 keV, five \(q\) values (X1); exact-vs-tower error table incl. the asymptotic breakdown at 50 keV (X2)</td>
+<td>all PASS (X1 2×10⁻²¹)</td></tr>
 <tr><td><a href="verification/05_export_tables.html"><code>verification/05_export_tables.wl</code></a></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
 <p>Every script is browsable with its full source and recorded PASS log at the

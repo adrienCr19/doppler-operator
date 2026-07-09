@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N17 — The exact thermal SZ operator, assembled</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#new">← back to main page</a>
+<h2>N17 — The exact thermal SZ operator: what is closed, what provably cannot be, and the assembled result</h2>
+
+<p><strong>The question.</strong> \(\langle\Do_{00}\rangle\) has an exact closed Bessel form — can
+\(\langle\Do_{02}\rangle\) be put in the same form, giving a fully closed
+\(\hat{\mathcal S}_{\rm th} = \langle\Do_{00}\rangle + \tfrac1{10}\langle\Do_{02}\rangle - 1\)?</p>
+
+<h3>1 &nbsp;What is closed, and what cannot be</h3>
+<p><strong>Single momentum: everything is closed.</strong> \(\Do_{020}(q,p)\) is an elementary
+hyperbolic-rational function (N8, Eq. 1.4) — on par with \(\Do_{000}\).</p>
+<p><strong>Thermal average: the monopole is the only Bessel-closed channel — by theorem, not by lack of
+effort.</strong> The Maxwell–Jüttner measure \(\sinh^2\!\eta\cosh\eta\) exactly cancels the
+\(\operatorname{csch}^2\) of the monopole element (\(\sigma = \ell + 2\ell' + \ell'' = 0\)), leaving pure
+\(\cosh(a\eta)\) integrands \(\to K_a(z)\). The quadrupole channel has \(\sigma = 4\): a residual
+\(\operatorname{csch}^4\eta\) survives, and the companion paper's closure/rigidity theorem — which this project
+cross-validated symbolically (harness 08) and characterized structurally (N9: \((\partial_z^2-1)^2\) maps it onto
+a finite Bessel sum; the Kummer collapse of its Mellin kernel would require \(a_j = 0\), but physics fixes
+\(a_j = \text{integer} - 2\Oh \neq 0\)) — proves \(\langle\Do_{02}\rangle\) is <em>not</em> a finite Bessel
+combination, nor Meijer-G, nor Fox-H. A \(K\)-ratio form for \(\langle\Do_{02}\rangle\) does not exist.</p>
+
+<h3>2 &nbsp;The assembled exact operator</h3>
+<div class="newbox">
+<div class="head"><span class="name">The exact \(\hat{\mathcal S}_{\rm th}\), all orders in \(\theta_{\rm e}\)</span>
+<span class="badge pass">X1: two independent routes agree at 2×10⁻²¹</span></div>
+\[
+  \hat{\mathcal S}_{\rm th}(\Oh,\theta_{\rm e}) \;=\;
+  \underbrace{\frac{K_{3-2\Oh}(z) - K_1(z)}{2\theta_{\rm e}\,(2-\Oh)(1-\Oh)\,K_2(z)}}_{\textstyle \langle\Do_{00}\rangle
+  \text{ — closed Bessel}}
+  \;+\; \frac{1}{10}\,\underbrace{\frac{z}{K_2(z)}\sum_{j=1}^{8} c_j(\Oh)\,F(-2, a_j, z)}_{\textstyle \langle\Do_{02}\rangle
+  \text{ — one new transcendent}} \;-\; 1,
+  \qquad z = \tfrac{1}{\theta_{\rm e}},
+\]
+<p>with the verified 8-term channel data \(\{a_j, c_j(\Oh)\}\)
+(orders \(a_j \in \{1, 3, 5, 1{-}2\Oh, 3{-}2\Oh, 5{-}2\Oh, 7{-}2\Oh, 1{+}2\Oh\}\), rational \(c_j\) with
+\(\sum_j c_j = 0\); symbolically equivalent to the N8 closed form of \(\Do_{020}\) — harness 08, exact).
+The \(F\)-part is available through three exact, mutually verified representations:</p>
+<ol>
+  <li><strong>one quadrature</strong> (geometric convergence, any \(\theta_{\rm e}\)):
+  \(\sum_j c_j F(-2,a_j,z) = \int_0^\infty e^{-z\cosh\eta}\,\big[\sum_j c_j\cosh(a_j\eta)\big]\operatorname{csch}^4\!\eta\;\dd\eta\)
+  (regular integrand, by \(\sum c_j = 0\));</li>
+  <li><strong>the N9 ODE</strong>: the unique Bessel-rate-decaying solution of
+  \((\partial_z^2-1)^2\big[\tfrac{K_2(z)}{z}\langle\Do_{02}\rangle\big] = \sum_j c_j K_{a_j}(z)\)
+  (verified L3b, 3×10⁻²⁶);</li>
+  <li><strong>the convergent Bessel–Struve series</strong> and, for \(\theta_{\rm e} \lesssim 0.03\), the
+  superasymptotic tower with error bound \(|R_N| \le |{\rm first\ omitted}|\).</li>
+</ol>
+<p>Everything else in the F-sector is at hand: the recurrence calculus (N11), the μ-ladder, and the special
+values. In the precise sense of the rigidity theorem, this is the <em>optimal</em> closed form: elementary +
+Bessel + exactly one new special function, which cannot be removed.</p>
+</div>
+
+<h3>3 &nbsp;Exact vs the Taylor tower: the numbers</h3>
+<p>Check X2 evaluates the exact operator against the truncated \(p\)-tower (orders from the
+<a href="../data/index.html">\(\mathcal O(p^8)\) data product</a> + exact Bessel moments):</p>
+<div class="tablewrap"><table class="tbl">
+<tr><th>\(kT_{\rm e}\)</th><th>\(q\)</th><th>exact \(\hat{\mathcal S}_{\rm th}\)</th><th>\(p^4\)-tower error</th><th>\(p^8\)-tower error</th></tr>
+<tr><td>25 keV</td><td>−4.5</td><td>0.40979851</td><td>0.82%</td><td>0.093%</td></tr>
+<tr><td>25 keV</td><td>−4</td><td>0.22034743</td><td>exact</td><td>exact</td></tr>
+<tr><td>25 keV</td><td>0.5</td><td>0.08928936</td><td>1.9%</td><td>0.39%</td></tr>
+<tr><td>50 keV</td><td>−4.5</td><td>1.01437072</td><td>3.4%</td><td>2.0%</td></tr>
+<tr><td>50 keV</td><td>−4</td><td>0.49321881</td><td>exact</td><td>exact</td></tr>
+<tr><td>50 keV</td><td>0.5</td><td>0.18539902</td><td>8.4%</td><td><strong>9.7%</strong></td></tr>
+</table></div>
+<p>Two lessons. At 50 keV the tower is visibly <em>asymptotic</em>: going from \(p^4\) to \(p^8\) makes the
+result <em>worse</em> at \(q = 0.5\) — the superasymptotic divergence in action — while the assembled exact
+operator is available at machine precision throughout. And the \(q = -4\) rows are exact by a pleasing
+mechanism: for integer spectral indices the single-momentum operator <em>truncates</em>
+(\(E\)-collapse: \(\Do_{000}(q{=}{-}4,p) = 1 + \tfrac43 p^2\) exactly), so the tower terminates — a useful
+anchor point for testing implementations.</p>
+
+<h3>Verification record</h3>
+<p><a href="../verification/18_exact_tsz.html"><code>verification/18_exact_tsz.wl</code></a>:
+X1 the assembled Bessel+\(F\) form vs the direct Maxwell–Jüttner average of the N8 closed forms, at 25 and
+50 keV and five \(q\) values spanning \([-4.5, 1.3]\) (2×10⁻²¹); X2 the exact-vs-tower table above;
+X3 the ODE characterization of the F-part (harness 09, L3b). Foundational inputs: the \(\langle\Do_{00}\rangle\)
+Bessel form and the 8-term channel data (harness 08, exact); the N8 closed forms (harness 06).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
+</main>
+</body>
+</html>

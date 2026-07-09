@@ -1,0 +1,11 @@
+X1  exact S_th: Bessel+F route == Maxwell-Juttner route: PASS  (max dev = ScientificForm[2.18313273393327*^-21, 3])
+X2  exact vs tower (fractional error of the truncated tower):
+     th        q        exact S_th          p^4-tower err    p^8-tower err
+    0.0489`3.   -4.5`3.   0.4097985108528252551`8.   ScientificForm[0.008243359636685947`3., 2]   ScientificForm[0.0009299704975520705`3., 2]
+    0.0489`3.   -4.`3.   0.2203474316609549213`8.   ScientificForm[0``29.999999998893593, 2]   ScientificForm[0``29.999999998893593, 2]
+    0.0489`3.   0.5`3.   0.0892893560786955244`8.   ScientificForm[0.0185522336870737074`3., 2]   ScientificForm[0.0038639402885662176`3., 2]
+    0.0978`3.   -4.5`3.   1.0143707210810499277`8.   ScientificForm[0.0336832789066230631`3., 2]   ScientificForm[0.0203431140582952879`3., 2]
+    0.0978`3.   -4.`3.   0.4932188088970193133`8.   ScientificForm[0``29.999999999606544, 2]   ScientificForm[0``29.999999999606544, 2]
+    0.0978`3.   0.5`3.   0.1853990238952641281`8.   ScientificForm[0.0835119996073405181`3., 2]   ScientificForm[0.0967777815796480116`3., 2]
+X3  (F-part ODE characterization: harness 09, check L3b â cited)
+--- exact tSZ harness done ---
