@@ -40,8 +40,9 @@ window.MathJax = {
   <a href="#boost">1. Boost operator</a>
   <a href="#doppler">2. Doppler operator</a>
   <a href="#new">3. New recursion relations</a>
-  <a href="#tables">4. Generated tables</a>
-  <a href="#verification">5. Verification</a>
+  <a href="#extensions">4. Extensions</a>
+  <a href="#tables">5. Generated tables</a>
+  <a href="#verification">6. Verification</a>
   <a href="data/index.html">Data</a>
   <a href="#refs">References</a>
 </div></nav>
@@ -618,8 +619,14 @@ the observed \(\Dv\)-structure. Both are supplied below.
   lives on the weight lattice (N14).</p>
 </div>
 
+
+
+<h2 id="extensions">4 &nbsp;Extensions and assemblies</h2>
+<p>Results that <em>apply</em> the recursion framework of Section&nbsp;3 — assembled operators, physical
+channels, and data products built on N1–N16 — as opposed to new recursion relations themselves.</p>
+
 <div class="newbox">
-  <div class="head"><span class="name">(N17) The exact thermal SZ operator, assembled</span>
+  <div class="head"><span class="name">(E1) The exact thermal SZ operator, assembled</span>
     <span class="badge new">new — assembly</span> <span class="badge pass">two routes agree at 2×10⁻²¹</span>
     <span class="prooflink"><a href="proofs/exact-tsz.html">proof →</a></span></div>
   <p>Can \(\langle\Do_{02}\rangle\) be put in the same closed Bessel form as \(\langle\Do_{00}\rangle\)?
@@ -633,7 +640,7 @@ the observed \(\Dv\)-structure. Both are supplied below.
   (\(\Do_{000}(q{=}{-}4) = 1+\tfrac43 p^2\)), a useful implementation anchor.</p>
 </div>
 
-<h2 id="tables">4 &nbsp;Generated tables (from the ODE N3)</h2>
+<h2 id="tables">5 &nbsp;Generated tables (from the ODE N3)</h2>
 <p>
 Symbolic elements \(\Do^{m=0}_{\ell\ell'\ell''}(\nu,\beta)\) to \(\mathcal O(p^4)\), generated purely by iterating
 the rapidity ODE (N3) from its \(\delta\)-seed — no boost-operator products, no angular integrals. Entries are
@@ -724,7 +731,7 @@ agreement term by term (e.g. \(\Do_{000}\), \(\Do_{101}\), \(\Do_{020}\)). For \
   relativistic SZ distortion to any temperature order.</p>
 </div>
 
-<h2 id="verification">5 &nbsp;Verification</h2>
+<h2 id="verification">6 &nbsp;Verification</h2>
 <p>
 All identities were verified with Wolfram&nbsp;15 (<code>wolframscript</code>) by high-precision numerical quadrature
 of the defining integrals (30-digit working precision), on power-law test spectra at multiple non-integer
@@ -784,7 +791,7 @@ closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via b
 <td><strong>Data</strong>: \(\mathcal O(p^8)\) tables (501 entries, channels \(\ell' \le 3\), outer \(\le 6\)) — spot checks vs closed forms, \(p^8\) quadrature extrapolation, exact reflection symmetry of all entries</td>
 <td>all PASS; <a href="data/index.html">data page</a></td></tr>
 <tr><td><code>verification/18_exact_tsz.wl</code></td>
-<td><strong>N17</strong>: the assembled exact \(\hat{\mathcal S}_{\rm th}\) — Bessel+F route vs Maxwell–Jüttner route at 25/50 keV, five \(q\) values (X1); exact-vs-tower error table incl. the asymptotic breakdown at 50 keV (X2)</td>
+<td><strong>E1</strong>: the assembled exact \(\hat{\mathcal S}_{\rm th}\) — Bessel+F route vs Maxwell–Jüttner route at 25/50 keV, five \(q\) values (X1); exact-vs-tower error table incl. the asymptotic breakdown at 50 keV (X2)</td>
 <td>all PASS (X1 2×10⁻²¹)</td></tr>
 <tr><td><a href="verification/05_export_tables.html"><code>verification/05_export_tables.wl</code></a></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
