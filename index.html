@@ -39,10 +39,11 @@ window.MathJax = {
   <a href="#notation">0. Notation</a>
   <a href="#boost">1. Boost operator</a>
   <a href="#doppler">2. Doppler operator</a>
-  <a href="#new">3. New recursion relations</a>
-  <a href="#extensions">4. Extensions</a>
-  <a href="#tables">5. Generated tables</a>
-  <a href="#verification">6. Verification</a>
+  <a href="#new">3. Core recursions</a>
+  <a href="#structure">4. Structure theory</a>
+  <a href="#extensions">5. Sectors &amp; applications</a>
+  <a href="#tables">6. Tables</a>
+  <a href="#verification">7. Verification</a>
   <a href="data/index.html">Data</a>
   <a href="#refs">References</a>
 </div></nav>
@@ -73,7 +74,11 @@ index values from lower ones. <a href="#doppler">Section&nbsp;2</a> defines the 
 <a href="#new">Section&nbsp;3</a> presents the <strong>new</strong> recursion relations and symmetries we derived for it —
 including a closed rapidity ODE that generates all of its elements, and a reflection symmetry
 \(\Oh \to 3-\Oh\) that <em>proves</em> the empirically observed diffusion-operator structure.
-Every new relation links to a complete proof page and was verified independently by numerical quadrature.
+<a href="#structure">Section&nbsp;4</a> develops the structure theory behind those relations (their phase-space
+origin, the thermal-average function class and its calculus, the generating function, the recoil lattice), and
+<a href="#extensions">Section&nbsp;5</a> applies the framework to polarization, the kinematic dipole, and the
+assembled exact thermal SZ operator. Every relation links to a complete proof page and was verified
+independently by numerical quadrature.
 </p>
 
 <h2 id="notation">0 &nbsp;Notation and conventions</h2>
@@ -351,9 +356,12 @@ Doppler operator’s elements directly — without assembling products of boost 
 the observed \(\Dv\)-structure. Both are supplied below.
 </p>
 
-<h2 id="new">3 &nbsp;New recursion relations and symmetries</h2>
-<p>Each result below links to a complete derivation. All were verified numerically at the
-\(10^{-27}\) level (exact identities) or against finite differences (ODEs); see <a href="#verification">Section&nbsp;5</a>.</p>
+<h2 id="new">3 &nbsp;Core recursion relations and symmetries</h2>
+<p>The heart of the project: the relations that generate higher Doppler-operator indices from lower ones, and
+the symmetries that constrain them. Every result links to a complete derivation and was verified numerically at
+the \(10^{-27}\) level (exact identities) or against finite differences (ODEs); see
+<a href="#verification">Section&nbsp;7</a>. Labels N1–N16 are stable identifiers (order of discovery) and are
+grouped here by role, not by number.</p>
 
 <div class="newbox">
   <div class="head"><span class="name">Lemma L1 — power-law reduction</span>
@@ -463,6 +471,20 @@ the observed \(\Dv\)-structure. Both are supplied below.
 </div>
 
 <div class="newbox">
+  <div class="head"><span class="name">(N10) Middle-index raising on the extended family</span>
+    <span class="badge new">new</span> <span class="badge pass">verified 4×10⁻²⁷</span>
+    <span class="prooflink"><a href="proofs/middle-index.html">proof →</a></span></div>
+  <p>The scattering-multipole index \(\ell'\) — a spectator in N3/N5/N6 — has its own raising recursion once the
+  family is extended by <em>off-diagonal intermediate</em> elements
+  \({}^{(j,k)}X^m_{\ell;\ell_1',\ell_2';\ell''} = \frac1\gamma\,{}^{-1-j}\Bo^m_{\ell\ell_1'}(\nu,-\beta)\,{}^{-k}\Bo^m_{\ell_2'\ell''}(\nu,\beta)\)
+  (the Doppler operator is the diagonal slice \(\ell_1' = \ell_2'\)). The relation (M) expresses
+  \(\Do_{\ell,\ell',\ell''}\) through elements at \(\ell'-1, \ell'-2\) on the weight lattice plus the two
+  cross companions \(X_{\ell'-1,\ell'-2}, X_{\ell'-2,\ell'-1}\); it is closed-form-preserving and, applied at
+  \(\ell' = 2\), reproduces the N8 closed form of \(\Do_{020}\) exactly. Together with N5/N6 every index of
+  the Doppler operator is now recursively reachable from the \(\Do_{000}\) base case at the operator level.</p>
+</div>
+
+<div class="newbox">
   <div class="head"><span class="name">(N7) Seeds and a finite exact-generation algorithm</span>
     <span class="badge new">new (assembled)</span> <span class="badge pass">verified</span>
     <span class="prooflink"><a href="proofs/seeds.html">proof →</a></span></div>
@@ -491,6 +513,25 @@ the observed \(\Dv\)-structure. Both are supplied below.
   <p>and in general every \(m=0\) element is a finite sum of rational operator functions
   \(\frac{E_{a+b-2\Oh} - E_{a-b}}{(a-\Oh)(b-\Oh)}\) with \(E_w = 2\cosh(w\eta)\) — hyperbolic-rational in the
   rapidity, entire in \(\Oh\), with the reflection symmetry N1 acting by swapping the two bracket factors.</p>
+</div>
+
+<h2 id="structure">4 &nbsp;Structure theory</h2>
+<p>Why the relations of Section&nbsp;3 look the way they do: the phase-space origin of the reflection symmetry,
+the function class of thermal averages and its calculus, the generating function over the scattering multipole,
+and the lattice structure that recoil corrections inhabit.</p>
+
+<div class="newbox">
+  <div class="head"><span class="name">(N12) The origin of N1: self-adjointness on photon phase space</span>
+    <span class="badge new">new — conceptual</span> <span class="badge pass">verified on non-power-law spectra</span>
+    <span class="prooflink"><a href="proofs/self-adjoint.html">proof →</a></span></div>
+  <p>The reflection symmetry is not an algebraic accident:
+  \(\Oh^\dagger = 3-\Oh\) on \(L^2(\nu^2\dd\nu)\) (the 3 of momentum space) and the kernel transposition
+  \(d \to 2-d\) is the conformal <em>shadow</em> on the celestial sphere (the 2 of \(S^2\)); together they say
+  the single-scattering Doppler operator is <strong>self-adjoint on photon phase space</strong>, and N1 is its
+  coordinate expression. Corollary: the \(\Dv\)-structure of diagonals is representation theory (the invariant
+  of the frequency-dilation Casimir). Verified directly on exponential spectra via the new representation
+  \(J_{w-\Oh}\,g(\nu) = \int_{-\eta}^{\eta}e^{wu}g(e^u\nu)\dd u\), which also makes every closed form
+  applicable to arbitrary spectra by 2D quadrature.</p>
 </div>
 
 <div class="newbox">
@@ -524,20 +565,6 @@ the observed \(\Dv\)-structure. Both are supplied below.
 </div>
 
 <div class="newbox">
-  <div class="head"><span class="name">(N10) Middle-index raising on the extended family</span>
-    <span class="badge new">new</span> <span class="badge pass">verified 4×10⁻²⁷</span>
-    <span class="prooflink"><a href="proofs/middle-index.html">proof →</a></span></div>
-  <p>The scattering-multipole index \(\ell'\) — a spectator in N3/N5/N6 — has its own raising recursion once the
-  family is extended by <em>off-diagonal intermediate</em> elements
-  \({}^{(j,k)}X^m_{\ell;\ell_1',\ell_2';\ell''} = \frac1\gamma\,{}^{-1-j}\Bo^m_{\ell\ell_1'}(\nu,-\beta)\,{}^{-k}\Bo^m_{\ell_2'\ell''}(\nu,\beta)\)
-  (the Doppler operator is the diagonal slice \(\ell_1' = \ell_2'\)). The relation (M) expresses
-  \(\Do_{\ell,\ell',\ell''}\) through elements at \(\ell'-1, \ell'-2\) on the weight lattice plus the two
-  cross companions \(X_{\ell'-1,\ell'-2}, X_{\ell'-2,\ell'-1}\); it is closed-form-preserving and, applied at
-  \(\ell' = 2\), reproduces the N8 closed form of \(\Do_{020}\) exactly. Together with N5/N6 every index of
-  the Doppler operator is now recursively reachable from the \(\Do_{000}\) base case at the operator level.</p>
-</div>
-
-<div class="newbox">
   <div class="head"><span class="name">(N11) The F-calculus: a Bessel-like toolkit for the thermal-average class</span>
     <span class="badge new">new</span> <span class="badge pass">verified (14 checks)</span>
     <span class="prooflink"><a href="proofs/f-calculus.html">proof →</a></span></div>
@@ -548,20 +575,6 @@ the observed \(\Dv\)-structure. Both are supplied below.
   \(F(0,a) = K_a\), \(L(\tfrac12,a) = \tfrac{a}{z}K_a\), \(zF(\tfrac12,a) = aL_a + e^{-z}\),
   \(F(1,a) = \tfrac{a^2}{z^2}K_a - \tfrac{K_a'}{z}\). All upper rungs (\(\mu > 0\)) are closed in
   \(K_a, L_a, e^{-z}\); the relations survive channel regularization at physical \(\mu \le -1\).</p>
-</div>
-
-<div class="newbox">
-  <div class="head"><span class="name">(N12) The origin of N1: self-adjointness on photon phase space</span>
-    <span class="badge new">new — conceptual</span> <span class="badge pass">verified on non-power-law spectra</span>
-    <span class="prooflink"><a href="proofs/self-adjoint.html">proof →</a></span></div>
-  <p>The reflection symmetry is not an algebraic accident:
-  \(\Oh^\dagger = 3-\Oh\) on \(L^2(\nu^2\dd\nu)\) (the 3 of momentum space) and the kernel transposition
-  \(d \to 2-d\) is the conformal <em>shadow</em> on the celestial sphere (the 2 of \(S^2\)); together they say
-  the single-scattering Doppler operator is <strong>self-adjoint on photon phase space</strong>, and N1 is its
-  coordinate expression. Corollary: the \(\Dv\)-structure of diagonals is representation theory (the invariant
-  of the frequency-dilation Casimir). Verified directly on exponential spectra via the new representation
-  \(J_{w-\Oh}\,g(\nu) = \int_{-\eta}^{\eta}e^{wu}g(e^u\nu)\dd u\), which also makes every closed form
-  applicable to arbitrary spectra by 2D quadrature.</p>
 </div>
 
 <div class="newbox">
@@ -589,6 +602,10 @@ the observed \(\Dv\)-structure. Both are supplied below.
   verbatim to every rung. Per-rung reflection symmetry breaks for \(j \neq -k\) (recoil breaks elastic
   reciprocity), consistent with the companion paper's no-closure theorem for recoil thermal averages.</p>
 </div>
+
+<h2 id="extensions">5 &nbsp;Physical sectors and applications</h2>
+<p>The framework applied: polarization, the kinematic dipole, the assembled exact thermal SZ operator, and
+machine-readable tables.</p>
 
 <div class="newbox">
   <div class="head"><span class="name">(N15) The polarized sector — and [RC26]'s unproven identity, settled to all orders</span>
@@ -619,12 +636,6 @@ the observed \(\Dv\)-structure. Both are supplied below.
   lives on the weight lattice (N14).</p>
 </div>
 
-
-
-<h2 id="extensions">4 &nbsp;Extensions and assemblies</h2>
-<p>Results that <em>apply</em> the recursion framework of Section&nbsp;3 — assembled operators, physical
-channels, and data products built on N1–N16 — as opposed to new recursion relations themselves.</p>
-
 <div class="newbox">
   <div class="head"><span class="name">(E1) The exact thermal SZ operator, assembled</span>
     <span class="badge new">new — assembly</span> <span class="badge pass">two routes agree at 2×10⁻²¹</span>
@@ -640,7 +651,16 @@ channels, and data products built on N1–N16 — as opposed to new recursion re
   (\(\Do_{000}(q{=}{-}4) = 1+\tfrac43 p^2\)), a useful implementation anchor.</p>
 </div>
 
-<h2 id="tables">5 &nbsp;Generated tables (from the ODE N3)</h2>
+<div class="eqbox">
+  <div class="head"><span class="name">Data product: \(\mathcal O(p^8)\) tables</span>
+    <span class="badge pass">verified (harness 17)</span></div>
+  <p>All 501 nonzero Taylor coefficients of \(\Do^{m=0}_{\ell\ell'\ell''}\) for channels \(\ell' \le 3\),
+  outer indices \(\le 6\), to \(\mathcal O(p^8)\), as exact rationals — generated by the N3 ODE,
+  spot-checked against the N8 closed forms, and exactly reflection-symmetric entry by entry.
+  Format and usage notes on the <a href="data/index.html">data page</a>.</p>
+</div>
+
+<h2 id="tables">6 &nbsp;Generated tables (from the ODE N3)</h2>
 <p>
 Symbolic elements \(\Do^{m=0}_{\ell\ell'\ell''}(\nu,\beta)\) to \(\mathcal O(p^4)\), generated purely by iterating
 the rapidity ODE (N3) from its \(\delta\)-seed — no boost-operator products, no angular integrals. Entries are
@@ -731,7 +751,7 @@ agreement term by term (e.g. \(\Do_{000}\), \(\Do_{101}\), \(\Do_{020}\)). For \
   relativistic SZ distortion to any temperature order.</p>
 </div>
 
-<h2 id="verification">6 &nbsp;Verification</h2>
+<h2 id="verification">7 &nbsp;Verification</h2>
 <p>
 All identities were verified with Wolfram&nbsp;15 (<code>wolframscript</code>) by high-precision numerical quadrature
 of the defining integrals (30-digit working precision), on power-law test spectra at multiple non-integer
