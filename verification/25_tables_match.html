@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>25_tables_match.wl — Closed forms == published Section-4 tables + CR26 Eq. 11 (A/B, symbolic)</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>25_tables_match.wl</code></h2>
+<p>Closed forms == published Section-4 tables + CR26 Eq. 11 (A/B, symbolic). Run with <code>wolframscript -file 25_tables_match.wl</code> (Wolfram 14+/15).
+Download: <a href="25_tables_match.wl" download>25_tables_match.wl</a> &middot; recorded output below (also <a href="out_25_tables_match.txt">out_25_tables_match.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 25_tables_match.wl — do the CLOSED FORMS (bracket route, N8) reproduce the PREVIOUSLY PUBLISHED tables?
+   Symbolic p-expansion of each closed form, substitute q -&gt; -Ohat, compare to:
+     (A) the site&#x27;s Section-4 tables (the Ohat-polynomials displayed on index.html, from the ODE generator);
+     (B) the literature SZ operator CR26 Eq. 11 (and its p^6 continuation).
+   Fully symbolic; every check must reduce to 0. *)
+
+g = Sqrt[1 + pp^2];                                   (* gamma in terms of p *)
+Js[w_] := ((g + pp)^w - (g - pp)^w)/w;                (* symbolic J_w(q) *)
+(* bracket table (verified numerically in harness 24), with a q-shift s: J_{n+q} -&gt; J_{n+q+s} *)
+F[0, 0, s_] := Js[2 + q + s]/(2 pp);
+F[0, 1, s_] := Sqrt[3] (Js[1 + q + s] - g Js[2 + q + s])/(2 pp^2);
+F[1, 0, s_] := Sqrt[3] (g Js[2 + q + s] - Js[3 + q + s])/(2 pp^2);
+F[0, 2, s_] := Sqrt[5] (3 Js[q + s] - 6 g Js[1 + q + s] + (3 + 2 pp^2) Js[2 + q + s])/(4 pp^3);
+F[2, 0, s_] := Sqrt[5] ((3 + 2 pp^2) Js[2 + q + s] - 6 g Js[3 + q + s] + 3 Js[4 + q + s])/(4 pp^3);
+F[1, 1, s_] := 3 (g Js[1 + q + s] - (2 + pp^2) Js[2 + q + s] + g Js[3 + q + s])/(2 pp^3);
+F[1, 2, s_] := Sqrt[15] (3 g Js[q + s] - 3 (3 + 2 pp^2) Js[1 + q + s] + g (9 + 2 pp^2) Js[2 + q + s] - (3 + 2 pp^2) Js[3 + q + s])/(4 pp^4);
+F[2, 1, s_] := Sqrt[15] ((3 + 2 pp^2) Js[1 + q + s] - g (9 + 2 pp^2) Js[2 + q + s] + 3 (3 + 2 pp^2) Js[3 + q + s] - 3 g Js[4 + q + s])/(4 pp^4);
+F[2, 2, s_] := 5 (3 (3 + 2 pp^2) Js[q + s] - 12 g (3 + pp^2) Js[1 + q + s] + 2 (27 + 24 pp^2 + 2 pp^4) Js[2 + q + s] - 12 g (3 + pp^2) Js[3 + q + s] + 3 (3 + 2 pp^2) Js[4 + q + s])/(8 pp^5);
+
+(* closed form of D_{l lp ldd}, expanded in p to order ord, in Ohat = -q *)
+Dcf[l_, lp_, ldd_, ord_] := Collect[Normal@Series[((-1)^(lp + ldd)/g) F[l, lp, 0] F[lp, ldd, -1], {pp, 0, ord}], pp, Simplify] /. q -&gt; -OO;
+
+chk[name_, expr_] := Print[name, &quot;: &quot;, If[Simplify[expr] === 0 || Simplify[expr] == 0, &quot;PASS (== published)&quot;, &quot;MISMATCH: &quot; &lt;&gt; ToString[Simplify[expr]]]];
+
+(* ---------- (A) the site&#x27;s published Section-4 tables (lp = 0) ---------- *)
+chk[&quot;A000&quot;, Dcf[0, 0, 0, 4] - (1 + (1/3) (OO - 3) OO pp^2 + (2/45) OO (OO^3 - 6 OO^2 + 5 OO + 12) pp^4)];
+chk[&quot;A001&quot;, Dcf[0, 0, 1, 4] - (-((OO - 2) pp)/Sqrt[3] - (8 OO^3 - 42 OO^2 + 43 OO + 18) pp^3/(30 Sqrt[3]))];
+chk[&quot;A002&quot;, Dcf[0, 0, 2, 4] - ((OO^2 - 5 OO + 6) pp^2/(3 Sqrt[5]) + (5 OO^4 - 42 OO^3 + 103 OO^2 - 42 OO - 72) pp^4/(63 Sqrt[5]))];
+chk[&quot;A100&quot;, Dcf[1, 0, 0, 4] - ((OO - 1) pp/Sqrt[3] + (8 OO^3 - 30 OO^2 + 7 OO + 15) pp^3/(30 Sqrt[3]))];
+chk[&quot;A101&quot;, Dcf[1, 0, 1, 4] - (-(1/3) (OO^2 - 3 OO + 2) pp^2 - (1/15) (OO^4 - 6 OO^3 + 7 OO^2 + 6 OO - 8) pp^4)];
+chk[&quot;A102&quot;, Dcf[1, 0, 2, 4] - ((OO^3 - 6 OO^2 + 11 OO - 6) pp^3/(3 Sqrt[15]))];
+chk[&quot;A200&quot;, Dcf[2, 0, 0, 4] - ((OO - 1) OO pp^2/(3 Sqrt[5]) + OO (5 OO^3 - 18 OO^2 - 5 OO + 18) pp^4/(63 Sqrt[5]))];
+chk[&quot;A201&quot;, Dcf[2, 0, 1, 4] - (-OO (OO^2 - 3 OO + 2) pp^3/(3 Sqrt[15]))];
+chk[&quot;A202&quot;, Dcf[2, 0, 2, 4] - ((1/45) OO (OO^3 - 6 OO^2 + 11 OO - 6) pp^4)];
+
+(* ---------- (A) the site&#x27;s published Section-4 tables (lp = 2, sample) ---------- *)
+chk[&quot;A020&quot;, Dcf[0, 2, 0, 4] - ((1/45) OO (OO^3 - 6 OO^2 + 5 OO + 12) pp^4)];
+chk[&quot;A222&quot;, Dcf[2, 2, 2, 4] - (1 + (1/21) (11 OO^2 - 33 OO - 54) pp^2 + (2/441) (23 OO^4 - 138 OO^3 - 80 OO^2 + 861 OO + 864) pp^4)];
+
+(* ---------- (B) the literature SZ operator, CR26 Eq. 11 (and its p^6 term) ---------- *)
+Sth = Collect[Normal@Series[((-1)^0/g) F[0, 0, 0] F[0, 0, -1] + (1/10) ((-1)^(2 + 0)/g) F[0, 2, 0] F[2, 0, -1] - 1, {pp, 0, 6}], pp, Simplify] /. q -&gt; -OO;
+chk[&quot;B-Sth p^2 (CR26 Eq.11)&quot;, Coefficient[Sth, pp, 2] - (OO^2 - 3 OO)/3];
+chk[&quot;B-Sth p^4 (CR26 Eq.11)&quot;, Coefficient[Sth, pp, 4] - (7/150) OO (OO^3 - 6 OO^2 + 5 OO + 12)];
+chk[&quot;B-Sth p^6 (extends CR26)&quot;, Coefficient[Sth, pp, 6] - (11/3150) OO (OO^5 - 9 OO^4 + 13 OO^3 + 57 OO^2 - 86 OO - 120)];
+
+Print[&quot;--- tables-match harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>A000: PASS (== published)
+A001: PASS (== published)
+A002: PASS (== published)
+A100: PASS (== published)
+A101: PASS (== published)
+A102: PASS (== published)
+A200: PASS (== published)
+A201: PASS (== published)
+A202: PASS (== published)
+A020: PASS (== published)
+A222: PASS (== published)
+B-Sth p^2 (CR26 Eq.11): PASS (== published)
+B-Sth p^4 (CR26 Eq.11): PASS (== published)
+B-Sth p^6 (extends CR26): PASS (== published)
+--- tables-match harness done ---</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
+</main></body></html>
