@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Generating Doppler operators from Doppler operators</title>
+<title>Generating any Doppler operator from D000</title>
 <link rel="stylesheet" href="../style.css">
 <script>
 window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
@@ -14,142 +14,119 @@ window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]
 <body>
 <main>
 <a class="backlink" href="../index.html#new">← back to main page</a>
-<h2>Generating Doppler operators from Doppler operators</h2>
+<h2>Generating any Doppler operator from \(\Do_{000}\)</h2>
 
 <div class="newbox">
-<div class="head"><span class="name">The goal</span></div>
-<p>The point of the whole programme is to compute a new Doppler operator <em>by recurrence from ones already
-computed</em> — or from the single seed \(\Do_{000}\) — <strong>without ever multiplying two boost / aberration
-kernels together</strong>. This page collects the relations that achieve exactly that, at three levels of
-strength. The strongest — the pure-physical scheme (P0–P4 of the <a href="reconciliation.html">generation
-paper</a>) — generates <em>any</em> element with every intermediate a genuine physical Doppler operator, verified
-end-to-end (from \(\Do_{000}\) to interior elements, no kernels anywhere). All boxed relations are checked in
-<a href="../verification/22_pure_physical.html"><code>verification/22_pure_physical.wl</code></a> and
-<a href="../verification/20_reconcile_generation.html"><code>20_reconcile_generation.wl</code></a>
-(\(s=0\), \(m=0\); \(J_w = \frac{(\gamma+p)^w-(\gamma-p)^w}{w}\), \(C_\ell = \ell/\sqrt{4\ell^2-1}\)).</p>
-</div>
-
-<h3>1 &nbsp;The pure-physical generation scheme (every term a Doppler operator)</h3>
-<p>The seed and four moves. Nothing below is a kernel; each relation is a recurrence among physical
-\(\Do\)'s at spectral arguments \(q, q\pm1\).</p>
-
-<div class="eqbox">
-<div class="head"><span class="name">Seed \(\Do_{000}\)</span></div>
+<div class="head"><span class="name">The one fact everything follows from</span></div>
+<p>On power laws \(\nu^q\), every Doppler operator is a product of two <em>legs</em> — each leg a single
+boost-operator column \(\Kk_{ab}(q) \equiv {}^{-1-q}\Kk_{ab}(+\beta)\) (an aberration-kernel element, not a new
+object):</p>
 \[
-  \Do_{000}(q) = \frac{J_{2+q}\,J_{1+q}}{4\gamma p^2}.
+  \Do_{\ell\ell'\ell''}(q) = \frac{(-1)^{\ell'+\ell''}}{\gamma}\;\Kk_{\ell\ell'}(q)\;\Kk_{\ell'\ell''}(q-1).
 \]
+<p>The three indices sit in definite <em>slots</em>: the outgoing \(\ell\) is the <strong>row of leg&nbsp;1</strong>,
+the incoming \(\ell''\) is the <strong>column of leg&nbsp;2</strong>, and the shared middle \(\ell'\) is the
+<strong>column of leg&nbsp;1 and the row of leg&nbsp;2 at once</strong>. A single three-term recurrence raises any
+index of a leg — so raising any index of \(\Do\) is one move on the right slot. That gives both answers below:
+how to raise each index (§2), and the easiest closed form of a general \(\Do_{hkl}\) (§3).</p>
 </div>
 
+<h3>1 &nbsp;The leg (bracket) and its recurrence</h3>
 <div class="eqbox">
-<div class="head"><span class="name">(P0) Axis ladders — build the two outer axes from \(\Do_{000}\)</span>
-<span class="badge pass">PP1/PP2, exact</span></div>
+<div class="head"><span class="name">Seed and the two recurrences</span> <span class="badge pass">T2, exact</span></div>
+<p>Seed (\(J_w = \frac{(\gamma+p)^w-(\gamma-p)^w}{w}\), \(C_\ell = \ell/\sqrt{4\ell^2-1}\)):</p>
 \[
-  C_{a}\,\Do_{a00}(q) = \frac{\gamma}{p}\,\Do_{a-1,0,0}(q) - \frac{1}{p}\frac{J_{1+q}}{J_{2+q}}\,\Do_{a-1,0,0}(q{+}1) - C_{a-1}\,\Do_{a-2,0,0}(q),
+  \Kk_{00}(q) = \frac{J_{2+q}}{2p}.
 \]
-<p>and the mirror ladder for \(\Do_{00b}(q)\) (with \(J_{2+q}/J_{1+q}\) and the shift \(q\to q{-}1\)). Seeded
-directly by \(\Do_{000}\): \(C_1\Do_{100}(q) = \tfrac\gamma p\Do_{000}(q) - \tfrac1p\tfrac{J_{1+q}}{J_{2+q}}\Do_{000}(q{+}1)\).
-One-index, linear, purely physical.</p>
-</div>
-
-<div class="eqbox">
-<div class="head"><span class="name">(P2) Rank-one — fill any fixed-\(\ell'\) plane from one row and one column</span>
-<span class="badge pass">PP3, exact</span></div>
 \[
-  \Do_{h\ell'l}(q) = \frac{\Do_{h\ell'0}(q)\,\Do_{0\ell'l}(q)}{\Do_{0\ell'0}(q)}.
+  \textbf{raise the row } a:\quad \Kk_{ab}(q) = \frac{\gamma\,\Kk_{a-1,b}(q) - \Kk_{a-1,b}(q{+}1)}{C_a\,p} - \frac{C_{a-1}}{C_a}\,\Kk_{a-2,b}(q),
 \]
-<p>At fixed \(\ell'\) the array of physical elements is rank one; the border (\(l=0\) row and \(h=0\) column)
-determines the interior. For \(\ell'=0\) this and P0 already generate the <em>entire</em> plane from \(\Do_{000}\).</p>
-</div>
-
-<div class="eqbox">
-<div class="head"><span class="name">(N1) Reflection — one border from the other</span>
-<span class="badge pass">verified</span></div>
 \[
-  \Do_{\ell\ell'\ell''}(q) = \Do_{\ell''\ell'\ell}(-3-q)
-  \quad\Rightarrow\quad \Do_{0\ell'l}(q) = \Do_{l\ell'0}(-3-q).
+  \textbf{raise the column } b:\quad \Kk_{ab}(q) = -\frac{\gamma\,\Kk_{a,b-1}(q) - \Kk_{a,b-1}(q{-}1)}{C_b\,p} - \frac{C_{b-1}}{C_b}\,\Kk_{a,b-2}(q).
 \]
+<p>Each references only smaller indices, with a single companion at \(q\pm1\). Both are the aberration kernel’s
+own \(\ell\)-raising relation (Dai&nbsp;&amp;&nbsp;Chluba); they are transposes of one another.</p>
 </div>
 
-<div class="eqbox">
-<div class="head"><span class="name">(P3) Middle-index step — climb \(\ell'\) along the border</span>
-<span class="badge pass">PP5/PP6</span></div>
-<p>The one move that changes the shared scattering multipole. It is necessarily <em>nonlinear</em> (a ratio of
-physical elements): a shift of the shared index moves both scattering legs, and the diagonal slice is codimension
-one, so no linear physical recurrence in \(\ell'\) can exist — the rank-one structure (P2) is exactly what
-survives. Its ingredient, the bracket-as-ratio, is physical (PP5): \(\ (-1)^{b}J_{q}\,\Do_{ab0}(q) = 2p\,\Do_{b00}(q{-}1)\cdot[\text{bracket}]\); substituting it into the two border ladders gives \(\Do_{h,\ell'+1,0}(q)\) as a
-(nine-term, nonlinear) combination of \(\Do_{h,\ell',0}, \Do_{h,\ell'-1,0}\) at \(q, q{-}1\) with coefficients
-built from the axis elements \(\Do_{\ell'00}, \Do_{\ell'-1,0,0}\). Verified to close on physical \(\Do\)'s (PP6).</p>
-</div>
-
-<div class="newbox">
-<div class="head"><span class="name">The scheme (Corollary P4) — and a verified end-to-end run</span>
-<span class="badge pass">PP4, exact</span></div>
-<p>To generate any \(\Do_{\ell\ell'\ell''}\) from \(\Do_{000}\): <strong>(i)</strong> P0 builds the axes
-\(\Do_{a00}, \Do_{00b}\); <strong>(ii)</strong> P3 climbs the middle index to the border \(\Do_{h\ell'0}\);
-<strong>(iii)</strong> N1 reflects it to \(\Do_{0\ell'l}\); <strong>(iv)</strong> P2 fills the interior. Every
-intermediate is a physical Doppler operator. Demonstrated end-to-end (PP4): the interior element \(\Do_{303}\)
-was generated from \(\Do_{000}\) by P0 (axes \(\Do_{300}, \Do_{003}\)) and P2 (rank-one) — no kernel ever formed —
-matching the direct value exactly.</p>
-</div>
-
-<h3>2 &nbsp;The outer-pair relation (P1) — a single pure-physical recurrence</h3>
-<div class="eqbox">
-<div class="head"><span class="name">(P1)</span> <span class="badge pass">R3, \(10^{-27}\)</span></div>
-\[
-  C_{\ell+1}\Do_{\ell+1,\ell'\ell''}(q) + C_\ell\Do_{\ell-1,\ell'\ell''}(q)
-  - C_{\ell''+1}\Do_{\ell,\ell',\ell''+1}(q{+}1) - C_{\ell''}\Do_{\ell,\ell',\ell''-1}(q{+}1)
-  = \frac{\gamma}{p}\big[\Do_{\ell\ell'\ell''}(q) - \Do_{\ell\ell'\ell''}(q{+}1)\big].
-\]
-<p>Both outer indices in one relation, every term physical — the companion of the single-index ladders (N5/N6)
-has been eliminated by the gauge identity \({}^{(j+1,k+1)}X(q) = {}^{(j,k)}X(q+1)\), which trades a weight-lattice
-companion for a physical element at shifted \(q\). Self-reflected under N1.</p>
-</div>
-
-<h3>3 &nbsp;The other Doppler-level generators</h3>
-<ul>
-  <li><strong>The rapidity ODE (<a href="ode.html">N3</a>) — continuous.</strong>
-  \(\partial_\eta \Do_{\ell\ell'\ell''}\) is a closed combination of \(\Do_{\ell\pm1,\ell'\ell''}\) and
-  \(\Do_{\ell\ell'\ell''\pm1}\) at fixed \(\ell'\) — the differential generator of the whole family, again with no
-  kernels. Integrate from \(\Do|_{\eta=0}=\delta\) for the \(p\)-series.</li>
-  <li><strong>The lattice recurrences (<a href="raising.html">N5/N6</a>, <a href="middle-index.html">N10</a>).</strong>
-  Raise outer or middle indices with <em>generalized</em> Doppler companions on the weight lattice
-  \({}^{(j,k)}\Do\) (themselves Doppler-type operators, not kernels). Slightly more general than the pure-physical
-  relations, at the cost of the auxiliary family. P0/P1 are what these become once the gauge identity removes the
-  lattice.</li>
-</ul>
-
-<h3>4 &nbsp;Where these come from (origin, not a tool)</h3>
-<p>The recurrences exist because the Doppler operator factorizes, on power laws, into two aberration-kernel
-columns — \(\Do_{\ell\ell'\ell''}(q) = \tfrac{(-1)^{\ell'+\ell''}}{\gamma}\,{}^{-1-q}\Kk_{\ell\ell'}(+\beta)\,{}^{-q}\Kk_{\ell'\ell''}(-\beta)\)
-(the definition; see the <a href="reconciliation.html">reconciliation note</a>). Each recurrence above is the
-kernel’s own \(\ell\)-raising relation, pushed through this factorization and re-expressed among physical
-\(\Do\)'s. But the factorization is <em>not</em> a generation tool: using it means multiplying two kernels — the
-very step every relation on this page is built to avoid. It explains why the \(\Do\)-recurrences exist and why the
-closed forms factorize; the recurrences are the deliverable.</p>
-
-<h3>5 &nbsp;Which relation is which</h3>
+<h3>2 &nbsp;How to raise each index of \(\Do\)</h3>
+<p>Raising an index of \(\Do\) = raising the corresponding leg-slot, then re-pairing. The three cases:</p>
 <div class="tablewrap"><table class="tbl">
-<tr><th>Relation</th><th>Raises</th><th>Companion</th><th>Source</th></tr>
-<tr><td>P0 axis ladders</td><td>outer index on an axis</td><td>none (\(J\)-ratio scalar)</td><td>paper; PP1/PP2</td></tr>
-<tr><td>P1 outer pair</td><td>both outer indices</td><td>none (physical, shifted \(q\))</td><td>paper; R3</td></tr>
-<tr><td>P2 rank-one</td><td>fills fixed-\(\ell'\) interior</td><td>none</td><td>paper; PP3</td></tr>
-<tr><td>P3 middle step</td><td>middle index \(\ell'\)</td><td>nonlinear (\(\Do\)-ratios)</td><td>paper; PP5/PP6</td></tr>
-<tr><td>N1 reflection</td><td>—</td><td>—</td><td>this site</td></tr>
-<tr><td>N5/N6 lattice</td><td>outer index</td><td>weight-lattice \({}^{(j\pm1,k)}\Do\)</td><td>this site</td></tr>
-<tr><td>N10 lattice</td><td>middle index</td><td>off-diagonal \({}^{(j,k)}X\)</td><td>this site</td></tr>
-<tr><td>N3 ODE</td><td>all (continuous)</td><td>none (fixed \(\ell'\))</td><td>this site</td></tr>
+<tr><th>Index</th><th>Slot in \(\Do = \tfrac1\gamma\Kk_{\ell\ell'}(q)\Kk_{\ell'\ell''}(q{-}1)\)</th><th>Raise by</th><th>\(\Do\)-level relation</th></tr>
+<tr><td><strong>outgoing \(\ell\)</strong></td><td>row of leg&nbsp;1</td><td>row-recurrence (once)</td><td>N5 / axis ladder <a href="#p0">P0</a></td></tr>
+<tr><td><strong>incoming \(\ell''\)</strong></td><td>column of leg&nbsp;2</td><td>column-recurrence (once)</td><td>N6 / mirror axis ladder</td></tr>
+<tr><td><strong>middle \(\ell'\)</strong></td><td>column of leg&nbsp;1 <em>and</em> row of leg&nbsp;2</td><td>both, together</td><td><a href="middle-index.html">N10 (M)</a> / <a href="#p3">P3</a></td></tr>
+</table></div>
+<p>The middle index is the only hard one — because it is shared, raising it moves <em>both</em> legs, so the
+single relation (M) picks up cross-terms (the off-diagonal companions). See
+<a href="middle-index.html">N10</a> for the four equivalent forms of the \(\ell'\)-step. The two outer indices
+each need just one recurrence. In terms of the physical operator, these are the site’s
+<a href="raising.html">N5/N6</a> (with a weight-lattice companion) or the pure-physical
+<a href="#p0">P0/P1</a> below (companion eliminated by the gauge identity, every term a physical \(\Do\)).</p>
+
+<h3>3 &nbsp;Easiest closed form of a general \(\Do_{hkl}\) — the bracket route</h3>
+<div class="newbox">
+<div class="head"><span class="name">Three steps</span> <span class="badge pass">T1–T4, exact</span></div>
+<ol>
+  <li><strong>Build the bracket table once</strong> from the seed by the two recurrences (§1). It is a small,
+  reusable, one-parameter family — each entry a single \(J\)-combination.</li>
+  <li><strong>Pick the two legs</strong> you need: \(\Kk_{hk}\) and \(\Kk_{kl}\).</li>
+  <li><strong>Multiply:</strong> \(\displaystyle \Do_{hkl}(q) = \frac{(-1)^{k+l}}{\gamma}\,\Kk_{hk}(q)\,\Kk_{kl}(q-1)\).</li>
+</ol>
+<p>No new integral, no re-derivation — every \(\Do\) is one product of two pre-built brackets. This is the
+cheapest route to a written-down closed form (it is exactly how N8/N16 were produced).</p>
+</div>
+
+<p>The bracket table (shorthand \(J_n \equiv J_{n+q}\); verified against the kernel columns, T1):</p>
+<div class="tablewrap"><table class="tbl">
+<tr><th></th><th>\(\Kk_{a0}\) (row raised)</th><th>\(\Kk_{0b}\) / \(\Kk_{ab}\)</th></tr>
+<tr><td>\(\Kk_{00}\)</td><td colspan="2">\(\dfrac{J_2}{2p}\)</td></tr>
+<tr><td>\(a{=}1\)</td><td>\(\Kk_{10} = \dfrac{\sqrt3\,(\gamma J_2 - J_3)}{2p^2}\)</td><td>\(\Kk_{01} = \dfrac{\sqrt3\,(J_1 - \gamma J_2)}{2p^2}\)</td></tr>
+<tr><td>\(a{=}2\)</td><td>\(\Kk_{20} = \dfrac{\sqrt5\,\big((3{+}2p^2)J_2 - 6\gamma J_3 + 3J_4\big)}{4p^3}\)</td><td>\(\Kk_{02} = \dfrac{\sqrt5\,\big(3J_0 - 6\gamma J_1 + (3{+}2p^2)J_2\big)}{4p^3}\)</td></tr>
+<tr><td>mixed</td><td colspan="2">\(\Kk_{11} = \dfrac{3\,\big(\gamma J_1 - (2{+}p^2)J_2 + \gamma J_3\big)}{2p^3}\)</td></tr>
+<tr><td></td><td>\(\Kk_{21} = \dfrac{\sqrt{15}\,\big((3{+}2p^2)J_1 - \gamma(9{+}2p^2)J_2 + 3(3{+}2p^2)J_3 - 3\gamma J_4\big)}{4p^4}\)</td>
+    <td>\(\Kk_{12} = \dfrac{\sqrt{15}\,\big(3\gamma J_0 - 3(3{+}2p^2)J_1 + \gamma(9{+}2p^2)J_2 - (3{+}2p^2)J_3\big)}{4p^4}\)</td></tr>
+<tr><td></td><td colspan="2">\(\Kk_{22} = \dfrac{5\,\big(3(3{+}2p^2)J_0 - 12\gamma(3{+}p^2)J_1 + 2(27{+}24p^2{+}2p^4)J_2 - 12\gamma(3{+}p^2)J_3 + 3(3{+}2p^2)J_4\big)}{8p^5}\)</td></tr>
 </table></div>
 
-<h3>Verification record</h3>
-<p><a href="../verification/22_pure_physical.html"><code>verification/22_pure_physical.wl</code></a>:
-PP1/PP2 the P0 axis ladders generating \(\Do_{a00}, \Do_{00b}\) from \(\Do_{000}\) (\(10^{-29}\));
-PP3 P2 rank-one filling the \(\ell'=0\) plane; <strong>PP4 the end-to-end generation of \(\Do_{303}\) from
-\(\Do_{000}\), no kernels</strong> (exact); PP5 the P3a bracket-as-ratio; PP6 the P3 middle step closing on
-physical \(\Do\)'s. Also <a href="../verification/20_reconcile_generation.html"><code>20_reconcile_generation.wl</code></a>:
-R3 P1 outer pair, R1 the gauge identity behind it. The origin factorization is check V1 of
-<a href="../verification/21_unified.html"><code>21_unified.wl</code></a>. Cross-check that the scheme reproduces the earlier closed forms: <a href="../verification/23_crosscheck.html"><code>23_crosscheck.wl</code></a> generates \(\Do_{101}, \Do_{202}\) (pure-physical, P0+rank-one) equal to the N8 closed forms as <em>exact</em> algebraic identities, and \(\Do_{020}, \Do_{121}\) (via the P3 middle climb) equal the N8/N16 closed forms to quadrature precision — the generation scheme and the closed forms are the same operators.</p>
+<div class="eqbox">
+<div class="head"><span class="name">Worked example — \(\Do_{101}\) in three lines</span> <span class="badge pass">= N8</span></div>
+<p>\(\Do_{101}(q) = \tfrac{(-1)^{0+1}}{\gamma}\Kk_{10}(q)\Kk_{01}(q-1)\). With \(\Kk_{10}(q) = \tfrac{\sqrt3(\gamma J_2 - J_3)}{2p^2}\)
+and \(\Kk_{01}(q-1) = \tfrac{\sqrt3(J_0 - \gamma J_1)}{2p^2}\) (shift \(J_n\to J_{n-1}\)):</p>
+\[
+  \Do_{101}(q) = \frac{3}{4\gamma p^4}\big(\gamma J_{2+q} - J_{3+q}\big)\big(\gamma J_{1+q} - J_{q}\big),
+\]
+<p>the N8 closed form. \(\Do_{020}, \Do_{121}, \Do_{202}, \dots\) come out the same way (\(\Do_{121}\) symbolic:
+check T4).</p>
+</div>
 
-<footer><p><a href="../index.html">The Doppler Operator Project</a> — generation scheme</p></footer>
+<h3 id="p0">4 &nbsp;Pure-physical route (no kernels at all) — for a \(\Do\)-only recurrence</h3>
+<p>If you want to generate <em>without ever forming a bracket</em> — every intermediate a physical \(\Do\) — use
+the pure-physical scheme (paper P0–P4). It is nonlinear at the middle index but touches nothing but \(\Do\)'s:</p>
+<ul>
+  <li><strong>(P0) axes:</strong> \(C_a\Do_{a00}(q) = \tfrac\gamma p\Do_{a-1,00}(q) - \tfrac1p\tfrac{J_{1+q}}{J_{2+q}}\Do_{a-1,00}(q{+}1) - C_{a-1}\Do_{a-2,00}(q)\) (and the mirror for \(\Do_{00b}\)) — build the outer axes from \(\Do_{000}\).</li>
+  <li><strong>(P2) rank-one:</strong> \(\Do_{h\ell'l}(q) = \Do_{h\ell'0}(q)\,\Do_{0\ell'l}(q)/\Do_{0\ell'0}(q)\) — fill any fixed-\(\ell'\) plane from its border. With P0 this generates the entire \(\ell'{=}0\) plane.</li>
+  <li><strong>(P3)</strong> climbs the middle index along the border (nonlinear); <strong>(N1)</strong> reflection \(\Do_{0\ell'l}(q)=\Do_{l\ell'0}(-3-q)\) supplies the other border.</li>
+  <li><strong>(P1) outer pair</strong> combines both outer moves in one physical relation. See the <a href="reconciliation.html">reconciliation note</a>.</li>
+</ul>
+<p id="p3">Verified end-to-end: \(\Do_{303}\) built from \(\Do_{000}\) with no kernels (harness 22, PP4), and the
+whole scheme reproduces the closed forms of §3 exactly (harness 23). <strong>Use the bracket route (§3) to write a
+closed form; use this route when you want a self-contained \(\Do\)-to-\(\Do\) recurrence.</strong></p>
+
+<h3>5 &nbsp;For the \(p\)-series: the rapidity ODE</h3>
+<p>\(\partial_\eta\Do_{\ell\ell'\ell''}\) is a closed combination of \(\Do_{\ell\pm1,\ell'\ell''}\) and
+\(\Do_{\ell\ell'\ell''\pm1}\) at fixed \(\ell'\) (<a href="ode.html">N3</a>); integrating from
+\(\Do|_{\eta=0}=\delta\) gives the Taylor series in \(p\) directly — the fastest route to the
+<a href="../data/index.html">\(\mathcal O(p^8)\) tables</a>.</p>
+
+<h3>Verification record</h3>
+<p><a href="../verification/24_bracket_table.html"><code>verification/24_bracket_table.wl</code></a>:
+T1 the full bracket table \(=\) kernel columns; T2 the table generated from the seed by the two recurrences;
+T3 the assembly \(\Do_{hkl} = \tfrac{(-1)^{k+l}}{\gamma}\Kk_{hk}(q)\Kk_{kl}(q-1)\) for all \(h,k,l\le3\); T4 the
+symbolic \(\Do_{121}\) closed form. Pure-physical route:
+<a href="../verification/22_pure_physical.html"><code>22_pure_physical.wl</code></a> (P0–P3, end-to-end) and
+<a href="../verification/23_crosscheck.html"><code>23_crosscheck.wl</code></a> (matches the §3 closed forms).</p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — generation guide</p></footer>
 </main>
 </body>
 </html>

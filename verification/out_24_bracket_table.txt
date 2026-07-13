@@ -1,0 +1,7 @@
+T1  full bracket table (F_ab, a,b<=2) == kernel columns: PASS  (dev = ScientificForm[8.071239581941626736861275469894`2.9148282629059343*^-28, 3])
+T2  brackets generated from seed by 2 recurrences == direct (a,b<=3): PASS  (dev = ScientificForm[3.33033901621441268710841949872`2.608416566259228*^-29, 3])
+T3  assembly D_hkl == direct (all h,k,l<=3): PASS  (dev = ScientificForm[3.130159724333397502802559819774`2.168831463577021*^-28, 3])
+T4  D121 closed form (symbolic, via brackets):
+    InputForm[(-15*(((3 + 2*pp^2)*(-(gg - pp)^qq + (gg + pp)^qq))/qq - (gg*(9 + 2*pp^2)*(-(gg - pp)^(1 + qq) + (gg + pp)^(1 + qq)))/(1 + qq) + (3*(3 + 2*pp^2)*(-(gg - pp)^(2 + qq) + (gg + pp)^(2 + qq)))/(2 + qq) - (3*gg*(-(gg - pp)^(3 + qq) + (gg + pp)^(3 + qq)))/(3 + qq))*((3*gg*(-(gg - pp)^qq + (gg + pp)^qq))/qq - (3*(3 + 2*pp^2)*(-(gg - pp)^(1 + qq) + (gg + pp)^(1 + qq)))/(1 + qq) + (gg*(9 + 2*pp^2)*(-(gg - pp)^(2 + qq) + (gg + pp)^(2 + qq)))/(2 + qq) - ((3 + 2*pp^2)*(-(gg - pp)^(3 + qq) + (gg + pp)^(3 + qq)))/(3 + qq)))/(16*gg*pp^8)]
+T4b D121 symbolic-bracket form == direct at q=1/2: PASS  (dev = ScientificForm[0``30.960721129418932, 3])
+--- bracket table harness done ---
