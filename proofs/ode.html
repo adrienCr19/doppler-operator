@@ -104,39 +104,48 @@ then  D(η) = Σ_k c[k] η^k ,   p-series via η = arcsinh(p),  q = -Ô.</code><
 no angular or momentum-space integrals. This is how all tables in Section 4 were produced
 (<a href="../verification/05_export_tables.html"><code>05_export_tables.wl</code></a>).</p>
 
-<h3>All three indices: the cross-slot balance and the combined flow</h3>
-<p>N3 moves the outer indices \(\ell, \ell''\); the mirror flow (G5b) moves the middle indices. Since both are
-expressions for the <em>same</em> \(\partial_\eta\), they are equal — an algebraic identity linking all three
-indices, with no derivative in it. On the extended family \(X_{\ell;\ell_1',\ell_2';\ell''}\), write the outer
-and middle shift combinations (\(C_\ell = \ell/\sqrt{4\ell^2-1}\)):</p>
+<h3 id="allindex">All three indices at once: the combined rapidity flow (N3′)</h3>
+<p>N3 above moves the outer indices \(\ell, \ell''\) and leaves \(\ell'\) fixed. The mirror flow (G5b) writes the
+<em>same</em> \(\partial_\eta\) as moves of the middle index instead. Averaging the two gives a single rapidity
+relation that moves all three. It requires one extra object — the <strong>off-diagonal companion</strong></p>
 \[
-  \Sigma_{\rm out} = -(\ell{+}3{-}\Oh)C_{\ell+1}X_{\ell+1} + (\ell{-}2{+}\Oh)C_{\ell}X_{\ell-1}
-   - (\ell''{+}\Oh)C_{\ell''+1}X_{\ell''+1} + (\ell''{+}1{-}\Oh)C_{\ell''}X_{\ell''-1},
+  X_{\ell;\,a,b;\,\ell''} \;=\; \frac1\gamma\,{}^{-1}\Bo_{\ell a}(\nu,-\beta)\,{}^{0}\Bo_{b\ell''}(\nu,\beta),
+  \qquad \Do_{\ell\ell'\ell''} = X_{\ell;\,\ell',\ell';\,\ell''}\;(\text{the diagonal } a=b=\ell'),
 \]
-\[
-  \Sigma_{\rm mid} = (\ell_1'{-}1{+}\Oh)C_{\ell_1'+1}X_{\ell_1'+1} - (\ell_1'{+}2{-}\Oh)C_{\ell_1'}X_{\ell_1'-1}
-   + (\ell_2'{+}2{-}\Oh)C_{\ell_2'+1}X_{\ell_2'+1} - (\ell_2'{-}1{+}\Oh)C_{\ell_2'}X_{\ell_2'-1}
-\]
+<p>i.e. the Doppler operator with its two middle slots \(a,b\) allowed to differ. With
+\(C_\ell = \ell/\sqrt{4\ell^2-1}\), \(\Oh = -\nu\partial_\nu\), \(\beta = \tanh\eta\):</p>
 <div class="newbox">
-<div class="head"><span class="name">(N3′) Cross-slot balance and the all-index rapidity flow</span>
-<span class="badge new">new</span> <span class="badge pass">verified: balance exact, flow 5×10⁻¹³</span></div>
+<div class="head"><span class="name">(N3′) The all-index rapidity flow — stated in full</span>
+<span class="badge new">new</span> <span class="badge pass">verified: 5×10⁻¹³</span></div>
 \[
-  \textbf{(cross-slot balance)}\qquad \Sigma_{\rm out} = \Sigma_{\rm mid},
+  \begin{aligned}
+  \partial_\eta \Do_{\ell\ell'\ell''} \;=\; \tfrac12\Big[\,
+    &-(\ell{+}3{-}\Oh)\,C_{\ell+1}\,\Do_{\ell+1,\ell',\ell''}
+     +(\ell{-}2{+}\Oh)\,C_{\ell}\,\Do_{\ell-1,\ell',\ell''} \\
+    &-(\ell''{+}\Oh)\,C_{\ell''+1}\,\Do_{\ell,\ell',\ell''+1}
+     +(\ell''{+}1{-}\Oh)\,C_{\ell''}\,\Do_{\ell,\ell',\ell''-1}\,\Big]_{\textstyle\ \text{outer (physical)}} \\[4pt]
+  +\ \tfrac12\Big[\,
+    &+(\ell'{-}1{+}\Oh)\,C_{\ell'+1}\,X_{\ell;\,\ell'+1,\ell';\,\ell''}
+     -(\ell'{+}2{-}\Oh)\,C_{\ell'}\,X_{\ell;\,\ell'-1,\ell';\,\ell''} \\
+    &+(\ell'{+}2{-}\Oh)\,C_{\ell'+1}\,X_{\ell;\,\ell',\ell'+1;\,\ell''}
+     -(\ell'{-}1{+}\Oh)\,C_{\ell'}\,X_{\ell;\,\ell',\ell'-1;\,\ell''}\,\Big]_{\textstyle\ \text{middle (off-diagonal)}} \\[4pt]
+  &-\ \beta\,\Do_{\ell\ell'\ell''}.
+  \end{aligned}
 \]
-\[
-  \textbf{(combined flow, all three indices)}\qquad
-  \partial_\eta \Do_{\ell\ell'\ell''} = \tfrac12\,\Sigma_{\rm out} + \tfrac12\,\Sigma_{\rm mid} - \beta\,\Do_{\ell\ell'\ell''}.
-\]
+<p style="margin:0.6rem 0 0"><strong>Cross-slot balance (the algebraic content, no derivative):</strong> the two
+brackets are <em>equal</em>, \(\Sigma_{\rm out} = \Sigma_{\rm mid}\) — each on its own equals
+\(\partial_\eta\Do + \beta\Do\).</p>
 </div>
-<p>The combined flow moves \(\ell, \ell', \ell''\) all at once — the single rapidity relation that does not leave
-\(\ell'\) a spectator. On the physical diagonal (\(\ell_1'=\ell_2'=\ell'\)) the \(\Sigma_{\rm out}\) terms are
-physical Doppler operators (outer neighbours) while the \(\Sigma_{\rm mid}\) terms are the off-diagonal
-companions \(X\) (the middle index moved on one leg only) — the same extended family that the middle-index
-recursion (<a href="middle-index.html">N10</a>) requires, for the same reason: a first-order \(\partial_\eta\)
-hits one scattering leg at a time, so an \(\ell'\)-move is inherently off-diagonal. For pure Taylor generation N3
-alone suffices (fix \(\ell'\) by the seed); the combined flow is the form that touches all three.
+<p><strong>What it is and isn't.</strong> This is the single rapidity relation in which \(\ell'\) is not a
+spectator. But the four middle terms are off-diagonal companions \(X\) (the middle index moved on <em>one</em>
+leg), not physical Doppler operators — unavoidably, since a first-order \(\partial_\eta\) acts on one scattering
+leg at a time. So <strong>N3 above remains the practical generator</strong>: it closes on physical operators and
+already produces every Taylor series (fix \(\ell'\) by the seed \(\Do|_{\eta=0}=\delta_{\ell\ell'}\delta_{\ell'\ell''}\),
+then iterate). N3′ is its all-index companion, useful when the middle index must move, at the cost of carrying the
+off-diagonal family — the same family the middle-index recursion (<a href="middle-index.html">N10</a>) needs, for
+the same reason.
 <span class="badge pass"><a href="../verification/26_all_index_ode.html"><code>26_all_index_ode.wl</code></a>:
-balance exact (Q1), combined flow vs FD 5×10⁻¹³ (Q2/Q3)</span></p>
+cross-slot balance exact (Q1); combined flow vs finite differences 5×10⁻¹³ (Q2/Q3)</span></p>
 
 <h3>Verification record</h3>
 <ul>

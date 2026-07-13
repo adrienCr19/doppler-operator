@@ -421,7 +421,7 @@ grouped here by role, not by number.</p>
 </div>
 
 <div class="newbox">
-  <div class="head"><span class="name">(N3) Rapidity ODE — the Doppler-operator generator</span>
+  <div class="head"><span class="name">(N3, N3′) Rapidity ODEs — the Doppler-operator generators</span>
     <span class="badge new">new — central result</span> <span class="badge pass">verified (FD, 4×10⁻¹²)</span>
     <span class="prooflink"><a href="proofs/ode.html">proof →</a></span></div>
   \[
@@ -446,7 +446,26 @@ grouped here by role, not by number.</p>
   terms maps onto the second). It reproduces: the tables of [<a href="#ref-RC26">RC26</a>, Eqs.&nbsp;9a,b],
   the closed form [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;10a] (symbolically, to \(\mathcal O(p^6)\)), and the exact
   SZ operator [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;11] through \(\mathcal O(p^6)\) — see
-  <a href="#tables">Section&nbsp;4</a>.</p>
+  <a href="#tables">Section&nbsp;4</a>. This is the practical generator: it closes on physical operators and
+  produces every Taylor series by fixing \(\ell'\) through the seed and iterating.</p>
+  <p style="margin:0.7rem 0 0"><strong>All three indices (N3′).</strong> Averaging N3 with its middle-index mirror
+  gives a single flow that moves \(\ell'\) too — at the cost of the off-diagonal companion
+  \(X_{\ell;a,b;\ell''} = \tfrac1\gamma\,{}^{-1}\Bo_{\ell a}(\nu,-\beta)\,{}^{0}\Bo_{b\ell''}(\nu,\beta)\)
+  (the operator with unequal middle slots; \(\Do = X|_{a=b=\ell'}\)):</p>
+  \[
+    \begin{aligned}
+    \partial_\eta \Do_{\ell\ell'\ell''} = \tfrac12\Big[
+      &-(\ell{+}3{-}\Oh)C_{\ell+1}\Do_{\ell+1,\ell',\ell''} + (\ell{-}2{+}\Oh)C_{\ell}\Do_{\ell-1,\ell',\ell''}
+       -(\ell''{+}\Oh)C_{\ell''+1}\Do_{\ell,\ell',\ell''+1} + (\ell''{+}1{-}\Oh)C_{\ell''}\Do_{\ell,\ell',\ell''-1}\Big] \\
+    +\tfrac12\Big[
+      &+(\ell'{-}1{+}\Oh)C_{\ell'+1}X_{\ell;\ell'+1,\ell';\ell''} - (\ell'{+}2{-}\Oh)C_{\ell'}X_{\ell;\ell'-1,\ell';\ell''}
+       +(\ell'{+}2{-}\Oh)C_{\ell'+1}X_{\ell;\ell',\ell'+1;\ell''} - (\ell'{-}1{+}\Oh)C_{\ell'}X_{\ell;\ell',\ell'-1;\ell''}\Big]
+       - \beta\Do_{\ell\ell'\ell''}.
+    \end{aligned}
+  \]
+  <p style="margin:0.5rem 0 0">The two brackets are equal (the exact <em>cross-slot balance</em>). N3′ is the form
+  in which no index is a spectator; N3 (top) stays the workhorse because it closes on physical operators. Full
+  derivation and verification: <a href="proofs/ode.html#allindex">N3′ on the rapidity-ODE page</a>.</p>
 </div>
 
 <div class="newbox">
