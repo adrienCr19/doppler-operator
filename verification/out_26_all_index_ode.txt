@@ -1,0 +1,6 @@
+Q1  cross-slot balance: (outer l,ldd shifts) = (middle l1,l2 shifts): PASS  (dev = ScientificForm[0., 3])
+QA  N3:  Nout - beta X = d/deta X: PASS  (dev = ScientificForm[7.654622200033837*^-13, 3])
+QB  G5b: Nmid - beta X = d/deta X: PASS  (dev = ScientificForm[7.654622200033837*^-13, 3])
+Q2  combined ODE (all three indices) vs d/deta X: PASS  (dev = ScientificForm[7.654622200033837*^-13, 3])
+Q3  combined ODE on physical D (diagonal l1=l2=l'): PASS  (dev = ScientificForm[4.655552565274073*^-13, 3])
+--- all-index ODE harness done ---
