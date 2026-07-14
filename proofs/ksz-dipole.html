@@ -24,23 +24,33 @@ live.</p>
 
 <h3>1 &nbsp;Closed form for \(\Do_{121}\) (new)</h3>
 <div class="newbox">
-<div class="head"><span class="name">Statement</span> <span class="badge pass">K1, 4×10⁻²⁷ incl. β = 0.7</span></div>
-<p>With the \(\ell' = 1\) kernel columns built by the standard climb (seeds → B10; checks K1a–c):</p>
+<div class="head"><span class="name">Derivation — entirely by the site's index relations</span>
+<span class="badge pass">K1 (form, 4×10⁻²⁷ incl. β = 0.7), K6–K7 (each step)</span></div>
+<p>Every step is an index-raising relation of the Doppler operator itself, starting from the \(\ell'=2\) plane
+base \(\Do_{020}(q) = \tfrac{5}{16\gamma p^6}A(q)B(q)\) (N10 climb;
+<a href="closed-forms.html">N8, eq. 1.3</a>), where</p>
 \[
-  {}^{d}\Kk_{01}(-\beta) = \frac{\sqrt3}{2p^2}\big(\gamma J_{d-1} - J_{d}\big),\qquad
-  {}^{d}\Kk_{11}(-\beta) = -\frac{3}{2p^3}\Big[(\gamma^2{+}1)J_{d-1} - \gamma\big(J_{d} + J_{d-2}\big)\Big],
+  A(q) = (3{+}2p^2)J_{2+q} - 6\gamma J_{1+q} + 3J_{q},\qquad
+  B(q) = (3{+}2p^2)J_{1+q} - 6\gamma J_{2+q} + 3J_{3+q}, \qquad B(-3-q) = A(q).
 \]
+<p><strong>Step 1 (N5, outgoing index \(0\to1\)):</strong> on the weight lattice, exactly as in the N8 climb,
+\(\Do_{120} = \tfrac{\sqrt3}{p}\big[\gamma\,{}^{(0,0)}\Do_{020} - {}^{(1,0)}\Do_{020}\big]\), giving</p>
 \[
-  {}^{d}\Kk_{21}(-\beta) = -\frac{\sqrt{15}}{2p}\Big[\gamma\,{}^{d}\Kk_{11} - {}^{d-1}\Kk_{11}\Big]
-   - \frac{\sqrt5}{2}\,{}^{d}\Kk_{01},
+  \Do_{120}(q) = \frac{5\sqrt3}{16\gamma p^7}\,W(q)\,B(q),\qquad
+  W(q) \equiv 3\gamma J_{q} - 3(3{+}2p^2)J_{1+q} + \gamma(9{+}2p^2)J_{2+q} - (3{+}2p^2)J_{3+q}.
 \]
-<p>(all \(J\)-family, \(J_w = 2\sinh(w\eta)/w\), evenness \(J_{-w} = J_w\)), transposition gives
-\({}^{-1-q}\Kk_{12}(+\beta) = {}^{3+q}\Kk_{21}(-\beta)\), and</p>
+<p><strong>Step 2 (N1, reflection):</strong> \(\Do_{021}(q) = \Do_{120}(-3-q)\) — the other border of the
+plane, for free.</p>
+<p><strong>Step 3 (P2, rank-one filling):</strong>
+\(\Do_{121} = \Do_{120}\,\Do_{021}/\Do_{020}\); the \(B\)-factors cancel against \(\Do_{020}\)
+(\(B(q)B(-3-q) = A B = \tfrac{16\gamma p^6}{5}\Do_{020}\)), leaving</p>
 \[
-  \boxed{\;\Do_{121}(q) \;=\; \frac1\gamma\; {}^{3+q}\Kk_{21}(-\beta)\;\; {}^{-q}\Kk_{21}(-\beta)\;}
+  \boxed{\;\Do_{121}(q) \;=\; \frac{15}{16\,\gamma p^8}\;W(q)\,W(-3-q)\;}
 \]
-<p>— the last of the four elements of the exact thermal+kinematic SZ system
-(\(\Do_{000}, \Do_{020}, \Do_{101}, \Do_{121}\)) in closed form.</p>
+<p>— manifestly reflection-invariant (the two \(W\)-factors swap under \(q\to-3-q\), as N1a requires), and the
+last of the four elements of the exact thermal+kinematic SZ system
+(\(\Do_{000}, \Do_{020}, \Do_{101}, \Do_{121}\)) in closed form. The harness additionally retains the
+historical kernel-column construction (K1a–c) as an independent cross-check of the same form.</p>
 </div>
 
 <h3>2 &nbsp;The exact dipole-scattering operator \(M_{11}\)</h3>
@@ -87,8 +97,11 @@ recursions) are all in place.</p>
 
 <h3>Verification record</h3>
 <p><a href="../verification/16_ksz_dipole.html"><code>verification/16_ksz_dipole.wl</code></a>:
-K1a–c kernel columns \(\Kk_{01}, \Kk_{11}, \Kk_{21}\) in \(J\)-form (10⁻²⁸); K1 the \(\Do_{121}\) closed form
-vs quadrature at \(\beta \in \{0.3, 0.7\}\); K2 the obstruction (symbolic, with the factored gap);
+<strong>K6 the N5 lattice step</strong> (\(\Do_{120}\) closed form vs quadrature, 2×10⁻²⁸);
+<strong>K7a the P2 rank-one assembly</strong> \(\Do_{121} = \Do_{120}\Do_{021}/\Do_{020}\) (exact);
+<strong>K7b the boxed \(W\)-form</strong> vs quadrature (4×10⁻²⁷); K1 the same form at
+\(\beta \in \{0.3, 0.7\}\); K1a–c the kernel-column cross-check route (10⁻²⁸);
+K2 the obstruction (symbolic, with the factored gap);
 K3 exact \(M_{11}\) quadrature vs \(p^6\)-series + exact Bessel moments (residual ratio 16.5 ≈ 16);
 K4 the \(\theta_{\rm e}\)-tower to third order with K4b reflection-invariance of every coefficient (exact zeros).</p>
 

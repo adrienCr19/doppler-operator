@@ -1,19 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>16_ksz_dipole.wl — N16 — kSZ dipole channel: D121 closed form, M11 tower, reflection obstruction (K1–K4)</title>
-<link rel="stylesheet" href="../style.css">
-</head>
-<body>
-<main>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16_ksz_dipole.wl — N16: kSZ dipole channel — D121/D120 closed forms, M11 tower, obstruction (K1–K7)</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
 <a class="backlink" href="../index.html#verification">← back to main page</a>
 <h2><code>16_ksz_dipole.wl</code></h2>
-<p>N16 — kSZ dipole channel: D121 closed form, M11 tower, reflection obstruction (K1–K4). Run with <code>wolframscript -file 16_ksz_dipole.wl</code> (Wolfram 14+/15).
+<p>N16 — the kinematic dipole channel: the D121 closed form (K1) with its operator-level derivation steps (K6 the N5 lattice step to D120, K7a the P2 rank-one assembly, K7b the boxed W-form), the exact M11 tower (K3, K4), and the reflection obstruction (K2). Run with <code>wolframscript -file 16_ksz_dipole.wl</code> (Wolfram 14+/15).
 Download: <a href="16_ksz_dipole.wl" download>16_ksz_dipole.wl</a> &middot; recorded output below (also <a href="out_16_ksz_dipole.txt">out_16_ksz_dipole.txt</a>)</p>
-<h3>Source</h3>
-<pre><code>(* ::Package:: *)
+<h3>Source</h3><pre><code>(* ::Package:: *)
 (* 16_ksz_dipole.wl — N16: the exact kinematic (kSZ) dipole channel.
    Companion-paper structure (App. B.3): S_kin^(dip) = beta_p mu_p Ohat [M00 - M11],
      M00 = &lt;D000&gt; + &lt;D020&gt;/10  (thermal monopole),  M11 = &lt;D101&gt; + &lt;D121&gt;/10  (dipole scattering),
@@ -59,6 +52,28 @@ D121cf[q_, b_] := (1/ga[b]) K21[3 + q, b] K21[-q, b];
 D121num[q_, b_] := (1/ga[b]) Kp[-1 - q, 1, 2, b] Km[-q, 2, 1, b];
 dev = Max@Table[Abs[D121cf[q, b] - D121num[q, b]], {q, {1/2, -7/10, 13/10}}, {b, {3/10, 7/10}}];
 report[&quot;K1  D121 closed form (NEW)&quot;, dev];
+
+(* ---- K6/K7: the operator-level derivation displayed on the page ----
+   W(q) = 3 g J_q - 3(3+2p^2) J_{1+q} + g(9+2p^2) J_{2+q} - (3+2p^2) J_{3+q}
+   K6:  D120(q) = (5 Sqrt[3]/(16 g p^7)) W(q) B(q),  B(q) = (3+2p^2)J_{1+q} - 6g J_{2+q} + 3 J_{3+q}
+        [N5 lattice step from D020] vs direct quadrature
+   K7a: rank-one (P2): D121 == D120(q) D120(-3-q) / D020(q)   (numeric, quadrature elements)
+   K7b: the boxed form D121(q) = (15/(16 g p^8)) W(q) W(-3-q) vs quadrature *)
+Wbr[q_, b_] := With[{g = ga[b], p = ga[b] b},
+   3 g JJ[q, b] - 3 (3 + 2 p^2) JJ[1 + q, b] + g (9 + 2 p^2) JJ[2 + q, b] - (3 + 2 p^2) JJ[3 + q, b]];
+Bbr[q_, b_] := With[{g = ga[b], p = ga[b] b},
+   (3 + 2 p^2) JJ[1 + q, b] - 6 g JJ[2 + q, b] + 3 JJ[3 + q, b]];
+D120cf[q_, b_] := With[{g = ga[b], p = ga[b] b}, (5 Sqrt[3]/(16 g p^7)) Wbr[q, b] Bbr[q, b]];
+D120num[q_, b_] := (1/ga[b]) Kp[-1 - q, 1, 2, b] Km[-q, 2, 0, b];
+D020num[q_, b_] := (1/ga[b]) Kp[-1 - q, 0, 2, b] Km[-q, 2, 0, b];
+D021num[q_, b_] := (1/ga[b]) Kp[-1 - q, 0, 2, b] Km[-q, 2, 1, b];
+dev = Max@Table[Abs[D120cf[q, b] - D120num[q, b]], {q, {1/2, -7/10, 13/10}}, {b, {3/10, 7/10}}];
+report[&quot;K6   D120 closed form (N5 lattice step from D020) vs quadrature&quot;, dev];
+dev = Max@Table[Abs[D121num[q, b] - D120num[q, b] D021num[q, b]/D020num[q, b]], {q, {1/2, -7/10}}, {b, {3/10, 7/10}}];
+report[&quot;K7a  rank-one (P2): D121 = D120 D021 / D020 (quadrature elements)&quot;, dev];
+D121w[q_, b_] := With[{g = ga[b], p = ga[b] b}, (15/(16 g p^8)) Wbr[q, b] Wbr[-3 - q, b]];
+dev = Max@Table[Abs[D121w[q, b] - D121num[q, b]], {q, {1/2, -7/10, 13/10}}, {b, {3/10, 7/10}}];
+report[&quot;K7b  boxed form D121 = (15/16 g p^8) W(q) W(-3-q) vs quadrature&quot;, dev];
 
 (* ---- ODE-generated p-series to order 6 for all four elements (m = 0) ---- *)
 Cm0[l_] := If[l == 0, 0, Sqrt[l^2/(4 l^2 - 1)]];
@@ -124,11 +139,23 @@ devs = Table[Module[{cf = Coefficient[towerM11, th, j]}, Simplify[(cf /. q -&gt;
 Print[&quot;K4b tower coefficients reflection-invariant (should be {0,0,0}): &quot;, devs];
 Print[&quot;--- kSZ dipole harness done ---&quot;];
 </code></pre>
-<h3>Recorded output</h3>
-<pre><code>K1a K^d_01(-b) J-form: PASS  (max dev = ScientificForm[5.771377166674596*^-29, 3])
+<h3>Recorded output</h3><pre><code>
+NIntegrate::slwcon: Numerical integration converging too slowly; suspect one of the following: singularity, value of the integration is 0, highly oscillatory integrand or WorkingPrecision too small.
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   -41                                                                                         -42
+NIntegrate::eincr: The global error of the strategy GlobalAdaptive has increased more than 400 times. The global error is expected to decrease monotonically after a number of integrand evaluations. Suspect one of the following: the working precision is insufficient for the specified precision goal; the integrand is highly oscillatory or it is not a (piecewise) smooth function; or the true value of the integral is 0. Increasing the value of the GlobalAdaptive option MaxErrorIncreases might lead to a convergent numerical integration. NIntegrate obtained -1.0108646446725210202016680676968138951129807752510681533248189055498597202506353 10    and 8.9749797984905045874149871901571903827038939621089370652281192239185074765710354 10    for the integral and error estimates.
+
+NIntegrate::slwcon: Numerical integration converging too slowly; suspect one of the following: singularity, value of the integration is 0, highly oscillatory integrand or WorkingPrecision too small.
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  -42                                                                                         -41
+NIntegrate::eincr: The global error of the strategy GlobalAdaptive has increased more than 400 times. The global error is expected to decrease monotonically after a number of integrand evaluations. Suspect one of the following: the working precision is insufficient for the specified precision goal; the integrand is highly oscillatory or it is not a (piecewise) smooth function; or the true value of the integral is 0. Increasing the value of the GlobalAdaptive option MaxErrorIncreases might lead to a convergent numerical integration. NIntegrate obtained 1.8276227273653124265816311671626938499004219906038087848776670355961792007729754 10    and 1.1952312809347881783860409086414267701499793873382571335279501603322653912018365 10    for the integral and error estimates.
+K1a K^d_01(-b) J-form: PASS  (max dev = ScientificForm[5.771377166674596*^-29, 3])
 K1b K^d_11(-b) J-form: PASS  (max dev = ScientificForm[1.4598995174489942*^-28, 3])
 K1c K^d_21(-b) J-form (two B10 steps): PASS  (max dev = ScientificForm[3.4849525065647106*^-28, 3])
 K1  D121 closed form (NEW): PASS  (max dev = ScientificForm[3.746524687982654*^-27, 3])
+K6   D120 closed form (N5 lattice step from D020) vs quadrature: PASS  (max dev = ScientificForm[1.8298770362579372*^-28, 3])
+K7a  rank-one (P2): D121 = D120 D021 / D020 (quadrature elements): PASS  (max dev = ScientificForm[0., 3])
+K7b  boxed form D121 = (15/16 g p^8) W(q) W(-3-q) vs quadrature: PASS  (max dev = ScientificForm[3.746524687982654*^-27, 3])
 K2  diagonal assembly S1 = (-42*q)/25 - (156*q^2)/25 - (52*q^3)/25   physical S1 = (-17*q)/5 - (26*q^2)/5 - (7*q^3)/5
 K2  gap = -1/25*((-1 + q)*q*(43 + 17*q))   (nonzero, with root q=1: the temperature-dipole weight)
 K2  physical S1/(-q) as fn of u=q^2+3q? 7q^2+26q+17 = 7u + 5q + 17 -&gt; residual 5q != 0 =&gt; NOT f(Dv): PASS (obstruction)
@@ -136,8 +163,7 @@ K3  M11(q=1/2, th=0.01): exact = -0.0358233897622154244320472084423312657`12.   
 K3  residual(0.01)/residual(0.005) = 16.5460958732081461586`3.  (expect ~16 for O(p^8) truncation)
 K4  &lt;M11&gt;(q,th) = (-3*(14 + 27*q + 9*q^2)*th)/25 - (3*(-38 - 21*q + 227*q^2 + 156*q^3 + 26*q^4)*th^2)/70 + ((810 - 2127*q + 15995*q^2 - 4524*q^3 - 13804*q^4 - 5220*q^5 - 580*q^6)*th^3)/840 + O(th^4)   [dipole-scattering tower, generated]
 K4b tower coefficients reflection-invariant (should be {0,0,0}): {0, 0, 0}
---- kSZ dipole harness done ---</code></pre>
+--- kSZ dipole harness done ---
+</code></pre>
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
-</main>
-</body>
-</html>
+</main></body></html>

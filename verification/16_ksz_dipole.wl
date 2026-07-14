@@ -45,6 +45,28 @@ D121num[q_, b_] := (1/ga[b]) Kp[-1 - q, 1, 2, b] Km[-q, 2, 1, b];
 dev = Max@Table[Abs[D121cf[q, b] - D121num[q, b]], {q, {1/2, -7/10, 13/10}}, {b, {3/10, 7/10}}];
 report["K1  D121 closed form (NEW)", dev];
 
+(* ---- K6/K7: the operator-level derivation displayed on the page ----
+   W(q) = 3 g J_q - 3(3+2p^2) J_{1+q} + g(9+2p^2) J_{2+q} - (3+2p^2) J_{3+q}
+   K6:  D120(q) = (5 Sqrt[3]/(16 g p^7)) W(q) B(q),  B(q) = (3+2p^2)J_{1+q} - 6g J_{2+q} + 3 J_{3+q}
+        [N5 lattice step from D020] vs direct quadrature
+   K7a: rank-one (P2): D121 == D120(q) D120(-3-q) / D020(q)   (numeric, quadrature elements)
+   K7b: the boxed form D121(q) = (15/(16 g p^8)) W(q) W(-3-q) vs quadrature *)
+Wbr[q_, b_] := With[{g = ga[b], p = ga[b] b},
+   3 g JJ[q, b] - 3 (3 + 2 p^2) JJ[1 + q, b] + g (9 + 2 p^2) JJ[2 + q, b] - (3 + 2 p^2) JJ[3 + q, b]];
+Bbr[q_, b_] := With[{g = ga[b], p = ga[b] b},
+   (3 + 2 p^2) JJ[1 + q, b] - 6 g JJ[2 + q, b] + 3 JJ[3 + q, b]];
+D120cf[q_, b_] := With[{g = ga[b], p = ga[b] b}, (5 Sqrt[3]/(16 g p^7)) Wbr[q, b] Bbr[q, b]];
+D120num[q_, b_] := (1/ga[b]) Kp[-1 - q, 1, 2, b] Km[-q, 2, 0, b];
+D020num[q_, b_] := (1/ga[b]) Kp[-1 - q, 0, 2, b] Km[-q, 2, 0, b];
+D021num[q_, b_] := (1/ga[b]) Kp[-1 - q, 0, 2, b] Km[-q, 2, 1, b];
+dev = Max@Table[Abs[D120cf[q, b] - D120num[q, b]], {q, {1/2, -7/10, 13/10}}, {b, {3/10, 7/10}}];
+report["K6   D120 closed form (N5 lattice step from D020) vs quadrature", dev];
+dev = Max@Table[Abs[D121num[q, b] - D120num[q, b] D021num[q, b]/D020num[q, b]], {q, {1/2, -7/10}}, {b, {3/10, 7/10}}];
+report["K7a  rank-one (P2): D121 = D120 D021 / D020 (quadrature elements)", dev];
+D121w[q_, b_] := With[{g = ga[b], p = ga[b] b}, (15/(16 g p^8)) Wbr[q, b] Wbr[-3 - q, b]];
+dev = Max@Table[Abs[D121w[q, b] - D121num[q, b]], {q, {1/2, -7/10, 13/10}}, {b, {3/10, 7/10}}];
+report["K7b  boxed form D121 = (15/16 g p^8) W(q) W(-3-q) vs quadrature", dev];
+
 (* ---- ODE-generated p-series to order 6 for all four elements (m = 0) ---- *)
 Cm0[l_] := If[l == 0, 0, Sqrt[l^2/(4 l^2 - 1)]];
 buildC[lp_] := Module[{c},
