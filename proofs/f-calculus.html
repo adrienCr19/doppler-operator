@@ -99,7 +99,23 @@ physical channels — for which the ladder runs the other way (N9) and closure i
 
 <h3>Channel-regularized form</h3>
 <p>For physical channels (\(\mu = -\sigma/2 \le -1\)) the relations hold for the regularized combinations.
-Example (verified, FC6): FC4 at \(\mu = -1\) applied to the \(\Do_{101}\) channel data \(\{a_j, c_j\}\):</p>
+The \(\Do_{101}\) channel data referred to below are the cosh-resolution of the N8 closed form
+\(\Do_{101}(q) = \tfrac{3}{4\gamma p^4}(\gamma J_{2+q}-J_{3+q})(\gamma J_{1+q}-J_{q})\):</p>
+\[
+  \Do_{101}\big|_{\Oh} = \frac{\sum_{j=1}^{5} c_j(\Oh)\cosh(a_j\eta)}{\sinh^4\!\eta\,\cosh\eta},\qquad
+  \sum_j c_j = 0,
+\]
+<div class="tablewrap"><table class="tbl">
+<tr><th>\(a_j\)</th><th>\(c_j(\Oh)\)</th></tr>
+<tr><td>\(1\)</td><td>\(\dfrac{3\,(\Oh^2-3\Oh+6)}{8\,\Oh(\Oh-1)(\Oh-2)(\Oh-3)}\)</td></tr>
+<tr><td>\(3\)</td><td>\(-\dfrac{3}{8\,\Oh(\Oh-3)}\)</td></tr>
+<tr><td>\(1-2\Oh\)</td><td>\(-\dfrac{3}{8\,\Oh(\Oh-1)}\)</td></tr>
+<tr><td>\(3-2\Oh\)</td><td>\(\dfrac{3\,(\Oh^2-3\Oh+1)}{4\,\Oh(\Oh-1)(\Oh-2)(\Oh-3)}\)</td></tr>
+<tr><td>\(5-2\Oh\)</td><td>\(-\dfrac{3}{8\,(\Oh-2)(\Oh-3)}\)</td></tr>
+</table></div>
+<p>(exact, harness 08; the \(\sigma=4\) \(\langle\Do_{02}\rangle\) table is on the
+<a href="exact-tsz.html">exact-tSZ page</a>).
+Example (verified, FC6): FC4 at \(\mu = -1\) applied to this channel data:</p>
 \[
   z\sum_j c_j\,K_{a_j}(z) \;=\; \sum_j c_j\,a_j\,L(-\tfrac12,a_j,z) \;+\; \partial_z \sum_j c_j F(-1,a_j,z),
 \]

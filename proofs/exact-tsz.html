@@ -45,10 +45,37 @@ combination, nor Meijer-G, nor Fox-H. A \(K\)-ratio form for \(\langle\Do_{02}\r
   \text{ — one new transcendent}} \;-\; 1,
   \qquad z = \tfrac{1}{\theta_{\rm e}},
 \]
-<p>with the verified 8-term channel data \(\{a_j, c_j(\Oh)\}\)
-(orders \(a_j \in \{1, 3, 5, 1{-}2\Oh, 3{-}2\Oh, 5{-}2\Oh, 7{-}2\Oh, 1{+}2\Oh\}\), rational \(c_j\) with
-\(\sum_j c_j = 0\); symbolically equivalent to the N8 closed form of \(\Do_{020}\) — harness 08, exact).
-The \(F\)-part is available through three exact, mutually verified representations:</p>
+<p><strong>Before thermal averaging, both channels are in closed form.</strong> On \(\nu^q\)
+(operator form: \(q \to -\Oh\)), with \(J_w = 2\sinh(w\eta)/w\), \(\gamma = \cosh\eta\), \(p = \sinh\eta\):</p>
+\[
+  \Do_{000}(q) = \frac{J_{2+q}\,J_{1+q}}{4\gamma p^2},
+\]
+\[
+  \Do_{020}(q) \;=\; \frac{5}{16\,\gamma p^6}
+  \Big[3J_{q} - 6\gamma J_{1+q} + (3+2p^2)J_{2+q}\Big]
+  \Big[(3+2p^2)J_{1+q} - 6\gamma J_{2+q} + 3J_{3+q}\Big]
+\]
+<p>(the N8 bracket products; it is only the <em>Maxwellian average</em> of \(\Do_{020}\) that leaves the Bessel
+class). The channel data are the cosh-resolution of this same closed form,</p>
+\[
+  \Do_{020}\big|_{\Oh}\;=\; \frac{\sum_{j=1}^{8} c_j(\Oh)\cosh(a_j\eta)}{\sinh^6\!\eta\,\cosh\eta},
+  \qquad \sum_j c_j = 0 \ \ \text{(exactly)},
+\]
+<p>with the <strong>exact coefficients</strong> (harness 08, symbolic; \(D_1 \equiv (\Oh-1)(\Oh-2)\)):</p>
+<div class="tablewrap"><table class="tbl">
+<tr><th>\(a_j\)</th><th>\(c_j(\Oh)\)</th></tr>
+<tr><td>\(1\)</td><td>\(-\dfrac{5\,(\Oh^4 - 6\Oh^3 + 17\Oh^2 - 24\Oh + 72)}{16\,\Oh\,(\Oh-1)^2(\Oh-2)^2(\Oh-3)}\)</td></tr>
+<tr><td>\(3\)</td><td>\(\dfrac{15\,(\Oh^2 - 3\Oh + 6)}{32\,D_1^2}\)</td></tr>
+<tr><td>\(5\)</td><td>\(-\dfrac{5}{32\,D_1}\)</td></tr>
+<tr><td>\(1-2\Oh\)</td><td>\(-\dfrac{5\,(2\Oh^3 - 12\Oh^2 + 13\Oh + 12)}{16\,\Oh\,D_1^2}\)</td></tr>
+<tr><td>\(3-2\Oh\)</td><td>\(\dfrac{15\,(\Oh^2 - 3\Oh - 3)}{16\,D_1^2}\)</td></tr>
+<tr><td>\(5-2\Oh\)</td><td>\(-\dfrac{5\,(\Oh+1)(2\Oh^2 - 8\Oh + 3)}{16\,(\Oh-3)\,D_1^2}\)</td></tr>
+<tr><td>\(7-2\Oh\)</td><td>\(\dfrac{5\,\Oh\,(\Oh+1)}{32\,(\Oh-1)(\Oh-2)^2(\Oh-3)}\)</td></tr>
+<tr><td>\(1+2\Oh\)</td><td>\(\dfrac{5\,(\Oh-3)(\Oh-4)}{32\,\Oh\,(\Oh-1)^2(\Oh-2)}\)</td></tr>
+</table></div>
+<p>Averaging term by term over the Maxwellian turns each \(\cosh(a_j\eta)\operatorname{csch}^4\!\eta\) into
+\(F(-2,a_j,z)\) — which is how the \(c_j\) enter \(\hat{\mathcal S}_{\rm th}\) above.
+The \(F\)-part is then available through three exact, mutually verified representations:</p>
 <ol>
   <li><strong>one quadrature</strong> (geometric convergence, any \(\theta_{\rm e}\)):
   \(\sum_j c_j F(-2,a_j,z) = \int_0^\infty e^{-z\cosh\eta}\,\big[\sum_j c_j\cosh(a_j\eta)\big]\operatorname{csch}^4\!\eta\;\dd\eta\)

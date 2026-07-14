@@ -366,18 +366,16 @@ the \(10^{-27}\) level (exact identities) or against finite differences (ODEs); 
 grouped here by role, not by number.</p>
 
 <div class="newbox" style="border-width:2px">
-  <div class="head"><span class="name">★ How to generate any element from \(\Do_{000}\) — read this first</span>
+  <div class="head"><span class="name">★ Generating Doppler operators from Doppler operators — read this first</span>
     <span class="badge new">generation guide</span> <span class="badge pass">verified end-to-end</span>
     <span class="prooflink"><a href="proofs/unified.html">the guide →</a></span></div>
-  <p>Every Doppler operator is a product of two <em>legs</em>,
-  \(\Do_{\ell\ell'\ell''}(q) = \tfrac{(-1)^{\ell'+\ell''}}{\gamma}\Kk_{\ell\ell'}(q)\Kk_{\ell'\ell''}(q{-}1)\),
-  each leg a single boost-operator column built from the seed by one three-term recurrence. Two practical
-  payoffs: <strong>(a) how to raise each index</strong> — the outgoing \(\ell\) is the row of leg&nbsp;1, the
-  incoming \(\ell''\) the column of leg&nbsp;2, the middle \(\ell'\) both at once (the only hard one); and
-  <strong>(b) the easiest closed form of any \(\Do_{hkl}\)</strong> — build the small bracket table once, then
-  multiply two entries (e.g. \(\Do_{101} = \tfrac{3}{4\gamma p^4}(\gamma J_{2+q}-J_{3+q})(\gamma J_{1+q}-J_q)\)).
-  For a recurrence that stays entirely among Doppler operators (no kernels) use the pure-physical scheme (P0–P4),
-  verified end-to-end (\(\Do_{303}\) from \(\Do_{000}\)). See the
+  <p>Everything is generated from the seed \(\Do_{000}(q) = J_{2+q}J_{1+q}/(4\gamma p^2)\) by relations of the
+  Doppler operator <em>itself</em> — no boost or aberration kernels are ever formed or multiplied.
+  <strong>Closed forms:</strong> the pure-physical scheme — axis ladders (P0), the rank-one filling
+  \(\Do_{h\ell'l} = \Do_{h\ell'0}\Do_{0\ell'l}/\Do_{0\ell'0}\) (P2), the middle-index step (P3), and reflection
+  (N1) — builds any \(\Do_{hkl}\) with every intermediate a physical \(\Do\) (verified end-to-end:
+  \(\Do_{303}\) from \(\Do_{000}\)). <strong>Series:</strong> the rapidity ODE (N3) integrates the Taylor
+  tables from the \(\delta\)-seed. <strong>Per-index moves:</strong> N5/N6 (outer), N10/P3 (middle). See the
   <a href="proofs/unified.html">generation guide</a>.</p>
 </div>
 
@@ -584,7 +582,11 @@ and the lattice structure that recoil corrections inhabit.</p>
   <p>with \(\sigma = \ell + 2\ell' + \ell''\), operator orders \(a_j = \text{integer} - 2\Oh\), rational
   \(c_j(\Oh)\) with \(\sum_j c_j = 0\) (the \(\sigma\)-counting and channel tables are due to the companion rSZ
   working paper, whose \(\Do_{101}\) and \(\langle\Do_{02}\rangle\) data we verified symbolically against N8;
-  <a href="verification/08_paper_tables.html">harness 08</a>). The class is characterized by the <strong>ladder identity</strong>
+  <a href="verification/08_paper_tables.html">harness 08</a>). The \(\{a_j, c_j(\Oh)\}\) are nothing but the
+  cosh-resolution of the single-momentum closed forms,
+  \(\Do = \sum_j c_j(\Oh)\cosh(a_j\eta)/(\sinh^\sigma\!\eta\,\cosh\eta)\); the explicit tables are given on the
+  proof pages (<a href="proofs/f-calculus.html">\(\Do_{101}\), 5 terms</a>;
+  <a href="proofs/exact-tsz.html">\(\langle\Do_{02}\rangle\), 8 terms</a>). The class is characterized by the <strong>ladder identity</strong>
   \((\partial_z^2 - 1)F(\mu,a,z) = F(\mu+1,a,z)\) (from \(\cosh^2 = 1 + \sinh^2\)):</p>
   \[
     \Big(\frac{\dd^2}{\dd z^2} - 1\Big)^{\!\sigma/2}\;
@@ -783,7 +785,12 @@ machine-readable tables.</p>
   antiderivative, N9). The optimal closed form is assembled instead:
   \(\hat{\mathcal S}_{\rm th} = \frac{K_{3-2\Oh}(z) - K_1(z)}{2\theta_{\rm e}(2-\Oh)(1-\Oh)K_2(z)}
   + \frac{z}{10 K_2(z)}\sum_{j=1}^{8} c_j(\Oh) F(-2,a_j,z) - 1\) — elementary + Bessel + exactly one
-  irremovable transcendent with a complete calculus (N11) and three exact evaluation routes. Quantitatively:
+  irremovable transcendent with a complete calculus (N11) and three exact evaluation routes. Before averaging the
+  channel is fully closed:
+  \(\Do_{020}(q) = \tfrac{5}{16\gamma p^6}[3J_q - 6\gamma J_{1+q} + (3{+}2p^2)J_{2+q}]
+  [(3{+}2p^2)J_{1+q} - 6\gamma J_{2+q} + 3J_{3+q}]\), whose cosh-resolution
+  \(\Do_{020} = \sum_j c_j(\Oh)\cosh(a_j\eta)/(\sinh^6\!\eta\cosh\eta)\) defines the \(c_j\) — all eight
+  \(c_j(\Oh)\) are listed explicitly on the proof page. Quantitatively:
   at 50 keV the \(p^8\) tower errs by ~10% (and is <em>worse</em> than \(p^4\) — genuinely asymptotic)
   while the assembly is exact; at integer spectral indices the single-momentum operator truncates
   (\(\Do_{000}(q{=}{-}4) = 1+\tfrac43 p^2\)), a useful implementation anchor.</p>
