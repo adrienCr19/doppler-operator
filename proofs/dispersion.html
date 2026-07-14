@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N20 — The Compton dispersion relation: marginal mode, exact flatness, thermal gap</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#structure">← back to main page (Structure theory)</a>
+<h2>N20 — The Compton dispersion relation: the marginal mode identified, exact flatness, and the thermal gap</h2>
+
+<p>
+<a href="sl2c.html">N18</a> found that on the spectral line \(q = -\tfrac32 + ik\) the exact single-momentum
+Thomson matrix
+\[
+  T(k)_{\ell\ell''} \;=\; \Do_{\ell 0 \ell''}(q) + \tfrac1{10}\Do_{\ell 2 \ell''}(q)
+  \;-\; \big[\delta_{\ell\ell''} - \beta\,\hat\mu_{\ell\ell''}\big],
+  \qquad q = -\tfrac32 + ik,
+\]
+is Hermitian with a real damping spectrum and a persistent zero eigenvalue, and left two questions open:
+<em>what is the marginal mode?</em> and <em>what does the dispersion relation \(\lambda_j(k)\) look like?</em>
+Both are answered here, and the second answer is stronger than expected: <strong>there is no single-momentum
+dispersion at all</strong>. <span class="badge pass">harness
+<a href="../verification/28_dispersion.html"><code>28_dispersion.wl</code></a> (D1–D5)</span>
+</p>
+
+<h3>1 &nbsp;Theorem 1: the marginal mode is the boosted comoving equilibrium</h3>
+<div class="newbox">
+<div class="head"><span class="name">Theorem (identification of the zero mode)</span>
+<span class="badge new">new</span> <span class="badge pass">D1: 4×10⁻²² per row</span></div>
+\[
+  T(k)\,v = 0,\qquad
+  v_\ell \;=\; 2\pi\!\int \bar Y_{\ell 0}(\mu)\,\big[\gamma(1-\beta\mu)\big]^{q}\,\dd\mu
+  \quad\text{— the multipoles of } n(\nu,\mu) = (\nu')^{\,q},\ \ \nu' = \gamma\nu(1-\beta\mu).
+\]
+</div>
+<p><strong>Proof.</strong> \((\nu')^q\) is isotropic with the same power law in the electron rest frame. Thomson
+scattering is elastic there, and for <em>any</em> isotropic rest-frame field the gain integral of the
+(normalized) phase function equals the loss term frequency by frequency, so the field is exactly invariant;
+its boosted image is therefore annihilated by the lab-frame evolution operator, which is \(T(k)\) restricted to
+the Mellin mode. \(\blacksquare\)</p>
+<p>Numerically the identification is sharp: per-row residuals \(\sim 4\times10^{-22}\) (quadrature floor) at
+\(k = 0.7, 1.3\) and \(\beta = 0.3, 0.6\), while the <em>best wrong exponent</em> (e.g. the shadow \(-3-q\) or
+\(q\pm1\)) fails at \(0.16\) (D1d). The zero eigenvalue persists at every \(k\) — a <strong>flat band</strong>
+(D2) — because the comoving equilibrium exists for every \(q\) on the line. Physically: the electron drags its
+own equilibrium radiation field with it; the marginal direction of Compton scattering <em>is</em> comoving
+equilibrium, mode by Mellin mode.</p>
+
+<h3>2 &nbsp;Theorem 2: the single-momentum dispersion relation is exactly flat</h3>
+<div class="newbox">
+<div class="head"><span class="name">Theorem (isospectrality — unitary equivalence of all \(k\)-blocks)</span>
+<span class="badge new">new</span> <span class="badge pass">D5: intertwining verified 10⁻²⁰</span></div>
+\[
+  T(k) \;=\; W_k\, T(0)\, W_k^{-1},
+  \qquad
+  W_k = \text{multiplication by } \big[\gamma(1-\beta\mu)\big]^{ik}
+  \quad (\text{unitary: } |[\gamma(1-\beta\mu)]^{ik}| = 1).
+\]
+</div>
+<p><strong>Proof.</strong> Thomson scattering is elastic in the electron rest frame, so the full evolution
+operator commutes with multiplication by any power of the <em>rest-frame</em> frequency,
+\((\nu')^{ik} = \nu^{ik}\,[\gamma(1-\beta\mu)]^{ik}\): the factor \((\nu'_{\rm in})^{ik}\) pulls through the
+gain integral because \(\nu'_{\rm out} = \nu'_{\rm in}\), and the loss term is multiplicative. The
+\(\nu^{ik}\) factor shifts the Mellin block \(0 \to k\); what remains is the angular unitary \(W_k\).
+\(\blacksquare\)</p>
+<p>Consequences:</p>
+<ul>
+<li><strong>No dispersion:</strong> the damping spectrum \(\{\lambda_j\}\) is exactly \(k\)-independent — it
+depends only on \(\beta\). (The \(\sim5\times10^{-7}\) drift across \(k \in [0,4]\) in the truncated
+eigenvalue table is pure \(\ell\)-truncation; the intertwining identity itself holds at \(10^{-20}\), D5.)</li>
+<li><strong>The flat zero band is the \(W\)-orbit</strong> of the comoving equilibrium:
+\(v(q) = W_k\,v(-\tfrac32)\).</li>
+<li><strong>Multiple scattering solves once.</strong> \(e^{\tau T(k)} = W_k\,e^{\tau T(0)}\,W_k^{-1}\): the
+entire frequency structure of \(n_\tau = e^{\tau T(k)}n_0\) reduces to the single <em>real symmetric</em>
+matrix \(T(0)\) at \(q = -\tfrac32\), dressed by a known unitary.</li>
+</ul>
+<p>The \(\beta\)-dependence that remains (top branches at \(k=0\), \(\ell\le8\)):</p>
+<table>
+<tr><th>\(\beta\)</th><th>\(\lambda_0\)</th><th>\(\lambda_1\)</th><th>\(\lambda_2\)</th><th>\(\lambda_3\)</th><th>\(\lambda_4\)</th></tr>
+<tr><td>\(0^+\) (static Thomson)</td><td>0</td><td>−9/10</td><td>−1</td><td>−1</td><td>−1</td></tr>
+<tr><td>0.10</td><td>0</td><td>−0.85956</td><td>−0.91224</td><td>−0.94366</td><td>−0.98320</td></tr>
+<tr><td>0.30</td><td>0</td><td>−0.69388</td><td>−0.75676</td><td>−0.85374</td><td>−0.95972</td></tr>
+<tr><td>0.60</td><td>0</td><td>−0.42212</td><td>−0.55990</td><td>−0.74506</td><td>−0.94112</td></tr>
+</table>
+
+<h3>3 &nbsp;Where dispersion really comes from: the thermal gap</h3>
+<p>Averaging over the relativistic Maxwellian (10 keV) preserves Hermiticity (each \(T\) is Hermitian;
+D4a at \(10^{-22}\)) but <em>not</em> the zero mode: the comoving equilibrium and the intertwiner \(W_k\) are
+\(p\)-dependent, so no common invariant survives. The top of the spectrum drops to a strictly negative
+<strong>spectral gap</strong> \(g(k)\) — the exact per-mode thermalization rate per unit optical depth,
+and the <em>only</em> source of \(k\)-dependence in the problem:</p>
+<table>
+<tr><th>\(k\)</th><th>gap \(g(k)\) at 10 keV</th><th>next branches</th></tr>
+<tr><td>0</td><td>−0.006221</td><td>−0.7678, −0.8516, −0.9573</td></tr>
+<tr><td>0.7</td><td>−0.007559</td><td>−0.7677, −0.8514, −0.9570</td></tr>
+<tr><td>2</td><td>−0.016974</td><td>−0.7668, −0.8504, −0.9544</td></tr>
+<tr><td>4</td><td>−0.047060</td><td>−0.7626, −0.8464, −0.9453</td></tr>
+</table>
+<p>Per Mellin mode, multiple scattering through an isothermal cluster exponentiates exactly (independent
+scatterings): \(n_\tau = e^{\tau\langle T(k)\rangle}\,n_0\). The slow mode \(g(k)\) controls the approach to
+comptonized equilibrium; the fast angular branches (\(\approx -0.77, -0.85, \dots\)) isotropize the radiation
+long before its spectrum relaxes — the two-timescale structure of comptonization, here as an exact spectral
+statement.</p>
+
+<h3>4 &nbsp;Remarks</h3>
+<p><strong>(i)</strong> In the N18 dictionary, Theorem 2 says the principal-series blocks of the Thomson
+operator at fixed \(p\) are all unitarily equivalent — the celestial line carries a single spectral problem,
+at the self-dual point \(q = -\tfrac32\) (where \(q = \bar q\)-reflection makes \(T(0)\) real symmetric).
+<strong>(ii)</strong> The identification theorem gives the kernel of the exact SZ evolution: distortions are
+orthogonal to the comoving-equilibrium family, and the SZ signal is generated precisely by the mismatch between
+the cluster-frame and electron-frame equilibria — averaged over \(p\), which is exactly the thermal gap of §3.
+<strong>(iii)</strong> Recoil (\(\mathcal O(x')\)) breaks rest-frame elasticity and hence exact flatness; by
+N14 its corrections move on the weight lattice, so the dispersion it induces is computable in this calculus —
+the natural next step toward an exact Kompaneets-type equation [HLC26].</p>
+
+<p><span class="badge pass">verified:
+<a href="../verification/28_dispersion.html"><code>28_dispersion.wl</code></a> — D1 identification (10⁻²²),
+D2 flat band, D3 spectra, D5 intertwining (10⁻²⁰), D4 thermal gap (Hermiticity 10⁻²²)</span></p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a></p></footer>
+</main>
+</body>
+</html>

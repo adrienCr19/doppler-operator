@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>28_dispersion.wl — N20: marginal-mode identification, exact flatness, thermal gap (D1-D5)</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>28_dispersion.wl</code></h2>
+<p>N20 — the Compton dispersion relation: identification of the marginal mode as the boosted comoving equilibrium (D1), flat zero band (D2), damping spectra (D3), the exact isospectrality intertwiner W_k (D5), and the thermally averaged spectral gap at 10 keV (D4). Run with <code>wolframscript -file 28_dispersion.wl</code> (Wolfram 14+/15).
+Download: <a href="28_dispersion.wl" download>28_dispersion.wl</a> &middot; recorded output below (also <a href="out_28_dispersion.txt">out_28_dispersion.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 28_dispersion.wl — N20: the Compton dispersion relation on the celestial line.
+   Setting (N18/U5): on the spectral line q = -3/2 + i k the exact single-momentum Thomson matrix
+     T(k)_{l l&#x27;&#x27;} = D_{l0l&#x27;&#x27;}(q) + D_{l2l&#x27;&#x27;}(q)/10 - [delta - b mu-hat]_{l l&#x27;&#x27;}
+   is Hermitian with a persistent zero eigenvalue.  This harness:
+     D1  IDENTIFIES the marginal mode: it is the boosted comoving equilibrium
+         v_l(q) = 2pi Int Ybar_l(mu) [gamma(1 - b mu)]^q dmu   (the electron&#x27;s rest-frame-isotropic
+         power law, boosted to the lab) - per-row residuals at quadrature precision, two k, two beta;
+         plus the wrong-exponent control (any other exponent fails at O(0.1)).
+     D2  FLAT BAND: the zero eigenvalue persists at every k (the mode exists for every q on the line).
+     D3  DISPERSION MAP: the damping branches lambda_j(k) at beta = 0.3 (l &lt;= 8 truncation),
+         connecting at beta -&gt; 0 to the static Thomson rates (0, -1, -9/10, -1, -1, ...).
+     D4  THERMAL AVERAGE: &lt;T(k)&gt; over the relativistic Maxwellian at 10 keV - Hermiticity survives,
+         the zero mode does NOT (each p has its own comoving mode): the spectral gap g(k) = top
+         eigenvalue &lt; 0 is the exact per-mode thermalization rate; multiple scattering exponentiates,
+         n_tau = e^{tau &lt;T&gt;} n_0.  *)
+
+prec = 25;
+nintg[f_] := NIntegrate[f, {mu, -1, 1}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 13, MaxRecursion -&gt; 20];
+Ybar[l_, x_] := Sqrt[(2 l + 1)/(4 Pi)] LegendreP[l, x];
+ga[b_] := 1/Sqrt[1 - b^2];
+KmRaw[d_?NumericQ, l_, lp_, b_] := Module[{g = ga[b]}, 2 Pi nintg[Ybar[l, mu] Ybar[lp, (mu + b)/(1 + b mu)]/(g (1 + b mu))^d]];
+Km[d_?NumericQ, l_, lp_, b_] := Km[d, l, lp, b] = KmRaw[d, l, lp, b];
+Kp[d_?NumericQ, l_, lp_, b_] := Km[d, l, lp, -b];
+Cm0[l_] := If[l == 0, 0, Sqrt[l^2/(4 l^2 - 1)]];
+report[name_, dev_, tol_: 10^-12] := Print[name, &quot;: &quot;, If[TrueQ[N[dev] &lt; tol], &quot;PASS&quot;, &quot;FAIL&quot;], &quot;  (max dev = &quot;, ScientificForm[N[dev], 3], &quot;)&quot;];
+
+qof[k_] := -3/2 + I k;
+Dop[q_, l_, lp_, ldd_, b_] := (1/ga[b]) Kp[-1 - q, l, lp, b] Km[-q, lp, ldd, b];
+Tmat[k_, b_, LT_] := Table[Dop[qof[k], l, 0, ldd, b] + Dop[qof[k], l, 2, ldd, b]/10 -
+    (KroneckerDelta[l, ldd] - b (Cm0[ldd + 1] KroneckerDelta[l, ldd + 1] + Cm0[ldd] KroneckerDelta[l, ldd - 1])),
+   {l, 0, LT}, {ldd, 0, LT}];
+vcom[k_, b_, LT_] := Table[2 Pi nintg[Ybar[l, mu] (ga[b] (1 - b mu))^qof[k]], {l, 0, LT}];
+
+(* ---------- D1: identification of the marginal mode ---------- *)
+(* rows l &lt;= Lrow of the untruncated identity, with the source resolved to Lbig *)
+Lrow = 5; Lbig = 14;
+resrows[k_, b_] := Module[{v = vcom[k, b, Lbig]},
+   Max@Table[Abs[Sum[(Dop[qof[k], l, 0, ldd, b] + Dop[qof[k], l, 2, ldd, b]/10 -
+          (KroneckerDelta[l, ldd] - b (Cm0[ldd + 1] KroneckerDelta[l, ldd + 1] + Cm0[ldd] KroneckerDelta[l, ldd - 1]))) v[[ldd + 1]],
+        {ldd, 0, Lbig}]]/Norm[v], {l, 0, Lrow}]];
+report[&quot;D1a T(k).v = 0 for v = boosted comoving power law (k=0.7, beta=0.3)&quot;, resrows[7/10, 3/10], 10^-10];
+report[&quot;D1b same at k = 1.3&quot;, resrows[13/10, 3/10], 10^-10];
+report[&quot;D1c same at beta = 0.6 (k=0.7)&quot;, resrows[7/10, 6/10], 10^-8];
+(* wrong-exponent control at k=0.7, beta=0.3, truncated matrix *)
+TT8 = Tmat[7/10, 3/10, 8];
+vex[e_] := Table[2 Pi nintg[Ybar[l, mu] (ga[3/10] (1 - (3/10) mu))^e], {l, 0, 8}];
+ctrl = Min@Table[Norm[TT8 . vex[e]]/Norm[vex[e]], {e, {qof[7/10] + 1, qof[7/10] - 1, -3 - qof[7/10], Conjugate[qof[7/10]]}}];
+Print[&quot;D1d control: best WRONG exponent gives |T.v|/|v| = &quot;, ScientificForm[N[ctrl], 2], &quot;  (identification is sharp)&quot;];
+
+(* ---------- D2: the flat band ---------- *)
+flat = Max@Table[Min[Abs[Eigenvalues[N[Tmat[k, 3/10, 8]]]]], {k, {0, 1/2, 1, 2, 4}}];
+report[&quot;D2  flat band: min |eigenvalue| = 0 at every k in {0, 0.5, 1, 2, 4}&quot;, flat, 10^-10];
+
+(* ---------- D3: the dispersion map ---------- *)
+Print[&quot;D3  Compton dispersion lambda_j(k) at beta = 0.3 (l &lt;= 8; top 5 branches, descending):&quot;];
+Do[Module[{ev = Sort[Re /@ Eigenvalues[N[Tmat[k, 3/10, 8]]], Greater]},
+   Print[&quot;    k = &quot;, NumberForm[N[k], {4, 2}], &quot;:  &quot;, NumberForm[#, {7, 5}] &amp; /@ Take[ev, 5]]],
+  {k, {0, 1/2, 1, 2, 4}}];
+ev0 = Sort[Re /@ Eigenvalues[N[Tmat[7/10, 1/100, 8]]], Greater];
+Print[&quot;D3b beta -&gt; 0 limit (beta = 0.01, k = 0.7): &quot;, NumberForm[#, {7, 4}] &amp; /@ Take[ev0, 5],
+  &quot;   [static Thomson rates 0, -9/10, -1, -1, ...]&quot;];
+
+(* ---------- D3c: the spectrum depends only on beta — scan at k = 0 ---------- *)
+Print[&quot;D3c damping spectrum vs beta (k = 0, l &lt;= 8; top 5):&quot;];
+Do[Module[{ev = Sort[Re /@ Eigenvalues[N[Tmat[0, b, 8]]], Greater]},
+   Print[&quot;    beta = &quot;, NumberForm[N[b], {4, 2}], &quot;:  &quot;, NumberForm[#, {7, 5}] &amp; /@ Take[ev, 5]]],
+  {b, {1/10, 3/10, 6/10}}];
+
+(* ---------- D5: EXACT ISOSPECTRALITY — the unitary intertwiner W_k = [gamma(1-b mu)]^{ik} ----------
+   Thomson scattering is elastic in the electron rest frame, so the full evolution commutes with
+   multiplication by (nu&#x27;)^{ik} = nu^{ik} [gamma(1-b mu)]^{ik}.  The nu^{ik} factor shifts the Mellin
+   block k -&gt; 0 while the angular factor W_k is unitary:  T(k) W_k = W_k T(0)  exactly.
+   =&gt; the single-momentum dispersion relation is FLAT: spec T(k) = spec T(0) for all k
+      (the ~1e-7 k-variation in D3 is pure l-truncation). *)
+Wmat[k_, b_, L1_, L2_] := Table[2 Pi nintg[Ybar[l, mu] Ybar[ldd, mu] (ga[b] (1 - b mu))^(I k)], {l, 0, L1}, {ldd, 0, L2}];
+Module[{k = 7/10, b = 3/10, Lr = 4, Lb = 14, WA, WB, TkW, WT0},
+  WA = Wmat[k, b, Lb, Lr]; WB = Wmat[k, b, Lr, Lb];
+  TkW = Table[Sum[(Dop[qof[k], l, 0, j, b] + Dop[qof[k], l, 2, j, b]/10 -
+        (KroneckerDelta[l, j] - b (Cm0[j + 1] KroneckerDelta[l, j + 1] + Cm0[j] KroneckerDelta[l, j - 1]))) *
+       WA[[j + 1, ldd + 1]], {j, 0, Lb}], {l, 0, Lr}, {ldd, 0, Lr}];
+  WT0 = Table[Sum[WB[[l + 1, j + 1]] *
+       (Dop[qof[0], j, 0, ldd, b] + Dop[qof[0], j, 2, ldd, b]/10 -
+        (KroneckerDelta[j, ldd] - b (Cm0[ldd + 1] KroneckerDelta[j, ldd + 1] + Cm0[ldd] KroneckerDelta[j, ldd - 1]))),
+      {j, 0, Lb}], {l, 0, Lr}, {ldd, 0, Lr}];
+  report[&quot;D5  intertwining T(k) W_k = W_k T(0)  (k=0.7, beta=0.3, rows l&lt;=4)&quot;, Max@Abs[TkW - WT0], 10^-8]];
+
+(* ---------- D4: thermal average at 10 keV ---------- *)
+th = 10/511;  (* theta_e *)
+Needs[&quot;NumericalDifferentialEquationAnalysis`&quot;];
+gq = GaussianQuadratureWeights[14, 10^-4, 14/10, prec];
+fMJ[p_] := p^2 Exp[-Sqrt[1 + p^2]/th];  (* un-normalized; normalized by the same quadrature *)
+Znorm = Sum[gq[[i, 2]] fMJ[gq[[i, 1]]], {i, Length[gq]}];
+LT4 = 6;
+Tth[k_] := Sum[gq[[i, 2]] fMJ[gq[[i, 1]]] Tmat[k, gq[[i, 1]]/Sqrt[1 + gq[[i, 1]]^2], LT4], {i, Length[gq]}]/Znorm;
+Do[Module[{M = Tth[k], evs},
+   report[&quot;D4a &lt;T(k)&gt; Hermitian (k=&quot; &lt;&gt; ToString[N[k]] &lt;&gt; &quot;)&quot;, Max@Abs[M - ConjugateTranspose[M]], 10^-12];
+   evs = Sort[Re /@ Eigenvalues[N[M]], Greater];
+   Print[&quot;D4b &lt;T(&quot;, NumberForm[N[k], {3, 1}], &quot;)&gt; spectrum (10 keV): top 4 = &quot;,
+     NumberForm[#, {9, 6}] &amp; /@ Take[evs, 4]];
+   Print[&quot;     spectral gap g(k) = &quot;, ScientificForm[evs[[1]], 4],
+     &quot;  (thermalization rate per unit optical depth; n_tau = e^{tau&lt;T&gt;} n_0)&quot;]],
+  {k, {0, 7/10, 2, 4}}];
+Print[&quot;--- dispersion harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>D1a T(k).v = 0 for v = boosted comoving power law (k=0.7, beta=0.3): PASS  (max dev = ScientificForm[3.864005177179594*^-22, 3])
+D1b same at k = 1.3: PASS  (max dev = ScientificForm[7.139056722738829*^-22, 3])
+D1c same at beta = 0.6 (k=0.7): PASS  (max dev = ScientificForm[5.155135569885348*^-13, 3])
+D1d control: best WRONG exponent gives |T.v|/|v| = ScientificForm[0.15526621353772396, 2]  (identification is sharp)
+D2  flat band: min |eigenvalue| = 0 at every k in {0, 0.5, 1, 2, 4}: PASS  (max dev = ScientificForm[1.6429141926689746*^-11, 3])
+D3  Compton dispersion lambda_j(k) at beta = 0.3 (l &lt;= 8; top 5 branches, descending):
+    k = NumberForm[0., {4, 2}]:  {NumberForm[-3.794320937408508*^-14, {7, 5}], NumberForm[-0.6938796228233253, {7, 5}], NumberForm[-0.7567611628617807, {7, 5}], NumberForm[-0.8537442206189724, {7, 5}], NumberForm[-0.9597188108166598, {7, 5}]}
+    k = NumberForm[0.5, {4, 2}]:  {NumberForm[-4.644199113729509*^-14, {7, 5}], NumberForm[-0.6938796382608988, {7, 5}], NumberForm[-0.7567611261749715, {7, 5}], NumberForm[-0.8537442505964726, {7, 5}], NumberForm[-0.9597188215309853, {7, 5}]}
+    k = NumberForm[1., {4, 2}]:  {NumberForm[-7.947791622569227*^-14, {7, 5}], NumberForm[-0.6938796833421621, {7, 5}], NumberForm[-0.7567610206530864, {7, 5}], NumberForm[-0.8537443348310373, {7, 5}], NumberForm[-0.9597188506357045, {7, 5}]}
+    k = NumberForm[2., {4, 2}]:  {NumberForm[-3.9460572580839545*^-13, {7, 5}], NumberForm[-0.6938798447571162, {7, 5}], NumberForm[-0.7567606671146877, {7, 5}], NumberForm[-0.8537445880902887, {7, 5}], NumberForm[-0.9597189248270989, {7, 5}]}
+    k = NumberForm[4., {4, 2}]:  {NumberForm[-1.6429141926689746*^-11, {7, 5}], NumberForm[-0.6938801582170478, {7, 5}], NumberForm[-0.7567603830905906, {7, 5}], NumberForm[-0.8537443757790771, {7, 5}], NumberForm[-0.9597187381065831, {7, 5}]}
+D3b beta -&gt; 0 limit (beta = 0.01, k = 0.7): {NumberForm[-3.353585553652423*^-19, {7, 4}], NumberForm[-0.8994875781274188, {7, 4}], NumberForm[-0.9909763744441928, {7, 4}], NumberForm[-0.9938039031562445, {7, 4}], NumberForm[-0.997861413199885, {7, 4}]}   [static Thomson rates 0, -9/10, -1, -1, ...]
+D3c damping spectrum vs beta (k = 0, l &lt;= 8; top 5):
+    beta = NumberForm[0.1, {4, 2}]:  {NumberForm[7.887479216414874*^-18, {7, 5}], NumberForm[-0.8595558744995074, {7, 5}], NumberForm[-0.9122380299774586, {7, 5}], NumberForm[-0.9436623495451123, {7, 5}], NumberForm[-0.9831997986694463, {7, 5}]}
+    beta = NumberForm[0.3, {4, 2}]:  {NumberForm[-3.794320937408508*^-14, {7, 5}], NumberForm[-0.6938796228233253, {7, 5}], NumberForm[-0.7567611628617807, {7, 5}], NumberForm[-0.8537442206189724, {7, 5}], NumberForm[-0.9597188108166598, {7, 5}]}
+    beta = NumberForm[0.6, {4, 2}]:  {NumberForm[-2.788549486936495*^-8, {7, 5}], NumberForm[-0.4221244305919296, {7, 5}], NumberForm[-0.5598986229717718, {7, 5}], NumberForm[-0.7450582432209977, {7, 5}], NumberForm[-0.941118032040068, {7, 5}]}
+D5  intertwining T(k) W_k = W_k T(0)  (k=0.7, beta=0.3, rows l&lt;=4): PASS  (max dev = ScientificForm[9.526053207827706*^-21, 3])
+
+                                                                  0.07957559954482795224122
+NIntegrate::precw: The precision of the argument function (---------------------------------------) is less than WorkingPrecision (25.).
+                                                           Sqrt[1 - 0.009700191706900881451467 mu]
+
+                                                                 0.07957185567469980740651
+NIntegrate::precw: The precision of the argument function (--------------------------------------) is less than WorkingPrecision (25.).
+                                                                                              3/2
+                                                           (1 + 0.009700191706900881451467 mu)
+
+                                                                                                                                                                           2
+                                                           2836.494358570037547530 (-0.3332496918484866463772 - 0.012933994611753339956234 mu + 1.0000000000000000000000 mu )
+NIntegrate::precw: The precision of the argument function (------------------------------------------------------------------------------------------------------------------) is less than WorkingPrecision (25.).
+                                                                                                                                                                    2
+                                                                   Sqrt[1 - 0.009700191706900881451467 mu] (-103.09074606108897648787 + 1.0000000000000000000000 mu)
+
+General::stop: Further output of NIntegrate::precw will be suppressed during this calculation.
+D4a &lt;T(k)&gt; Hermitian (k=0.): PASS  (max dev = ScientificForm[7.181521199419013*^-23, 3])
+D4b &lt;T(NumberForm[0., {3, 1}])&gt; spectrum (10 keV): top 4 = {NumberForm[-0.006221142855265877, {9, 6}], NumberForm[-0.7678290575331671, {9, 6}], NumberForm[-0.8515915267899279, {9, 6}], NumberForm[-0.9573455103340688, {9, 6}]}
+     spectral gap g(k) = ScientificForm[-0.006221142855265877, 4]  (thermalization rate per unit optical depth; n_tau = e^{tau&lt;T&gt;} n_0)
+D4a &lt;T(k)&gt; Hermitian (k=0.7): PASS  (max dev = ScientificForm[7.241644443984109*^-23, 3])
+D4b &lt;T(NumberForm[0.7, {3, 1}])&gt; spectrum (10 keV): top 4 = {NumberForm[-0.0075592117094391235, {9, 6}], NumberForm[-0.7677058029407666, {9, 6}], NumberForm[-0.8514498790624878, {9, 6}], NumberForm[-0.956997272415618, {9, 6}]}
+     spectral gap g(k) = ScientificForm[-0.0075592117094391235, 4]  (thermalization rate per unit optical depth; n_tau = e^{tau&lt;T&gt;} n_0)
+D4a &lt;T(k)&gt; Hermitian (k=2.): PASS  (max dev = ScientificForm[7.528466819883524*^-23, 3])
+D4b &lt;T(NumberForm[2., {3, 1}])&gt; spectrum (10 keV): top 4 = {NumberForm[-0.01697387644278029, {9, 6}], NumberForm[-0.7667535458293564, {9, 6}], NumberForm[-0.8504022703418184, {9, 6}], NumberForm[-0.9544430462684991, {9, 6}]}
+     spectral gap g(k) = ScientificForm[-0.01697387644278029, 4]  (thermalization rate per unit optical depth; n_tau = e^{tau&lt;T&gt;} n_0)
+D4a &lt;T(k)&gt; Hermitian (k=4.): PASS  (max dev = ScientificForm[7.347950165331552*^-23, 3])
+D4b &lt;T(NumberForm[4., {3, 1}])&gt; spectrum (10 keV): top 4 = {NumberForm[-0.04705958376096573, {9, 6}], NumberForm[-0.762620967296571, {9, 6}], NumberForm[-0.8464319701505029, {9, 6}], NumberForm[-0.9452713191960518, {9, 6}]}
+     spectral gap g(k) = ScientificForm[-0.04705958376096573, 4]  (thermalization rate per unit optical depth; n_tau = e^{tau&lt;T&gt;} n_0)
+--- dispersion harness done ---
+</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
+</main></body></html>
