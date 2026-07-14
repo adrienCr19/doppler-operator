@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N24 — The polarized ladders: spin-weighted N5/N6 and the ladder derivation of the polarized catalog</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#extensions">← back to main page (Sectors &amp; applications)</a>
+<h2>N24 — The polarized ladders: spin-weighted N5/N6, and the ladder derivation of the polarized catalog</h2>
+
+<p>
+This page gives the polarized sector the same generation provenance as the scalar one: <strong>outer-index
+ladders acting on the mixed-spin Doppler operator itself</strong>, climbing from seed elements — so that every
+polarized closed form of <a href="spin-m-closed-forms.html">N22</a> is <em>derived</em>, not merely evaluated.
+On the weight lattice,
+\({}^{(j,k)}T(s_1,s_2)^m_{\ell\ell'\ell''}(q) = \tfrac1\gamma\,{}_{s_1}\Kk^{-1-j-q,m}_{\ell\ell'}(+\beta)\,
+{}_{s_2}\Kk^{-k-q,m}_{\ell'\ell''}(-\beta)\), and with the spin-weighted coefficients
+\({}_s C^m_\ell = \sqrt{(\ell^2-m^2)(\ell^2-s^2)/(4\ell^2-1)}/\ell\):
+<span class="badge pass">harness
+<a href="../verification/31_polarized_ladders.html"><code>31_polarized_ladders.wl</code></a> (Y0–Y3)</span>
+</p>
+
+<div class="newbox">
+<div class="head"><span class="name">[N5\(_s\)] outgoing ladder &nbsp;·&nbsp; [N6\(_s\)] incoming ladder</span>
+<span class="badge new">new</span> <span class="badge pass">Y1: ≤4×10⁻²³ over all spin pairs, m = 0–2</span></div>
+\[
+  {}^{(j,k)}T_{\ell} \;=\; \frac{1}{{}_{s_1}C^m_\ell\,p}\Big[\gamma\,{}^{(j,k)}T_{\ell-1} - {}^{(j+1,k)}T_{\ell-1}\Big]
+  \;+\; \frac{s_1 m}{\ell(\ell-1)\,{}_{s_1}C^m_\ell}\,{}^{(j,k)}T_{\ell-1}
+  \;-\; \frac{{}_{s_1}C^m_{\ell-1}}{{}_{s_1}C^m_\ell}\,{}^{(j,k)}T_{\ell-2},
+\]
+\[
+  {}^{(j,k)}T_{\ell''} \;=\; \frac{1}{{}_{s_2}C^m_{\ell''}\,p}\Big[\gamma\,{}^{(j,k)}T_{\ell''-1} - {}^{(j,k-1)}T_{\ell''-1}\Big]
+  \;+\; \frac{s_2 m}{\ell''(\ell''-1)\,{}_{s_2}C^m_{\ell''}}\,{}^{(j,k)}T_{\ell''-1}
+  \;-\; \frac{{}_{s_2}C^m_{\ell''-1}}{{}_{s_2}C^m_{\ell''}}\,{}^{(j,k)}T_{\ell''-2}
+\]
+<p style="margin:0.4rem 0">(indices not shown are spectators; each ladder touches only its own leg's spin and
+the \(sm\)-term signs are <em>both positive</em> in this site's conventions — pinned numerically, Y0).</p>
+</div>
+
+<h3>1 &nbsp;Derivation</h3>
+<p>Exactly the scalar N5/N6 argument with the verified spin-weighted ingredients. For N5\(_s\): apply the
+spin-weighted kernel raising (RC26 Eq. B3 with our \(sY\)-convention \(sm\)-sign — verified as P5,
+harness 15) to leg 1 at \(+\beta\); the \(\beta\to-\beta\) bookkeeping flips the sign of the \(1/p\) bracket
+while the \(sm\)-term (no \(p\)) rides along unchanged, and the weight shift \(d\to d-1\) is the lattice move
+\(j\to j+1\). For N6\(_s\): transposition (P3, \({}_s\Kk^{d,m}_{\ell'\ell''}(-\beta) =
+{}_s\Kk^{2-d,m}_{\ell''\ell'}(+\beta)\)) converts the incoming-column move of leg 2 into a row move at weight
+\(2+k+q\), whose shift is \(k\to k-1\) — the mirror ladder, again with the \(sm\)-term unchanged (Y0:
+\(\sigma_6 = +1\), verified across the grid, Y1b exact to precision). At \(m=0\) or \(s=0\) the \(sm\)-terms
+vanish and \({}_sC^m_\ell \to C_\ell\): the scalar N5/N6 are recovered as the special case.</p>
+
+<h3>2 &nbsp;Ladder provenance of the polarized catalog</h3>
+<p><strong>Base cases:</strong> the seeds \(T(s_1,s_2)^m_{222}(q)\) — one seed-integral evaluation per spin/m
+combination (the polarized analog of \(\Do_{000}\); their \(J\)-forms are the N22 evaluations of the seed
+elements \({}_s\Kk^{d,m}_{22}\)). <strong>Climb:</strong> N6\(_s\) raises the incoming index (the
+\(\ell''{-}2\) tail vanishes for spin-2 legs, exactly as \(C_0 = 0\) does in the scalar climb), then N5\(_s\)
+raises the outgoing index through the lattice companions. Verified end-to-end:</p>
+<ul>
+<li><strong>Y2:</strong> seeds \(T^m_{222}\) → N6\(_s\) → N5\(_s\) → \(T^m_{323}\) equals direct quadrature
+(to precision floor) for \((s_1,s_2) = (2,2), (0,2)\), \(m = 0,1,2\) — the polarized analog of the scalar
+\(\Do_{303}\)-from-\(\Do_{000}\) climb;</li>
+<li><strong>Y3:</strong> the climbed values equal the <a href="spin-m-closed-forms.html">N22
+rationalization-lemma closed forms</a> exactly — the two routes (ladder generation vs. direct \(J\)-reduction)
+cross-validate, the polarized analog of the scalar F11 check.</li>
+</ul>
+<p>So the polarized sector now runs exactly like the scalar one: <strong>seeds → ladders → closed forms →
+exact thermal averages</strong>, with every closed form derived by index relations of the (mixed-spin) Doppler
+operator itself and the direct \(J\)-reduction demoted to a cross-check.</p>
+
+<h3>3 &nbsp;Remarks</h3>
+<p><strong>(i)</strong> The physical polarized SZ system lives at fixed middle index \(\ell' = 2\) (Thomson),
+so the two outer ladders suffice for the whole catalog; a polarized middle-index relation would follow the
+scalar N10 pattern on the mixed-spin off-diagonal family, with \({}_sC^m\)-coefficients. <strong>(ii)</strong>
+By the exchange symmetry (<a href="eq20-proof.html">N19</a>, \({}_s\Kk^{d,m} = {}_m\Kk^{d,s}\)), N5\(_s\) at
+azimuthal number \(m\) is simultaneously a general-\(m\) ladder at spin \(m\) — one relation covers both
+generalizations of N23. <strong>(iii)</strong> Reflection (polarized N1/P7–P8, harness 15) maps the two
+ladders into each other, exactly as in the scalar case.</p>
+
+<p><span class="badge pass">verified:
+<a href="../verification/31_polarized_ladders.html"><code>31_polarized_ladders.wl</code></a> — Y0 sign
+pinning; Y1 both ladders, all spin pairs, m = 0–2, β up to 0.7 (≤4×10⁻²³); Y2 end-to-end climb; Y3 equality
+with the N22 closed forms</span></p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a></p></footer>
+</main>
+</body>
+</html>

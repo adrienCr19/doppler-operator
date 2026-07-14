@@ -1,0 +1,7 @@
+Y0  sm-term signs pinned:  sig5 = 1,  sig6 = 1
+Y1a [N5s] outgoing ladder: (2,2),(0,2),(2,0), m=0..2, l=3,4: PASS  (max dev = ScientificForm[4.369426741162243*^-23, 3])
+Y1b [N6s] incoming ladder: (2,2),(0,2),(2,0), m=0..2, ldd=3,4: PASS  (max dev = ScientificForm[0., 3])
+Y1c [N5s] at lattice point (0,-1) (as used inside the climb): PASS  (max dev = ScientificForm[0., 3])
+Y2  end-to-end: seeds T^m_{222} -> N6s -> N5s -> T^m_{323} vs quadrature: PASS  (max dev = ScientificForm[0., 3])
+Y3  ladder climb == N22 rationalization-lemma closed forms (T^m_{323}): PASS  (max dev = ScientificForm[0., 3])
+--- polarized ladders harness done ---
