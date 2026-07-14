@@ -1,0 +1,327 @@
+% The Doppler Operator: a generation calculus, closed forms, and exact SZ signals
+% Companion manuscript to https://adriencr19.github.io/doppler-operator/
+\documentclass[useAMS,usenatbib]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{graphicx,booktabs,longtable}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{natbib}
+
+\newcommand{\Oh}{\hat{O}_\nu}
+\newcommand{\Dv}{\hat{\mathcal{D}}_\nu}
+\newcommand{\Kk}{\mathcal{K}}
+\newcommand{\Bo}{\hat{\mathcal{B}}}
+\newcommand{\Do}{\hat{\mathcal{D}}}
+\newcommand{\dd}{\mathrm{d}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\title{The Doppler operator: a generation calculus, closed forms,\\ and exact Sunyaev--Zeldovich signals}
+\author{A.~Cristian\thanks{\texttt{calin.cristian@gmail.com}. All results are machine-verified; the harness suite
+and interactive catalog are available at \url{https://adriencr19.github.io/doppler-operator/}.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The boost-operator approach to Compton scattering \citep{CR25,CR26,RC26,HLC26} reduces frequency integrals to the
+action of a differential operator $\Oh = -\nu\partial_\nu$, but the physically assembled object --- the
+\emph{Doppler operator} $\Do^m_{\ell\ell'\ell''}(\nu,\beta) = \gamma^{-1}\,{}^{-1}\Bo(\nu,-\beta)\,{}^{0}\Bo(\nu,\beta)$,
+the round trip into and out of the electron rest frame --- was introduced in \citet{RC26} with its coefficient
+structure left as future work. We supply that structure. We derive and machine-verify a complete generation
+calculus for $\Do$: a reflection symmetry $\Do(\Oh) = \Do^{\mathsf T}(3-\Oh)$ that forces all diagonal elements to
+be polynomials in $\Dv = \Oh^2 - 3\Oh$; a closed first-order rapidity ODE that generates all Taylor tables without
+ever multiplying two boost operators, together with an all-index companion flow; raising relations for each of the
+three indices; and closed forms for every element as finite combinations of $J_w = 2\sinh(w\eta)/w$ --- shown, via
+a rationalization lemma, to hold for \emph{every} spin weight and azimuthal number. Structurally, the calculus is
+representation theory of $SL(2,\mathbb C)$: the reflection is self-adjointness on photon phase space, boosts are
+celestial dilations, and on the spectral line $q=-\tfrac32+ik$ the exact single-momentum Thomson matrix is
+Hermitian, its marginal mode is the boosted comoving equilibrium, and its spectrum is exactly $k$-independent
+($T(k) = W_kT(0)W_k^{-1}$ with a known unitary $W_k$): the single-momentum Compton dispersion relation is flat,
+and all genuine dispersion is thermal. As applications we (i) prove the polarized identity of
+\citet[Eq.~20]{RC26} that its authors ``were unable to explicitly prove'', by an exchange symmetry
+${}_s\Kk^{d,m} = {}_m\Kk^{d,s}$ and an on-curve swap lemma; (ii) assemble the exact thermal SZ operator in closed
+form (elementary + Bessel + one irremovable transcendent with a complete calculus); (iii) assemble the frame-exact
+kinematic corrections, recovering the classical $C_1$ of \citet{Nozawa1998} symbolically and extending it two
+orders; and (iv) release machine-readable exact tables. Every identity is verified by an open harness suite
+(30 scripts, $\sim$150 checks, typical residuals $10^{-20}$--$10^{-27}$; key results proven symbolically).
+\end{abstract}
+
+\section{Introduction}
+Relativistic corrections to the Sunyaev--Zeldovich (SZ) effect and to CMB spectral distortions are classically
+computed by momentum-space integrals of the Compton collision term \citep{Nozawa1998,SZpack}. The boost-operator
+approach \citep{CR25} replaces these integrals with operator algebra: an aberration kernel
+${}^{d}\Kk^m_{\ell\ell'}(\beta)$ acting in multipole space, promoted to a \emph{boost operator}
+${}^{d}\Bo(\nu,\beta) = \Kk^{\,d+\Oh}(-\beta)$ whose Doppler weight is shifted by the frequency-derivative
+operator $\Oh = -\nu\partial_\nu$. \citet{CR26} used this to obtain the exact thermal SZ operator, and
+\citet{RC26} extended the method to polarization, introducing the physically assembled round trip
+\begin{equation}
+  \Do^m_{\ell\ell'\ell''}(\nu,\beta)
+  \;=\;\frac{1}{\gamma}\;{}^{-1}\Bo_{\ell\ell'}(\nu,-\beta)\;{}^{0}\Bo_{\ell'\ell''}(\nu,\beta),
+  \label{eq:dop}
+\end{equation}
+the \emph{Doppler operator}: transform to the scatterer's frame, scatter through the channel $\ell'$, transform
+back. Its matrix elements carry the entire frequency structure of Thomson-limit scattering, but its
+coefficient structure --- the analog of the kernel recursions of \citet{DC14,CR25} --- was left open.
+
+This paper closes that program. Section~\ref{sec:core} presents the core generation calculus; %
+Section~\ref{sec:closed} the closed forms and their universality; Section~\ref{sec:structure} the structural
+theory (self-adjointness, thermal function class, the $SL(2,\mathbb C)$ dictionary, the proof of
+\citealt[Eq.~20]{RC26}, and the Compton dispersion relation); Section~\ref{sec:applications} the applications
+(polarized sector, kinematic corrections, the exact thermal SZ operator, data products);
+Section~\ref{sec:verification} the verification methodology. Throughout, $q$ denotes the power-law index of a
+test spectrum $\nu^q$, on which $\Oh\nu^q = -q\nu^q$ reduces every operator statement to matrix algebra
+(Lemma~L1 below); all statements hold at the operator level by polynomial identity in $q$.
+
+\subsection*{Conventions}
+We use the kernel
+${}^{d}\Kk^m_{\ell\ell'}(-\beta) = 2\pi\int \bar Y_{\ell m}(\mu')\,\bar Y_{\ell'm}\!\big(\tfrac{\mu'+\beta}{1+\beta\mu'}\big)\,
+[\gamma(1+\beta\mu')]^{-d}\dd\mu'$, transposition
+${}^{d}\Kk_{\ell\ell'}(-\beta) = {}^{2-d}\Kk_{\ell'\ell}(+\beta)$ (weight \emph{and} argument flip; verified
+convention), parity ${}^{d}_{\,s}\Kk(-\beta) = (-1)^{\ell+\ell'}\,{}^{d}_{-s}\Kk(+\beta)$, and
+$C^m_\ell = \sqrt{(\ell^2-m^2)/(4\ell^2-1)}$ (at $m=0$: $C_\ell = \ell/\sqrt{4\ell^2-1}$). Rapidity
+$\eta = \mathrm{artanh}\,\beta$, $\gamma = \cosh\eta$, $p = \sinh\eta$.
+
+\begin{lemma}[power-law reduction, L1]
+On $\nu^q$, $\Oh\nu^q = -q\nu^q$, so
+$\Do^m_{\ell\ell'\ell''}(q) = \gamma^{-1}\,\Kk^{-1-q,m}_{\ell\ell'}(+\beta)\,\Kk^{-q,m}_{\ell'\ell''}(-\beta)$:
+every operator identity below is equivalent to a one-parameter family of scalar identities.
+\end{lemma}
+
+\section{The core generation calculus}\label{sec:core}
+
+\subsection{Reflection and parity}
+\begin{theorem}[N1, reflection]
+$\Do^m_{\ell\ell'\ell''}(q) = \Do^m_{\ell''\ell'\ell}(-3-q)$; equivalently
+$\Do(\Oh) = \Do^{\mathsf T}(3-\Oh)$.
+\end{theorem}
+\begin{corollary}[N1a]
+Every outer-diagonal element ($\ell = \ell''$) is invariant under $q\to-3-q$ and hence a polynomial in
+$\Dv = \Oh^2 - 3\Oh$ order by order in $\beta$. This proves the empirical observation of \citet[\S2.3]{RC26}.
+\end{corollary}
+Parity (N2): $\Do(-\beta) = (-1)^{\ell+\ell''}\Do(\beta)$. The reflection is not an accident of the Thomson
+limit; it is self-adjointness of the boost on photon phase space (Section~\ref{sec:structure}).
+
+\subsection{The rapidity ODE: generating tables without multiplying boosts}
+\begin{theorem}[N3]
+At fixed intermediate index $\ell'$,
+\begin{align}
+  \partial_\eta \Do^m_{\ell\ell'\ell''} =\;
+   &-(\ell+3-\Oh)\,C^m_{\ell+1}\Do^m_{\ell+1,\ell',\ell''}
+    +(\ell-2+\Oh)\,C^m_{\ell}\Do^m_{\ell-1,\ell',\ell''}\notag\\
+   &-(\ell''+\Oh)\,C^m_{\ell''+1}\Do^m_{\ell,\ell',\ell''+1}
+    +(\ell''+1-\Oh)\,C^m_{\ell''}\Do^m_{\ell,\ell',\ell''-1}
+    \;-\;\beta\,\Do^m_{\ell\ell'\ell''},
+  \label{eq:n3}
+\end{align}
+with seed $\Do|_{\eta=0} = \delta_{\ell\ell'}\delta_{\ell'\ell''}$: a closed first-order system whose iteration
+generates every Taylor table of $\Do$ \emph{without ever multiplying two boost operators}. It is manifestly
+covariant under N1.
+\end{theorem}
+An all-index companion (N3$'$) moves $\ell'$ as well, at the cost of the off-diagonal family
+$X_{\ell;a,b;\ell''}$ (middle slots allowed to differ): the outer shifts and the middle shifts each equal
+$\partial_\eta\Do + \beta\Do$ (the exact \emph{cross-slot balance}), and their mean is the combined flow.
+The same first-order structure underlies the middle-index recursion (N10) and the pure-physical relations
+(P0--P4, below): a first-order $\partial_\eta$ acts on one scattering leg at a time, so any $\ell'$-move is
+inherently off-diagonal, while the physical operators close on the outer indices.
+
+\subsection{Raising each index}
+Outer indices are raised by N5/N6 (a two-term ladder with weight-lattice companions
+${}^{(j,k)}\Do = \gamma^{-1}\,{}^{-1-j}\Bo(-\beta)\,{}^{-k}\Bo(\beta)$, which collapse to a single label by the
+gauge identity ${}^{(j+1,k+1)}X(q) = {}^{(j,k)}X(q+1)$); the middle index by N10 on the off-diagonal family; and
+the \emph{pure-physical} scheme (P0--P4, obtained in reconciliation with an independent derivation) removes all
+auxiliary objects from the outer recursions: axis ladders seeded by $\Do_{000}$,
+the outer-pair relation, and the rank-one factorization
+$\Do_{h\ell'l} = \Do_{h\ell'0}\Do_{0\ell'l}/\Do_{0\ell'0}$. A sum rule (N4) and the seed catalog (N7, with a
+${}_2F_1$ closed form for $\Do^m_{mmm}$) complete the generator set.
+
+\section{Closed forms: the $J$-calculus and its universality}\label{sec:closed}
+
+\subsection{The bracket table}
+All $m=0$ kernel columns needed by the SZ system reduce to the family $J_w = 2\sinh(w\eta)/w$ (with
+$J_0 = 2\eta$, $J_{-w} = J_w$, $E_w = 2\cosh(w\eta)$ and the collapse rule
+$J_{a+q}J_{b+q} = [E_{a+b+2q}-E_{a-b}]/[(a+q)(b+q)]$). Writing
+$\Kk_{ab}(q) \equiv {}^{-1-q}\Kk_{ab}(+\beta)$, the Doppler elements are \emph{bracket products}; e.g.
+\begin{equation}
+  \Do_{000}(q) = \frac{J_{2+q}J_{1+q}}{4\gamma p^2},\qquad
+  \Do_{101}(q) = \frac{3}{4\gamma p^4}\big(\gamma J_{2+q}-J_{3+q}\big)\big(\gamma J_{1+q}-J_{q}\big),
+\end{equation}
+and similarly $\Do_{020}, \Do_{202}, \Do_{121}, \Do_{100}, \Do_{120}$, etc. These reproduce the published
+Taylor tables and the SZ operator of \citet[Eq.~11]{CR26} symbolically, and extend it (e.g.\ the $p^6$ term
+$\tfrac{11}{3150}\Oh(\Oh^5-9\Oh^4+13\Oh^3+57\Oh^2-86\Oh-120)$, i.e.\
+$\tfrac{11}{3150}(\Dv^3 - 14\Dv^2 + 40\Dv)$ by N1a).
+
+\subsection{The rationalization lemma: all spins, all $m$}
+\begin{lemma}[N22/N23]
+In ${}_s\Kk^{d,m}_{\ell\ell'}$ both harmonics carry the same $(s,m)$, and on the aberration curve
+$\sin\tfrac{\theta_+}{2} = \sin\tfrac\theta2\sqrt{\tfrac{1-\beta}{1+\beta\mu}}$,
+$\cos\tfrac{\theta_+}{2} = \cos\tfrac\theta2\sqrt{\tfrac{1+\beta}{1+\beta\mu}}$, so the half-angle factors of the
+product pair up rationally:
+\begin{equation}
+  {}_sY_{\ell m}(\mu)\,{}_sY_{\ell'm}(\mu_+)
+  = (1-\beta)^{\frac{|m+s|}2}(1+\beta)^{\frac{|m-s|}2}\,
+    \frac{\mathrm{poly}(\mu)}{(1+\beta\mu)^{\max(|m|,|s|)}}.
+\end{equation}
+With $t = 1+\beta\mu$ and $\gamma(1\pm\beta) = e^{\pm\eta}$, $\int t^{\,n-d}\dd t = \gamma^{d-n-1}J_{n+1-d}$:
+\emph{every} kernel element, any spin weight and azimuthal number, is a finite $J$-combination.
+\end{lemma}
+Consequences: the polarized ($s=2$) columns and all polarized Doppler elements in closed form; and at $s=0$,
+$m\ge1$ the prefactor is $(1-\beta^2)^{|m|/2} = \gamma^{-|m|}$, so general-$m$ elements introduce \emph{no new
+transcendents} --- the $m$-seed ${}_2F_1$'s are $J$-reducible at integer arguments. This is the closed-form face
+of the exchange symmetry of Section~\ref{sec:eq20}.
+
+\section{Structure theory}\label{sec:structure}
+
+\subsection{Self-adjointness and the thermal function class}
+On $L^2(\nu^2\dd\nu)\times L^2(S^2)$ one has $\Oh^\dagger = 3-\Oh$, and the kernel transposition
+$d\to2-d$ is the conformal shadow on the celestial sphere: N1 \emph{is} self-adjointness of the physically
+assembled round trip (N12). Thermal averages of the closed forms over the relativistic Maxwellian belong to a
+rigid class (N9): each channel is an iterated Bessel antiderivative, mapped by $(\partial_z^2-1)^{\sigma/2}$
+(with $\sigma = \ell+2\ell'+\ell''$) onto finite combinations $\sum_j c_jK_{a_j}(z)$; only the $\sigma=0$
+channel $\langle\Do_{00}\rangle$ is Bessel-closed. The transcendents carry a complete recurrence calculus
+(N11), and the channel structure is organized by a Henyey--Greenstein generating identity (N13,
+Funk--Hecke). Recoil corrections enter as rungs on the weight lattice (N14), where per-rung reciprocity is
+broken exactly as elastic scattering requires.
+
+\subsection{The $SL(2,\mathbb C)$ dictionary}
+Boosts act on the celestial sphere as dilations $\tan\tfrac{\theta'}2 = e^{-\eta}\tan\tfrac\theta2$; Doppler
+weight and spin are conformal dimensions $(\Delta,J) = (d,s)$; transposition is the shadow $\Delta\to2-\Delta$.
+The boost operator is unitary on the weight-matched measure $\nu^{1-2d}\dd\nu$ for every $d$ (the $d=1$ kernel
+is literally orthogonal), and on the unitary Mellin line every weight sees the same principal-series
+representation $\Delta = 1-ik$ (N18).
+
+\subsection{The proof of RC26 Eq.~20: exchange symmetry and the on-curve swap lemma}\label{sec:eq20}
+\citet{RC26} observed numerically that the two mixed-spin blocks of the polarized SZ system coincide
+(${}_{0,\pm2}\hat S_\ell \equiv {}_{\pm2,0}\hat S_\ell$, their Eq.~20) and noted they were unable to prove it.
+The identity is \emph{collective}: it fails for each azimuthal $m$ separately (so no leg-by-leg kernel identity
+can prove it) and holds only $m$-summed. Two results settle it (N19):
+\begin{lemma}[exchange symmetry]
+${}_sY_{\ell m} = (-1)^{s+m}\,{}_mY_{\ell s}$ pointwise (from $d^\ell_{-m,s} = d^\ell_{-s,m}$), hence
+${}^{d}_{\,s}\Kk^{m}_{\ell\ell'}(\beta) = {}^{d}_{\,m}\Kk^{s}_{\ell\ell'}(\beta)$ exactly: the kernel cannot
+distinguish its bundle label from its magnetic label, and $m$-sums over spin pairs \emph{are} spin-sums.
+\end{lemma}
+\begin{lemma}[on-curve swap]
+The collective four-harmonic sum
+$G(x,y) = \sum_m {}_{s_1}Y_{\ell m}(x)\,{}_{s_1}Y_{\ell'm}(g\!\cdot\!x)\,{}_{s_2}Y_{\ell m}(y)\,{}_{s_2}Y_{\ell'm}(g\!\cdot\!y)$
+is symmetric in $x\leftrightarrow y$ \emph{pointwise} whenever both leg pairs lie on the graph of the same
+aberration map $g$. In half-angle coordinates ($g$: $t\mapsto\lambda t$) this is a rational identity, proved by
+machine certificate for every instance needed (all $\ell\le8$ at $\ell'=2$; spot checks beyond); off the curve
+it is false, with a radical obstruction that rationalizes exactly on the curve.
+\end{lemma}
+\begin{theorem}[N19]
+$\sum_m {}_{s_1}\Kk^{a,m}_{\ell\ell'}(\beta)\,{}_{s_2}\Kk^{c,m}_{\ell\ell'}(\beta)$ is symmetric under
+$s_1\leftrightarrow s_2$ for arbitrary weights $a,c$; \citet[Eq.~20]{RC26} is the case
+$(a,c) = (-1-q,\,2+q)$, $\ell'=2$, transposed. It therefore holds to all orders in $\beta$, and survives any
+independent spectral filtering of the two legs.
+\end{theorem}
+
+\subsection{The Compton dispersion relation}\label{sec:dispersion}
+On the spectral line $q = -\tfrac32+ik$ the exact single-momentum Thomson matrix
+$T(k) = \Do_{\ell0\ell''} + \tfrac1{10}\Do_{\ell2\ell''} - [\delta - \beta\hat\mu]$ is Hermitian (N18). Its two
+open questions are answered by (N20):
+\begin{theorem}[marginal mode]
+$T(k)\,v = 0$ for $v_\ell = 2\pi\int\bar Y_{\ell0}(\mu)[\gamma(1-\beta\mu)]^{q}\dd\mu$: the zero mode is the
+\emph{boosted comoving equilibrium} --- the electron's own rest-frame-isotropic power law, invariant because
+Thomson scattering is elastic and gain equals loss for any isotropic rest-frame field.
+\end{theorem}
+\begin{theorem}[exact flatness]
+$T(k) = W_k\,T(0)\,W_k^{-1}$ with $W_k$ = multiplication by $[\gamma(1-\beta\mu)]^{ik}$ (unitary). Elasticity in
+the rest frame makes the evolution commute with $(\nu')^{ik}$; the $\nu^{ik}$ factor shifts the Mellin block and
+the angular remainder is $W_k$. Hence the single-momentum damping spectrum is exactly $k$-independent, the flat
+zero band is the $W$-orbit of the comoving equilibrium, and multiple scattering solves once at the self-dual
+point: $e^{\tau T(k)} = W_ke^{\tau T(0)}W_k^{-1}$ with $T(0)$ real symmetric.
+\end{theorem}
+All genuine $k$-dependence is thermal: Maxwell--J\"uttner averaging preserves Hermiticity but breaks the
+($p$-dependent) intertwining, opening a spectral gap $g(k)$ --- the exact per-mode thermalization rate (at
+10\,keV: $-0.0062, -0.0076, -0.0170, -0.0471$ at $k = 0, 0.7, 2, 4$), far below the angular branches
+($\approx-0.77,-0.85$): comptonization's two-timescale structure as an exact spectral statement.
+
+\section{Applications}\label{sec:applications}
+
+\subsection{The polarized sector}
+The spin-weighted foundations (transposition, parity with $s$-flip, $\ell$-raising and rapidity ODE with their
+$sm$-terms) hold at $s=\pm2$; polarized N1 proves the $\Dv$-structure of the polarization tables
+\citep[Eq.~21a]{RC26}; the mixed-spin reflection $T(s_1,s_2)(\Oh) = T(s_2,s_1)^{\mathsf T}(3-\Oh)$ shows the
+$I\!\to\!P$ and $P\!\to\!I$ blocks are adjoints; and Eq.~20 is settled (Section~\ref{sec:eq20}). With the
+rationalization lemma the polarized sector now runs seeds $\to$ recursions $\to$ closed forms $\to$ exact
+thermal averages, and its exact $p^6$ tables are released as a data product.
+
+\subsection{Frame-exact kinematic corrections}
+A reflection obstruction (N16) shows the physical kSZ operator
+$-[10x\partial_x + \tfrac{47}5x^2\partial_x^2 + \tfrac75x^3\partial_x^3]$ \citep{Nozawa1998} is \emph{not} of
+the form $-q\,f(\Dv)$, while any assembly of outer-diagonal Doppler elements is: the kinematic signal cannot
+live on the diagonal. The frame-exact assembly (N21) follows \citet[\S3]{CR26}: photons isotropic, kinematics
+in the boosted Maxwellian ($f_\ell\propto I_{\ell+1/2}$) and the flux factor
+$\tau^* = \tau/(1-\beta_{\rm p}\mu_{\rm p})$, and scattering through the outer off-diagonal
+\emph{monopole columns} $\hat S_\ell = \sqrt{2\ell+1}[\Do_{\ell00}+\tfrac1{10}\Do_{\ell20}] - \delta_{\ell0}
+- \beta\delta_{\ell1}$. Our generator reproduces \citet[Eq.~28]{CR26} at $p^3, p^5$ and Nozawa's $C_1$
+symbolically; the $\tau^*\!\to\!\tau$ shift is proved to be exactly $+\Dv$ (the classical
+$\beta_{\rm p}\mu_{\rm p}Y_0$ term); the next orders are generated in both conventions,
+\begin{equation}
+  C_2^{*} = -\Big[25\,x\partial_x + \tfrac{1117}{10}x^2\partial_x^2 + \tfrac{847}{10}x^3\partial_x^3
+  + \tfrac{183}{10}x^4\partial_x^4 + \tfrac{11}{10}x^5\partial_x^5\Big],
+\end{equation}
+\begin{equation}
+  C_3^{*} = -\Big[\tfrac{75}{4}x\partial_x + \tfrac{21873}{40}x^2\partial_x^2 + \tfrac{49161}{40}x^3\partial_x^3
+  + \tfrac{27519}{35}x^4\partial_x^4 + \tfrac{6684}{35}x^5\partial_x^5 + \tfrac{3917}{210}x^6\partial_x^6
+  + \tfrac{64}{105}x^7\partial_x^7\Big]
+\end{equation}
+($C_3^*$ beyond the printed literature), and the closed forms make the kinematic dipole exact by a single
+quadrature at any temperature.
+
+\subsection{The exact thermal SZ operator}
+$\langle\Do_{02}\rangle$ provably cannot share the Bessel-closed form of $\langle\Do_{00}\rangle$
+(closure/rigidity, N9); the optimal assembly is
+\begin{equation}
+  \hat{\mathcal S}_{\rm th}
+  = \frac{K_{3-2\Oh}(z) - K_1(z)}{2\theta_{\rm e}(2-\Oh)(1-\Oh)K_2(z)}
+  + \frac{z}{10K_2(z)}\sum_{j=1}^{8}c_j(\Oh)\,F(-2,a_j,z)\;-\;1,
+  \qquad z = 1/\theta_{\rm e},
+\end{equation}
+elementary + Bessel + exactly one irremovable transcendent $F(\mu,a,z) = \int e^{-z\cosh\eta}\cosh(a\eta)
+\sinh^{2\mu}\eta\,\dd\eta$ with a complete calculus (N11) and three exact evaluation routes. Quantitatively, at
+50\,keV the $p^8$ tower errs by $\sim$10\% and is \emph{worse} than $p^4$ (the series is genuinely asymptotic),
+while the assembly is exact.
+
+\subsection{Data products}
+Machine-readable exact tables: the $\mathcal O(p^8)$ scalar tables (501 entries, channels $\ell'\le3$, outer
+$\le6$, exact rational $q$-polynomial coefficients) and the polarized $\mathcal O(p^6)$ tables
+($T(2,2), T(0,2), T(2,0)$; $m = 0,1,2$; $\ell,\ell''\le4$), both generated from the ODE/closed forms and
+spot-verified against quadrature.
+
+\section{Verification}\label{sec:verification}
+Every identity in this paper is verified by an open Wolfram-language harness suite (30 scripts): high-precision
+quadrature of the defining integrals (25--40 digits) on power-law spectra at non-integer $q$, multiple speeds
+and azimuthal numbers, against every derived recursion, closed form, ODE (via symbolic-step finite differences),
+and the published tables. Key results are established symbolically (exact zeros): the closed forms vs.\ the
+published tables, the kinematic $C_1$ and the $\tau^*/\tau$ shift, the obstruction and gap factorizations, and
+the on-curve swap certificates (rational identities). Scripts, logs, and per-script pages:
+\url{https://adriencr19.github.io/doppler-operator/verification/}.
+
+\section{Conclusions}
+The Doppler operator now has the complete calculus its introduction in \citet{RC26} called for: symmetries that
+fix its structure (reflection = self-adjointness; parity; exchange), generators that produce it (rapidity flows;
+per-index raisings; pure-physical ladders), closed forms universal in spin and azimuthal number, a rigid thermal
+function class, and a representation-theoretic frame in which its deepest properties (unitarity, the flat
+single-momentum dispersion relation, the comoving marginal mode) are one-line statements. The applications ---
+the settled polarized identity, the frame-exact kinematic tower, the exact thermal operator --- indicate that
+the practical SZ program can now be run exactly, with series expansions demoted to conveniences. Natural
+continuations are the recoil sector (Kompaneets-type equations via the weight lattice, cf.\ \citealt{HLC26}),
+multiple scattering with the exact exponentiation of Section~\ref{sec:dispersion}, and the uniform
+general-$\ell$ proof of the on-curve swap lemma.
+
+\begin{thebibliography}{}
+\bibitem[Chluba \& Ravenni(2026)]{CR25} Chluba J., Ravenni A., 2026, MNRAS, 548, 1 (arXiv:2505.02080)
+\bibitem[Chluba \& Rosenberg(2026)]{CR26} Chluba J., Rosenberg E., 2026, MNRAS, 547, 1
+\bibitem[Rosenberg \& Chluba(2026)]{RC26} Rosenberg E., Chluba J., 2026, MNRAS, 547, 1 (arXiv:2511.11377)
+\bibitem[Hoey et al.(2026)]{HLC26} Hoey A., Long J., Chluba J., 2026, arXiv:2603.23572
+\bibitem[Dai \& Chluba(2014)]{DC14} Dai L., Chluba J., 2014, PRD, 89, 123504
+\bibitem[Chluba(2011)]{C11} Chluba J., 2011, MNRAS, 415, 3227
+\bibitem[Nozawa et al.(1998)]{Nozawa1998} Nozawa S., Itoh N., Kohyama Y., 1998, ApJ, 508, 17
+\bibitem[Chluba et al.(2012)]{SZpack} Chluba J., Nagai D., Sazonov S., Nelson K., 2012, MNRAS, 426, 510
+\end{thebibliography}
+
+\end{document}
