@@ -655,6 +655,24 @@ and the lattice structure that recoil corrections inhabit.</p>
   celestial-amplitudes conformal-primary basis.</p>
 </div>
 
+<div class="newbox">
+  <div class="head"><span class="name">(N19) The exchange symmetry \(s \leftrightarrow m\), and the proof of [RC26, Eq. 20]</span>
+    <span class="badge new">new — proof</span> <span class="badge pass">X7 certificates: identically zero</span>
+    <span class="prooflink"><a href="proofs/eq20-proof.html">proof →</a></span></div>
+  <p>Two results that close N15's one open proof. <strong>Exchange symmetry:</strong> the spin-weighted kernel
+  cannot distinguish its bundle label from its magnetic label — \({}_s\Kk^{d,m}_{\ell\ell'}(\beta) =
+  {}_m\Kk^{d,s}_{\ell\ell'}(\beta)\) exactly (from the Wigner symmetry \(d^\ell_{-m,s} = d^\ell_{-s,m}\)); so
+  \(m\)-summed spin bilinears <em>are</em> spin-summed azimuth bilinears, and identities in this family are
+  inherently collective. <strong>On-curve swap lemma:</strong> the collective four-harmonic sum
+  \(\sum_m {}_{s_1}Y_{\ell m}(x)\,{}_{s_1}Y_{\ell'm}(g\!\cdot\!x)\,{}_{s_2}Y_{\ell m}(y)\,{}_{s_2}Y_{\ell'm}(g\!\cdot\!y)\)
+  is symmetric in \(x \leftrightarrow y\) <em>pointwise</em> whenever both leg pairs lie on the graph of the same
+  aberration map — in half-angle coordinates (boost = dilation \(t\mapsto\lambda t\), N18) a rational identity,
+  machine-proved instance by instance. Consequence: the bilinear spin-swap
+  \(\sum_m{}_{s_1}\Kk^{a,m}{}_{s_2}\Kk^{c,m} = \sum_m{}_{s_2}\Kk^{a,m}{}_{s_1}\Kk^{c,m}\) holds for
+  <em>arbitrary</em> weights — and [RC26, Eq. 20] is the special case \((a,c)=(-1-q,2+q)\), now
+  <strong>proved to all orders for every \(\ell \le 8\)</strong> (numerically beyond).</p>
+</div>
+
 <div class="eqbox">
   <div class="head"><span class="name">Independent cross-check: the generation paper</span>
     <span class="badge pass">reconciled (harness 20)</span></div>
@@ -673,7 +691,7 @@ machine-readable tables.</p>
 
 <div class="newbox">
   <div class="head"><span class="name">(N15) The polarized sector — and [RC26]'s unproven identity, settled to all orders</span>
-    <span class="badge new">new</span> <span class="badge pass">verified (P1–P12)</span>
+    <span class="badge new">new</span> <span class="badge pass">verified (P1–P12)</span> <span class="badge pass">now proved — see N19</span>
     <span class="prooflink"><a href="proofs/polarized.html">proof →</a></span></div>
   <p>The spin-weighted (\(s = \pm2\)) foundations — transposition, parity (now flipping \(s\to-s\)),
   \(\ell\)-raising and rapidity ODE with their \(sm\)-terms — verified at \(s=2\); three reflection theorems
@@ -684,7 +702,9 @@ machine-readable tables.</p>
   (\({}_{0,\pm2}\hat S_\ell \equiv {}_{\pm2,0}\hat S_\ell\)) that the authors <em>"were unable to explicitly
   prove"</em> is verified <strong>operator-exactly, all orders in \(\beta\)</strong> at \(\ell = 2,3,4\), shown
   to be <em>collective</em> (it fails per-\(m\) — why leg-by-leg proofs cannot work), and proven equivalent to
-  reflection invariance of the \(m\)-summed mixed diagonal.</p>
+  reflection invariance of the \(m\)-summed mixed diagonal. <strong>Update:</strong> the missing analytic proof
+  is now supplied by the exchange symmetry and the on-curve swap lemma —
+  <a href="proofs/eq20-proof.html">N19</a>.</p>
 </div>
 
 <div class="newbox">

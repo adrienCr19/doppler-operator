@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N19 — Proof of [RC26, Eq. 20]: the exchange symmetry and the on-curve swap lemma</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#structure">← back to main page (Structure theory)</a>
+<h2>N19 — Proof of [RC26, Eq. 20]: the exchange symmetry and the on-curve swap lemma</h2>
+
+<p>
+[RC26] observed numerically (as a \(\beta\)-Taylor series) that the two mixed-spin scattering blocks of the
+polarized SZ system coincide, \({}_{0,\pm2}\hat S_\ell \equiv {}_{\pm2,0}\hat S_\ell\) — their Eq. 20 — and
+stated they <em>“were unable to explicitly prove”</em> it. <a href="polarized.html">N15</a> verified the
+identity operator-exactly to all orders and localized it: it is <em>collective</em> (it fails for every single
+azimuthal number \(m\) and holds only \(m\)-summed), so no leg-by-leg kernel identity can prove it. This page
+closes the gap. The proof has two ingredients, each of independent interest: an <strong>exchange
+symmetry</strong> of the spin-weighted boost kernel (the spin weight and the azimuthal number can be swapped),
+and an <strong>on-curve swap lemma</strong> — a pointwise symmetry of the collective four-harmonic sum that
+holds precisely because both scattering legs lie on the graph of the same aberration map. Both are
+machine-verified; the swap lemma is machine-<em>proved</em> (exact symbolic zero, all \(\beta\), all weights)
+instance by instance. <span class="badge pass">harness
+<a href="../verification/27_eq20_structure.html"><code>27_eq20_structure.wl</code></a> (X0–X7)</span>
+</p>
+
+<h3>1 &nbsp;Reduction: Eq. 20 as a bilinear spin-swap at a single boost argument</h3>
+<p>In N15's notation, Eq. 20 (summed over \(m\), with intermediate index 2) is
+\(\sum_m T(0,2)^m_{\ell 2 \ell}(q) = \sum_m T(2,0)^m_{\ell 2 \ell}(q)\), where
+\(T(s_1,s_2)^m_{\ell\ell'\ell''}(q) = \frac1\gamma\,{}_{s_1}\Kk^{-1-q,m}_{\ell\ell'}(+\beta)\,
+{}_{s_2}\Kk^{-q,m}_{\ell'\ell''}(-\beta)\). Transposing the second factor
+(\({}_{s}\Kk^{d,m}_{\ell'\ell''}(-\beta) = {}_{s}\Kk^{2-d,m}_{\ell''\ell'}(+\beta)\), verified P3) puts both
+kernels at the <em>same</em> boost argument and the same index pair \((\ell,2)\):</p>
+\[
+  \textbf{(Eq. 20)} \iff
+  \sum_m {}_{0}\Kk^{a,m}_{\ell 2}(\beta)\;{}_{2}\Kk^{c,m}_{\ell 2}(\beta)
+  \;=\; \sum_m {}_{2}\Kk^{a,m}_{\ell 2}(\beta)\;{}_{0}\Kk^{c,m}_{\ell 2}(\beta),
+  \qquad a = -1-q,\; c = 2+q .
+\]
+<p>What we prove is much stronger — the constraint \(a+c=1\) is irrelevant, as is the index pair:</p>
+<div class="newbox">
+<div class="head"><span class="name">Theorem (bilinear spin-swap)</span>
+<span class="badge new">new</span> <span class="badge pass">X2a–X2d</span></div>
+\[
+  \sum_m {}_{s_1}\Kk^{a,m}_{\ell\ell'}(\beta)\;{}_{s_2}\Kk^{c,m}_{\ell\ell'}(\beta)
+  \;\text{ is symmetric under } s_1 \leftrightarrow s_2
+  \quad\text{for \emph{any} weights } a, c,\ \text{any } \ell,\ell',\ \text{any } \beta .
+\]
+</div>
+<p>Verified for independent generic weights \((a,c) = (0.7, -1.3)\), spin pairs \((0,2), (0,1), (1,2)\), all
+index pairs tested, and \(\beta\) up to \(0.7\) — every deviation below the \(10^{-24}\) precision floor
+(X2a–X2d). Because the weights are arbitrary, the theorem applies to round trips with <em>any</em> two spectral
+operators on the legs, not just the Doppler pairing \((-1-q, -q)\).</p>
+
+<h3>2 &nbsp;Lemma A: the exchange symmetry \(s \leftrightarrow m\)</h3>
+<div class="newbox">
+<div class="head"><span class="name">Lemma A (exchange symmetry)</span>
+<span class="badge new">new</span> <span class="badge pass">X1, X6 (exact)</span></div>
+\[
+  {}_sY_{\ell m}(\theta) = (-1)^{s+m}\,{}_mY_{\ell s}(\theta) \ \ \text{(meridian \(\theta\)-parts)},
+  \qquad\Longrightarrow\qquad
+  {}^{d}_{\,s}\Kk^{m}_{\ell\ell'}(\beta) \;=\; {}^{d}_{\,m}\Kk^{s}_{\ell\ell'}(\beta)
+  \ \ \text{exactly, for all } d,\beta,\ell,\ell'.
+\]
+</div>
+<p><strong>Proof.</strong> The \(\theta\)-part of \({}_sY_{\ell m}\) is proportional to the Wigner function
+\(d^{\ell}_{-m,s}(\theta)\). The classical symmetries \(d^{\ell}_{ab} = d^{\ell}_{-b,-a}\) give
+\(d^{\ell}_{-m,s} = d^{\ell}_{-s,m}\) — the matrix \(d^{\ell}_{-m,s}\) is <em>symmetric</em> in \((m,s)\) —
+while the phase conventions contribute \((-1)^{s+m}\). In the kernel the harmonic appears twice with the same
+\((s,m)\), so the sign squares away and the kernel is exactly invariant under swapping the spin weight with the
+azimuthal number. \(\blacksquare\)</p>
+<p>Consequence: any \(m\)-summed bilinear over spins \((s_1,s_2)\) <em>is</em> a spin-summed bilinear over
+azimuths \((s_1,s_2)\), \(\sum_m {}_{s_1}\Kk^{a,m}\,{}_{s_2}\Kk^{c,m} = \sum_\sigma
+{}_{\sigma}\Kk^{a,s_1}\,{}_{\sigma}\Kk^{c,s_2}\). Identities in this family are inherently
+<em>collective</em> — the \(m\)-sum is not bookkeeping but the object itself. This is the structural reason
+Eq. 20 fails per-\(m\) (P10b) yet holds summed.</p>
+
+<h3>3 &nbsp;Lemma B: the on-curve swap lemma</h3>
+<p>Write each kernel as its defining integral. The bilinear becomes a double integral of the
+<strong>collective four-harmonic sum</strong> against the weight factors:</p>
+\[
+  \sum_m {}_{s_1}\Kk^{a,m}_{\ell\ell'}\,{}_{s_2}\Kk^{c,m}_{\ell\ell'}
+  = (2\pi)^2\!\!\int\!\!\int \dd\mu\,\dd\tilde\mu\;
+  G(\mu,\tilde\mu)\;D(\mu)^{-a} D(\tilde\mu)^{-c},
+  \qquad
+  G(\mu,\tilde\mu) = \sum_m
+  {}_{s_1}Y_{\ell m}(\mu)\,{}_{s_1}Y_{\ell' m}(\mu_-)\;
+  {}_{s_2}Y_{\ell m}(\tilde\mu)\,{}_{s_2}Y_{\ell' m}(\tilde\mu_-),
+\]
+<p>with \(\mu_- = \frac{\mu-\beta}{1-\beta\mu}\) the aberrated argument and \(D = \gamma(1-\beta\mu)\). The
+spin-swapped bilinear is the same integral with \(G(\tilde\mu,\mu)\). So the whole theorem follows if
+\(G\) is symmetric — <em>pointwise, before any integration</em>:</p>
+<div class="newbox">
+<div class="head"><span class="name">Lemma B (on-curve swap symmetry)</span>
+<span class="badge new">new</span> <span class="badge pass">X7: symbolic, identically zero</span></div>
+<p style="margin:0.4rem 0">For any two points whose leg pairs \((\mu, \mu_-)\), \((\tilde\mu, \tilde\mu_-)\)
+lie on the graph of the <em>same</em> aberration map:</p>
+\[
+  G(\mu,\tilde\mu) = G(\tilde\mu,\mu)\qquad\text{identically in } \mu,\tilde\mu,\beta .
+\]
+</div>
+<p><strong>This is where the geometry enters — and it is sharp.</strong> With four <em>independent</em> angles
+the swap symmetry is false: the symbolic residual is \(O(1)\) and carries the tell-tale radical
+\(\sqrt{(1-\mu^2)(1-\mu_-^2)(1-\tilde\mu^2)(1-\tilde\mu_-^2)}\). On the aberration graph that radical
+rationalizes — \(1-\mu_-^2 = \frac{(1-\mu^2)(1-\beta^2)}{(1-\beta\mu)^2}\) — and the whole residual collapses
+to zero. Equivalently, in half-angle coordinates \(t=\tan\frac\theta2\) (where every \({}_sY_{\ell m}\) is a
+<em>rational</em> function and the boost is the celestial dilation \(t \mapsto \lambda t\),
+\(\lambda = e^{\eta}\); see <a href="sl2c.html">N18</a>), the statement is a rational-function identity in
+\((t,\tilde t,\lambda)\):</p>
+\[
+  \sum_m {}_{s_1}Y_{\ell m}(t)\,{}_{s_1}Y_{\ell' m}(\lambda t)\;
+         {}_{s_2}Y_{\ell m}(\tilde t\,)\,{}_{s_2}Y_{\ell' m}(\lambda \tilde t\,)
+  \ \ \text{is symmetric under } t \leftrightarrow \tilde t .
+\]
+<p>A rational identity either holds identically or fails identically — so a single symbolic reduction
+(<code>Together == 0</code>) is a complete <em>proof</em> for that \((\ell,\ell',s_1,s_2)\), valid for all
+\(\beta\), all weights, all orders. The machine certificates:</p>
+<table>
+<tr><th>spin pair</th><th>\((\ell,\ell')\) certified</th><th>result</th></tr>
+<tr><td>\((0,2)\) — the Eq. 20 case</td><td>\((2,2),(3,2),\dots,(8,2)\); \((3,3),(4,3)\)</td>
+<td><span class="badge pass">identically zero</span></td></tr>
+<tr><td>\((0,1)\)</td><td>\((5,2)\)</td><td><span class="badge pass">identically zero</span></td></tr>
+<tr><td>\((1,2)\)</td><td>\((5,2)\)</td><td><span class="badge pass">identically zero</span></td></tr>
+</table>
+
+<h3>4 &nbsp;The theorem, and the status of Eq. 20</h3>
+<p><strong>Proof of the spin-swap theorem (hence Eq. 20).</strong> By Lemma B, \(G(\mu,\tilde\mu) =
+G(\tilde\mu,\mu)\) pointwise; integrating against \(D(\mu)^{-a}D(\tilde\mu)^{-c}\) and comparing with the
+relabeled swapped integral gives the theorem for arbitrary \((a,c)\). Specializing to \((a,c) = (-1-q, 2+q)\),
+\(\ell'=2\) and un-transposing gives [RC26, Eq. 20], operator-exactly, to all orders in \(\beta\).
+\(\blacksquare\)</p>
+<p><strong>Status.</strong> Eq. 20 is now <em>proved</em> — rigorously, via exact symbolic certificates — for
+every multipole \(\ell \le 8\) (with spot certificates at \(\ell'=3\) and at the other spin pairs), and
+verified numerically beyond. The general-\((\ell,\ell')\) statement of Lemma B is a one-parameter family of
+rational identities whose uniform proof we leave open; every instance ever needed is certifiable by one
+machine reduction.</p>
+
+<h3>5 &nbsp;Why every weaker version fails</h3>
+<table>
+<tr><th>variation</th><th>holds?</th><th>reason</th></tr>
+<tr><td>per single \(m\) (P10b)</td><td>no — \(O(1)\)</td>
+<td>only the collective sum \(G\) is swap-symmetric; by Lemma A the \(m\)-sum is intrinsic</td></tr>
+<tr><td>independent angles (off the aberration graph)</td><td>no — \(O(1)\)</td>
+<td>the radical obstruction survives; aberration graphs are exactly the configurations that rationalize it</td></tr>
+<tr><td>different columns \(\ell'_1 \ne \ell'_2\) on the two legs (X3)</td><td>no</td>
+<td>the four-harmonic pairing in \(G\) breaks; no swap structure</td></tr>
+<tr><td>outer off-diagonal \(\ell \ne \ell''\) (X5)</td><td>no</td>
+<td>Eq. 20 is a trace-type statement: transposition needs \(\ell=\ell''\) to close the loop</td></tr>
+<tr><td>arbitrary weights \((a,c)\), on-diagonal (X2b)</td><td><strong>yes</strong></td>
+<td>Lemma B is pointwise — the weights never enter</td></tr>
+</table>
+
+<h3>6 &nbsp;Remarks</h3>
+<p><strong>(i) The exchange symmetry is a new catalog entry in its own right.</strong> It states that the boost
+kernel cannot distinguish the bundle label (spin weight) from the magnetic label: \({}_2\Kk^{d,0} =
+{}_0\Kk^{d,2}\) — a scalar-kernel evaluation computes a polarized one. It is the celestial-sphere shadow of the
+label symmetry of \(SL(2,\mathbb C)\) boost matrix elements in the \(SU(2)\) basis.
+<strong>(ii) Rotational invariance, located.</strong> N15 reduced Eq. 20 to a rotational-invariance statement;
+Lemma B is that statement made concrete: the aberration graph \((\hat n, g\cdot\hat n)\) is a
+swap-symmetric configuration for the collective four-harmonic sum. <strong>(iii) Generality.</strong> Because
+the weights are arbitrary, the \(I\!\to\!P\) / \(P\!\to\!I\) equality survives any spectral filtering of the
+two legs — e.g. it holds separately at every order of any weight expansion, and for the recoil-lattice
+elements (N14) leg by leg in weight.</p>
+
+<p><span class="badge pass">verified &amp; proved:
+<a href="../verification/27_eq20_structure.html"><code>27_eq20_structure.wl</code></a> — X1/X6 exchange
+(exact), X2 spin-swap (≤10⁻²⁴), X3–X5 sharpness, X7 symbolic certificates (identically zero)</span></p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a></p></footer>
+</main>
+</body>
+</html>
