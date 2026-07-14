@@ -1,0 +1,20 @@
+W0  MJ moment formula <p^k> (k = 1..5, th = 0.02): PASS  (max dev = ScientificForm[1.9375973592087175*^-30, 3])
+W1a convention pinned: D at beta -> 1 beta,  loss-dipole sign 1
+W1b p^3 coefficient == CR26 Eq. 28: PASS (symbolic zero)
+W1c p^5 coefficient == CR26 Eq. 28: PASS (symbolic zero)
+W2a theta^0 coefficient (should be -q): -q
+W2  theta^1 (tau*-conv) == Nozawa C1 [CR26 Eq. 29]: PASS (symbolic zero)
+W2b tau-convention shift == +Dv (the beta_p mu_p Y_0 term): PASS (symbolic zero)
+W3  C2 (tau*-convention) = (7*q)/10 - (39*q^2)/10 - (67*q^3)/5 - (73*q^4)/10 - (11*q^5)/10
+      x^j dx^j coefficients (j=0..): {0, -25, -1117/10, -847/10, -183/10, -11/10}
+W3  C3 (tau*-convention, NEW) = (1031*q)/280 + (373*q^2)/84 + (9607*q^3)/840 - (2939*q^4)/210 - (3749*q^5)/210 - (1229*q^6)/210 - (64*q^7)/105
+      x^j dx^j coefficients (j=0..): {0, -75/4, -21873/40, -49161/40, -27519/35, -6684/35, -3917/210, -64/105}
+W3  C2 (tau-convention) = -1/5*q + (21*q^2)/10 - (46*q^3)/5 - (33*q^4)/5 - (11*q^5)/10
+      x^j dx^j coefficients (j=0..): {0, -15, -441/5, -763/10, -88/5, -11/10}
+W3  C3 (tau-convention, NEW) = (407*q)/140 - (1181*q^2)/280 + (13219*q^3)/840 - (176*q^4)/35 - (1528*q^5)/105 - (192*q^6)/35 - (64*q^7)/105
+      x^j dx^j coefficients (j=0..): {0, -45/4, -8379/20, -42217/40, -25216/35, -6376/35, -128/7, -64/105}
+W4a residual(th=0.01)/residual(th=0.005) = 15.863755197988437405`3.   (expect ~16 for O(th^4) truncation)
+W4b exact R(q=1/2, 10. keV) = -0.52832426811236720670475740495395825572`10.   tower = -0.52832399146257661708030890410000690588`10.
+W4b exact R(q=1/2, 25. keV) = -0.57235505154529094515578103652805990675`10.   tower = -0.57234472205291493387089590096030092795`10.
+W4b exact R(q=1/2, 50. keV) = -0.64939529398428813033638297445394489154`10.   tower = -0.64924066558198537681158416380619677798`10.
+--- kinematic C_k harness done ---

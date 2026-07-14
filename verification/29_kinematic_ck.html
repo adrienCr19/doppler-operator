@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>29_kinematic_ck.wl — N21: frame-exact kinematic C_k from catalog elements (W0-W4)</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>29_kinematic_ck.wl</code></h2>
+<p>N21 — the frame-exact kinematic C_k: operator-level match to CR26 Eq. 28 (W1, symbolic), Nozawa C1 + the tau/tau* convention shift (W2, symbolic), the new C2/C3 orders (W3), and the exact all-theta kinematic dipole vs the tower (W4). Run with <code>wolframscript -file 29_kinematic_ck.wl</code> (Wolfram 14+/15).
+Download: <a href="29_kinematic_ck.wl" download>29_kinematic_ck.wl</a> &middot; recorded output below (also <a href="out_29_kinematic_ck.txt">out_29_kinematic_ck.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 29_kinematic_ck.wl — N21: the frame-exact kinematic C_k, assembled from catalog elements.
+   Frame-exact structure [CR26 Eqs. 20-25]: photons isotropic (CMB blackbody); ALL kinematics live in
+   (i) the boosted Maxwell-Juttner distribution, Legendre-decomposed with weights f_l (I_{l+1/2} Bessel),
+   (ii) the flux factor tau* = tau/(1 - beta_p mu_p).
+   The scattering elements are the MONOPOLE-COLUMN Doppler operators D_{l l&#x27; 0} (outer OFF-diagonal!),
+     S_l(nu,p) = Sqrt[2l+1] [D_{l00} + D_{l20}/10] - delta_{l0} - beta delta_{l1},
+   which resolves the N16 obstruction: off-diagonal elements are not reflection-constrained, so the
+   physical C1 need not be -q f(Dv).
+   Checks:
+     W0  odd/even MJ moment formula &lt;p^k&gt; (Bessel) vs quadrature
+     W1  OPERATOR-LEVEL match: our ODE-generated S1(nu,p) == [CR26 Eq. 28] at p^1, p^3, p^5 (symbolic),
+         after pinning the two sign conventions (beta-parity of D, sign of the loss-dipole term)
+     W2  thermal dipole channel: theta-coefficient == Nozawa C1 [CR26 Eq. 29]:
+         S_kin^(1) = -[10 x dx + (47/5) x^2 dx^2 + (7/5) x^3 dx^3]   (symbolic zero)
+     W3  the frame-exact C2 and C3 (NEW at this order in tau-convention), generated symbolically
+     W4  exact all-theta kinematic dipole transfer R(q,theta) by quadrature of the CLOSED FORMS
+         (bracket table) vs the theta-tower: residual scaling, values at 10/25/50 keV  *)
+
+prec = 30;
+Cm0[l_] := If[l == 0, 0, Sqrt[l^2/(4 l^2 - 1)]];
+buildC[lp_] := Module[{c},
+  c[k_][l_, ldd_] /; l &lt; 0 || ldd &lt; 0 := 0;
+  c[0][l_, ldd_] := If[l == lp &amp;&amp; ldd == lp, 1, 0];
+  c[k_][l_, ldd_] := c[k][l, ldd] = Expand[(1/k) (
+      -(l + 3 + q) Cm0[l + 1] c[k - 1][l + 1, ldd] + (l - 2 - q) Cm0[l] c[k - 1][l - 1, ldd]
+      - (ldd - q) Cm0[ldd + 1] c[k - 1][l, ldd + 1] + (ldd + 1 + q) Cm0[ldd] c[k - 1][l, ldd - 1]
+      - Sum[SeriesCoefficient[Tanh[x], {x, 0, j}] c[k - 1 - j][l, ldd], {j, 1, k - 1}])];
+  c];
+c0 = buildC[0]; c2 = buildC[2];
+toP[c_, l_, ldd_, ordE_] := Collect[Normal@Series[Sum[c[k][l, ldd] et^k, {k, 0, ordE}] /. et -&gt; ArcSinh[pp], {pp, 0, ordE}], pp, Simplify];
+ord = 9;
+S0ser = toP[c0, 0, 0, ord] + toP[c2, 0, 0, ord]/10 - 1;                    (* S_0 = tSZ operator *)
+D10ser = toP[c0, 1, 0, ord]; D12ser = toP[c2, 1, 0, ord];
+betaSer = Normal@Series[pp/Sqrt[1 + pp^2], {pp, 0, ord}];
+
+(* ---------- W0: MJ moments, odd and even ---------- *)
+momB[k_, th_] := 2 (2 th)^(k/2) BesselK[(k + 4)/2, 1/th] Gamma[(k + 3)/2]/(Sqrt[Pi] BesselK[2, 1/th]);
+momQ[k_, th_] := NIntegrate[p^(2 + k) Exp[-Sqrt[1 + p^2]/th], {p, 0, Infinity}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 15]/
+   NIntegrate[p^2 Exp[-Sqrt[1 + p^2]/th], {p, 0, Infinity}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 15];
+dev = Max@Table[Abs[momB[k, 1/50] - momQ[k, 1/50]], {k, {1, 2, 3, 4, 5}}];
+Print[&quot;W0  MJ moment formula &lt;p^k&gt; (k = 1..5, th = 0.02): &quot;, If[dev &lt; 10^-12, &quot;PASS&quot;, &quot;FAIL&quot;], &quot;  (max dev = &quot;, ScientificForm[N[dev], 3], &quot;)&quot;];
+
+(* ---------- W1: operator-level match to CR26 Eq. 28 ---------- *)
+fk[j_] := Product[q - i, {i, 0, j - 1}];   (* x^j dx^j on x^q *)
+TGT = -fk[1] pp - (3/2 fk[1] + 47/25 fk[2] + 7/25 fk[3]) pp^3 +
+   (5/8 fk[1] - 79/50 fk[2] - 109/50 fk[3] - 183/350 fk[4] - 11/350 fk[5]) pp^5;
+(* convention search: s2 = beta-parity of the D-elements (pp -&gt; s2 pp), s3 = sign of the loss-dipole term *)
+S1cand[s2_, s3_] := Collect[(Sqrt[3] (D10ser + D12ser/10) /. pp -&gt; s2 pp) + s3 betaSer, pp, Simplify];
+best = Reap[Do[If[Simplify[Coefficient[S1cand[s2, s3], pp, 1] + q] === 0, Sow[{s2, s3}]], {s2, {1, -1}}, {s3, {1, -1}}]][[2]];
+If[best === {}, Print[&quot;W1  NO convention matches p^1 = -q  -- STOP&quot;], best = best[[1, 1]]];
+Print[&quot;W1a convention pinned: D at beta -&gt; &quot;, best[[1]], &quot; beta,  loss-dipole sign &quot;, best[[2]]];
+S1op = S1cand[best[[1]], best[[2]]];
+dev13 = Simplify[Coefficient[S1op, pp, 3] - Coefficient[TGT, pp, 3]];
+dev15 = Simplify[Coefficient[S1op, pp, 5] - Coefficient[TGT, pp, 5]];
+Print[&quot;W1b p^3 coefficient == CR26 Eq. 28: &quot;, If[dev13 === 0, &quot;PASS (symbolic zero)&quot;, &quot;MISMATCH: &quot; &lt;&gt; ToString[dev13]]];
+Print[&quot;W1c p^5 coefficient == CR26 Eq. 28: &quot;, If[dev15 === 0, &quot;PASS (symbolic zero)&quot;, &quot;MISMATCH: &quot; &lt;&gt; ToString[dev15]]];
+
+(* ---------- thermal averaging machinery (K_nu asymptotic ratios, to theta^4) ---------- *)
+aas[nu_, j_] := Product[4 nu^2 - (2 i - 1)^2, {i, 1, j}]/(j! 8^j);
+momSer[k_, ordT_] := 2 (2 th)^(k/2) Gamma[(k + 3)/2]/Sqrt[Pi] *
+   Normal@Series[Sum[aas[(k + 4)/2, j] th^j, {j, 0, ordT + 4}]/Sum[aas[2, j] th^j, {j, 0, ordT + 4}], {th, 0, ordT}];
+thAvg[ser_, ordT_] := Collect[Normal@Series[Module[{cl = CoefficientList[ser, pp]},
+     Sum[cl[[k + 1]] If[EvenQ[k], momSer[k, ordT], 0], {k, 0, Length[cl] - 1}]], {th, 0, ordT}], th, Simplify];
+
+(* dipole-channel transfer, two parametrizations:
+   tau*-convention (Nozawa/SZpack): Rstar = (1/(3 th)) &lt;p S1&gt;          [flux kept in tau* prefactor]
+   tau -convention (rest-frame):    Rtau  = Rstar + &lt;S0&gt;               [flux term made explicit]     *)
+Rstar = Collect[Normal@Series[thAvg[Expand[pp S1op], 4]/(3 th), {th, 0, 3}], th, Simplify];
+Rtau = Collect[Rstar + thAvg[S0ser, 3], th, Simplify];
+
+(* ---------- W2: C1 == Nozawa (CR26 Eq. 29), tau*-convention ---------- *)
+C1target = -(10 fk[1] + 47/5 fk[2] + 7/5 fk[3]);
+Print[&quot;W2a theta^0 coefficient (should be -q): &quot;, Simplify[Coefficient[Rstar, th, 0]]];
+devC1 = Simplify[Coefficient[Rstar, th, 1] - C1target];
+Print[&quot;W2  theta^1 (tau*-conv) == Nozawa C1 [CR26 Eq. 29]: &quot;, If[devC1 === 0, &quot;PASS (symbolic zero)&quot;, &quot;MISMATCH: &quot; &lt;&gt; ToString[devC1]]];
+devConv = Simplify[Coefficient[Rtau, th, 1] - C1target - q (q + 3)];
+Print[&quot;W2b tau-convention shift == +Dv (the beta_p mu_p Y_0 term): &quot;, If[devConv === 0, &quot;PASS (symbolic zero)&quot;, &quot;MISMATCH: &quot; &lt;&gt; ToString[devConv]]];
+
+(* ---------- W3: the frame-exact C2, C3 in both conventions ---------- *)
+dxCoef[pol_] := Module[{n = Exponent[pol, q], a, sol},
+   sol = SolveAlways[pol == Sum[a[j] fk[j], {j, 0, n}], q][[1]];
+   Table[a[j] /. sol, {j, 0, n}]];
+Do[Module[{c2 = Collect[Coefficient[R[[1]], th, 2], q, Simplify], c3 = Collect[Coefficient[R[[1]], th, 3], q, Simplify]},
+   Print[&quot;W3  C2 (&quot;, R[[2]], &quot;) = &quot;, c2];
+   Print[&quot;      x^j dx^j coefficients (j=0..): &quot;, dxCoef[c2]];
+   Print[&quot;W3  C3 (&quot;, R[[2]], &quot;, NEW) = &quot;, c3];
+   Print[&quot;      x^j dx^j coefficients (j=0..): &quot;, dxCoef[c3]]],
+  {R, {{Rstar, &quot;tau*-convention&quot;}, {Rtau, &quot;tau-convention&quot;}}}];
+
+(* ---------- W4: exact all-theta kinematic dipole vs the tower ---------- *)
+JJn[w_, b_] := If[w == 0, 2 ArcTanh[b], With[{gg = 1/Sqrt[1 - b^2], p2 = b/Sqrt[1 - b^2]}, ((gg + p2)^w - (gg - p2)^w)/w]];
+(* bracket table (harness 24/25), numeric, weight parameter explicit *)
+Fb[0, 0, s_, b_, qv_] := With[{p2 = b/Sqrt[1 - b^2]}, JJn[2 + qv + s, b]/(2 p2)];
+Fb[1, 0, s_, b_, qv_] := With[{gg = 1/Sqrt[1 - b^2], p2 = b/Sqrt[1 - b^2]}, Sqrt[3] (gg JJn[2 + qv + s, b] - JJn[3 + qv + s, b])/(2 p2^2)];
+Fb[1, 2, s_, b_, qv_] := With[{gg = 1/Sqrt[1 - b^2], p2 = b/Sqrt[1 - b^2]}, Sqrt[15] (3 gg JJn[qv + s, b] - 3 (3 + 2 p2^2) JJn[1 + qv + s, b] + gg (9 + 2 p2^2) JJn[2 + qv + s, b] - (3 + 2 p2^2) JJn[3 + qv + s, b])/(4 p2^4)];
+Fb[2, 0, s_, b_, qv_] := With[{gg = 1/Sqrt[1 - b^2], p2 = b/Sqrt[1 - b^2]}, Sqrt[5] ((3 + 2 p2^2) JJn[2 + qv + s, b] - 6 gg JJn[3 + qv + s, b] + 3 JJn[4 + qv + s, b])/(4 p2^3)];
+Fb[0, 2, s_, b_, qv_] := With[{gg = 1/Sqrt[1 - b^2], p2 = b/Sqrt[1 - b^2]}, Sqrt[5] (3 JJn[qv + s, b] - 6 gg JJn[1 + qv + s, b] + (3 + 2 p2^2) JJn[2 + qv + s, b])/(4 p2^3)];
+D100c[b_, qv_] := (Sqrt[1 - b^2]) Fb[1, 0, 0, b, qv] Fb[0, 0, -1, b, qv];
+D120c[b_, qv_] := (Sqrt[1 - b^2]) Fb[1, 2, 0, b, qv] Fb[2, 0, -1, b, qv];
+D000c[b_, qv_] := (Sqrt[1 - b^2]) Fb[0, 0, 0, b, qv] Fb[0, 0, -1, b, qv];
+D020c[b_, qv_] := (Sqrt[1 - b^2]) Fb[0, 2, 0, b, qv] Fb[2, 0, -1, b, qv];
+s2 = best[[1]]; s3 = best[[2]];
+Rexact[qv_?NumericQ, thv_?NumericQ] := Module[{S0i, S1i, Zn},
+   S0i = NIntegrate[p^2 Exp[-Sqrt[1 + p^2]/thv] (D000c[p/Sqrt[1 + p^2], qv] + D020c[p/Sqrt[1 + p^2], qv]/10 - 1),
+      {p, 0, Infinity}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 12];
+   S1i = NIntegrate[p^2 Exp[-Sqrt[1 + p^2]/thv] p (Sqrt[3] (D100c[s2 p/Sqrt[1 + p^2], qv] + D120c[s2 p/Sqrt[1 + p^2], qv]/10) + s3 p/Sqrt[1 + p^2]),
+      {p, 0, Infinity}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 12];
+   Zn = NIntegrate[p^2 Exp[-Sqrt[1 + p^2]/thv], {p, 0, Infinity}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 12];
+   (S0i + S1i/(3 thv))/Zn];
+qv0 = 1/2;
+RdipN[qv_, thv_] := (Rtau /. {q -&gt; qv, th -&gt; thv});
+r1 = Abs[Rexact[qv0, 1/100] - RdipN[qv0, 1/100]]; r2 = Abs[Rexact[qv0, 1/200] - RdipN[qv0, 1/200]];
+Print[&quot;W4a residual(th=0.01)/residual(th=0.005) = &quot;, N[r1/r2, 3], &quot;   (expect ~16 for O(th^4) truncation)&quot;];
+Do[Print[&quot;W4b exact R(q=1/2, &quot;, 511. thv, &quot; keV) = &quot;, N[Rexact[qv0, thv], 10],
+    &quot;   tower = &quot;, N[RdipN[qv0, thv], 10]], {thv, {10/511, 25/511, 50/511}}];
+Print[&quot;--- kinematic C_k harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>W0  MJ moment formula &lt;p^k&gt; (k = 1..5, th = 0.02): PASS  (max dev = ScientificForm[1.9375973592087175*^-30, 3])
+W1a convention pinned: D at beta -&gt; 1 beta,  loss-dipole sign 1
+W1b p^3 coefficient == CR26 Eq. 28: PASS (symbolic zero)
+W1c p^5 coefficient == CR26 Eq. 28: PASS (symbolic zero)
+W2a theta^0 coefficient (should be -q): -q
+W2  theta^1 (tau*-conv) == Nozawa C1 [CR26 Eq. 29]: PASS (symbolic zero)
+W2b tau-convention shift == +Dv (the beta_p mu_p Y_0 term): PASS (symbolic zero)
+W3  C2 (tau*-convention) = (7*q)/10 - (39*q^2)/10 - (67*q^3)/5 - (73*q^4)/10 - (11*q^5)/10
+      x^j dx^j coefficients (j=0..): {0, -25, -1117/10, -847/10, -183/10, -11/10}
+W3  C3 (tau*-convention, NEW) = (1031*q)/280 + (373*q^2)/84 + (9607*q^3)/840 - (2939*q^4)/210 - (3749*q^5)/210 - (1229*q^6)/210 - (64*q^7)/105
+      x^j dx^j coefficients (j=0..): {0, -75/4, -21873/40, -49161/40, -27519/35, -6684/35, -3917/210, -64/105}
+W3  C2 (tau-convention) = -1/5*q + (21*q^2)/10 - (46*q^3)/5 - (33*q^4)/5 - (11*q^5)/10
+      x^j dx^j coefficients (j=0..): {0, -15, -441/5, -763/10, -88/5, -11/10}
+W3  C3 (tau-convention, NEW) = (407*q)/140 - (1181*q^2)/280 + (13219*q^3)/840 - (176*q^4)/35 - (1528*q^5)/105 - (192*q^6)/35 - (64*q^7)/105
+      x^j dx^j coefficients (j=0..): {0, -45/4, -8379/20, -42217/40, -25216/35, -6376/35, -128/7, -64/105}
+W4a residual(th=0.01)/residual(th=0.005) = 15.863755197988437405`3.   (expect ~16 for O(th^4) truncation)
+W4b exact R(q=1/2, 10. keV) = -0.52832426811236720670475740495395825572`10.   tower = -0.52832399146257661708030890410000690588`10.
+W4b exact R(q=1/2, 25. keV) = -0.57235505154529094515578103652805990675`10.   tower = -0.57234472205291493387089590096030092795`10.
+W4b exact R(q=1/2, 50. keV) = -0.64939529398428813033638297445394489154`10.   tower = -0.64924066558198537681158416380619677798`10.
+--- kinematic C_k harness done ---
+</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification scripts</p></footer>
+</main></body></html>

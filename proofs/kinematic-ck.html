@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N21 — The frame-exact kinematic C_k, assembled from catalog elements</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#extensions">← back to main page (Sectors &amp; applications)</a>
+<h2>N21 — The frame-exact kinematic \(C_k\), assembled from catalog elements</h2>
+
+<p>
+<a href="ksz-dipole.html">N16</a> proved that the physical kSZ correction operator cannot be assembled from
+<em>diagonal</em> Doppler elements (\(-q\,f(\Dv)\) obstruction) and left the frame-exact assembly as the
+follow-up. This page completes it. The key is the frame decomposition of [CR26, §3]: keep the photons
+isotropic (the CMB blackbody) and put <em>all</em> kinematics into (i) the <strong>boosted electron
+distribution</strong>, Legendre-decomposed with weights \(f_\ell \propto I_{\ell+1/2}(p_{\rm p}p/\theta_{\rm e})\),
+and (ii) the <strong>flux factor</strong> \(\tau^* = \tau/(1-\beta_{\rm p}\mu_{\rm p})\). The scattering
+operators are then the <strong>monopole-column</strong> elements — outer <em>off-diagonal</em>, hence exempt
+from the reflection constraint:
+</p>
+\[
+  \hat S_\ell(\nu,p) \;=\; \sqrt{2\ell+1}\,\Big[\Do_{\ell 0 0} + \tfrac1{10}\Do_{\ell 2 0}\Big]
+  \;-\;\delta_{\ell 0}\;-\;\beta\,\delta_{\ell 1},
+\]
+<p>and the dipole-channel signal per unit \(\tau^*\beta_{\rm p}\mu_{\rm p}\) is
+\(R^*(q,\theta_{\rm e}) = \frac{1}{3\theta_{\rm e}}\big\langle p\,\hat S_1\big\rangle\)
+(the \(\tau\)-convention adds the explicit flux term:
+\(R = R^* + \langle\hat S_0\rangle\)). Everything on the right is in this site's catalog: \(\Do_{100},
+\Do_{120}\) have closed forms (bracket table), their series come from the N3 generator, and the
+Maxwell–Jüttner moments are exact Bessel ratios.
+<span class="badge pass">harness <a href="../verification/29_kinematic_ck.html"><code>29_kinematic_ck.wl</code></a>
+(W0–W4)</span>
+</p>
+
+<h3>1 &nbsp;Operator-level verification against [CR26, Eq. 28]</h3>
+<p>Our ODE-generated series for \(\hat S_1(\nu,p) = \sqrt3\,[\Do_{100} + \Do_{120}/10] + \beta\)
+(conventions pinned by the \(p^1\) term \(= -x\partial_x\)) reproduces the published momentum expansion
+<strong>exactly</strong>:</p>
+<table>
+<tr><th>order</th><th>[CR26, Eq. 28]</th><th>check</th></tr>
+<tr><td>\(p^1\)</td><td>\(-x\partial_x\)</td><td><span class="badge pass">pins conventions</span></td></tr>
+<tr><td>\(p^3\)</td><td>\(-\big[\tfrac32 x\partial_x + \tfrac{47}{25}x^2\partial_x^2 + \tfrac{7}{25}x^3\partial_x^3\big]\)</td>
+<td><span class="badge pass">symbolic zero (W1b)</span></td></tr>
+<tr><td>\(p^5\)</td><td>\(\big[\tfrac58 x\partial_x - \tfrac{79}{50}x^2\partial_x^2 - \tfrac{109}{50}x^3\partial_x^3
+ - \tfrac{183}{350}x^4\partial_x^4 - \tfrac{11}{350}x^5\partial_x^5\big]\)</td>
+<td><span class="badge pass">symbolic zero (W1c)</span></td></tr>
+</table>
+
+<h3>2 &nbsp;The \(C_1\) theorem and the convention shift</h3>
+<div class="newbox">
+<div class="head"><span class="name">Frame-exact \(C_1\) (= Nozawa et al. 1998, [CR26, Eq. 29])</span>
+<span class="badge pass">W2: symbolic zero</span></div>
+\[
+  R^* = -q\,\big(1 + \theta_{\rm e}\,\tilde C_1 + \dots\big),\qquad
+  -q\,\tilde C_1 \;=\; -\Big[10\,x\partial_x + \tfrac{47}{5}x^2\partial_x^2 + \tfrac75 x^3\partial_x^3\Big],
+\]
+<p style="margin:0.4rem 0">and the \(\tau^*\!\to\tau\) change shifts the coefficient by exactly
+\(+\Dv = q(q+3)\) — the \(\beta_{\rm p}\mu_{\rm p}Y_0\) term of the classical treatments, here a one-line
+corollary of the flux factor (W2b, symbolic).</p>
+</div>
+<p>This also closes N16's story: the obstruction is real (diagonal elements can never carry the signal), and
+the resolution is that the physical dipole channel uses the outer off-diagonal <em>columns</em>
+\(\Do_{1\ell'0}\) weighted by the boosted-Maxwellian dipole moment — for which N1 maps
+\(\Do_{100}(q) \mapsto \Do_{001}(-3-q)\), a <em>different</em> element, so no \(\Dv\)-constraint applies.</p>
+
+<h3>3 &nbsp;The frame-exact \(C_2\) and \(C_3\) (new orders)</h3>
+<p>With the same assembly, the next kinematic correction operators follow symbolically
+(\(\tau^*\)-convention; coefficients of \(x^j\partial_x^j\), \(j = 1,2,\dots\)):</p>
+\[
+  C_2^{*} = -\Big[25\,x\partial_x + \tfrac{1117}{10}x^2\partial_x^2 + \tfrac{847}{10}x^3\partial_x^3
+  + \tfrac{183}{10}x^4\partial_x^4 + \tfrac{11}{10}x^5\partial_x^5\Big],
+\]
+\[
+  C_3^{*} = -\Big[\tfrac{75}{4}\,x\partial_x + \tfrac{21873}{40}x^2\partial_x^2 + \tfrac{49161}{40}x^3\partial_x^3
+  + \tfrac{27519}{35}x^4\partial_x^4 + \tfrac{6684}{35}x^5\partial_x^5 + \tfrac{3917}{210}x^6\partial_x^6
+  + \tfrac{64}{105}x^7\partial_x^7\Big],
+\]
+<p>\(C_2^*\) is fixed by the \(p^5\) operator already verified against [CR26, Eq. 28] plus exact moments;
+\(C_3^*\) requires the \(p^7, p^9\) tiers of the N3 generator — <strong>beyond the printed order of the
+literature</strong>. The \(\tau\)-convention versions (adding the flux term, i.e. the tSZ tower) are generated
+alongside (W3). </p>
+
+<h3>4 &nbsp;Exact to all orders in temperature</h3>
+<p>Because \(\Do_{100}, \Do_{120}, \Do_{000}, \Do_{020}\) all have closed forms (bracket products of the
+\(J\)-family), the kinematic dipole transfer is <strong>exact by a single quadrature</strong> — the kinematic
+analog of the exact thermal operator E1. Against the \(\theta^3\) tower (\(q = \tfrac12\),
+\(\tau\)-convention): residual ratio \(15.9 \approx 16\) confirms \(\mathcal O(\theta^4)\) truncation, and</p>
+<table>
+<tr><th>\(kT_{\rm e}\)</th><th>exact \(R\)</th><th>\(\theta^3\) tower</th><th>tower error</th></tr>
+<tr><td>10 keV</td><td>−0.5283242681</td><td>−0.5283239915</td><td>\(5\times10^{-7}\)</td></tr>
+<tr><td>25 keV</td><td>−0.5723550515</td><td>−0.5723447221</td><td>\(1.8\times10^{-5}\)</td></tr>
+<tr><td>50 keV</td><td>−0.6493952940</td><td>−0.6492406656</td><td>\(2.4\times10^{-4}\)</td></tr>
+</table>
+<p>— the same asymptotic degradation pattern as the thermal tower (E1), with the exact route immune.</p>
+
+<p><span class="badge pass">verified:
+<a href="../verification/29_kinematic_ck.html"><code>29_kinematic_ck.wl</code></a> — W0 moments (10⁻³⁰),
+W1 operator match to Eq. 28 (symbolic), W2/W2b \(C_1\) + convention shift (symbolic), W3 \(C_2, C_3\) both
+conventions, W4 exact vs tower (ratio 15.9)</span></p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a></p></footer>
+</main>
+</body>
+</html>
