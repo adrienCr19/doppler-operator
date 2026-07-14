@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N22/N23 — Closed forms for every spin and azimuthal number: the rationalization lemma</title>
+<link rel="stylesheet" href="../style.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']],
+  macros: { Oh: "\\hat{O}_\\nu", Dv: "\\hat{\\mathcal{D}}_\\nu", Kk: "\\mathcal{K}", Bo: "\\hat{\\mathcal{B}}", Do: "\\hat{\\mathcal{D}}", dd: "\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<main>
+<a class="backlink" href="../index.html#extensions">← back to main page (Sectors &amp; applications)</a>
+<h2>N22/N23 — Closed forms for every spin and every \(m\): the rationalization lemma</h2>
+
+<p>
+The site's closed-form calculus (N8: bracket products of the \(J\)-family) was built at \(s = m = 0\). This
+page removes both restrictions at once: <strong>every</strong> kernel element \({}_s\Kk^{d,m}_{\ell\ell'}\) —
+any spin weight, any azimuthal number — is a finite \(J\)-combination, by one structural fact.
+<span class="badge pass">harness
+<a href="../verification/30_spin_m_closed_forms.html"><code>30_spin_m_closed_forms.wl</code></a> (Z1–Z5)</span>
+</p>
+
+<h3>1 &nbsp;The rationalization lemma</h3>
+<div class="newbox">
+<div class="head"><span class="name">Lemma (the kernel integrand is always rational)</span>
+<span class="badge new">new</span></div>
+<p style="margin:0.4rem 0">Write the spin-weighted harmonic in Wigner-\(d\) form,
+\({}_sY_{\ell m} \propto (\sin\tfrac\theta2)^{|m+s|}(\cos\tfrac\theta2)^{|m-s|}\,R_{\ell}(\mu)\) with
+\(R_\ell\) a polynomial. In the kernel both harmonics carry the <em>same</em> \((s,m)\), and on the
+aberration curve the half-angle factors pair up rationally:</p>
+\[
+  \sin\tfrac{\theta_+}{2} = \sin\tfrac\theta2\,\sqrt{\tfrac{1-\beta}{1+\beta\mu}},\qquad
+  \cos\tfrac{\theta_+}{2} = \cos\tfrac\theta2\,\sqrt{\tfrac{1+\beta}{1+\beta\mu}},
+\]
+\[
+  \Longrightarrow\quad
+  {}_sY_{\ell m}(\mu)\,{}_sY_{\ell' m}(\mu_+) \;=\;
+  (1{-}\beta)^{\frac{|m+s|}2}(1{+}\beta)^{\frac{|m-s|}2}\;
+  \frac{\text{polynomial}(\mu)}{(1+\beta\mu)^{\max(|m|,|s|)}} .
+\]
+</div>
+<p>So the integrand of \({}_s\Kk^{d,m}\) is polynomial\((\mu)\times(1+\beta\mu)^{-d-k}\) with integer \(k\) —
+exactly the \(s=m=0\) structure. With \(t = 1+\beta\mu\) and \(\gamma(1\pm\beta) = e^{\pm\eta}\),
+\(\int t^{\,n-d}\dd t = \gamma^{\,d-n-1} J_{n+1-d}\), and the reduction is a two-line algorithm:</p>
+\[
+  {}_s\Kk^{d,m}_{\ell\ell'}(\beta) \;=\;
+  \frac{2\pi}{\beta}\,(1{-}\beta)^{\frac{|m+s|}2}(1{+}\beta)^{\frac{|m-s|}2}
+  \sum_n e_n\,\gamma^{-n-1}\,J_{n+1-d},
+  \qquad J_w = \frac{2\sinh(w\eta)}{w},
+\]
+<p>with rational coefficients \(e_n\) read off from the polynomial. Implemented and verified against direct
+quadrature at \(10^{-19}\): the spin-2 columns \(\ell = 2\ldots4\), \(m = 0,1,2\) (Z1) and the general-\(m\)
+scalar columns (Z2).</p>
+
+<h3>2 &nbsp;N22: the polarized closed-form catalog</h3>
+<p>The polarized SZ system needs the \(\ell' = 2\) columns at \(s = 2\) and their round trips. All are now
+exact; e.g. (\(d\) symbolic):</p>
+\[
+  {}_2\Kk^{d,1}_{22}(-\beta) = \frac{5(\coth\eta - 1)\,\operatorname{csch}\eta}{2(d{+}1)d(d{-}1)(d{-}2)(d{-}3)}
+  \Big[3e^{-d\eta}(1{+}\coth\eta)^2(d{-}1{+}2\coth\eta)\;+\;e^{d\eta}\big(3{+}d{+}2(d{-}3)d^2
+  - 6(d{-}2)d\coth\eta + 9(d{-}1)\coth^2\eta - 6\coth^3\eta\big)\Big],
+\]
+<p>with the remaining columns (\(\ell = 2\ldots4\), \(m = 0,1,2\)) produced by the same two-line reduction
+(harness, Z1). Every polarized Doppler element then follows as a bracket product,
+\(T(s_1,s_2)^m_{\ell 2\ell''}(q) = \tfrac1\gamma\,{}_{s_1}\Kk^{-1-q,m}_{\ell 2}(+\beta)\,
+{}_{s_2}\Kk^{-q,m}_{2\ell''}(-\beta)\) — verified against quadrature for \(T(2,2), T(0,2), T(2,0)\) at
+\(m = 0,1,2\) (Z3), including the \(m\)-summed mixed diagonals of [RC26, Eq. 20] (Z4). The polarized sector
+now has the same status as the scalar one: <strong>seeds → recursions → closed forms → exact thermal
+averages</strong>, with nothing left as a series.</p>
+<p><strong>Data product:</strong> the exact \(\mathcal O(p^6)\) series of all polarized system elements
+(\(T(2,2), T(0,2), T(2,0)\); \(\ell,\ell'' \le 4\); \(m = 0,1,2\); coefficients exact \(q\)-polynomials):
+<a href="../data/polarized_tables_p6.json"><code>data/polarized_tables_p6.json</code></a>.</p>
+
+<h3>3 &nbsp;N23: general-\(m\) closed forms — the \(J\)-calculus is universal</h3>
+<p>The open structural question (does the \(J\)-family survive at \(m \ge 1\), or do the closed forms become
+genuinely hypergeometric?) is settled by the same lemma: at \(s = 0\) the prefactor is
+\((1-\beta^2)^{|m|/2} = \gamma^{-|m|}\) — rational — so <strong>the general-\(m\) elements are \(J\)-family
+closed forms with an extra \(\gamma^{-|m|}\), no new transcendents</strong>. For example:</p>
+\[
+  {}_0\Kk^{d,1}_{11}(-\beta) \;=\; \frac{3}{2p^3\,(d-1)(d-2)}\Big[\gamma p\,E_d \;-\; \big(1 + d\,p^2\big)\,J_d\Big],
+  \qquad E_d = 2\cosh d\eta,\quad J_d = \frac{2\sinh d\eta}{d},
+\]
+<p>(so the \(m=1\) elements mix \(J\) and \(E\) at weight \(d\) itself — one \(\gamma^{-|m|}\)-type factor and
+no new functions).</p>
+<p>Two structural remarks. <em>(i)</em> This is the closed-form face of the exchange symmetry
+(<a href="eq20-proof.html">N19</a>): \({}_0\Kk^{d,m} = {}_m\Kk^{d,0}\), so a general-\(m\) scalar element
+<em>is</em> a spin-\(m\) element at \(m=0\), and both sit in the same \(J\)-class. <em>(ii)</em> The \(m\)-seeds'
+\({}_2F_1\) forms (B11/N7) are therefore \(J\)-reducible at integer arguments — the hypergeometric structure is
+only apparent at generic complex indices.</p>
+
+<p><span class="badge pass">verified:
+<a href="../verification/30_spin_m_closed_forms.html"><code>30_spin_m_closed_forms.wl</code></a> —
+Z1/Z2 reduction vs quadrature (s = 2 and m ≥ 1), Z3 polarized elements, Z4 m-summed Eq.-20 objects,
+Z5 data export with series spot check</span></p>
+
+<footer><p><a href="../index.html">The Doppler Operator Project</a></p></footer>
+</main>
+</body>
+</html>

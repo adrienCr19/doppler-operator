@@ -1,0 +1,12 @@
+Z1  s=2 kernel columns: J-reduction == quadrature (l=2..4, m=0..2): PASS  (max dev = ScientificForm[0., 3])
+Z2  s=0, m=1,2 scalar columns: J-reduction == quadrature: PASS  (max dev = ScientificForm[2.6246172406653304*^-24, 3])
+Z3a sign pairing pinned: closed-form b -> -1 b matches quadrature
+Z3  polarized Doppler elements: closed == quadrature (T(2,2),T(0,2),T(2,0)): PASS  (max dev = ScientificForm[0., 3])
+Z4  m-summed mixed diagonal from closed forms: PASS  (max dev = ScientificForm[0., 3])
+-- representative closed forms (d symbolic; presented via eta with b = tanh eta) --
+2K^{d,1}_{22}: (5*(-1 + Coth[et])*((3*(1 + Coth[et])^2*(-1 + d + 2*Coth[et]))/E^(d*et) + E^(d*et)*(3 + d + 2*(-3 + d)*d^2 - 6*(-2 + d)*d*Coth[et] + 9*(-1 + d)*Coth[et]^2 - 6*Coth[et]^3))*Csch[et])/(2*(-3 + d)*(-2 + d)*(-1 + d)*d*(1 + d))
+0K^{d,1}_{11}: (3*Cosh[d*et]*Coth[et]*Csch[et])/(2 - 3*d + d^2) - (3*Csch[et]*(d + Csch[et]^2)*Sinh[d*et])/((-2 + d)*(-1 + d)*d)
+Z5a sample: T(2,2)^0_{222}(q) = 1 + (pp^2*(-10 + 3*q + q^2))/7 + (4*pp^4*(180 - 84*q - 19*q^2 + 6*q^3 + q^4))/441 + O(p^6)
+Z5b series spot check at p=0.1: dev = ScientificForm[1.1973336647690465*^-6, 2]  (expect ~p^6 = 1e-6)
+Z5  exported data/polarized_tables_p6.json with 81 elements
+--- spin/m closed-forms harness done ---
