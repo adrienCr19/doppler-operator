@@ -1,0 +1,30 @@
+PB1  resolution T(2,2)^0_{222} sinh^10(eta) cosh(eta) = Sum [cc_j cosh + cs_j sinh](a_j eta):  8 orders a_j
+      a_j = 1:   cc_j = (-225*(72 + 24*q + 17*q^2 + 6*q^3 + q^4))/(16*(-1 + q)*q^2*(1 + q)^2*(2 + q)^2*(3 + q)^2*(4 + q))   cs_j = 0
+      a_j = 3:   cc_j = (675*(6 + 3*q + q^2))/(32*(-1 + q)*q*(1 + q)^2*(2 + q)^2*(3 + q)*(4 + q))   cs_j = 0
+      a_j = 5:   cc_j = -225/(32*(-1 + q)*q*(1 + q)*(2 + q)*(3 + q)*(4 + q))   cs_j = 0
+      a_j = -1 + 2*q:   cc_j = 225/(32*q^2*(1 + q)^2*(-2 + q + q^2))   cs_j = 0
+      a_j = 1 + 2*q:   cc_j = (-225*(-3 + 4*q + 2*q^2))/(16*(-1 + q)*q^2*(1 + q)^2*(2 + q)^2*(3 + q))   cs_j = 0
+      a_j = 3 + 2*q:   cc_j = (675*(-3 + 3*q + q^2))/(16*(-1 + q)*q*(1 + q)^2*(2 + q)^2*(3 + q)*(4 + q))   cs_j = 0
+      a_j = 5 + 2*q:   cc_j = (-225*(3 + 8*q + 2*q^2))/(16*q*(1 + q)^2*(2 + q)^2*(3 + q)^2*(4 + q))   cs_j = 0
+      a_j = 7 + 2*q:   cc_j = 225/(32*(1 + q)*(2 + q)^2*(3 + q)^2*(4 + q))   cs_j = 0
+PB1  (0,2)^0: 11 orders;  (2,2)^1: 10;  (2,2)^2: 12  (full tables reproducible from this script)
+PB1c regularity: Sum_j [cc_j cosh + cs_j sinh](a_j eta) = O(eta^10)  (q = 1/2, all four channels): PASS  (max dev = ScientificForm[0., 3])
+
+                                                                                              -0.005393738904107329974589 + mu        -0.005393738904107329974589 + mu                                               3/2
+NIntegrate::precw: The precision of the argument function (0.149211014842554813126163969 (1 - ---------------------------------) (1 + ---------------------------------) (1 - mu) (1 - 0.005393738904107329974589 mu)    (1 + mu)) is less than WorkingPrecision (25.).
+                                                                                              1 - 0.005393738904107329974589 mu       1 - 0.005393738904107329974589 mu
+
+                                                                                                                                                         0.005393738904107329974589 + mu         0.005393738904107329974589 + mu
+NIntegrate::precw: The precision of the argument function (0.149208844372059749621042439 (1 - mu) Sqrt[1 + 0.005393738904107329974589 mu] (1 + mu) (1 - ---------------------------------) (1 + ---------------------------------)) is less than WorkingPrecision (25.).
+                                                                                                                                                        1 + 0.005393738904107329974589 mu       1 + 0.005393738904107329974589 mu
+
+                                                                                            -0.02788647549540788966206 + mu        -0.02788647549540788966206 + mu                                              3/2
+NIntegrate::precw: The precision of the argument function (0.1492948425840215228977215 (1 - --------------------------------) (1 + --------------------------------) (1 - mu) (1 - 0.02788647549540788966206 mu)    (1 + mu)) is less than WorkingPrecision (25.).
+                                                                                            1 - 0.02788647549540788966206 mu       1 - 0.02788647549540788966206 mu
+
+General::stop: Further output of NIntegrate::precw will be suppressed during this calculation.
+PB2  <T(2,2)^0_{222}>: F-class route == independent nested quadrature (10, 25 keV): PASS  (max dev = ScientificForm[9.69850057507723*^-10, 3])
+PB3a regularity of each m-resolution (q = 1/2): PASS  (max dev = ScientificForm[0., 3])
+PB3  m-summed mixed diagonal <Sum_m T(0,2)^m_{222}> (the polarized-SZ channel), both routes: PASS  (max dev = ScientificForm[5.530246257779075*^-9, 3])
+PB3  values at 10 keV: q=1/2: 4.78894463081705252283586708128615103846`12.,  q=-7/10: 4.49232007250630290002794857557463388295`12.
+--- polarized thermal harness done ---

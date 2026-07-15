@@ -78,6 +78,45 @@ averages</strong>, with nothing left as a series.</p>
 (\(T(2,2), T(0,2), T(2,0)\); \(\ell,\ell'' \le 4\); \(m = 0,1,2\); coefficients exact \(q\)-polynomials):
 <a href="../data/polarized_tables_p6.json"><code>data/polarized_tables_p6.json</code></a>.</p>
 
+<h3>2b &nbsp;Thermal averages of the polarized catalog</h3>
+<p>The closed forms average exactly, in the <em>existing</em> function class. Every polarized quadrupole-channel
+element resolves as (harness 33, symbolic)</p>
+\[
+  T(s_1,s_2)^m_{2,2,2}(q) \;=\; \frac{\sum_j \big[cc_j(q)\cosh(a_j\eta) + cs_j(q)\sinh(a_j\eta)\big]}
+  {\sinh^{10}\!\eta\,\cosh\eta},
+  \qquad a_j \in \{n,\ n\pm2q\},
+\]
+<p>with \(\sigma_{\rm pol} = 10\) — the same hyperbolic-rational family as the scalar catalog, two ladder rungs
+deeper than the scalar quadrupole channel, and one new feature: individual spin-weighted elements are not
+\(\beta\)-even (parity maps \(s\to-s\)), so \(\sinh\)-parts appear alongside \(\cosh\) (they vanish at
+\(m=0\)). Maxwell–Jüttner averaging therefore lands in the F/L-calculus of <a href="f-calculus.html">N11</a>
+at \(\mu = -4\):</p>
+\[
+  \big\langle T(s_1,s_2)^m\big\rangle \;=\; \frac{z}{K_2(z)}\sum_j\Big[cc_j\,F(-4,a_j,z) + cs_j\,L(-4,a_j,z)\Big],
+  \qquad z = \tfrac1{\theta_{\rm e}},
+\]
+<p>evaluated as one regularized quadrature exactly as in E1 (the combined sum vanishes to
+\(\mathcal O(\eta^{10})\), verified exactly, PB1c). The explicit channel data for \(T(2,2)^0_{222}\)
+(on \(\nu^q\); operator form via \(q\to-\Oh\), under which the orders \(a_j\) become
+\(\{1,3,5,\,1{\mp}2\Oh,\,3{-}2\Oh,\,5{-}2\Oh,\,7{-}2\Oh\}\) — the scalar \(\langle\Do_{02}\rangle\) pattern,
+with several of the same numerator polynomials recurring):</p>
+<div class="tablewrap"><table class="tbl">
+<tr><th>\(a_j\)</th><th>\(cc_j(q)\) &nbsp; (\(cs_j = 0\) at \(m=0\))</th></tr>
+<tr><td>\(1\)</td><td>\(-\dfrac{225\,(q^4+6q^3+17q^2+24q+72)}{16\,(q-1)\,q^2(q+1)^2(q+2)^2(q+3)^2(q+4)}\)</td></tr>
+<tr><td>\(3\)</td><td>\(\dfrac{675\,(q^2+3q+6)}{32\,(q-1)\,q\,(q+1)^2(q+2)^2(q+3)(q+4)}\)</td></tr>
+<tr><td>\(5\)</td><td>\(-\dfrac{225}{32\,(q-1)\,q\,(q+1)(q+2)(q+3)(q+4)}\)</td></tr>
+<tr><td>\(1-2q\)</td><td>\(\dfrac{225}{32\,q^2(q+1)^2(q+2)(q-1)}\)</td></tr>
+<tr><td>\(1+2q\)</td><td>\(-\dfrac{225\,(2q^2+4q-3)}{16\,(q-1)\,q^2(q+1)^2(q+2)^2(q+3)}\)</td></tr>
+<tr><td>\(3+2q\)</td><td>\(\dfrac{675\,(q^2+3q-3)}{16\,(q-1)\,q\,(q+1)^2(q+2)^2(q+3)(q+4)}\)</td></tr>
+<tr><td>\(5+2q\)</td><td>\(-\dfrac{225\,(2q^2+8q+3)}{16\,q\,(q+1)^2(q+2)^2(q+3)^2(q+4)}\)</td></tr>
+<tr><td>\(7+2q\)</td><td>\(\dfrac{225}{32\,(q+1)(q+2)^2(q+3)^2(q+4)}\)</td></tr>
+</table></div>
+<p>Verified end to end: the F/L-route thermal averages equal an <em>independent</em> nested quadrature (kernels
+only, no closed forms) at 10 and 25 keV for \(T(2,2)^0_{222}\) (PB2) and for the \(m\)-summed mixed diagonal
+\(\sum_m T(0,2)^m_{222}\) — the polarized-SZ channel of [RC26, Eq. 20] (PB3).
+<span class="badge pass"><a href="../verification/33_polarized_thermal.html"><code>33_polarized_thermal.wl</code></a>
+(PB1–PB3)</span></p>
+
 <h3>3 &nbsp;N23: general-\(m\) closed forms — the \(J\)-calculus is universal</h3>
 <p>The open structural question (does the \(J\)-family survive at \(m \ge 1\), or do the closed forms become
 genuinely hypergeometric?) is settled by the same lemma: at \(s = 0\) the prefactor is
