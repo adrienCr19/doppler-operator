@@ -74,10 +74,43 @@ cross-validate, the polarized analog of the scalar F11 check.</li>
 exact thermal averages</strong>, with every closed form derived by index relations of the (mixed-spin) Doppler
 operator itself and the direct \(J\)-reduction demoted to a cross-check.</p>
 
-<h3>3 &nbsp;Remarks</h3>
+<h3>3 &nbsp;The polarized middle-index relation (M\(_s\))</h3>
+<p>The remaining index. On the mixed-spin off-diagonal family
+\({}^{(j,k)}X(s_1,s_2)^m_{\ell;\,\ell_1',\ell_2';\,\ell''} = \tfrac1\gamma\,
+{}_{s_1}\Kk^{-1-j-q,m}_{\ell\ell_1'}(+\beta)\,{}_{s_2}\Kk^{-k-q,m}_{\ell_2'\ell''}(-\beta)\)
+(physical operator = diagonal slice), the two slot ingredients are the spin-weighted analogs of N10's:
+the leg-1 <em>column</em> recursion at \(+\beta\) (spin-weighted B10 conjugated with transposition P3; weight
+companion raised, \(j\to j-1\)) and the leg-2 <em>row</em> recursion at \(-\beta\) (P5 directly; weight
+companion lowered, \(k\to k+1\)) — each acquiring the \(sm\)-term of its own leg, verified separately
+(V1/V2, signs again both positive). Solving each for the \(\ell'\)-element and multiplying gives, with
+\(C_i \equiv {}_{s_i}C^m_{\ell'}\), \(C_i' \equiv {}_{s_i}C^m_{\ell'-1}\) and the \(sm\)-dressed
+\(\Gamma_i \equiv \gamma - \dfrac{s_i m\, p}{\ell'(\ell'-1)}\):</p>
+<div class="newbox">
+<div class="head"><span class="name">[M\(_s\)] polarized middle-index relation</span>
+<span class="badge new">new</span> <span class="badge pass">V3: exact to precision, all spin pairs, m = 0–2, β up to 0.7</span></div>
+\[
+  \begin{aligned}
+  {}^{(j,k)}T^m_{\ell,\ell',\ell''} \;=\;
+  &\;\frac{1}{C_1 C_2\,p^2}\Big[\Gamma_1\Gamma_2\,{}^{(j,k)}T - \Gamma_1\,{}^{(j,k+1)}T
+     - \Gamma_2\,{}^{(j-1,k)}T + {}^{(j-1,k+1)}T\Big]_{\ell,\ell'-1,\ell''} \\[3pt]
+  &+ \frac{C_2'}{C_1 C_2\,p}\Big[\Gamma_1\,{}^{(j,k)}X - {}^{(j-1,k)}X\Big]_{\ell;\,\ell'-1,\ell'-2;\,\ell''}
+   + \frac{C_1'}{C_1 C_2\,p}\Big[\Gamma_2\,{}^{(j,k)}X - {}^{(j,k+1)}X\Big]_{\ell;\,\ell'-2,\ell'-1;\,\ell''} \\[3pt]
+  &+ \frac{C_1' C_2'}{C_1 C_2}\,{}^{(j,k)}T_{\ell,\ell'-2,\ell''}\,.
+  \end{aligned}
+\]
+</div>
+<p>At \(s_1 = s_2 = 0\): \(\Gamma_i \to \gamma\), \(C_i \to C^m_{\ell'}\), and the scalar (M) of
+<a href="middle-index.html">N10</a> is recovered term for term. And a structural bonus: for spin-2 legs the
+coefficient \({}_2C^m_{\ell'-1}\) <strong>vanishes at \(\ell'-1 = 2\)</strong> (\(\ell^2 - s^2 = 0\) — the
+spin-weighted analog of \(C_0 = 0\)), so the first polarized middle step \(\ell' = 2 \to 3\) collapses: all
+three tail terms drop and \(T(2,2)^m_{\ell,3,\ell''}\) is generated from the lattice
+\(T^m_{\ell,2,\ell''}\)-family <em>alone</em>, no off-diagonal companions at all (V4). Off-diagonal \(X\)'s
+first enter at \(\ell' = 3 \to 4\), exactly as \(C_0 = 0\) delays them in the scalar climb.</p>
+
+<h3>4 &nbsp;Remarks</h3>
 <p><strong>(i)</strong> The physical polarized SZ system lives at fixed middle index \(\ell' = 2\) (Thomson),
-so the two outer ladders suffice for the whole catalog; a polarized middle-index relation would follow the
-scalar N10 pattern on the mixed-spin off-diagonal family, with \({}_sC^m\)-coefficients. <strong>(ii)</strong>
+so the two outer ladders suffice for its catalog; (M\(_s\)) completes the relation set for any phase
+function — every index of the mixed-spin operator now has its own verified raising relation. <strong>(ii)</strong>
 By the exchange symmetry (<a href="eq20-proof.html">N19</a>, \({}_s\Kk^{d,m} = {}_m\Kk^{d,s}\)), N5\(_s\) at
 azimuthal number \(m\) is simultaneously a general-\(m\) ladder at spin \(m\) — one relation covers both
 generalizations of N23. <strong>(iii)</strong> Reflection (polarized N1/P7–P8, harness 15) maps the two

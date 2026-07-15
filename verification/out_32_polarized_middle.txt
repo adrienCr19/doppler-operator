@@ -1,0 +1,6 @@
+V1  [A_s] column recursion at +beta (e1 = 1): PASS  (max dev = ScientificForm[2.303389013770744*^-23, 3])
+V2  [B_s] row recursion at -beta (e2 = 1): PASS  (max dev = ScientificForm[0., 3])
+V3a [M_s] vs quadrature: all spin pairs, m = 0..2, lp = 3,4 (b = 0.3): PASS  (max dev = ScientificForm[0., 3])
+V3b [M_s] at b = 0.7 (spin-2 pair): PASS  (max dev = ScientificForm[0., 3])
+V4  spin-2 collapse: T(2,2)^m_{2,3,2} from the T^m_{2,2,2} lattice family alone: PASS  (max dev = ScientificForm[0., 3])
+--- polarized middle-index harness done ---
