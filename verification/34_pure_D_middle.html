@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>34_pure_D_middle.wl — N25: raising every index with Doppler operators only</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>34_pure_D_middle.wl</code></h2>
+<p>N25 — fully explicit <strong>pure-Doppler-operator</strong> recurrences for raising every index, with the
+shared middle index \(\ell'\) as the centrepiece. Every object in every relation is a physical Doppler
+operator \(\Do_{\ell\ell'\ell''}(q)\) (at possibly shifted \(q\)); no kernels, bracket \(F\), or
+extended family \(X\) appear except inside the independent reference used to check. Run with
+<code>wolframscript -file 34_pure_D_middle.wl</code> (Wolfram 14+/15). See the proof page
+<a href="../proofs/pure-d-index.html">N25</a>.
+Download: <a href="34_pure_D_middle.wl" download>34_pure_D_middle.wl</a> &middot; recorded output below (also
+<a href="out_34_pure_D_middle.txt">out_34_pure_D_middle.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 34_pure_D_middle.wl — FULLY EXPLICIT pure-Doppler-operator recurrences for raising every index,
+   with the middle index l&#x27; as the centerpiece. Every object appearing in every relation is a
+   physical Doppler operator D_{l l&#x27; l&#x27;&#x27;}(q) (possibly at a shifted spectral index q). NO kernels,
+   NO bracket F, NO extended family X anywhere except in Ddir, which is the independent reference
+   used only to check the pure-D relations. On nu^q, m=0. *)
+
+prec = 40;
+nintg[f_] := NIntegrate[f, {mu, -1, 1}, WorkingPrecision -&gt; prec, PrecisionGoal -&gt; 20, MaxRecursion -&gt; 24];
+Ybar[l_, x_] := Sqrt[(2 l + 1)/(4 Pi)] LegendreP[l, x];
+ga[b_] := 1/Sqrt[1 - b^2];
+KmRaw[d_?NumericQ, l_, lp_, b_] := Module[{gg = ga[b]},
+   2 Pi nintg[Ybar[l, mu] Ybar[lp, (mu + b)/(1 + b mu)]/(gg (1 + b mu))^d]];
+Km[d_?NumericQ, l_, lp_, b_] /; l &lt; 0 || lp &lt; 0 := 0;
+Km[d_?NumericQ, l_, lp_, b_] := Km[d, l, lp, b] = KmRaw[d, l, lp, b];
+Kp[d_?NumericQ, l_, lp_, b_] := Km[d, l, lp, -b];
+CC[l_] := If[l &lt;= 0, 0, Sqrt[l^2/(4 l^2 - 1)]];
+report[name_, dev_, tol_: 10^-14] := Print[name, &quot;: &quot;,
+   If[TrueQ[N[dev] &lt; tol], &quot;PASS&quot;, &quot;FAIL&quot;], &quot;  (dev = &quot;, ToString[N[dev], InputForm], &quot;)&quot;];
+
+bb = 3/10; g = ga[bb]; p = ga[bb] bb;
+JJ[w_] := If[w == 0, 2 ArcTanh[bb], ((g + p)^w - (g - p)^w)/w];
+
+(* ---- independent reference (built from kernels): used ONLY to check ---- *)
+Ddir[l_, lp_, ldd_, q_] := (1/g) Kp[-1 - q, l, lp, bb] Km[-q, lp, ldd, bb];
+(* the seed closed form (allowed base case) *)
+D000[q_] := JJ[2 + q] JJ[1 + q]/(4 g p^2);
+report[&quot;SEED  D000 closed form vs direct&quot;, Abs[D000[1/2] - Ddir[0, 0, 0, 1/2]]];
+
+(* =====================================================================
+   OUTER INDEX (axis) — pure-D three-term ladders P0.  Raise l along the
+   l&#x27;&#x27;=l&#x27;=0 axis; and the mirror along l.  Every term a physical D.
+   ===================================================================== *)
+ClearAll[Da00, D00b];
+Da00[0, q_] := D000[q];  Da00[a_, q_] /; a &lt; 0 := 0;
+Da00[a_, q_] := Da00[a, q] =
+   (1/CC[a]) ((g/p) Da00[a - 1, q] - (1/p) (JJ[1 + q]/JJ[2 + q]) Da00[a - 1, q + 1] - CC[a - 1] Da00[a - 2, q]);
+D00b[0, q_] := D000[q];  D00b[b_, q_] /; b &lt; 0 := 0;
+D00b[b_, q_] := D00b[b, q] =
+   (1/CC[b]) ((g/p) D00b[b - 1, q] - (1/p) (JJ[2 + q]/JJ[1 + q]) D00b[b - 1, q - 1] - CC[b - 1] D00b[b - 2, q]);
+report[&quot;P0a   axis ladder D_{a00} from D000 (a&lt;=5, q in {1/2,-7/10})&quot;,
+   Max@Table[Abs[Da00[a, q] - Ddir[a, 0, 0, q]], {a, 1, 5}, {q, {1/2, -7/10}}]];
+report[&quot;P0b   axis ladder D_{00b} from D000 (b&lt;=5, q in {1/2,-7/10})&quot;,
+   Max@Table[Abs[D00b[b, q] - Ddir[0, 0, b, q]], {b, 1, 5}, {q, {1/2, -7/10}}]];
+
+(* =====================================================================
+   MIDDLE INDEX l&#x27;  —  THE CENTREPIECE.  Fully explicit pure-D border step:
+
+   C_{lp+1} D_{h,lp+1,0}(q)
+     = (D_{lp+1,00}(q-1)/p) [ g D_{h,lp,0}(q)/D_{lp,00}(q-1)
+                              - (J_{q-1}/J_q) D_{h,lp,0}(q-1)/D_{lp-1... }... ]
+   (see box below for the exact statement).  Inputs: border elements one and two
+   middle-levels down (at q and q-1) and the axis elements D_{*,0,0} (from P0). *)
+Dax[a_, q_] := If[a == 0, D000[q], Da00[a, q]];   (* axis element, pure-D via P0 *)
+
+(* P3 middle-index raise, border l&#x27;&#x27;=0, general outer h.  Pure D only. *)
+midP3[h_, lp_, q_] :=
+  (1/CC[lp + 1]) (
+     (Dax[lp + 1, q - 1]/p) (
+         g  DborderRef[h, lp, q]/Dax[lp, q - 1]
+       - (JJ[q - 1]/JJ[q]) DborderRef[h, lp, q - 1]/Dax[lp, q - 2] )
+     - If[lp &gt;= 1, CC[lp] (Dax[lp + 1, q - 1]/Dax[lp - 1, q - 1]) DborderRef[h, lp - 1, q], 0] );
+
+(* To test the RELATION in isolation, feed it the true lower border elements: *)
+DborderRef[h_, lp_, q_] := Ddir[h, lp, 0, q];
+report[&quot;P3rel middle border step vs direct (h&lt;=3, lp=0..3, q in {1/2,-7/10})&quot;,
+   Max@Table[Abs[midP3[h, lp, q] - Ddir[h, lp + 1, 0, q]],
+             {h, 0, 3}, {lp, 0, 3}, {q, {1/2, -7/10}}]];
+
+(* =====================================================================
+   N1 reflection: supplies the OTHER border D_{0 l&#x27; l} from the first.
+   D_{l l&#x27; l&#x27;&#x27;}(q) = D_{l&#x27;&#x27; l&#x27; l}(-3 - q).
+   ===================================================================== *)
+report[&quot;N1    reflection D_{h l&#x27; 0}(q) = D_{0 l&#x27; h}(-3-q)&quot;,
+   Max@Table[Abs[Ddir[h, lp, 0, q] - Ddir[0, lp, h, -3 - q]],
+             {h, 0, 3}, {lp, 0, 3}, {q, {1/2, -7/10}}]];
+
+(* =====================================================================
+   P2 rank-one filling: any fixed-l&#x27; plane from its two borders.
+   D_{h l&#x27; l}(q) = D_{h l&#x27; 0}(q) D_{0 l&#x27; l}(q) / D_{0 l&#x27; 0}(q).
+   ===================================================================== *)
+Dfill[h_, lp_, l_, q_] := Ddir[h, lp, 0, q] Ddir[0, lp, l, q]/Ddir[0, lp, 0, q];
+report[&quot;P2    rank-one D_{h l&#x27; l} from borders (h,l&lt;=3, lp=0..3)&quot;,
+   Max@Table[Abs[Dfill[h, lp, l, 1/2] - Ddir[h, lp, l, 1/2]],
+             {h, 0, 3}, {lp, 0, 3}, {l, 0, 3}]];
+
+(* =====================================================================
+   END-TO-END: generate a deep interior element D_{2,3,2} from the SEED D000
+   using ONLY pure-D relations:  P0 (axes)  -&gt;  P3 (raise middle on border, self
+   feeding: each level built from the previous pure-D level)  -&gt;  N1 (2nd border)
+   -&gt;  P2 (fill).  No kernels anywhere in the generation path.
+   ===================================================================== *)
+ClearAll[Dgen];               (* Dgen = the pure-D self-consistent border tower D_{h,l&#x27;,0} *)
+Dgen[h_, 0, q_] := Dax[h, q];                      (* middle 0  = axis (P0) *)
+Dgen[h_, lp_, q_] /; lp &lt; 0 := 0;
+Dgen[h_, lp_, q_] := Dgen[h, lp, q] =
+  (1/CC[lp]) (
+     (Dax[lp, q - 1]/p) (
+         g  Dgen[h, lp - 1, q]/Dax[lp - 1, q - 1]
+       - (JJ[q - 1]/JJ[q]) Dgen[h, lp - 1, q - 1]/Dax[lp - 1, q - 2] )
+     - If[lp &gt;= 2, CC[lp - 1] (Dax[lp, q - 1]/Dax[lp - 2, q - 1]) Dgen[h, lp - 2, q], 0] );
+(* border tower self-consistency (feeds its own output back in) *)
+report[&quot;GENb  self-fed border tower D_{h l&#x27; 0} (h&lt;=3, l&#x27;&lt;=4)&quot;,
+   Max@Table[Abs[Dgen[h, lp, 1/2] - Ddir[h, lp, 0, 1/2]], {h, 0, 3}, {lp, 0, 4}]];
+
+(* second border via N1, then P2 fill — the full pure-D pipeline *)
+DgenFill[h_, lp_, l_, q_] := Dgen[h, lp, q] Dgen[l, lp, -3 - q]/Dgen[0, lp, q];
+report[&quot;GEND  END-TO-END D_{2,3,2}(1/2) from D000 (P0-&gt;P3-&gt;N1-&gt;P2, no kernels)&quot;,
+   Abs[DgenFill[2, 3, 2, 1/2] - Ddir[2, 3, 2, 1/2]]];
+report[&quot;GEND2 END-TO-END D_{3,2,1}(-7/10) from D000&quot;,
+   Abs[DgenFill[3, 2, 1, -7/10] - Ddir[3, 2, 1, -7/10]]];
+
+Print[&quot;--- pure-D middle-index harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>SEED  D000 closed form vs direct: PASS  (dev = 7.43004428139241*^-40)
+P0a   axis ladder D_{a00} from D000 (a&lt;=5, q in {1/2,-7/10}): PASS  (dev = 1.622950370401332*^-38)
+P0b   axis ladder D_{00b} from D000 (b&lt;=5, q in {1/2,-7/10}): PASS  (dev = 3.567750605464434*^-37)
+P3rel middle border step vs direct (h&lt;=3, lp=0..3, q in {1/2,-7/10}): PASS  (dev = 1.25973031498144*^-37)
+N1    reflection D_{h l&#x27; 0}(q) = D_{0 l&#x27; h}(-3-q): PASS  (dev = 2.19194782560934*^-36)
+P2    rank-one D_{h l&#x27; l} from borders (h,l&lt;=3, lp=0..3): PASS  (dev = 0.)
+GENb  self-fed border tower D_{h l&#x27; 0} (h&lt;=3, l&#x27;&lt;=4): PASS  (dev = 1.4454291819649027*^-38)
+GEND  END-TO-END D_{2,3,2}(1/2) from D000 (P0-&gt;P3-&gt;N1-&gt;P2, no kernels): PASS  (dev = 0.)
+GEND2 END-TO-END D_{3,2,1}(-7/10) from D000: PASS  (dev = 0.)
+--- pure-D middle-index harness done ---
+</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification</p></footer>
+</main></body></html>

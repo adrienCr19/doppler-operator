@@ -1,0 +1,10 @@
+SEED  D000 closed form vs direct: PASS  (dev = 7.43004428139241*^-40)
+P0a   axis ladder D_{a00} from D000 (a<=5, q in {1/2,-7/10}): PASS  (dev = 1.622950370401332*^-38)
+P0b   axis ladder D_{00b} from D000 (b<=5, q in {1/2,-7/10}): PASS  (dev = 3.567750605464434*^-37)
+P3rel middle border step vs direct (h<=3, lp=0..3, q in {1/2,-7/10}): PASS  (dev = 1.25973031498144*^-37)
+N1    reflection D_{h l' 0}(q) = D_{0 l' h}(-3-q): PASS  (dev = 2.19194782560934*^-36)
+P2    rank-one D_{h l' l} from borders (h,l<=3, lp=0..3): PASS  (dev = 0.)
+GENb  self-fed border tower D_{h l' 0} (h<=3, l'<=4): PASS  (dev = 1.4454291819649027*^-38)
+GEND  END-TO-END D_{2,3,2}(1/2) from D000 (P0->P3->N1->P2, no kernels): PASS  (dev = 0.)
+GEND2 END-TO-END D_{3,2,1}(-7/10) from D000: PASS  (dev = 0.)
+--- pure-D middle-index harness done ---

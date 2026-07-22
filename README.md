@@ -27,6 +27,8 @@ structure the literature explicitly left as "a problem … for future work" (Ros
 | N20 | Compton dispersion: marginal mode = boosted comoving equilibrium; **exact flatness** `T(k) = W_k T(0) W_k⁻¹`; thermal gap |
 | N21 | frame-exact kinematic `C_k`: reproduces Nozawa's `C₁` symbolically, proves the `τ/τ*` shift `= +D̂_ν`, new `C₂, C₃` |
 | N22/N23 | **rationalization lemma**: every kernel element (any spin, any m) is a finite J-combination; polarized catalog |
+| N24 | polarized ladders: spin-weighted N5/N6 and the middle-index relation `M_s` on the mixed-spin family |
+| N25 | **raising every index with Doppler operators only**: pure-`D` middle-index step (P3) via the factor dictionary, plus axis ladders (P0), reflection (N1), rank-one fill (P2) — no kernels, brackets, or extended `X` family |
 | E1 | the exact thermal SZ operator assembled in closed form (elementary + Bessel + one transcendent with full calculus) |
 
 ## Contents
@@ -34,7 +36,7 @@ structure the literature explicitly left as "a problem … for future work" (Ros
 - `index.html` — the catalog (§1 boost operator with citations, §2 Doppler operator, §3 core recursions,
   §4 structure theory, §5 sectors & applications, §6 tables, §7 verification).
 - `proofs/` — one self-contained proof page per result (see site navigation).
-- `verification/` — 30 Wolfram-language harnesses + saved PASS logs (`out_*.txt`) + browsable per-script pages.
+- `verification/` — 34 Wolfram-language harnesses + saved PASS logs (`out_*.txt`) + browsable per-script pages.
 - `data/` — machine-readable exact tables:
   `doppler_tables_p8.json` (501 scalar elements, O(p⁸), exact q-polynomial coefficients) and
   `polarized_tables_p6.json` (81 polarized elements T(2,2), T(0,2), T(2,0), m = 0…2, O(p⁶)).
