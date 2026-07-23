@@ -1,0 +1,5 @@
+N1  reflection (via transposition): 0  -> VALID (LHS = RHS algebraically)
+P2  rank-one fill (cancellation): 0  -> VALID (LHS = RHS algebraically)
+P0  outer axis ladder (-> master recursion KR+): 0  -> VALID (LHS = RHS algebraically)
+P3  middle step (-> column recursion A): 0  -> VALID (LHS = RHS algebraically)
+--- identity-reduction harness done ---
