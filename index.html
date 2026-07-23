@@ -362,8 +362,8 @@ the observed \(\Dv\)-structure. Both are supplied below.
 <p>The heart of the project: the relations that generate higher Doppler-operator indices from lower ones, and
 the symmetries that constrain them. Every result links to a complete derivation and was verified numerically at
 the \(10^{-27}\) level (exact identities) or against finite differences (ODEs); see
-<a href="#verification">Section&nbsp;7</a>. Labels N1–N16 are stable identifiers (order of discovery) and are
-grouped here by role, not by number.</p>
+<a href="#verification">Section&nbsp;7</a>. Labels (N1, N2, …, N25) are stable identifiers (order of discovery)
+and are grouped here by role, not by number.</p>
 
 <div class="newbox" style="border-width:2px">
   <div class="head"><span class="name">★ Generating Doppler operators from Doppler operators — read this first</span>
@@ -375,8 +375,10 @@ grouped here by role, not by number.</p>
   \(\Do_{h\ell'l} = \Do_{h\ell'0}\Do_{0\ell'l}/\Do_{0\ell'0}\) (P2), the middle-index step (P3), and reflection
   (N1) — builds any \(\Do_{hkl}\) with every intermediate a physical \(\Do\) (verified end-to-end:
   \(\Do_{303}\) from \(\Do_{000}\)). <strong>Series:</strong> the rapidity ODE (N3) integrates the Taylor
-  tables from the \(\delta\)-seed. <strong>Per-index moves:</strong> N5/N6 (outer), N10/P3 (middle). See the
-  <a href="proofs/unified.html">generation guide</a>.</p>
+  tables from the \(\delta\)-seed. <strong>Per-index moves — pure \(\Do\), explicit:</strong> the outer axis
+  ladders (P0) and the middle-index step (P3) are stated in closed form in
+  <a href="proofs/pure-d-index.html">N25</a>; the linear alternatives that use auxiliary companions are
+  N5/N6 (outer) and N10 (middle). See the <a href="proofs/unified.html">generation guide</a>.</p>
 </div>
 
 <div class="newbox">
@@ -515,8 +517,9 @@ grouped here by role, not by number.</p>
   (the Doppler operator is the diagonal slice \(\ell_1' = \ell_2'\)). The relation (M) expresses
   \(\Do_{\ell,\ell',\ell''}\) through elements at \(\ell'-1, \ell'-2\) on the weight lattice plus the two
   cross companions \(X_{\ell'-1,\ell'-2}, X_{\ell'-2,\ell'-1}\); it is closed-form-preserving and, applied at
-  \(\ell' = 2\), reproduces the N8 closed form of \(\Do_{020}\) exactly. Together with N5/N6 every index of
-  the Doppler operator is now recursively reachable from the \(\Do_{000}\) base case at the operator level.</p>
+  \(\ell' = 2\), reproduces the N8 closed form of \(\Do_{020}\) exactly. This is the <em>linear</em>
+  \(\ell'\)-relation; the companion-free version — no \(X\) at all, every term a physical \(\Do\) — is
+  <a href="proofs/pure-d-index.html">N25</a> below.</p>
 </div>
 
 <div class="newbox">
@@ -538,7 +541,10 @@ grouped here by role, not by number.</p>
   \]
   <p>together with the outer axis ladders (P0), reflection (N1) and rank-one filling (P2). The scheme generates any
   \(\Do_{h\ell'l}(q)\) from the seed \(\Do_{000}\) with no auxiliary object at any step (deep targets \(\Do_{232}\),
-  \(\Do_{321}\) reproduced exactly). This is the self-contained, \(\Do\)-only answer to the middle-index problem.</p>
+  \(\Do_{321}\) reproduced exactly). As a closed-form check the scheme rederives \(\Do_{020}\) and \(\Do_{121}\),
+  proved <em>identical</em> to the N8 (Eq.&nbsp;1.3) and N16 boxed forms as exact symbolic identities
+  (<a href="verification/35_rederive_closed_forms.html">harness 35</a>). This is the self-contained,
+  \(\Do\)-only answer to the middle-index problem.</p>
 </div>
 
 <div class="newbox">
@@ -560,7 +566,8 @@ grouped here by role, not by number.</p>
   <p>With the universal functions \(J_w = \frac{(\gamma+p)^w - (\gamma-p)^w}{w} = \frac{2\sinh(w\eta)}{w}\)
   (so the base case is \(\Do_{000} = \frac{J_{2-\Oh}J_{1-\Oh}}{4\gamma p^2}\), equivalent to [CR26, Eq.&nbsp;10a]),
   climbing the site's own index-raising relations from the seed — N6 then N5 for the outer indices (weight
-  lattice), N10&nbsp;(M) for the middle index — yields <em>all-\(\beta\)</em> closed forms for every element, e.g.</p>
+  lattice), N10&nbsp;(M) or the companion-free <a href="proofs/pure-d-index.html">N25</a> for the middle index —
+  yields <em>all-\(\beta\)</em> closed forms for every element, e.g.</p>
   \[
     \Do^0_{101} = \frac{3}{4\gamma p^4}\Big(\gamma J_{2-\Oh} - J_{3-\Oh}\Big)\Big(\gamma J_{1-\Oh} - J_{\Oh}\Big),
   \]
@@ -1003,6 +1010,12 @@ closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via b
 <tr><td><code>verification/18_exact_tsz.wl</code></td>
 <td><strong>E1</strong>: the assembled exact \(\hat{\mathcal S}_{\rm th}\) — Bessel+F route vs Maxwell–Jüttner route at 25/50 keV, five \(q\) values (X1); exact-vs-tower error table incl. the asymptotic breakdown at 50 keV (X2)</td>
 <td>all PASS (X1 2×10⁻²¹)</td></tr>
+<tr><td><a href="verification/34_pure_D_middle.html"><code>verification/34_pure_D_middle.wl</code></a></td>
+<td><strong>N25</strong>: pure-\(\Do\) index raising — the middle-index step (P3) against the direct product, axis ladders (P0), reflection (N1), rank-one fill (P2), the self-fed border tower to \(\ell'=4\), and end-to-end \(\Do_{232}, \Do_{321}\) from \(\Do_{000}\) with no kernels formed</td>
+<td>all PASS (P3 1.3×10⁻³⁷; end-to-end exact)</td></tr>
+<tr><td><a href="verification/35_rederive_closed_forms.html"><code>verification/35_rederive_closed_forms.wl</code></a></td>
+<td><strong>N25 closed-form check</strong>: rederives \(\Do_{020}\) and \(\Do_{121}\) from the pure-\(\Do\) relations and proves them <em>identical</em> to the N8 (Eq. 1.3) and N16 boxed closed forms as exact symbolic identities, plus numeric agreement with direct quadrature at \(\beta\in\{0.3,0.7\}\)</td>
+<td>all PASS (symbolic zero; numeric ≤10⁻³⁸)</td></tr>
 <tr><td><a href="verification/05_export_tables.html"><code>verification/05_export_tables.wl</code></a></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
 <p>Every script is browsable with its full source and recorded PASS log at the
@@ -1017,7 +1030,7 @@ wolframscript -file 01_conventions.wl   # etc.</code></pre>
   paper: generation calculus, closed forms and their universality, structure theory (self-adjointness,
   \(SL(2,\mathbb C)\), the Eq.-20 proof, the flat Compton dispersion relation), and the applications
   (<a href="manuscript/paper.tex">LaTeX source</a>). &nbsp;·&nbsp;
-  <a href="doppler-operator-bundle.zip"><strong>Release bundle (zip)</strong></a> — all 30 verification
+  <a href="doppler-operator-bundle.zip"><strong>Release bundle (zip)</strong></a> — the verification
   harnesses with recorded logs, both exact data tables, the manuscript, and the README.</p>
 </div>
 

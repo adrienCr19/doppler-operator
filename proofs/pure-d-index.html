@@ -186,6 +186,20 @@ independent deep targets, built by (P0)→(P3)→(N1)→(P2) with no kernel form
   \Do_{2,3,2}\big(\tfrac12\big),\qquad \Do_{3,2,1}\big(-\tfrac{7}{10}\big)
   \qquad\text{— reproduced exactly (dev }=0\text{).}
 \]
+
+<h4>5.1 &nbsp;Closed forms recovered</h4>
+<p>Run symbolically (with \(q\) kept free), the same P0 → P3 → N1 → P2 pipeline returns the two hardest closed
+forms of the catalogue and matches the independently published expressions <em>identically</em>:</p>
+\[
+  \Do_{020}(q) \;=\; \frac{5}{16\gamma p^6}\,A(q)\,B(q),\qquad
+  \Do_{121}(q) \;=\; \frac{15}{16\gamma p^8}\,W(q)\,W(-3-q),
+\]
+<p>with \(A(q)=(3{+}2p^2)J_{2+q}-6\gamma J_{1+q}+3J_q\), \(B(q)=(3{+}2p^2)J_{1+q}-6\gamma J_{2+q}+3J_{3+q}\),
+and \(W(q)=3\gamma J_q-3(3{+}2p^2)J_{1+q}+\gamma(9{+}2p^2)J_{2+q}-(3{+}2p^2)J_{3+q}\). Here \(\Do_{020}=\Do_{020}\)
+is the border tower at \((h,\ell')=(0,2)\); \(\Do_{121}\) is the interior element assembled as
+\(\Do_{120}(q)\,\Do_{120}(-3-q)/\Do_{020}(q)\) (P3 border, N1 mirror, P2 fill). The difference from the published
+<a href="closed-forms.html">N8 Eq.&nbsp;(1.3)</a> and <a href="ksz-dipole.html">N16</a> forms reduces to \(0\) as an
+exact algebraic identity. <span class="badge pass">check S-D020, S-D121 (symbolic zero), harness 35</span></p>
 <p>The middle index, once the awkward spectator of N3/N5/N6 and the reason N10 needed the family \(X\), now has a
 self-contained \(\Do\)-only raising law. Combined with the outer ladders and the two fillers, the entire
 generation calculus closes on the physical Doppler operator alone.</p>
@@ -195,7 +209,10 @@ generation calculus closes on the physical Doppler operator alone.</p>
 SEED (seed = direct); P0a/P0b (axis ladders, \(\le5\) rungs, two \(q\)); P3rel (the boxed (P3) against the direct
 kernel product, \(h\le3,\ \ell'\le3\), two \(q\), 1.3×10⁻³⁷); N1 (reflection); P2 (rank-one, exact); GENb (the
 self-fed border tower \(\Do_{h\ell'0}\) to \(\ell'{=}4\)); GEND/GEND2 (end-to-end \(\Do_{232},\Do_{321}\) from
-\(\Do_{000}\), dev 0). All PASS.</p>
+\(\Do_{000}\), dev 0). All PASS.
+<a href="../verification/35_rederive_closed_forms.html"><code>verification/35_rederive_closed_forms.wl</code></a>:
+S-D020, S-D121 — the pipeline's \(\Do_{020}\) and \(\Do_{121}\) proved identical to the published closed forms as
+exact symbolic identities, plus numeric agreement with direct quadrature. All PASS.</p>
 
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
 </main>
