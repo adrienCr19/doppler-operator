@@ -16,38 +16,42 @@ window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]
 <a class="backlink" href="../index.html#recurrences">← back to main page</a>
 <h2>The exact recurrence relations of the Doppler operator</h2>
 <p class="note"><strong>Complete proofs, carried to conclusion, from the aberration kernel.</strong> This page is the
-core of the project. It states the exact index-raising relations of the Doppler operator and proves each one by
-descending to the object the Doppler operator is <em>built from</em> — the aberration kernel of the boost operator
-— establishing the kernel's own recurrences directly from its integral definition and the Legendre relation, and
-then doing every line of algebra needed to lift them back to the Doppler operator. Nothing is imported as a
-"known" fact: the seed, parity, transposition and the master \(\ell\)-raising recurrence are all derived here.
-Every identity is verified to machine zero in
-<a href="../verification/36_kernel_foundations.html"><code>36_kernel_foundations.wl</code></a>.</p>
+core of the project. <strong>Every central result below is a relation among the physical Doppler operators</strong>
+\(\Do_{\ell\ell'\ell''}(q)\) of the literature — no extended weight lattice, no off-diagonal family. The aberration
+kernel of the boost operator appears only <em>inside the proofs</em>, as the object \(\Do\) is defined from: we
+establish the kernel's own identities directly from its integral definition and then do every line of algebra to
+lift them back onto the Doppler operator, cancelling any auxiliary object before the result is stated. Everything
+is verified to machine zero in
+<a href="../verification/36_kernel_foundations.html"><code>36</code></a>,
+<a href="../verification/34_pure_D_middle.html"><code>34</code></a> and
+<a href="../verification/35_rederive_closed_forms.html"><code>35</code></a>.</p>
 
 <div class="newbox" style="border-width:2px">
-<div class="head"><span class="name">The four exact recurrences (summary)</span>
-<span class="badge new">central result</span> <span class="badge pass">all verified, dev = 0</span></div>
-<p>On power laws \(\nu^q\) the Doppler operator factorizes (§1). Writing \(C_\ell=\ell/\sqrt{4\ell^2-1}\),
-\(\gamma=\cosh\eta\), \(p=\sinh\eta\), and using the weight-lattice family
-\({}^{(j,k)}\Do\) (§1), the exact relations are:</p>
+<div class="head"><span class="name">The recurrence relations (physical Doppler operator only)</span>
+<span class="badge new">central result</span> <span class="badge pass">verified, dev = 0</span></div>
+<p>With \(C_\ell=\ell/\sqrt{4\ell^2-1}\), \(\gamma=\cosh\eta\), \(p=\sinh\eta\),
+\(J_w=\frac{(\gamma+p)^w-(\gamma-p)^w}{w}=\frac{2\sinh(w\eta)}{w}\), and the seed
+\(\Do_{000}(q)=\frac{J_{2+q}J_{1+q}}{4\gamma p^2}\), the whole catalogue is generated from \(\Do_{000}\) by these
+four relations — each term a physical \(\Do\):</p>
 \[
-  \textbf{(N5) outgoing }\ell:\quad
-  {}^{(j,k)}\Do_{\ell\ell'\ell''} = \tfrac{1}{C_\ell p}\big[\gamma\,{}^{(j,k)}\Do_{\ell-1,\ell'\ell''} - {}^{(j+1,k)}\Do_{\ell-1,\ell'\ell''}\big] - \tfrac{C_{\ell-1}}{C_\ell}\,{}^{(j,k)}\Do_{\ell-2,\ell'\ell''},
+  \textbf{(P0) raise an outer index (on the axis):}\quad
+  C_a\,\Do_{a00}(q) = \frac\gamma p\Do_{a-1,00}(q) - \frac1p\,\frac{J_{1+q}}{J_{2+q}}\,\Do_{a-1,00}(q{+}1) - C_{a-1}\Do_{a-2,00}(q),
 \]
 \[
-  \textbf{(N6) incoming }\ell'':\quad
-  {}^{(j,k)}\Do_{\ell\ell'\ell''} = \tfrac{1}{C_{\ell''} p}\big[\gamma\,{}^{(j,k)}\Do_{\ell\ell',\ell''-1} - {}^{(j,k-1)}\Do_{\ell\ell',\ell''-1}\big] - \tfrac{C_{\ell''-1}}{C_{\ell''}}\,{}^{(j,k)}\Do_{\ell\ell',\ell''-2},
+  \textbf{(P3) raise the middle index:}\quad
+  C_{\ell'+1}\Do_{h,\ell'+1,0}(q) = \frac{\Do_{\ell'+1,00}(q{-}1)}{p}\Big[\gamma\tfrac{\Do_{h\ell'0}(q)}{\Do_{\ell'00}(q{-}1)} - \tfrac{J_{q-1}}{J_q}\tfrac{\Do_{h\ell'0}(q{-}1)}{\Do_{\ell'00}(q{-}2)}\Big] - C_{\ell'}\tfrac{\Do_{\ell'+1,00}(q{-}1)}{\Do_{\ell'-1,00}(q{-}1)}\Do_{h,\ell'-1,0}(q),
 \]
 \[
-  \textbf{(N10) middle }\ell':\quad\text{a shared-index step — closes on the extended family (linear, §4.2) or purely on }\Do\text{ (nonlinear, §4.3)},
+  \textbf{(N1) reflection:}\quad \Do_{h\ell'l}(q)=\Do_{l\ell'h}(-3-q),
+  \qquad
+  \textbf{(P2) rank-one fill:}\quad \Do_{h\ell'l}(q)=\frac{\Do_{h\ell'0}(q)\,\Do_{0\ell'l}(q)}{\Do_{0\ell'0}(q)}.
 \]
-\[
-  \textbf{(N25) pure-}\Do:\quad\text{the axis ladder (P0), middle step (P3), reflection (N1) and rank-one fill (P2) — no companions (§5).}
-\]
-<p>N5 and N6 raise the two <em>private</em> outer indices; each pays one weight-lattice companion. The
-<em>shared</em> middle index \(\ell'\) is the hard one and is treated in full in §4. The roadmap: §1 the two objects
-and the reduction; §2 the four kernel identities, each proved from the integral; §3 the outer recurrences; §4 the
-middle index; §5 the pure-\(\Do\) closure.</p>
+<p><strong>Recipe.</strong> P0 climbs the two outer axes from \(\Do_{000}\); P3 climbs the middle index up each
+\(\ell''{=}0\) column to the border \(\Do_{h\ell'0}\); N1 turns those into the \(\ell{=}0\) border; P2 fills the
+interior. Every intermediate is a physical Doppler operator. For the \(p\)-series there is also the rapidity ODE
+(<a href="ode.html">N3</a>), which likewise closes on physical operators at fixed \(\ell'\).</p>
+<p>The rest of this page proves each of these from the aberration kernel: §1 the reduction; §2 the four kernel
+identities; §3 the derivation of P0; §4 of P3; §5 of N1 and P2.</p>
 </div>
 
 <h3 id="objects">1 &nbsp;The two objects and the reduction</h3>
@@ -58,53 +62,48 @@ element (\(\bar Y_\ell(\mu)=\sqrt{(2\ell+1)/4\pi}\,P_\ell(\mu)\)):</p>
   \qquad \mu' = \frac{\mu+\beta}{1+\beta\mu},
   \tag{1.1}
 \]
-<p>and \({}^{d}\Kk_{\ell\ell'}(+\beta)\) is the same with \(\beta\to-\beta\) (aberration \((\mu-\beta)/(1-\beta\mu)\),
-weight \([\gamma(1-\beta\mu)]^{-d}\)). The <strong>Doppler operator</strong> is the physically assembled round trip
+<p>and \({}^{d}\Kk_{\ell\ell'}(+\beta)\) is the same with \(\beta\to-\beta\). The <strong>Doppler operator</strong>
+is the physically assembled round trip
 \(\Do^m_{\ell\ell'\ell''}=\gamma^{-1}\,{}^{-1}\Bo^m_{\ell\ell'}(\nu,-\beta)\,{}^{0}\Bo^m_{\ell'\ell''}(\nu,\beta)\);
 on \(\nu^q\) the boost operators reduce to kernels (<a href="power-law-reduction.html">Lemma&nbsp;L1</a>:
-\(\Oh\to-q\)), giving the product that drives everything below — together with the <em>weight lattice</em>
-\((j,k)\) that the recurrences move on:</p>
+\(\Oh\to-q\)), giving the product that everything below rests on:</p>
 \[
-  {}^{(j,k)}\Do_{\ell\ell'\ell''}(q) \;=\; \frac{1}{\gamma}\;{}^{-1-j-q}\Kk_{\ell\ell'}(+\beta)\;{}^{-k-q}\Kk_{\ell'\ell''}(-\beta),
-  \qquad \Do = {}^{(0,0)}\Do .
+  \Do_{\ell\ell'\ell''}(q) \;=\; \frac{1}{\gamma}\;{}^{-1-q}\Kk_{\ell\ell'}(+\beta)\;{}^{-q}\Kk_{\ell'\ell''}(-\beta).
   \tag{1.2}
 \]
 <p>The outgoing index \(\ell\) is the <em>row</em> of factor&nbsp;1; the incoming index \(\ell''\) is the
 <em>column</em> of factor&nbsp;2; the scattering index \(\ell'\) is <em>shared</em> — the column of factor&nbsp;1 and
-the row of factor&nbsp;2. That structure is the whole story: private indices give clean one-sided recursions
-(§3), the shared index does not (§4).</p>
+the row of factor&nbsp;2. Factor&nbsp;2 on the axis is the seed alone,
+\({}^{-q}\Kk_{00}(-\beta)=J_{1+q}/2p\) (§2.1), which is exactly what lets the outer ladder close on physical
+operators (§3). The single spectral shift \(q\to q\pm1\) that appears in P0/P3 keeps every object a physical
+Doppler operator.</p>
 
 <h3 id="kernel">2 &nbsp;The four kernel identities, proved from the integral</h3>
 <p>Two elementary aberration facts, used repeatedly. From \(\mu'=(\mu+\beta)/(1+\beta\mu)\),</p>
 \[
-  1-\beta\mu' = \frac{1-\beta^2}{1+\beta\mu} = \frac{1}{\gamma^2(1+\beta\mu)}
-  \quad\Longleftrightarrow\quad 1+\beta\mu = \frac{1}{\gamma^2(1-\beta\mu')},
+  1+\beta\mu = \frac{1}{\gamma^2(1-\beta\mu')},
   \qquad
-  \frac{\dd\mu}{\dd\mu'} = \frac{1-\beta^2}{(1-\beta\mu')^2}.
+  \frac{\dd\mu}{\dd\mu'} = \frac{1-\beta^2}{(1-\beta\mu')^2},
+  \qquad \gamma(1\pm\beta)=\gamma\pm p=e^{\pm\eta}.
   \tag{2.0}
 \]
 
 <h4>2.1 &nbsp;Seed (the one integral)</h4>
-<p>With \(\bar Y_0=1/\sqrt{4\pi}\), the monopole element is elementary:</p>
+<p>With \(\bar Y_0=1/\sqrt{4\pi}\),</p>
 \[
-  {}^{d}\Kk_{00}(-\beta) = \frac{2\pi}{4\pi}\,\gamma^{-d}\!\int_{-1}^1(1+\beta\mu)^{-d}\dd\mu
-  = \frac{\gamma^{-d}}{2\beta}\,\frac{(1+\beta)^{1-d}-(1-\beta)^{1-d}}{1-d}.
+  {}^{d}\Kk_{00}(-\beta) = \frac{\gamma^{-d}}{2\beta}\,\frac{(1+\beta)^{1-d}-(1-\beta)^{1-d}}{1-d}
+  = \frac{1}{2p(1-d)}\big[(\gamma+p)^{1-d}-(\gamma-p)^{1-d}\big],
 \]
-<p>Now \(\gamma^{-d}(1\pm\beta)^{1-d}=\gamma^{-1}[\gamma(1\pm\beta)]^{1-d}=\gamma^{-1}(\gamma\pm p)^{1-d}\) (since
-\(\gamma(1\pm\beta)=\gamma\pm p=e^{\pm\eta}\)), and \(\gamma^{-1}/\beta=1/p\). Hence, with
-\(J_w=\frac{(\gamma+p)^w-(\gamma-p)^w}{w}=\frac{2\sinh(w\eta)}{w}\),</p>
+<p>using \(\gamma^{-d}(1\pm\beta)^{1-d}=\gamma^{-1}(\gamma\pm p)^{1-d}\) and \(\gamma^{-1}/\beta=1/p\). Hence</p>
 \[
   \boxed{\;{}^{d}\Kk_{00}(\pm\beta) = \frac{J_{1-d}}{2p}\;}
   \tag{2.1}
 \]
-<p>(sign-independent: swapping \(\gamma+p\leftrightarrow\gamma-p\) flips both the bracket and the \(1/2p\)).
-<span class="badge pass">I1/I1′, dev 0</span></p>
+<p><span class="badge pass">I1, dev 0</span></p>
 
 <h4>2.2 &nbsp;Parity</h4>
-<p>Substitute \(\mu\to-\mu\) in (1.1). Then \(\bar Y_\ell(-\mu)=(-1)^\ell\bar Y_\ell(\mu)\), the weight
-\([\gamma(1+\beta\mu)]^{-d}\to[\gamma(1-\beta\mu)]^{-d}\) becomes the \(+\beta\) weight, and the aberrated argument
-\(\frac{-\mu+\beta}{1-\beta\mu}=-\frac{\mu-\beta}{1-\beta\mu}\) is minus the \(+\beta\) aberration, so
-\(\bar Y_{\ell'}\!\to(-1)^{\ell'}\bar Y_{\ell'}\) evaluated at the \(+\beta\) map. Collecting the two signs:</p>
+<p>Substituting \(\mu\to-\mu\) in (1.1) sends \(\bar Y_\ell(-\mu)=(-1)^\ell\bar Y_\ell\), turns the weight into the
+\(+\beta\) weight, and the aberrated argument into minus the \(+\beta\) aberration (a further \((-1)^{\ell'}\)):</p>
 \[
   \boxed{\;{}^{d}\Kk_{\ell\ell'}(-\beta) = (-1)^{\ell+\ell'}\,{}^{d}\Kk_{\ell\ell'}(+\beta)\;}
   \tag{2.2}
@@ -112,15 +111,9 @@ the row of factor&nbsp;2. That structure is the whole story: private indices giv
 <p><span class="badge pass">I2, dev 0</span></p>
 
 <h4>2.3 &nbsp;Transposition</h4>
-<p>Change the integration variable in (1.1) to \(\mu'\), i.e. \(\mu=\frac{\mu'-\beta}{1-\beta\mu'}\). By (2.0) the
-weight is \([\gamma(1+\beta\mu)]^{-d}=[\gamma^{-1}(1-\beta\mu')^{-1}]^{-d}=\gamma^{d}(1-\beta\mu')^{d}\) and the
-Jacobian is \(\gamma^{-2}(1-\beta\mu')^{-2}\), so their product is \([\gamma(1-\beta\mu')]^{d-2}\). The roles of the
-two harmonics swap and the map \(\mu(\mu')=\frac{\mu'-\beta}{1-\beta\mu'}\) is exactly the \(+\beta\) aberration of
+<p>Change the integration variable in (1.1) to \(\mu'\). By (2.0) the weight times the Jacobian is
+\([\gamma(1-\beta\mu')]^{d-2}\), the two harmonics swap roles, and \(\mu(\mu')\) is the \(+\beta\) aberration of
 \(\mu'\):</p>
-\[
-  {}^{d}\Kk_{\ell\ell'}(-\beta) = 2\pi\!\int_{-1}^1 \bar Y_{\ell'}(\mu')\,\bar Y_{\ell}\!\Big(\tfrac{\mu'-\beta}{1-\beta\mu'}\Big)\,\big[\gamma(1-\beta\mu')\big]^{-(2-d)}\dd\mu'
-  = {}^{2-d}\Kk_{\ell'\ell}(+\beta).
-\]
 \[
   \boxed{\;{}^{d}\Kk_{\ell\ell'}(-\beta) = {}^{2-d}\Kk_{\ell'\ell}(+\beta)\;}
   \tag{2.3}
@@ -128,114 +121,80 @@ two harmonics swap and the map \(\mu(\mu')=\frac{\mu'-\beta}{1-\beta\mu'}\) is e
 <p><span class="badge pass">I3, dev 0</span></p>
 
 <h4>2.4 &nbsp;The master \(\ell\)-raising recurrence</h4>
-<p>This is the engine. Two ingredients. First, the <strong>Legendre three-term relation</strong> in normalized
-form — the matrix element of \(\mu\):</p>
+<p>Two ingredients. The <strong>Legendre relation</strong> (matrix element of \(\mu\)):</p>
 \[
-  \mu\,\bar Y_\ell(\mu) = C_{\ell+1}\,\bar Y_{\ell+1}(\mu) + C_\ell\,\bar Y_{\ell-1}(\mu),
+  \mu\,\bar Y_\ell = C_{\ell+1}\,\bar Y_{\ell+1} + C_\ell\,\bar Y_{\ell-1},
   \qquad C_\ell=\frac{\ell}{\sqrt{4\ell^2-1}},
   \tag{2.4a}
 \]
-<p>(directly from \((2\ell+1)\mu P_\ell=(\ell+1)P_{\ell+1}+\ell P_{\ell-1}\); <span class="badge pass">I0, dev 0</span>).
-Second, the <strong>\(\mu\)-to-weight identity</strong>: since \(\mu=\frac1\beta[(1+\beta\mu)-1]\) and
-\((1+\beta\mu)\,[\gamma(1+\beta\mu)]^{-d}=\gamma^{-1}[\gamma(1+\beta\mu)]^{-(d-1)}\),</p>
+<p>(<span class="badge pass">I0, dev 0</span>), and the <strong>\(\mu\)-to-weight identity</strong>, from
+\(\mu=\frac1\beta[(1+\beta\mu)-1]\) and \((1+\beta\mu)[\gamma(1+\beta\mu)]^{-d}=\gamma^{-1}[\gamma(1+\beta\mu)]^{-(d-1)}\):</p>
 \[
   \mu\,\big[\gamma(1+\beta\mu)\big]^{-d} = \frac1\beta\Big[\gamma^{-1}\big[\gamma(1+\beta\mu)\big]^{-(d-1)} - \big[\gamma(1+\beta\mu)\big]^{-d}\Big]
   \tag{2.4b}
 \]
-<p>(<span class="badge pass">I4a, dev 0</span>). Insert (2.4a) under the integral (1.1). The extra factor of \(\mu\)
-multiplies the weight; apply (2.4b) and read off two kernels of adjacent weight:</p>
-\[
-  2\pi\!\int \big(\mu\,\bar Y_\ell\big)\bar Y_{\ell'}(\mu')\,[\gamma(1+\beta\mu)]^{-d}\dd\mu
-  = \frac{1}{\beta}\Big[\gamma^{-1}\,{}^{d-1}\Kk_{\ell\ell'}(-\beta) - {}^{d}\Kk_{\ell\ell'}(-\beta)\Big].
-\]
-<p>But by (2.4a) that same integral equals \(C_{\ell+1}\,{}^{d}\Kk_{\ell+1,\ell'}(-\beta) + C_\ell\,{}^{d}\Kk_{\ell-1,\ell'}(-\beta)\).
-Equate, use \(1/\beta\gamma=1/p\) and \(1/\beta=\gamma/p\), and shift \(\ell+1\to\ell\):</p>
+<p>(<span class="badge pass">I4a, dev 0</span>). Insert (2.4a) under the integral; the extra \(\mu\) multiplies the
+weight, and (2.4b) turns it into two kernels of adjacent weight. Equating the two evaluations of
+\(2\pi\!\int(\mu\bar Y_\ell)\bar Y_{\ell'}(\mu')\,[\gamma(1+\beta\mu)]^{-d}\dd\mu\) and shifting \(\ell+1\to\ell\):</p>
 \[
   \boxed{\;C_\ell\,{}^{d}\Kk_{\ell\ell'}(-\beta) = \frac1p\,{}^{d-1}\Kk_{\ell-1,\ell'}(-\beta) - \frac{\gamma}{p}\,{}^{d}\Kk_{\ell-1,\ell'}(-\beta) - C_{\ell-1}\,{}^{d}\Kk_{\ell-2,\ell'}(-\beta)\;}
   \tag{KR}
 \]
-<p><span class="badge pass">I4, dev 0</span>. This is the aberration-kernel \(\ell\)-raising recurrence — the
-"B10" of the literature, here derived outright from Legendre + the weight identity. The \(+\beta\) form follows by
-multiplying (KR) through by \((-1)^{\ell+\ell'}\) and applying parity (2.2) term by term; the \((\ell-1)\)-terms
-carry an extra sign, so</p>
+<p><span class="badge pass">I4, dev 0</span>. The \(+\beta\) form follows by multiplying through by
+\((-1)^{\ell+\ell'}\) and applying parity (2.2) term by term (the \((\ell-1)\)-terms flip sign):</p>
 \[
   {}^{d}\Kk_{\ell\ell'}(+\beta) = \frac{1}{C_\ell p}\Big[\gamma\,{}^{d}\Kk_{\ell-1,\ell'}(+\beta) - {}^{d-1}\Kk_{\ell-1,\ell'}(+\beta)\Big] - \frac{C_{\ell-1}}{C_\ell}\,{}^{d}\Kk_{\ell-2,\ell'}(+\beta).
   \tag{KR$^+$}
 \]
-<p><span class="badge pass">I4+, dev 0</span></p>
+<p><span class="badge pass">I4+, dev 0</span>. These four identities — seed, parity, transposition, master
+recurrence — are everything the Doppler recurrences are built from.</p>
 
-<h3 id="outer">3 &nbsp;The outer recurrences — full reassembly</h3>
+<h3 id="outer">3 &nbsp;Raising an outer index — P0, in physical \(\Do\)</h3>
+<p>Take the axis element \(\Do_{a00}(q)=\gamma^{-1}\,{}^{-1-q}\Kk_{a0}(+\beta)\,{}^{-q}\Kk_{00}(-\beta)\). Its first
+factor has row \(a\); apply (KR\(^+\)) at weight \(-1-q\) to raise it:</p>
+\[
+  {}^{-1-q}\Kk_{a0}(+\beta) = \frac{1}{C_a p}\Big[\gamma\,{}^{-1-q}\Kk_{a-1,0}(+\beta) - {}^{-2-q}\Kk_{a-1,0}(+\beta)\Big] - \frac{C_{a-1}}{C_a}\,{}^{-1-q}\Kk_{a-2,0}(+\beta).
+\]
+<p>Multiply by \(\tfrac1\gamma\,{}^{-q}\Kk_{00}(-\beta)\). The \(\gamma\)- and \(C_{a-1}\)-terms are already physical:
+\(\gamma^{-1}{}^{-1-q}\Kk_{a-1,0}(+\beta)\,{}^{-q}\Kk_{00}(-\beta)=\Do_{a-1,00}(q)\), likewise \(\Do_{a-2,00}(q)\).
+The one <em>weight-shifted companion</em> \({}^{-2-q}\Kk_{a-1,0}(+\beta)\) is where a naïve treatment would leave
+the physical family — but on the axis it does not, because factor 2 is the <em>seed</em>. Using (2.1),
+\({}^{-q}\Kk_{00}(-\beta)=J_{1+q}/2p\) while \({}^{-(q+1)}\Kk_{00}(-\beta)=J_{2+q}/2p\), so</p>
+\[
+  \frac{1}{\gamma}\,{}^{-2-q}\Kk_{a-1,0}(+\beta)\,{}^{-q}\Kk_{00}(-\beta)
+  = \frac{1}{\gamma}\,{}^{-1-(q+1)}\Kk_{a-1,0}(+\beta)\,{}^{-(q+1)}\Kk_{00}(-\beta)\cdot\frac{J_{1+q}/2p}{J_{2+q}/2p}
+  = \frac{J_{1+q}}{J_{2+q}}\,\Do_{a-1,00}(q{+}1).
+\]
+<p>The companion has become a physical Doppler operator at spectral index \(q+1\)
+(<span class="badge pass">verified, dev 0</span>). Substituting:</p>
+\[
+  \boxed{\;C_a\,\Do_{a00}(q) = \frac{\gamma}{p}\,\Do_{a-1,00}(q) - \frac{1}{p}\,\frac{J_{1+q}}{J_{2+q}}\,\Do_{a-1,00}(q{+}1) - C_{a-1}\,\Do_{a-2,00}(q)\;}
+  \tag{P0}
+\]
+<p>— a three-term ladder in physical Doppler operators, the mirror form for \(\Do_{00b}\) following identically
+with \(J_{2+q}/J_{1+q}\) and \(q\to q-1\). <span class="badge pass">harness 34, P0a/P0b, dev 0</span> \(\blacksquare\)</p>
+<p class="note"><strong>Off the axis</strong> the same kernel step leaves a companion that is <em>not</em> a single
+physical element (factor 2 is no longer the seed); the honest options are then either the pure rank-one route (P2,
+§5, which fills any plane from its two borders and needs no outer ladder at all) or, at the kernel level, the
+weight-shifted companion of the raising relations N5/N6 — a scaffolding device, <em>not</em> a Doppler operator,
+kept off the central results and confined to the <a href="raising.html">N5/N6 worked climb</a>.</p>
 
-<h4>3.1 &nbsp;N5 (raise the outgoing index \(\ell\))</h4>
-<p>In (1.2) the first factor is \({}^{-1-j-q}\Kk_{\ell\ell'}(+\beta)\); its row is \(\ell\), its column \(\ell'\) is a
-spectator. Apply (KR\(^+\)) with weight \(d=-1-j-q\):</p>
+<h3 id="middle">4 &nbsp;Raising the middle index — P3, in physical \(\Do\)</h3>
+<p>The shared index is the hard one: a first-order move touches both factors of (1.2). The kernel step that raises
+the <em>column</em> \(\ell'\) of factor 1 is (KR) transposed (2.3),</p>
 \[
-  {}^{-1-j-q}\Kk_{\ell\ell'}(+\beta) = \frac{1}{C_\ell p}\Big[\gamma\,{}^{-1-j-q}\Kk_{\ell-1,\ell'}(+\beta) - {}^{-2-j-q}\Kk_{\ell-1,\ell'}(+\beta)\Big] - \frac{C_{\ell-1}}{C_\ell}\,{}^{-1-j-q}\Kk_{\ell-2,\ell'}(+\beta).
-\]
-<p>Multiply every term by the untouched second factor \(\tfrac1\gamma\,{}^{-k-q}\Kk_{\ell'\ell''}(-\beta)\). By the
-definition (1.2), the \(\gamma\)- and \(C_{\ell-1}\)-terms reassemble as \({}^{(j,k)}\Do_{\ell-1,\ell'\ell''}\) and
-\({}^{(j,k)}\Do_{\ell-2,\ell'\ell''}\); the companion \({}^{-2-j-q}\Kk = {}^{-1-(j+1)-q}\Kk\) carries the first weight
-one step down the lattice, giving \({}^{(j+1,k)}\Do_{\ell-1,\ell'\ell''}\). Therefore</p>
-\[
-  \boxed{\;{}^{(j,k)}\Do_{\ell\ell'\ell''} = \frac{1}{C_\ell p}\Big[\gamma\,{}^{(j,k)}\Do_{\ell-1,\ell'\ell''} - {}^{(j+1,k)}\Do_{\ell-1,\ell'\ell''}\Big] - \frac{C_{\ell-1}}{C_\ell}\,{}^{(j,k)}\Do_{\ell-2,\ell'\ell''}\;}
-  \tag{N5}
-\]
-<p>Every term is a Doppler operator on the weight lattice; the spectator second factor never moved.
-<span class="badge pass">R-N5, dev 0</span> \(\blacksquare\)</p>
-
-<h4>3.2 &nbsp;N6 (raise the incoming index \(\ell''\))</h4>
-<p>The second factor \({}^{-k-q}\Kk_{\ell'\ell''}(-\beta)\) needs a recursion in its <em>column</em> \(\ell''\).
-Transpose it (2.3) to put \(\ell''\) in the row: \({}^{-k-q}\Kk_{\ell'\ell''}(-\beta)={}^{2+k+q}\Kk_{\ell''\ell'}(+\beta)\).
-Apply (KR\(^+\)) at weight \(d=2+k+q\), row \(\ell''\):</p>
-\[
-  {}^{2+k+q}\Kk_{\ell''\ell'}(+\beta) = \frac{1}{C_{\ell''}p}\Big[\gamma\,{}^{2+k+q}\Kk_{\ell''-1,\ell'}(+\beta) - {}^{1+k+q}\Kk_{\ell''-1,\ell'}(+\beta)\Big] - \frac{C_{\ell''-1}}{C_{\ell''}}\,{}^{2+k+q}\Kk_{\ell''-2,\ell'}(+\beta).
-\]
-<p>Transpose each term back with (2.3) in the form \({}^{a}\Kk_{ab}(+\beta)={}^{2-a}\Kk_{ba}(-\beta)\):
-\({}^{2+k+q}\Kk_{\ell''-1,\ell'}(+\beta)={}^{-k-q}\Kk_{\ell',\ell''-1}(-\beta)\), and the companion
-\({}^{1+k+q}\Kk_{\ell''-1,\ell'}(+\beta)={}^{1-k-q}\Kk_{\ell',\ell''-1}(-\beta)={}^{-(k-1)-q}\Kk\), i.e. lattice
-\(k\to k-1\). Multiplying by the untouched first factor \(\tfrac1\gamma\,{}^{-1-j-q}\Kk_{\ell\ell'}(+\beta)\):</p>
-\[
-  \boxed{\;{}^{(j,k)}\Do_{\ell\ell'\ell''} = \frac{1}{C_{\ell''} p}\Big[\gamma\,{}^{(j,k)}\Do_{\ell\ell',\ell''-1} - {}^{(j,k-1)}\Do_{\ell\ell',\ell''-1}\Big] - \frac{C_{\ell''-1}}{C_{\ell''}}\,{}^{(j,k)}\Do_{\ell\ell',\ell''-2}\;}
-  \tag{N6}
-\]
-<p><span class="badge pass">R-N6, dev 0</span> \(\blacksquare\) &nbsp; N5 and N6 exchange under the reflection N1
-(\(\ell\leftrightarrow\ell''\), \((j,k)\to(-k,-j)\)) — a cross-check of the whole system. The four-step climb from
-\(\Do_{000}\) to the new closed form \(\Do_{202}\), with every weight companion worked out, is on the
-<a href="raising.html">N5/N6 page</a>.</p>
-
-<h3 id="middle">4 &nbsp;The middle index \(\ell'\)</h3>
-<h4>4.1 &nbsp;Ingredient: the column recursion of the \(+\beta\) kernel</h4>
-<p>The shared index is the <em>column</em> of factor&nbsp;1. To step it, transpose factor 1 to expose \(\ell'\) as a
-row, apply (KR) at \(-\beta\), and transpose back. With \({}^{a}\Kk_{\ell\ell'}(+\beta)={}^{2-a}\Kk_{\ell'\ell}(-\beta)\),
-(KR) on the row \(\ell'\) at weight \(2-a\), and transposing every term:</p>
-\[
-  \boxed{\;{}^{a}\Kk_{\ell\ell'}(+\beta) = -\frac{1}{C_{\ell'} p}\Big[\gamma\,{}^{a}\Kk_{\ell,\ell'-1}(+\beta) - {}^{a+1}\Kk_{\ell,\ell'-1}(+\beta)\Big] - \frac{C_{\ell'-1}}{C_{\ell'}}\,{}^{a}\Kk_{\ell,\ell'-2}(+\beta)\;}
+  {}^{a}\Kk_{h,\ell'+1}(+\beta) = -\frac{1}{C_{\ell'+1} p}\Big[\gamma\,{}^{a}\Kk_{h,\ell'}(+\beta) - {}^{a+1}\Kk_{h,\ell'}(+\beta)\Big] - \frac{C_{\ell'}}{C_{\ell'+1}}\,{}^{a}\Kk_{h,\ell'-1}(+\beta),
   \tag{A}
 \]
-<p>Note the weight companion is <em>raised</em> (\(a+1\)), the mirror of (KR\(^+\))'s lowered one.
-<span class="badge pass">R-A, dev 0</span></p>
-
-<h4>4.2 &nbsp;The linear middle step (N10)</h4>
-<p>A shift of the shared index acts on <em>both</em> factors of (1.2) at once. Solving (A) for factor 1 at column
-\(\ell'\) and the transpose of (A) for factor 2 at row \(\ell'\), and multiplying the two three-term right-hand
-sides, gives nine products. Five have matched intermediate indices and reassemble into Doppler operators on the
-weight lattice; the other four have <em>mismatched</em> intermediate indices \((\ell'-1,\ell'-2)\),
-\((\ell'-2,\ell'-1)\) — genuine off-diagonal elements \(X_{\ell;\ell_1'\ell_2';\ell''}\). The resulting linear
-relation (M), and the proof that no linear diagonal relation can avoid these companions, are on the
-<a href="middle-index.html">middle-index page (N10)</a>; applied once at \(\ell'{=}2\) it reproduces the
-\(\Do_{020}\) closed form exactly.</p>
-
-<h4>4.3 &nbsp;The pure-\(\Do\) middle step (N25/P3)</h4>
-<p>The companions can be removed entirely — at the price of a ratio — by turning each kernel factor back into a
-physical \(\Do\). Parity (2.2) gives \({}^{-q}\Kk_{b0}(-\beta)=(-1)^b\,{}^{-q}\Kk_{b0}(+\beta)\), and the seed value
-(2.1) gives \({}^{-q}\Kk_{00}(-\beta)=J_{1+q}/2p\); together with (1.2) they yield the <strong>dictionary</strong></p>
+<p>(<span class="badge pass">R-A, dev 0</span>). The remaining kernel factors are converted to physical
+operators by a <strong>dictionary</strong> built from parity (2.2) and the seed (2.1): since
+\({}^{-q}\Kk_{b0}(-\beta)=(-1)^b\,{}^{-q}\Kk_{b0}(+\beta)\) and \(\Do_{b00}(q-1)=\gamma^{-1}{}^{-q}\Kk_{b0}(+\beta)\cdot J_q/2p\),</p>
 \[
   {}^{-1-q}\Kk_{ab}(+\beta) = (-1)^b\,\frac{J_q}{2p}\,\frac{\Do_{ab0}(q)}{\Do_{b00}(q-1)}.
   \tag{D}
 \]
-<p>Substituting (D) into the column recursion (A) (at column \(\ell'{+}1\)) and cancelling the common factor
-\((-1)^{\ell'}J_q/2p\) collapses everything to physical Doppler operators — the explicit, companion-free
-middle-index recurrence</p>
+<p>Substituting (D) into (A) at column \(\ell'{+}1\) and cancelling the common factor \((-1)^{\ell'}J_q/2p\) leaves a
+relation among physical Doppler operators only — no off-diagonal element ever appears:</p>
 \[
   \boxed{
   \begin{aligned}
@@ -247,34 +206,39 @@ middle-index recurrence</p>
   \end{aligned}}
   \tag{P3}
 \]
-<p>The full derivation, the dictionary proof, and the end-to-end generation are on the
-<a href="pure-d-index.html">N25 page</a>, which also rederives the \(\Do_{020}\) and \(\Do_{121}\) closed forms
-from these relations as exact symbolic identities.</p>
+<p><span class="badge pass">harness 34, P3, dev 1.3×10⁻³⁷</span>. The price of staying in the physical family is that
+the relation is nonlinear (ratios); this is unavoidable, and the ratios are precisely the reabsorbed companions. The
+full derivation and the end-to-end generation are on the <a href="pure-d-index.html">N25 page</a>. \(\blacksquare\)</p>
+<p class="note">A purely <em>linear</em> \(\ell'\)-relation cannot exist among diagonal Doppler operators; forcing
+linearity introduces an off-diagonal companion family \(X\) — a scaffolding device kept off the central results
+and confined to the <a href="middle-index.html">N10 page</a>. P3 is the price-free physical statement.</p>
 
-<h3 id="closure">5 &nbsp;The pure-\(\Do\) closure</h3>
-<p>With (P3) supplying the \(\ell''{=}0\) border, the remaining moves are companion-free too:</p>
-<ul>
-  <li><strong>(P0) axis ladder</strong> — N5 on the axis (\(\ell'{=}\ell''{=}0\)), with the weight companion absorbed
-  into a physical \(\Do\) at shifted \(q\) via the seed value (2.1):
-  \(C_a\Do_{a00}(q)=\tfrac\gamma p\Do_{a-1,00}(q)-\tfrac1p\tfrac{J_{1+q}}{J_{2+q}}\Do_{a-1,00}(q{+}1)-C_{a-1}\Do_{a-2,00}(q)\).</li>
-  <li><strong>(N1) reflection</strong> — \(\Do_{h\ell'l}(q)=\Do_{l\ell'h}(-3-q)\), the operator form of the
-  transposition (2.3); supplies the opposite border. Proof on the <a href="reflection.html">reflection page</a>.</li>
-  <li><strong>(P2) rank-one fill</strong> — because (1.2) factorizes,
-  \(\Do_{h\ell'l}=\Do_{h\ell'0}\Do_{0\ell'l}/\Do_{0\ell'0}\) fills any fixed-\(\ell'\) plane from its two borders.</li>
-</ul>
-<p>These four (P0, P3, N1, P2) generate every \(\Do_{h\ell'l}(q)\) from the single seed \(\Do_{000}\) with no object
-outside the physical family — the subject of <a href="pure-d-index.html">N25</a>.</p>
+<h3 id="closure">5 &nbsp;Reflection and rank-one fill — N1, P2</h3>
+<p><strong>Reflection (N1).</strong> The transposition (2.3), applied to both factors of (1.2) with the
+weight bookkeeping \(-1-q\leftrightarrow -q\) under \(q\to-3-q\), exchanges the outer indices:</p>
+\[
+  \boxed{\;\Do_{h\ell'l}(q)=\Do_{l\ell'h}(-3-q)\;}
+\]
+<p>(<span class="badge pass">verified, dev 0</span>; operator form \(\Do(\Oh)=\Do^{\mathsf T}(3-\Oh)\), full proof on
+the <a href="reflection.html">reflection page</a>). It supplies the \(\ell{=}0\) border from the \(\ell''{=}0\) one.</p>
+<p><strong>Rank-one fill (P2).</strong> Because (1.2) is a product of an \(h\)-vector (factor 1) and an
+\(l\)-vector (factor 2) sharing \(\ell'\), the ratios \(\Do_{h\ell'l}/\Do_{0\ell'l}\) and
+\(\Do_{h\ell'l}/\Do_{h\ell'0}\) are independent of \(l\) and \(h\) respectively; hence</p>
+\[
+  \boxed{\;\Do_{h\ell'l}(q)=\frac{\Do_{h\ell'0}(q)\,\Do_{0\ell'l}(q)}{\Do_{0\ell'0}(q)}\;}
+\]
+<p>fills any fixed-\(\ell'\) plane from its two borders. <span class="badge pass">harness 34, P2, exact</span></p>
+<p>Together P0, P3, N1, P2 generate every \(\Do_{h\ell'l}(q)\) from the seed \(\Do_{000}\), with the physical
+Doppler operator the only object at every step. As a check, this scheme rederives the \(\Do_{020}\) and
+\(\Do_{121}\) closed forms exactly, matching the published expressions as symbolic identities
+(<a href="../verification/35_rederive_closed_forms.html">harness 35</a>).</p>
 
 <h3>Verification record</h3>
-<p><a href="../verification/36_kernel_foundations.html"><code>36_kernel_foundations.wl</code></a> confirms, by
-high-precision quadrature of the defining integral, every step above: the Legendre matrix (I0), the seed (I1/I1′),
-parity (I2), transposition (I3), the master recurrence (KR)/(KR\(^+\)) (I4/I4+), the \(\mu\)-to-weight identity
-(I4a), and the reassembled recurrences N5, N6 and the column recursion (A) (R-N5, R-N6, R-A) — all at deviation
-\(0\). The N5/N6 climbs and closed forms are in
-<a href="../verification/06_closed_forms.html"><code>06_closed_forms.wl</code></a>; the middle-index and pure-\(\Do\)
-relations in <a href="../verification/10_middle_index.html"><code>10</code></a>,
-<a href="../verification/34_pure_D_middle.html"><code>34</code></a> and
-<a href="../verification/35_rederive_closed_forms.html"><code>35</code></a>.</p>
+<p><a href="../verification/36_kernel_foundations.html"><code>36_kernel_foundations.wl</code></a> — the kernel
+identities and reassembly steps from the integral definition, all dev 0 (I0–I4a; R-A; and the outer/N6 kernel
+steps R-N5/R-N6 used inside §3). <a href="../verification/34_pure_D_middle.html"><code>34</code></a> — the pure-\(\Do\)
+relations P0, P3, N1, P2 and end-to-end generation. <a href="../verification/35_rederive_closed_forms.html"><code>35</code></a>
+— \(\Do_{020}\), \(\Do_{121}\) rederived and matched symbolically.</p>
 
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
 </main>

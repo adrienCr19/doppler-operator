@@ -369,24 +369,36 @@ and are grouped here by role, not by number.</p>
 <span id="recurrences"></span>
 <div class="newbox" style="border-width:3px">
   <div class="head"><span class="name">★★ The exact recurrence relations — the central result</span>
-    <span class="badge new">core</span> <span class="badge pass">proved from the aberration kernel, dev = 0</span>
+    <span class="badge new">core</span> <span class="badge pass">physical \(\Do\) only, dev = 0</span>
     <span class="prooflink"><a href="proofs/recurrences.html">complete proofs →</a></span></div>
-  <p>The heart of the work is a closed set of <strong>exact</strong> relations that raise each index of the Doppler
-  operator, every one proved by descending to the object \(\Do\) is built from — the aberration kernel of the boost
-  operator — and carrying all the algebra back up. With \(C_\ell=\ell/\sqrt{4\ell^2-1}\) and the weight-lattice
-  family \({}^{(j,k)}\Do = \frac1\gamma\,{}^{-1-j-q}\Kk_{\ell\ell'}(+\beta)\,{}^{-k-q}\Kk_{\ell'\ell''}(-\beta)\):</p>
+  <p>The heart of the work is a closed set of <strong>exact</strong> relations that raise each index of the
+  <em>physical</em> Doppler operator \(\Do_{\ell\ell'\ell''}(q)\) of the literature — no extended weight lattice, no
+  off-diagonal family; every term is itself a Doppler operator. Each is proved by descending to the object \(\Do\)
+  is built from (the aberration kernel of the boost operator) and cancelling every auxiliary object before the
+  result is stated. With \(C_\ell=\ell/\sqrt{4\ell^2-1}\), \(J_w=\frac{2\sinh(w\eta)}{w}\), and seed
+  \(\Do_{000}(q)=\frac{J_{2+q}J_{1+q}}{4\gamma p^2}\):</p>
   \[
-    \textbf{(N5)}\quad {}^{(j,k)}\Do_{\ell\ell'\ell''} = \tfrac{1}{C_\ell p}\big[\gamma\,{}^{(j,k)}\Do_{\ell-1,\ell'\ell''} - {}^{(j+1,k)}\Do_{\ell-1,\ell'\ell''}\big] - \tfrac{C_{\ell-1}}{C_\ell}\,{}^{(j,k)}\Do_{\ell-2,\ell'\ell''},
+    \textbf{(P0) outer index:}\quad C_a\Do_{a00}(q) = \tfrac\gamma p\Do_{a-1,00}(q) - \tfrac1p\tfrac{J_{1+q}}{J_{2+q}}\Do_{a-1,00}(q{+}1) - C_{a-1}\Do_{a-2,00}(q),
   \]
   \[
-    \textbf{(N6)}\quad {}^{(j,k)}\Do_{\ell\ell'\ell''} = \tfrac{1}{C_{\ell''} p}\big[\gamma\,{}^{(j,k)}\Do_{\ell\ell',\ell''-1} - {}^{(j,k-1)}\Do_{\ell\ell',\ell''-1}\big] - \tfrac{C_{\ell''-1}}{C_{\ell''}}\,{}^{(j,k)}\Do_{\ell\ell',\ell''-2}.
+    \textbf{(P3) middle index:}\quad C_{\ell'+1}\Do_{h,\ell'+1,0}(q) = \tfrac{\Do_{\ell'+1,00}(q{-}1)}{p}\big[\gamma\tfrac{\Do_{h\ell'0}(q)}{\Do_{\ell'00}(q{-}1)} - \tfrac{J_{q-1}}{J_q}\tfrac{\Do_{h\ell'0}(q{-}1)}{\Do_{\ell'00}(q{-}2)}\big] - C_{\ell'}\tfrac{\Do_{\ell'+1,00}(q{-}1)}{\Do_{\ell'-1,00}(q{-}1)}\Do_{h,\ell'-1,0}(q),
   \]
-  <p>N5 and N6 raise the two <em>private</em> outer indices; the <em>shared</em> middle index \(\ell'\) is raised by
-  N10 (linear, with off-diagonal companions) or, companion-free, by the pure-\(\Do\) step P3 (N25). The
-  <a href="proofs/recurrences.html">proof page</a> derives the four kernel identities the recurrences rest on —
-  the seed \({}^{d}\Kk_{00}=J_{1-d}/2p\), parity, transposition, and the master \(\ell\)-raising recurrence
-  \(C_\ell\,{}^{d}\Kk_{\ell\ell'}(-\beta)=\tfrac1p{}^{d-1}\Kk_{\ell-1,\ell'} - \tfrac{\gamma}{p}{}^{d}\Kk_{\ell-1,\ell'} - C_{\ell-1}{}^{d}\Kk_{\ell-2,\ell'}\) (from the Legendre relation \(\mu\bar Y_\ell=C_{\ell+1}\bar Y_{\ell+1}+C_\ell\bar Y_{\ell-1}\) and a \(\mu\)-to-weight identity) — <em>from the integral definition</em>, then reassembles each Doppler recurrence line by line. Every step is verified to deviation \(0\)
-  (<a href="verification/36_kernel_foundations.html">harness 36</a>).</p>
+  \[
+    \textbf{(N1) reflection:}\ \Do_{h\ell'l}(q)=\Do_{l\ell'h}(-3-q),
+    \qquad
+    \textbf{(P2) rank-one fill:}\ \Do_{h\ell'l}(q)=\tfrac{\Do_{h\ell'0}(q)\Do_{0\ell'l}(q)}{\Do_{0\ell'0}(q)}.
+  \]
+  <p>P0 climbs the outer axes, P3 the middle index to the borders, N1 gives the opposite border, P2 fills — every
+  \(\Do_{h\ell'l}(q)\) from \(\Do_{000}\) with the physical operator the only object at each step. The
+  <a href="proofs/recurrences.html">proof page</a> derives the four kernel identities these rest on — the seed
+  \({}^{d}\Kk_{00}=J_{1-d}/2p\), parity, transposition, and the master \(\ell\)-raising recurrence (from the
+  Legendre relation \(\mu\bar Y_\ell=C_{\ell+1}\bar Y_{\ell+1}+C_\ell\bar Y_{\ell-1}\) plus a \(\mu\)-to-weight
+  identity) — <em>from the integral definition</em>, then reassembles each Doppler recurrence line by line,
+  showing the outer companion collapse to \(\Do(q{+}1)\) and the middle companions reabsorb into the ratios of P3.
+  For the \(p\)-series there is the rapidity ODE (<a href="proofs/ode.html">N3</a>), which likewise closes on
+  physical operators. Every step verified to deviation \(0\)
+  (<a href="verification/36_kernel_foundations.html">36</a>, <a href="verification/34_pure_D_middle.html">34</a>,
+  <a href="verification/35_rederive_closed_forms.html">35</a>).</p>
 </div>
 
 <div class="newbox" style="border-width:2px">
@@ -489,8 +501,11 @@ and are grouped here by role, not by number.</p>
     \end{aligned}
   \]
   <p style="margin:0.5rem 0 0">The two brackets are equal (the exact <em>cross-slot balance</em>). N3′ is the form
-  in which no index is a spectator; N3 (top) stays the workhorse because it closes on physical operators. Full
-  derivation and verification: <a href="proofs/ode.html#allindex">N3′ on the rapidity-ODE page</a>.</p>
+  in which no index is a spectator, but it does so by leaving the physical family for the off-diagonal companion
+  \(X\); it is therefore a secondary form. The <strong>central</strong> generator is N3 (top), which closes on
+  physical operators, together with the physical-\(\Do\) index relations
+  (<a href="proofs/recurrences.html">P0/P3/N1/P2</a>) for the discrete moves. Full derivation and verification:
+  <a href="proofs/ode.html#allindex">N3′ on the rapidity-ODE page</a>.</p>
 </div>
 
 <div class="newbox">
@@ -511,6 +526,10 @@ and are grouped here by role, not by number.</p>
   <div class="head"><span class="name">(N5, N6) Outer-index raising recursions on the weight lattice</span>
     <span class="badge new">new</span> <span class="badge pass">verified 5×10⁻²⁷</span>
     <span class="prooflink"><a href="proofs/recurrences.html#outer">kernel proof →</a> · <a href="proofs/raising.html">worked climb →</a></span></div>
+  <p class="note"><strong>Scaffolding, not a central result.</strong> The central outer-index relation is the
+  physical-\(\Do\) ladder <a href="proofs/recurrences.html#outer">P0</a>; the weight-lattice form below is the
+  kernel-level device it is derived from (and a convenience for the worked \(\Do_{202}\) climb). The extended
+  operators \({}^{(j,k)}\Do\) are not physical Doppler operators and appear only inside derivations.</p>
   <p>Define the <em>generalized Doppler operators</em>
   \({}^{(j,k)}\Do^m_{\ell\ell'\ell''} \equiv \frac{1}{\gamma}\,{}^{-1-j}\Bo^m_{\ell\ell'}(\nu,-\beta)\,{}^{-k}\Bo^m_{\ell'\ell''}(\nu,\beta)\)
   (physical case \((j,k)=(0,0)\)). Then, for \(s=0\):</p>
@@ -535,6 +554,10 @@ and are grouped here by role, not by number.</p>
   <div class="head"><span class="name">(N10) Middle-index raising on the extended family</span>
     <span class="badge new">new</span> <span class="badge pass">verified 4×10⁻²⁷</span>
     <span class="prooflink"><a href="proofs/middle-index.html">proof →</a></span></div>
+  <p class="note"><strong>Scaffolding, not a central result.</strong> The central middle-index relation is the
+  physical-\(\Do\) step <a href="proofs/recurrences.html#middle">P3</a> (nonlinear, but every term a Doppler
+  operator). The linear form below buys linearity by leaving the physical family for the off-diagonal
+  \(X\) — kept here only to show why a linear diagonal \(\ell'\)-relation cannot exist.</p>
   <p>The scattering-multipole index \(\ell'\) — a spectator in N3/N5/N6 — has its own raising recursion once the
   family is extended by <em>off-diagonal intermediate</em> elements
   \({}^{(j,k)}X^m_{\ell;\ell_1',\ell_2';\ell''} = \frac1\gamma\,{}^{-1-j}\Bo^m_{\ell\ell_1'}(\nu,-\beta)\,{}^{-k}\Bo^m_{\ell_2'\ell''}(\nu,\beta)\)
@@ -550,25 +573,15 @@ and are grouped here by role, not by number.</p>
   <div class="head"><span class="name">(N25) Raising every index with Doppler operators <em>only</em></span>
     <span class="badge new">new</span> <span class="badge pass">verified 1.3×10⁻³⁷, end-to-end 0</span>
     <span class="prooflink"><a href="proofs/pure-d-index.html">proof →</a></span></div>
-  <p>The companion-free counterpart of N5/N6/N10: recurrences in which <em>every</em> object is a physical Doppler
-  operator — no kernel \(\Kk\), no bracket \(F\), no extended family \(X\). The engine is the dictionary
-  \(F_{ab}(q)=(-1)^b\frac{J_q}{2p}\,\Do_{ab0}(q)/\Do_{b00}(q{-}1)\), which restores each kernel factor as a ratio
-  of physical elements. For the shared middle index it gives the explicit <strong>pure-\(\Do\)</strong> step</p>
-  \[
-  \begin{aligned}
-  C_{\ell'+1}\,\Do_{h,\ell'+1,0}(q)
-  =\;& \frac{\Do_{\ell'+1,00}(q{-}1)}{p}
-     \Big[\gamma\,\tfrac{\Do_{h\ell'0}(q)}{\Do_{\ell'00}(q{-}1)}
-       - \tfrac{J_{q-1}}{J_q}\,\tfrac{\Do_{h\ell'0}(q{-}1)}{\Do_{\ell'00}(q{-}2)}\Big]
-   - C_{\ell'}\,\tfrac{\Do_{\ell'+1,00}(q{-}1)}{\Do_{\ell'-1,00}(q{-}1)}\,\Do_{h,\ell'-1,0}(q).
-  \end{aligned}
-  \]
-  <p>together with the outer axis ladders (P0), reflection (N1) and rank-one filling (P2). The scheme generates any
-  \(\Do_{h\ell'l}(q)\) from the seed \(\Do_{000}\) with no auxiliary object at any step (deep targets \(\Do_{232}\),
-  \(\Do_{321}\) reproduced exactly). As a closed-form check the scheme rederives \(\Do_{020}\) and \(\Do_{121}\),
-  proved <em>identical</em> to the N8 (Eq.&nbsp;1.3) and N16 boxed forms as exact symbolic identities
-  (<a href="verification/35_rederive_closed_forms.html">harness 35</a>). This is the self-contained,
-  \(\Do\)-only answer to the middle-index problem.</p>
+  <p>The generation scheme behind the central relations above (P0, P3, N1, P2): the device that keeps every step in
+  the physical family is the <strong>dictionary</strong>
+  \({}^{-1-q}\Kk_{ab}(+\beta)=(-1)^b\frac{J_q}{2p}\,\Do_{ab0}(q)/\Do_{b00}(q{-}1)\) — from parity and the seed — which
+  restores each kernel factor as a ratio of physical Doppler operators, so the companions of N5/N6/N10 are
+  reabsorbed rather than carried. It generates any \(\Do_{h\ell'l}(q)\) from \(\Do_{000}\) with no auxiliary object
+  at any step (deep targets \(\Do_{232}\), \(\Do_{321}\) reproduced exactly), and as a closed-form check rederives
+  \(\Do_{020}\) and \(\Do_{121}\), proved <em>identical</em> to the N8 (Eq.&nbsp;1.3) and N16 boxed forms as exact
+  symbolic identities (<a href="verification/35_rederive_closed_forms.html">harness 35</a>). Full derivation:
+  <a href="proofs/recurrences.html">the recurrences page</a> and <a href="proofs/pure-d-index.html">N25</a>.</p>
 </div>
 
 <div class="newbox">
@@ -579,7 +592,8 @@ and are grouped here by role, not by number.</p>
   integral is evaluated — computed <em>exactly, in finitely many steps</em>, including
   \(\Do^0_{000}\) [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;10a], its weight-lattice family, and new generalized
   seeds \({}^{(j,k)}\Do^m_{m\ell' m}\) in terms of \({}_2F_1\). Everything above a seed is then produced by the
-  index relations: N5/N6 (outer), N10 (middle), P0–P4 (pure physical), N24 (polarized) — see the
+  physical-\(\Do\) index relations P0/P3/N1/P2 (<a href="proofs/recurrences.html">the recurrences page</a>; the
+  kernel-level N5/N6/N10 are the scaffolding), plus N24 for the polarized sector — see the
   <a href="proofs/unified.html">generation guide</a> and N8.</p>
 </div>
 
@@ -589,9 +603,9 @@ and are grouped here by role, not by number.</p>
     <span class="prooflink"><a href="proofs/closed-forms.html">proof →</a></span></div>
   <p>With the universal functions \(J_w = \frac{(\gamma+p)^w - (\gamma-p)^w}{w} = \frac{2\sinh(w\eta)}{w}\)
   (so the base case is \(\Do_{000} = \frac{J_{2-\Oh}J_{1-\Oh}}{4\gamma p^2}\), equivalent to [CR26, Eq.&nbsp;10a]),
-  climbing the site's own index-raising relations from the seed — N6 then N5 for the outer indices (weight
-  lattice), N10&nbsp;(M) or the companion-free <a href="proofs/pure-d-index.html">N25</a> for the middle index —
-  yields <em>all-\(\beta\)</em> closed forms for every element, e.g.</p>
+  climbing the physical-\(\Do\) index relations from the seed — <a href="proofs/recurrences.html#outer">P0</a> for
+  the outer indices, <a href="proofs/recurrences.html#middle">P3</a> for the middle index (or, at the kernel level,
+  the N5/N6/N10 scaffolding) — yields <em>all-\(\beta\)</em> closed forms for every element, e.g.</p>
   \[
     \Do^0_{101} = \frac{3}{4\gamma p^4}\Big(\gamma J_{2-\Oh} - J_{3-\Oh}\Big)\Big(\gamma J_{1-\Oh} - J_{\Oh}\Big),
   \]
