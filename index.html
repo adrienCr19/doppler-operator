@@ -40,6 +40,7 @@ window.MathJax = {
   <a href="#boost">1. Boost operator</a>
   <a href="#doppler">2. Doppler operator</a>
   <a href="#new">3. Core recursions</a>
+  <a href="proofs/recurrences.html">★★ Exact recurrences</a>
   <a href="proofs/unified.html">★ Generation guide</a>
   <a href="#structure">4. Structure theory</a>
   <a href="#extensions">5. Sectors &amp; applications</a>
@@ -365,6 +366,29 @@ the \(10^{-27}\) level (exact identities) or against finite differences (ODEs); 
 <a href="#verification">Section&nbsp;7</a>. Labels (N1, N2, …, N25) are stable identifiers (order of discovery)
 and are grouped here by role, not by number.</p>
 
+<span id="recurrences"></span>
+<div class="newbox" style="border-width:3px">
+  <div class="head"><span class="name">★★ The exact recurrence relations — the central result</span>
+    <span class="badge new">core</span> <span class="badge pass">proved from the aberration kernel, dev = 0</span>
+    <span class="prooflink"><a href="proofs/recurrences.html">complete proofs →</a></span></div>
+  <p>The heart of the work is a closed set of <strong>exact</strong> relations that raise each index of the Doppler
+  operator, every one proved by descending to the object \(\Do\) is built from — the aberration kernel of the boost
+  operator — and carrying all the algebra back up. With \(C_\ell=\ell/\sqrt{4\ell^2-1}\) and the weight-lattice
+  family \({}^{(j,k)}\Do = \frac1\gamma\,{}^{-1-j-q}\Kk_{\ell\ell'}(+\beta)\,{}^{-k-q}\Kk_{\ell'\ell''}(-\beta)\):</p>
+  \[
+    \textbf{(N5)}\quad {}^{(j,k)}\Do_{\ell\ell'\ell''} = \tfrac{1}{C_\ell p}\big[\gamma\,{}^{(j,k)}\Do_{\ell-1,\ell'\ell''} - {}^{(j+1,k)}\Do_{\ell-1,\ell'\ell''}\big] - \tfrac{C_{\ell-1}}{C_\ell}\,{}^{(j,k)}\Do_{\ell-2,\ell'\ell''},
+  \]
+  \[
+    \textbf{(N6)}\quad {}^{(j,k)}\Do_{\ell\ell'\ell''} = \tfrac{1}{C_{\ell''} p}\big[\gamma\,{}^{(j,k)}\Do_{\ell\ell',\ell''-1} - {}^{(j,k-1)}\Do_{\ell\ell',\ell''-1}\big] - \tfrac{C_{\ell''-1}}{C_{\ell''}}\,{}^{(j,k)}\Do_{\ell\ell',\ell''-2}.
+  \]
+  <p>N5 and N6 raise the two <em>private</em> outer indices; the <em>shared</em> middle index \(\ell'\) is raised by
+  N10 (linear, with off-diagonal companions) or, companion-free, by the pure-\(\Do\) step P3 (N25). The
+  <a href="proofs/recurrences.html">proof page</a> derives the four kernel identities the recurrences rest on —
+  the seed \({}^{d}\Kk_{00}=J_{1-d}/2p\), parity, transposition, and the master \(\ell\)-raising recurrence
+  \(C_\ell\,{}^{d}\Kk_{\ell\ell'}(-\beta)=\tfrac1p{}^{d-1}\Kk_{\ell-1,\ell'} - \tfrac{\gamma}{p}{}^{d}\Kk_{\ell-1,\ell'} - C_{\ell-1}{}^{d}\Kk_{\ell-2,\ell'}\) (from the Legendre relation \(\mu\bar Y_\ell=C_{\ell+1}\bar Y_{\ell+1}+C_\ell\bar Y_{\ell-1}\) and a \(\mu\)-to-weight identity) — <em>from the integral definition</em>, then reassembles each Doppler recurrence line by line. Every step is verified to deviation \(0\)
+  (<a href="verification/36_kernel_foundations.html">harness 36</a>).</p>
+</div>
+
 <div class="newbox" style="border-width:2px">
   <div class="head"><span class="name">★ Generating Doppler operators from Doppler operators — read this first</span>
     <span class="badge new">generation guide</span> <span class="badge pass">verified end-to-end</span>
@@ -486,7 +510,7 @@ and are grouped here by role, not by number.</p>
 <div class="newbox">
   <div class="head"><span class="name">(N5, N6) Outer-index raising recursions on the weight lattice</span>
     <span class="badge new">new</span> <span class="badge pass">verified 5×10⁻²⁷</span>
-    <span class="prooflink"><a href="proofs/raising.html">proof →</a></span></div>
+    <span class="prooflink"><a href="proofs/recurrences.html#outer">kernel proof →</a> · <a href="proofs/raising.html">worked climb →</a></span></div>
   <p>Define the <em>generalized Doppler operators</em>
   \({}^{(j,k)}\Do^m_{\ell\ell'\ell''} \equiv \frac{1}{\gamma}\,{}^{-1-j}\Bo^m_{\ell\ell'}(\nu,-\beta)\,{}^{-k}\Bo^m_{\ell'\ell''}(\nu,\beta)\)
   (physical case \((j,k)=(0,0)\)). Then, for \(s=0\):</p>
@@ -1016,6 +1040,9 @@ closed forms symbolically; \(\sum_j c_j = 0\) sum rules; averaged channels via b
 <tr><td><a href="verification/35_rederive_closed_forms.html"><code>verification/35_rederive_closed_forms.wl</code></a></td>
 <td><strong>N25 closed-form check</strong>: rederives \(\Do_{020}\) and \(\Do_{121}\) from the pure-\(\Do\) relations and proves them <em>identical</em> to the N8 (Eq. 1.3) and N16 boxed closed forms as exact symbolic identities, plus numeric agreement with direct quadrature at \(\beta\in\{0.3,0.7\}\)</td>
 <td>all PASS (symbolic zero; numeric ≤10⁻³⁸)</td></tr>
+<tr><td><a href="verification/36_kernel_foundations.html"><code>verification/36_kernel_foundations.wl</code></a></td>
+<td><strong>Foundations under the recurrences</strong>: from the aberration-kernel integral — the Legendre \(\mu\)-matrix, the seed \({}^{d}\Kk_{00}=J_{1-d}/2p\), parity, transposition, the master \(\ell\)-raising recurrence (KR/KR⁺), the \(\mu\)-to-weight identity, and the N5/N6/(A) reassembly (I0–I4a, R-N5/N6/A)</td>
+<td>all PASS (dev 0)</td></tr>
 <tr><td><a href="verification/05_export_tables.html"><code>verification/05_export_tables.wl</code></a></td><td>Generates the tables of Section 4 from the ODE (N3)</td><td>—</td></tr>
 </table></div>
 <p>Every script is browsable with its full source and recorded PASS log at the

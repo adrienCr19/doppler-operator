@@ -12,6 +12,12 @@ structure the literature explicitly left as "a problem … for future work" (Ros
 
 ## Results (N-catalog)
 
+**Centerpiece — the exact recurrence relations** (`proofs/recurrences.html`): the index-raising relations of the
+Doppler operator, each proved by descending to the aberration kernel and carrying every line of algebra to its
+conclusion. The four kernel identities (seed `ᵈK₀₀ = J₁₋d/2p`, parity, transposition, and the master ℓ-raising
+recurrence from the Legendre relation) are derived from the integral definition; N5/N6/(A) are reassembled from
+them. All steps verified to deviation 0 (harness 36).
+
 | | |
 |---|---|
 | N1/N1a, N2 | reflection `D(Ô) = Dᵀ(3−Ô)` (diagonals are polynomials in `D̂_ν = Ô²−3Ô`), parity |
@@ -36,7 +42,7 @@ structure the literature explicitly left as "a problem … for future work" (Ros
 - `index.html` — the catalog (§1 boost operator with citations, §2 Doppler operator, §3 core recursions,
   §4 structure theory, §5 sectors & applications, §6 tables, §7 verification).
 - `proofs/` — one self-contained proof page per result (see site navigation).
-- `verification/` — 35 Wolfram-language harnesses + saved PASS logs (`out_*.txt`) + browsable per-script pages.
+- `verification/` — 36 Wolfram-language harnesses + saved PASS logs (`out_*.txt`) + browsable per-script pages.
 - `data/` — machine-readable exact tables:
   `doppler_tables_p8.json` (501 scalar elements, O(p⁸), exact q-polynomial coefficients) and
   `polarized_tables_p6.json` (81 polarized elements T(2,2), T(0,2), T(2,0), m = 0…2, O(p⁶)).

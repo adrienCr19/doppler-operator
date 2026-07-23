@@ -1,0 +1,12 @@
+I0  Legendre mu-matrix  <l|mu|lp> = C_{l+1}d(l+1)+C_l d(l-1): PASS  (dev = 7.072345811105641*^-57)
+I1  seed  Km[d,0,0,bb] = J_{1-d}/(2p): PASS  (dev = 0.)
+I1' seed sign-indep  Km[d,0,0,-bb] = J_{1-d}/(2p): PASS  (dev = 0.)
+I2  parity  Km(bb) = (-1)^{l+lp} Km(-bb): PASS  (dev = 0.)
+I3  transposition  Km[d,l,lp,bb] = Km[2-d,lp,l,-bb]: PASS  (dev = 0.)
+I4  master recursion (KR) for Km(-beta): PASS  (dev = 0.)
+I4+ (KR+) for Kp(+beta): D^d(+b) = +1/(C_l p)[g D^d_{l-1} - D^{d-1}_{l-1}] - (C_{l-1}/C_l) D^d_{l-2}: PASS  (dev = 0.)
+I4a mu->weight identity (pointwise): PASS  (dev = 0.)
+R-N5  outgoing-index raising (lattice): PASS  (dev = 0.)
+R-N6  incoming-index raising (lattice): PASS  (dev = 0.)
+R-A   column recursion of the +beta kernel (middle-index ingredient): PASS  (dev = 0.)
+--- kernel-foundations harness done ---
