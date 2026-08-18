@@ -1,8 +1,9 @@
-ladder vs kernel  (216 elts): 0.
-converted-form vs kernel:     0.
-exported 216 closed forms to data/closed_forms_pureD.json
-D000: \frac{J_1 J_2}{4 \gamma p^2}
-D100: \frac{\sqrt{3} J_1 J_2}{4 p^3}-\frac{\sqrt{3} J_1 J_3}{4 \gamma p^3}
-D020: \frac{45 J_0 J_3}{16 \gamma p^6}+\frac{15 J_0 J_1 \left(2 p^2+3\right)}{16 \gamma p^6}+\frac{15 J_2 J_3 \left(2 p^2+3\right)}{16 \gamma p^6}+\frac{5 J_2 J_1 \left(4 p^4+48 p^2+45\right)}{16 \gamma p^6}-\frac{45 J_3 J_1}{8 p^6}-\frac{45 J_0 J_2}{8 p^6}-\frac{15 J_1^2 \left(2 p^2+3\right)}{8 p^6}-\frac{15 J_2^2 \left(2 p^2+3\right)}{8 p^6}
-D110: -\frac{3 \sqrt{3} \gamma J_1^2}{4 p^5}-\frac{3 \sqrt{3} \gamma J_3 J_1}{4 p^5}-\frac{3 \sqrt{3} J_2^2 \left(p^2+2\right)}{4 \gamma p^5}+\frac{3 \sqrt{3} J_2 J_3}{4 p^5}+\frac{3 \sqrt{3} J_2 J_1 \left(p^2+3\right)}{4 p^5}
+ladder vs kernel     (216 elts): 0.
+FACTORED form vs kernel:         0.
+all elements factor into 2 brackets: {2}
+exported 216 factored closed forms to data/closed_forms_pureD.json
+D000: \frac{1}{4 \gamma p^2}\left(J_1\right)\left(J_2\right)
+D101: \frac{3}{4 \gamma p^4}\left(\gamma J_1-J_0\right)\left(\gamma J_2-J_3\right)   [published: 3/(4 g p^4)(g J_{1+q}-J_q)(g J_{2+q}-J_{3+q})]
+D020: \frac{5}{16 \gamma p^6}\left(-6 \gamma J_1+J_2 \left(2 p^2+3\right)+3 J_0\right)\left(-6 \gamma J_2+J_1 \left(2 p^2+3\right)+3 J_3\right)   [published N8 Eq.1.3]
+D121: \frac{15}{16 \gamma p^8}\left(\gamma J_1 \left(2 p^2+9\right)+3 \gamma J_3+J_0 \left(-2 p^2-3\right)-3 J_2 \left(2 p^2+3\right)\right)\left(\gamma J_2 \left(2 p^2+9\right)+3 \gamma J_0-3 J_1 \left(2 p^2+3\right)+J_3 \left(-2 p^2-3\right)\right)   [published N16 box: 15/(16 g p^8) W(q) W(-3-q)]
 --- pure-D catalog harness done ---
