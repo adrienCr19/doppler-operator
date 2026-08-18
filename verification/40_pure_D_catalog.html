@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>40_pure_D_catalog.wl — closed forms for every Doppler operator via the pure-D ladder</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>40_pure_D_catalog.wl</code></h2>
+<p>Generates the closed form of <strong>every</strong> Doppler operator \(\mathcal{D}_{\ell\ell'\ell''}(q)\) up to
+\(\mathcal{D}_{555}\) using <strong>only the pure-D recurrence ladder</strong> — P0 (outer axis), P3′ (middle,
+elementary \(J\)-coefficients), N1 (reflection) and P2 (rank-one fill) — climbing from the single seed
+\(\mathcal{D}_{000}\). The aberration kernel is never used to generate anything; it appears only as an
+independent numeric check. All 216 elements match the kernel definition to <strong>deviation 0</strong>, and the
+converted \(\gamma,p,J\) closed forms round-trip to the kernels at 0. The catalog is exported to
+<a href="../data/closed_forms_pureD.json"><code>data/closed_forms_pureD.json</code></a> and rendered at
+<a href="../proofs/closed-forms-catalog.html">the closed-form catalog</a>. Run with
+<code>wolframscript -file 40_pure_D_catalog.wl</code>. Download:
+<a href="40_pure_D_catalog.wl" download>40_pure_D_catalog.wl</a> &middot; recorded output below
+(also <a href="out_40_pure_D_catalog.txt">out_40_pure_D_catalog.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 40_pure_D_catalog.wl — Generate CLOSED FORMS for every Doppler operator D_{l l&#x27; l&#x27;&#x27;}(q) up to
+   D_{555} using ONLY the pure-D recurrence ladder (P0 axis, P3&#x27; middle, N1 reflection, P2 fill).
+   The aberration kernel is NEVER used to generate anything; it appears only as an independent
+   numeric check.  Exports data/closed_forms_pureD.json.  On nu^q, m=0. *)
+g=(X+1/X)/2; p=(X-1/X)/2;                       (* X = e^eta, internal only *)
+sh[e_,d_]:=e/.Jf[m_]:&gt;Jf[m+d];                  (* q -&gt; q+d *)
+refl[e_]:=e/.Jf[m_]:&gt;Jf[3-m];                   (* N1: q -&gt; -3-q  (J-index m -&gt; 3-m) *)
+CC[l_]:=Sqrt[l^2/(4 l^2-1)]; red[e_]:=Cancel[Together[e]];
+(* seed *)
+D000=Jf[2]Jf[1]/(4 g p^2);
+(* P0: outer axis ladder *)
+Da[0]=D000; Da[a_]/;a&lt;0:=0;
+Da[a_]:=Da[a]=red[(1/CC[a])((g/p)Da[a-1]-(1/p)(Jf[1]/Jf[2])sh[Da[a-1],1]-CC[a-1]Da[a-2])];
+(* P3&#x27;: middle ladder, elementary J-bracket coefficients *)
+Tn[n_]:=(1/p^(n+1))Sum[Binomial[n,k](-g)^k Jf[n+2-k],{k,0,n}];
+Jbr[a_]:=(-1)^a Sum[Coefficient[LegendreP[a,x],x,n]Tn[n],{n,0,a}];
+aC[lp_]:=(g(2 lp+1)/(lp p)) sh[Jbr[lp],-1]/sh[Jbr[lp-1],-1];
+bC[lp_]:=-((2 lp+1)/(lp p)) sh[Jbr[lp],-1]/sh[Jbr[lp-1],-2];
+cC[lp_]:=If[lp&gt;=2,-((lp-1)(2 lp+1)/(lp(2 lp-3))) sh[Jbr[lp],-1]/sh[Jbr[lp-2],-1],0];
+Db[h_,0]:=Da[h]; Db[h_,lp_]/;lp&lt;0:=0;
+Db[h_,lp_]:=Db[h,lp]=red[aC[lp]Db[h,lp-1]+bC[lp]sh[Db[h,lp-1],-1]+cC[lp]Db[h,lp-2]];
+(* P2 + N1: any element from the border tower *)
+Dfull[l_,lp_,ldd_]:=red[Db[l,lp] refl[Db[ldd,lp]]/Db[0,lp]];
+(* ---- display converter: X-scalar -&gt; polynomial in GAM(gamma),PP(p); reduce GAM^2-&gt;1+PP^2 ---- *)
+(* split polynomial in GAM (using gamma^2=1+p^2) into {A,B} with expr = A + GAM B, A,B in PP *)
+gsplit[e_]:=Module[{ee=Expand[e]//.GAM^n_/;n&gt;=2:&gt;(1+PP^2)^Quotient[n,2] GAM^Mod[n,2]},
+   {ee/.GAM-&gt;0, Coefficient[ee,GAM]}];
+(* canonical rationalized form  A(p) + gamma B(p) *)
+canon[c_]:=Module[{t=Together[c],ne,no,de,do,rd},
+   {ne,no}=gsplit[Numerator[t]]; {de,do}=gsplit[Denominator[t]];
+   rd=Expand[de^2-(1+PP^2)do^2];
+   Cancel[Expand[ne de-(1+PP^2)no do]/rd]+GAM Cancel[Expand[no de-ne do]/rd]];
+sgp[c_]:=Module[{r=ExpToTrig[c/.X-&gt;Exp[et]]},
+  r=r//.{Csch[x_]:&gt;1/Sinh[x],Sech[x_]:&gt;1/Cosh[x],Coth[x_]:&gt;Cosh[x]/Sinh[x],Tanh[x_]:&gt;Sinh[x]/Cosh[x]};
+  r=r/.{Cosh[k_. et]:&gt;ChebyshevT[k,GAM],Sinh[k_. et]:&gt;PP ChebyshevU[k-1,GAM]};
+  canon[r]];
+vars=Table[Jf[i],{i,-4,10}];
+toJ[e_]:=Module[{t=Together[e],num,den,cr},den=Denominator[t];num=Numerator[t];cr=CoefficientRules[num,vars];
+  Total[(sgp[Cancel[#[[2]]/den]] Times@@(vars^#[[1]]))&amp;/@cr]];
+(* serialize to LaTeX with GAM-&gt;gamma, PP-&gt;p at the STRING level (no symbol leak) *)
+texit[Dc_]:=StringReplace[ToString[TeXForm[Dc/.Jf[m_]:&gt;Subscript[JJJ,m]]],
+   {&quot;\\text{GAM}&quot;-&gt;&quot;\\gamma&quot;,&quot;GAM&quot;-&gt;&quot;\\gamma&quot;,&quot;\\text{PP}&quot;-&gt;&quot;p&quot;,&quot;PP&quot;-&gt;&quot;p&quot;,&quot;\\text{JJJ}&quot;-&gt;&quot;J&quot;,&quot;JJJ&quot;-&gt;&quot;J&quot;}];
+(* ---- kernel reference (CHECK ONLY) ---- *)
+bb=42/100; gN=1/Sqrt[1-bb^2]; etaN=ArcSinh[gN bb]; qN=37/100;
+Jq[m_]:=2 Sinh[(qN+m)etaN]/(qN+m);
+evX[e_]:=N[e/.X-&gt;Exp[etaN]/.Jf[m_]:&gt;Jq[m],25];                (* eval X-form *)
+evD[e_]:=N[e/.{GAM-&gt;gN,PP-&gt;gN bb}/.Jf[m_]:&gt;Jq[m],25];        (* eval converted form *)
+Ybar[l_,x_]:=Sqrt[(2 l+1)/(4 Pi)]LegendreP[l,x];
+Kk[d_,l_,lp_,s_]:=2 Pi NIntegrate[Ybar[l,mu]Ybar[lp,(mu+s bb)/(1+s bb mu)]/(gN(1+s bb mu))^d,{mu,-1,1},WorkingPrecision-&gt;30,PrecisionGoal-&gt;18];
+Dker[l_,lp_,ldd_]:=(1/gN)Kk[-1-qN,l,lp,-1]Kk[-qN,lp,ldd,1];
+(* ---- run: verify ladder + converter for all 216, export ---- *)
+maxlad=0; maxconv=0; recs={};
+Do[Module[{Dx,Dc,vk},Dx=Dfull[l,lp,ldd]; vk=Dker[l,lp,ldd];
+   maxlad=Max[maxlad,Abs[evX[Dx]-vk]];
+   Dc=toJ[Dx]; maxconv=Max[maxconv,Abs[evD[Dc]-vk]];
+   recs=Append[recs,&lt;|&quot;l&quot;-&gt;l,&quot;lp&quot;-&gt;lp,&quot;ldd&quot;-&gt;ldd,&quot;form&quot;-&gt;texit[Dc]|&gt;]],
+  {l,0,5},{lp,0,5},{ldd,0,5}];
+Print[&quot;ladder vs kernel  (216 elts): &quot;,N[maxlad]];
+Print[&quot;converted-form vs kernel:     &quot;,N[maxconv]];
+Export[&quot;/Users/adriencristian/Desktop/rSZ/doppler-operator/data/closed_forms_pureD.json&quot;,recs];
+Print[&quot;exported &quot;,Length[recs],&quot; closed forms to data/closed_forms_pureD.json&quot;];
+(* print a few clean ones for the log *)
+Print[&quot;D000: &quot;,texit[toJ[Da[0]]]];
+Print[&quot;D100: &quot;,texit[toJ[Da[1]]]];
+Print[&quot;D020: &quot;,texit[toJ[Db[0,2]]]];
+Print[&quot;D110: &quot;,texit[toJ[Db[1,1]]]];
+Print[&quot;--- pure-D catalog harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>ladder vs kernel  (216 elts): 0.
+converted-form vs kernel:     0.
+exported 216 closed forms to data/closed_forms_pureD.json
+D000: \frac{\gamma J_1 J_2}{4 p^2 \left(p^2+1\right)}
+D100: \frac{\sqrt{3} J_1 J_2}{4 p^3}-\frac{\sqrt{3} \gamma J_1 J_3}{4 p^3 \left(p^2+1\right)}
+D020: \frac{15 \gamma J_0 J_1 \left(2 p^2+3\right)}{16 p^6 \left(p^2+1\right)}+\frac{45 \gamma J_0 J_3}{16 p^6 \left(p^2+1\right)}+\frac{15 \gamma J_2 J_3 \left(2 p^2+3\right)}{16 p^6 \left(p^2+1\right)}+\frac{5 \gamma J_2 J_1 \left(4 p^4+48 p^2+45\right)}{16 p^6 \left(p^2+1\right)}-\frac{45 J_3 J_1}{8 p^6}-\frac{45 J_0 J_2}{8 p^6}-\frac{15 J_1^2 \left(2 p^2+3\right)}{8 p^6}-\frac{15 J_2^2 \left(2 p^2+3\right)}{8 p^6}
+D110: -\frac{3 \sqrt{3} \gamma J_1^2}{4 p^5}-\frac{3 \sqrt{3} \gamma J_3 J_1}{4 p^5}-\frac{3 \gamma J_2^2 \left(\sqrt{3} p^2+2 \sqrt{3}\right)}{4 p^5 \left(p^2+1\right)}+\frac{3 \sqrt{3} J_2 J_3}{4 p^5}+\frac{3 J_2 J_1 \left(\sqrt{3} p^2+3 \sqrt{3}\right)}{4 p^5}
+--- pure-D catalog harness done ---
+</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification</p></footer>
+</main></body></html>
