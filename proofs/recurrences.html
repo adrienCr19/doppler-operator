@@ -52,6 +52,11 @@ four relations — each term a physical \(\Do\):</p>
 \(\ell''{=}0\) column to the border \(\Do_{h\ell'0}\); N1 turns those into the \(\ell{=}0\) border; P2 fills the
 interior. Every intermediate is a physical Doppler operator. For the \(p\)-series there is also the rapidity ODE
 (<a href="ode.html">N3</a>), which likewise closes on physical operators at fixed \(\ell'\).</p>
+<p>P3 looks nonlinear (ratios of \(\Do\)), but §4.1 shows those ratios are only ever <em>axis</em> elements — which
+are closed in \(J_w\) — so P3 is in fact a <strong>linear</strong> \(\ell'\)-recurrence with <strong>explicit
+elementary coefficients</strong>, given there for general \(\ell'\). The genuine obstructions are sharper: a
+fixed-\(q\) middle recurrence does not exist (the shift \(q\to q{-}1\) is essential), and off the axis the outer/inner
+raise is not elementary — both verified in <a href="../verification/39_middle_linear.html"><code>harness 39</code></a>.</p>
 <p>The rest of this page proves each of these from the aberration kernel: §1 the reduction; §2 the four kernel
 identities; §3 the derivation of P0; §4 of P3; §5 of N1 and P2.</p>
 </div>
@@ -219,10 +224,56 @@ leaves exactly the column recurrence (A) for the raised kernel,</p>
 <p>which is (KR) transposed (2.3), raising the shared <em>column</em> \(\ell'\) of factor 1
 (<span class="badge pass">R-A, dev 0</span>). Since (A) holds, the claim holds.
 \(\blacksquare\) <span class="badge pass">harness 37, P3 → 0; harness 34, P3, dev 1.3×10⁻³⁷</span></p>
-<p class="note">The price of staying in the physical family is nonlinearity (the ratios of (D)); it is unavoidable.
-A purely <em>linear</em> \(\ell'\)-relation cannot exist among diagonal operators — forcing it introduces the
-off-diagonal family \(X\), scaffolding confined to the <a href="middle-index.html">N10 page</a>. P3 is the
-price-free physical statement; the end-to-end generation is on the <a href="pure-d-index.html">N25 page</a>.</p>
+<h4 id="middle-elementary">4.1 &nbsp;The coefficients are elementary — P3 is a linear recurrence in \(J_w\)</h4>
+<p>The ratios in (P3) are <em>not</em> a genuine nonlinearity. Every Doppler operator inside the coefficients is an
+<strong>axis</strong> element \(\Do_{a00}\), and these are closed. Writing \(P_a\) for the Legendre polynomial and</p>
+\[
+  \mathcal J_a(q) := \gamma^{1+q}\!\int_{-1}^1 P_a(\mu)\,(1-\beta\mu)^{1+q}\,\mathrm d\mu
+   = (-1)^a\sum_{n=0}^{a} [\mu^n]P_a\; T_n(1{+}q),
+  \qquad
+  T_n(s)=\frac{1}{p^{\,n+1}}\sum_{k=0}^{n}\binom{n}{k}(-\gamma)^k\,J_{s+n+1-k},
+  \tag{J}
+\]
+<p>a finite combination of the brackets \(J_w=2\sinh(w\eta)/w\), the axis elements and their first instances are</p>
+\[
+  \Do_{a00}(q)=\frac{\sqrt{2a+1}}{4\gamma p}\,J_{1+q}\,\mathcal J_a(q),\qquad
+  \mathcal J_0=\frac{J_{2+q}}{p},\;\;
+  \mathcal J_1=\frac{\gamma J_{2+q}-J_{3+q}}{p^2},\;\;
+  \mathcal J_2=\frac{3J_{4+q}-6\gamma J_{3+q}+(2\gamma^2{+}1)J_{2+q}}{2p^3}.
+\]
+<p>Substituting these into (P3) — the \(\sqrt{2\ell'{+}1}\) and \(C_{\ell'}\) prefactors all collapse to rationals —
+turns it into a manifestly <strong>linear</strong> recurrence for the border tower with <strong>elementary</strong>
+coefficients:</p>
+\[
+  \boxed{\;\Do_{h,\ell',0}(q) = a_{\ell'}(q)\,\Do_{h,\ell'-1,0}(q)
+      + b_{\ell'}(q)\,\Do_{h,\ell'-1,0}(q{-}1) + c_{\ell'}(q)\,\Do_{h,\ell'-2,0}(q)\;}
+  \tag{P3′}
+\]
+\[
+  a_{\ell'} = \frac{\gamma(2\ell'{+}1)}{\ell'\,p}\,\frac{\mathcal J_{\ell'}(q{-}1)}{\mathcal J_{\ell'-1}(q{-}1)},
+  \quad
+  b_{\ell'} = -\frac{2\ell'{+}1}{\ell'\,p}\,\frac{\mathcal J_{\ell'}(q{-}1)}{\mathcal J_{\ell'-1}(q{-}2)},
+  \quad
+  c_{\ell'} = -\frac{(\ell'{-}1)(2\ell'{+}1)}{\ell'(2\ell'{-}3)}\,\frac{\mathcal J_{\ell'}(q{-}1)}{\mathcal J_{\ell'-2}(q{-}1)}
+  \quad(c_1=0).
+\]
+<p>The first middle step is a clean two-term raise,</p>
+\[
+  \Do_{h,1,0}(q) = \frac{3}{p^2}\big(\gamma J_{1+q}-J_{2+q}\big)
+     \Big[\frac{\gamma}{J_{1+q}}\Do_{h00}(q) - \frac{1}{J_q}\Do_{h00}(q{-}1)\Big].
+  \tag{P3′₁}
+\]
+<p><span class="badge pass">harness 39: T3 general \(\ell'\le5\), dev 1.7×10⁻⁴¹; T2 axis closed form, dev 6.9×10⁻³⁹; T4 (P3′₁) dev 1.7×10⁻⁴¹</span></p>
+<p class="note">So P3 is a linear \(\ell'\)-recurrence whose coefficients reference only the axis brackets \(\mathcal J_a\)
+— no Doppler operator survives in them, and the off-diagonal family \(X\) (<a href="middle-index.html">N10 page</a>)
+is never needed. What genuinely <em>cannot</em> be removed is sharper than "nonlinearity": (i) the single spectral
+shift \(q\to q{-}1\) is essential — at fixed \(q\), \(\Do_{h,\ell',0}(q)\) is <em>not</em> in the span of the lower
+middle levels, so no fixed-\(q\) linear middle recurrence exists (<span class="badge pass">harness 39, T7: fixed-\(q\)
+residual \(0.61\); with the \(q{-}1\) levels adjoined, residual \(0\)</span>); and (ii) the elementary form is special
+to the axis and the middle border — raising an <em>outer</em> or <em>inner</em> index <em>off</em> the axis needs a
+column ratio that is a true ratio of Doppler operators, not a bracket (<span class="badge pass">harness 39, T6: the
+axis coefficient fails off-axis by \(O(1)\)</span>), where the rank-one fill (P2) is the right tool. The end-to-end
+generation is on the <a href="pure-d-index.html">N25 page</a>.</p>
 
 <h3 id="closure">5 &nbsp;Reflection and rank-one fill — N1, P2</h3>
 <p><strong>Reflection (N1). Claim</strong> \(\;\Do_{h\ell'l}(q)=\Do_{l\ell'h}(-3-q)\).
@@ -262,7 +313,11 @@ all dev 0 (I0–I4a, R-A). <a href="../verification/37_identity_reductions.html"
 \(\text{LHS}-\text{RHS}\) reduced to \(0\) (N1 via transposition, P2 via cancellation, P0 → master recurrence,
 P3 → column recursion). <a href="../verification/34_pure_D_middle.html"><code>34</code></a> — the pure-\(\Do\)
 relations P0, P3, N1, P2 numerically and end-to-end. <a href="../verification/35_rederive_closed_forms.html"><code>35</code></a>
-— \(\Do_{020}\), \(\Do_{121}\) rederived and matched symbolically.</p>
+— \(\Do_{020}\), \(\Do_{121}\) rederived and matched symbolically.
+<a href="../verification/39_middle_linear.html"><code>39_middle_linear.wl</code></a> — §4.1: the axis closed form
+\(\Do_{a00}=\tfrac{\sqrt{2a+1}}{4\gamma p}J_{1+q}\mathcal J_a\), the general-\(\ell'\) linear middle recurrence
+(P3\('\)) with elementary coefficients to \(\ell'\le5\), the two-term first step (P3\('_1\)), and the two obstruction
+tests (no fixed-\(q\) recurrence; non-elementary off-axis).</p>
 
 <footer><p><a href="../index.html">The Doppler Operator Project</a> — proofs</p></footer>
 </main>

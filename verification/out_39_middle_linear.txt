@@ -1,0 +1,9 @@
+T1  moment closed form T_n(s) vs integral (n<=5, s in {1.37,-0.6}): PASS  (dev = 3.393068558713832*^-39)
+T2  axis element D_{a00} = Sqrt(2a+1)/(4gp) J_{1+q} J_a(q) vs kernel (a<=5): PASS  (dev = 6.855666461822351*^-39)
+T3  general-l' J-explicit LINEAR middle recurrence -> D_{h,l',0} (h<=3, l'<=5): PASS  (dev = 1.711039047522961*^-41)
+T4  l'=1 showcase two-term step (h<=5): PASS  (dev = 1.711039047522961*^-41)
+T5  prefactor collapse (a,c): PASS (all 0)
+T6  outer raise with AXIS coeff OFF-axis (l'=l''=1): err = 0.5689104208665345  => genuinely NON-elementary off the axis (P2 rank-one fill is the tool there)
+T7  fixed-q middle dependence: worst residual = 0.6085  (O(1) => NO fixed-q linear middle recurrence)
+    with the q->q-1 shift adjoined: worst residual = 0.  (=> exactly the P3 relation; the spectral shift is essential)
+--- middle-linear harness done ---
