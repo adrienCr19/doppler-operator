@@ -34,7 +34,8 @@ canon[c_]:=Module[{t=Together[c],ne,no,de,do,rd},
 sgp[c_]:=Module[{r=ExpToTrig[c/.X->Exp[et]]},
   r=r//.{Csch[x_]:>1/Sinh[x],Sech[x_]:>1/Cosh[x],Coth[x_]:>Cosh[x]/Sinh[x],Tanh[x_]:>Sinh[x]/Cosh[x]};
   r=r/.{Cosh[k_. et]:>ChebyshevT[k,GAM],Sinh[k_. et]:>PP ChebyshevU[k-1,GAM]};
-  canon[r]];
+  (* canonical A(p)+gamma B(p), then restore site/paper style: (1+p^2)->gamma^2, cancel *)
+  Cancel[Together[Factor[canon[r]]/.(1+PP^2)->GAM^2]]];
 vars=Table[Jf[i],{i,-4,10}];
 toJ[e_]:=Module[{t=Together[e],num,den,cr},den=Denominator[t];num=Numerator[t];cr=CoefficientRules[num,vars];
   Total[(sgp[Cancel[#[[2]]/den]] Times@@(vars^#[[1]]))&/@cr]];

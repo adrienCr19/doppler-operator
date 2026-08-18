@@ -1,8 +1,8 @@
 ladder vs kernel  (216 elts): 0.
 converted-form vs kernel:     0.
 exported 216 closed forms to data/closed_forms_pureD.json
-D000: \frac{\gamma J_1 J_2}{4 p^2 \left(p^2+1\right)}
-D100: \frac{\sqrt{3} J_1 J_2}{4 p^3}-\frac{\sqrt{3} \gamma J_1 J_3}{4 p^3 \left(p^2+1\right)}
-D020: \frac{15 \gamma J_0 J_1 \left(2 p^2+3\right)}{16 p^6 \left(p^2+1\right)}+\frac{45 \gamma J_0 J_3}{16 p^6 \left(p^2+1\right)}+\frac{15 \gamma J_2 J_3 \left(2 p^2+3\right)}{16 p^6 \left(p^2+1\right)}+\frac{5 \gamma J_2 J_1 \left(4 p^4+48 p^2+45\right)}{16 p^6 \left(p^2+1\right)}-\frac{45 J_3 J_1}{8 p^6}-\frac{45 J_0 J_2}{8 p^6}-\frac{15 J_1^2 \left(2 p^2+3\right)}{8 p^6}-\frac{15 J_2^2 \left(2 p^2+3\right)}{8 p^6}
-D110: -\frac{3 \sqrt{3} \gamma J_1^2}{4 p^5}-\frac{3 \sqrt{3} \gamma J_3 J_1}{4 p^5}-\frac{3 \gamma J_2^2 \left(\sqrt{3} p^2+2 \sqrt{3}\right)}{4 p^5 \left(p^2+1\right)}+\frac{3 \sqrt{3} J_2 J_3}{4 p^5}+\frac{3 J_2 J_1 \left(\sqrt{3} p^2+3 \sqrt{3}\right)}{4 p^5}
+D000: \frac{J_1 J_2}{4 \gamma p^2}
+D100: \frac{\sqrt{3} J_1 J_2}{4 p^3}-\frac{\sqrt{3} J_1 J_3}{4 \gamma p^3}
+D020: \frac{45 J_0 J_3}{16 \gamma p^6}+\frac{15 J_0 J_1 \left(2 p^2+3\right)}{16 \gamma p^6}+\frac{15 J_2 J_3 \left(2 p^2+3\right)}{16 \gamma p^6}+\frac{5 J_2 J_1 \left(4 p^4+48 p^2+45\right)}{16 \gamma p^6}-\frac{45 J_3 J_1}{8 p^6}-\frac{45 J_0 J_2}{8 p^6}-\frac{15 J_1^2 \left(2 p^2+3\right)}{8 p^6}-\frac{15 J_2^2 \left(2 p^2+3\right)}{8 p^6}
+D110: -\frac{3 \sqrt{3} \gamma J_1^2}{4 p^5}-\frac{3 \sqrt{3} \gamma J_3 J_1}{4 p^5}-\frac{3 \sqrt{3} J_2^2 \left(p^2+2\right)}{4 \gamma p^5}+\frac{3 \sqrt{3} J_2 J_3}{4 p^5}+\frac{3 \sqrt{3} J_2 J_1 \left(p^2+3\right)}{4 p^5}
 --- pure-D catalog harness done ---
