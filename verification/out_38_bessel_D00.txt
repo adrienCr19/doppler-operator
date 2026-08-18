@@ -1,0 +1,9 @@
+S1  measure*D000 collapses to Sinh((2+q)e)Sinh((1+q)e)/((1+q)(2+q)): True
+S2  product-to-sum Sinh((2+q)e)Sinh((1+q)e) = 1/2(Cosh((3+2q)e)-Cosh(e)): True
+S3  normalization Int Sinh^2 e Cosh e e^{-z Cosh e} de == K_2(z)/z: {ScientificForm[1.1781634455097648*^-33, 3], ScientificForm[0., 3], ScientificForm[0., 3]}
+S4  K_nu(z)=Int e^{-z Cosh e}Cosh(nu e)de for nu=1,2,3,4,5.5: {ScientificForm[0., 3], ScientificForm[0., 3], ScientificForm[0., 3], ScientificForm[0., 3], ScientificForm[0., 3]}
+S5  <D000(q)>_theta == closed form, max dev over {q,theta}: ScientificForm[2.254972133023467*^-30, 3]  PASS
+S6a K_3(z)-K_1(z) - (4/z)K_2(z) = 0: ScientificForm[0., 3]
+S6b closed form at q=0 equals exactly 1: 0.99999999999999999999999999989291701123`25.
+S6c D000(0,p) == 1 pointwise (symbolic): True
+--- 38_bessel_D00 done ---

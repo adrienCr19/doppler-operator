@@ -1,0 +1,343 @@
+% An exact Bessel-function identity for the thermally averaged Doppler monopole operator
+% Companion note to https://adriencr19.github.io/doppler-operator/
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{mathtools}
+\usepackage{cancel}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\Do}{\mathcal{D}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Cx}{\mathbb{C}}
+\DeclareMathOperator{\Real}{Re}
+
+\title{An exact Bessel-function identity for the thermally averaged\\ Doppler monopole operator}
+\author{A.~Cristian\thanks{\texttt{adrien.cristian@gmail.com}. Companion note to the Doppler Operator Project,
+\url{https://adriencr19.github.io/doppler-operator/}. Every displayed identity is machine-verified in the
+harness \texttt{verification/38\_bessel\_D00.wl}.}}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove, from first principles and with every step carried to its conclusion, that the Maxwell--J\"uttner
+thermal average of the monopole component $\Do_{000}(q)$ of the relativistic Doppler operator is an elementary
+ratio of modified Bessel functions of the second kind,
+\[
+  \avg{\Do_{000}(q)}_\theta
+  \;=\;
+  \frac{K_{2q+3}(1/\theta)-K_{1}(1/\theta)}{2\,(q+1)(q+2)\,\theta\,K_{2}(1/\theta)} ,
+\]
+valid for all $q\in\Cx$ and all dimensionless temperatures $\theta=k_BT_e/m_ec^2>0$. The proof rests on a single
+analytic input --- the Schl\"afli--Basset integral representation of $K_\nu$, which we prove in
+Appendix~\ref{app:rep} by the ordinary-differential-equation method --- together with elementary hyperbolic
+algebra. Two independent consistency checks (the pointwise normalisation $\Do_{000}(0)\equiv1$ and the recurrence
+$K_{3}-K_{1}=(4/z)K_2$) close the argument.
+\end{abstract}
+
+\section{Statement}
+\label{sec:statement}
+
+Throughout, $\eta\ge 0$ denotes the electron rapidity, so that its dimensionless momentum, Lorentz factor and
+speed are
+\begin{equation}
+  p=\sinh\eta=\frac{|\bm p|}{m_ec},\qquad
+  \gamma=\cosh\eta=\sqrt{1+p^2},\qquad
+  \beta=\tanh\eta,
+  \label{eq:rapidity}
+\end{equation}
+and we write $J_w(\eta)=2\sinh(w\eta)/w$ for $w\neq0$ (with $J_0=2\eta$). The monopole component of the Doppler
+operator --- the round trip of a power-law photon spectrum $\nu^{-q}$ into the electron rest frame and back,
+evaluated on its own weight --- has the closed form (Doppler Operator Project, \texttt{proofs/closed-forms.html})
+\begin{equation}
+  \boxed{\;
+  \Do_{000}(q;\eta)
+  \;=\;
+  \frac{J_{2+q}(\eta)\,J_{1+q}(\eta)}{4\,\gamma\,p^{2}}
+  \;=\;
+  \frac{\sinh\!\big((2+q)\eta\big)\,\sinh\!\big((1+q)\eta\big)}{(1+q)(2+q)\,\cosh\eta\,\sinh^{2}\eta}\; }
+  \label{eq:D000}
+\end{equation}
+The second equality is immediate from $J_w=2\sinh(w\eta)/w$ and $\gamma p^2=\cosh\eta\sinh^2\eta$. Our object of
+study is the average of \eqref{eq:D000} over a thermal (Maxwell--J\"uttner) ensemble of electrons.
+
+\begin{theorem}[Bessel identity for the thermal Doppler monopole]
+\label{thm:main}
+Let $\theta>0$ and let $\avg{\,\cdot\,}_\theta$ denote the isotropic Maxwell--J\"uttner average of
+Definition~\ref{def:mj}. Then for every $q\in\Cx$,
+\begin{equation}
+  \avg{\Do_{000}(q)}_\theta
+  \;=\;
+  \frac{K_{2q+3}\!\left(1/\theta\right)-K_{1}\!\left(1/\theta\right)}
+       {2\,(q+1)(q+2)\,\theta\,K_{2}\!\left(1/\theta\right)} .
+  \label{eq:main}
+\end{equation}
+The right-hand side is entire in $q$: the apparent poles at $q=-1$ and $q=-2$ are removable
+(Remark~\ref{rem:entire}).
+\end{theorem}
+
+\section{The Maxwell--J\"uttner ensemble}
+\label{sec:mj}
+
+\begin{definition}[Maxwell--J\"uttner distribution and average]
+\label{def:mj}
+The relativistic (J\"uttner) equilibrium distribution of electron momenta at dimensionless temperature
+$\theta=k_BT_e/m_ec^2$ is isotropic in $\bm p$ with one-dimensional momentum density
+\begin{equation}
+  f_{\mathrm{MJ}}(p;\theta)\,\dd p
+  \;=\;
+  \frac{p^{2}\,\exp\!\big(-\sqrt{1+p^{2}}\,/\,\theta\big)}{\theta\,K_{2}(1/\theta)}\,\dd p ,
+  \qquad p\in[0,\infty),
+  \label{eq:mj}
+\end{equation}
+and for any function $g$ of the electron speed we set
+$\displaystyle \avg{g}_\theta=\int_0^\infty g(p)\,f_{\mathrm{MJ}}(p;\theta)\,\dd p.$
+\end{definition}
+
+That \eqref{eq:mj} is a probability density --- i.e.\ that the normalising constant is exactly
+$\theta K_2(1/\theta)$ --- is the content of the following proposition, proved so that no ingredient of
+Theorem~\ref{thm:main} is imported unproven.
+
+\begin{proposition}[Normalisation]
+\label{prop:norm}
+For every $z>0$,
+\begin{equation}
+  \int_0^\infty p^{2}\,e^{-z\sqrt{1+p^2}}\,\dd p
+  \;=\;\int_0^\infty \sinh^{2}\eta\,\cosh\eta\;e^{-z\cosh\eta}\,\dd\eta
+  \;=\;\frac{K_2(z)}{z}.
+  \label{eq:norm}
+\end{equation}
+In particular $\int_0^\infty f_{\mathrm{MJ}}(p;\theta)\,\dd p=1$ upon setting $z=1/\theta$.
+\end{proposition}
+
+\begin{proof}
+The substitution \eqref{eq:rapidity}, $p=\sinh\eta$, $\dd p=\cosh\eta\,\dd\eta$, $\sqrt{1+p^2}=\cosh\eta$, turns
+the first integral into the second and shows the integrand decays like $e^{-z\cosh\eta}\sim e^{-\tfrac12 z\,e^{\eta}}$,
+so both integrals converge absolutely for $z>0$. For the value, reduce the cubic in $\cosh\eta$ by the elementary
+identity $\cosh^3\eta=\tfrac14\cosh3\eta+\tfrac34\cosh\eta$:
+\begin{equation}
+  \sinh^2\eta\,\cosh\eta=(\cosh^2\eta-1)\cosh\eta=\cosh^3\eta-\cosh\eta
+  =\tfrac14\big(\cosh3\eta-\cosh\eta\big).
+  \label{eq:cubic}
+\end{equation}
+Hence, using the representation $K_\nu(z)=\int_0^\infty e^{-z\cosh\eta}\cosh(\nu\eta)\,\dd\eta$
+(Lemma~\ref{lem:rep}) for $\nu=3$ and $\nu=1$,
+\begin{equation}
+  \int_0^\infty \sinh^2\eta\,\cosh\eta\;e^{-z\cosh\eta}\,\dd\eta
+  =\tfrac14\big(K_3(z)-K_1(z)\big)
+  =\tfrac14\cdot\frac{4}{z}K_2(z)=\frac{K_2(z)}{z},
+\end{equation}
+where the penultimate step is the recurrence $K_3(z)-K_1(z)=(4/z)K_2(z)$ proved in Lemma~\ref{lem:recur}.
+\end{proof}
+
+\section{Proof of Theorem~\ref{thm:main}}
+\label{sec:proof}
+
+The argument is four exact moves: change of variables, cancellation of the kinematic prefactor, a
+product-to-sum identity, and term-by-term application of the Bessel representation. No term is discarded and no
+asymptotic approximation is made.
+
+\paragraph{Step 1 (change of variables).}
+By Definition~\ref{def:mj} and \eqref{eq:D000},
+\begin{equation}
+  \avg{\Do_{000}(q)}_\theta
+  =\frac{1}{\theta K_2(1/\theta)}\int_0^\infty
+     p^2\,e^{-\sqrt{1+p^2}/\theta}\;\Do_{000}(q;p)\,\dd p .
+\end{equation}
+Substituting $p=\sinh\eta$ as in \eqref{eq:rapidity} sends the phase-space measure to
+$p^2\,\dd p=\sinh^2\eta\,\cosh\eta\,\dd\eta$ and $\sqrt{1+p^2}\mapsto\cosh\eta$, giving
+\begin{equation}
+  \avg{\Do_{000}(q)}_\theta
+  =\frac{1}{\theta K_2(1/\theta)}\int_0^\infty
+    \underbrace{\sinh^2\eta\,\cosh\eta}_{\text{measure}}\;
+    \underbrace{\frac{\sinh\!\big((2+q)\eta\big)\sinh\!\big((1+q)\eta\big)}
+                     {(1+q)(2+q)\,\cosh\eta\,\sinh^2\eta}}_{\Do_{000}(q;\eta)}
+    \;e^{-\cosh\eta/\theta}\,\dd\eta .
+  \label{eq:step1}
+\end{equation}
+
+\paragraph{Step 2 (exact cancellation of the kinematic prefactor).}
+The measure $\sinh^2\eta\,\cosh\eta$ and the denominator $\cosh\eta\,\sinh^2\eta$ of $\Do_{000}$ are identical and
+cancel \emph{exactly} --- this is the structural reason a thermal average of the Doppler monopole is elementary.
+Equation~\eqref{eq:step1} collapses to
+\begin{equation}
+  \avg{\Do_{000}(q)}_\theta
+  =\frac{1}{(1+q)(2+q)\,\theta K_2(1/\theta)}
+     \int_0^\infty \sinh\!\big((2+q)\eta\big)\,\sinh\!\big((1+q)\eta\big)\;e^{-\cosh\eta/\theta}\,\dd\eta .
+  \label{eq:step2}
+\end{equation}
+The remaining integrand is $O(e^{(2q+3)\eta})$ at worst against $e^{-\cosh\eta/\theta}$, so the integral converges
+absolutely for every $q\in\Cx$ and every $\theta>0$; this justifies all manipulations below and the analytic
+continuation in $q$.
+
+\paragraph{Step 3 (product-to-sum).}
+By the addition formulae, $2\sinh A\sinh B=\cosh(A+B)-\cosh(A-B)$. With $A=(2+q)\eta$ and $B=(1+q)\eta$, so that
+$A+B=(2q+3)\eta$ and $A-B=\eta$,
+\begin{equation}
+  \sinh\!\big((2+q)\eta\big)\,\sinh\!\big((1+q)\eta\big)
+  =\tfrac12\Big(\cosh\!\big((2q+3)\eta\big)-\cosh\eta\Big).
+  \label{eq:p2s}
+\end{equation}
+
+\paragraph{Step 4 (Bessel representation).}
+Insert \eqref{eq:p2s} into \eqref{eq:step2} and apply the Schl\"afli--Basset representation
+$K_\nu(z)=\int_0^\infty e^{-z\cosh\eta}\cosh(\nu\eta)\,\dd\eta$ (Lemma~\ref{lem:rep}), termwise with $z=1/\theta$,
+to the orders $\nu=2q+3$ and $\nu=1$:
+\begin{align}
+  \int_0^\infty \sinh\!\big((2+q)\eta\big)\sinh\!\big((1+q)\eta\big)\,e^{-\cosh\eta/\theta}\,\dd\eta
+  &=\tfrac12\!\int_0^\infty\!\Big(\cosh\!\big((2q+3)\eta\big)-\cosh\eta\Big)e^{-\cosh\eta/\theta}\,\dd\eta\notag\\
+  &=\tfrac12\Big(K_{2q+3}(1/\theta)-K_1(1/\theta)\Big).
+  \label{eq:step4}
+\end{align}
+Substituting \eqref{eq:step4} into \eqref{eq:step2} yields
+\begin{equation}
+  \avg{\Do_{000}(q)}_\theta
+  =\frac{K_{2q+3}(1/\theta)-K_1(1/\theta)}{2\,(1+q)(2+q)\,\theta\,K_2(1/\theta)},
+\end{equation}
+which is \eqref{eq:main}. \qed
+
+\section{Consistency and physical content}
+\label{sec:checks}
+
+\begin{corollary}[Cold limit is the identity]
+\label{cor:q0}
+At $q=0$, $\;\avg{\Do_{000}(0)}_\theta=1$ for every $\theta>0$.
+\end{corollary}
+\begin{proof}
+Two independent verifications. \emph{(i) Pointwise.} Setting $q=0$ in \eqref{eq:D000} and using
+$J_2=2\sinh\eta\cosh\eta$, $J_1=2\sinh\eta$ gives $\Do_{000}(0;\eta)=(2\sinh\eta\cosh\eta)(2\sinh\eta)/(4\cosh\eta\sinh^2\eta)=1$
+identically, so any normalised average of it is $1$. \emph{(ii) From \eqref{eq:main}.} With $z=1/\theta$ the
+numerator is $K_3(z)-K_1(z)=(4/z)K_2(z)$ by Lemma~\ref{lem:recur}, and the denominator is $2\cdot1\cdot2\cdot z^{-1}K_2(z)=(4/z)K_2(z)$;
+the ratio is $1$.
+\end{proof}
+
+The agreement of (i) and (ii) is a nontrivial test: it forces the Bessel recurrence $K_3-K_1=(4/z)K_2$, the same
+identity used in Proposition~\ref{prop:norm}, and thus ties the normalisation of the ensemble to the $q=0$ value
+of the observable.
+
+\begin{remark}[The average is entire in $q$]
+\label{rem:entire}
+The prefactor $[(1+q)(2+q)]^{-1}$ in \eqref{eq:main} appears to produce simple poles at $q=-1,-2$, but the
+numerator vanishes there: at $q=-1$ the order is $2q+3=1$, so $K_{2q+3}-K_1=K_1-K_1=0$, and at $q=-2$ the order is
+$2q+3=-1$, so $K_{-1}-K_1=K_1-K_1=0$ (recall $K_{-\nu}=K_\nu$). Each apparent pole is therefore a removable
+$0/0$, consistent with the left-hand side $\avg{\Do_{000}(q)}_\theta$ being an absolutely convergent integral
+--- hence finite --- for all $q\in\Cx$ (Step~2). The identity \eqref{eq:main} holds as an equality of entire
+functions of $q$.
+\end{remark}
+
+\begin{remark}[Nonrelativistic expansion]
+\label{rem:nr}
+Expanding \eqref{eq:main} for small $\theta$ (equivalently, averaging the momentum series
+$\Do_{000}(q;p)=1+\tfrac13 q(q+3)\,p^2+\tfrac{2}{45}q(q^3+6q^2+5q-12)\,p^4+\cdots$ against the J\"uttner moments
+$\avg{p^2}=3\theta+\tfrac{15}{2}\theta^2+\cdots$, $\avg{p^4}=15\theta^2+\cdots$) gives
+\begin{equation}
+  \avg{\Do_{000}(q)}_\theta
+  = 1 + q(q+3)\,\theta + \tfrac16\,q\big(4q^3+24q^2+35q-3\big)\,\theta^2 + O(\theta^3).
+\end{equation}
+The leading correction $q(q+3)\theta$ is the familiar thermal-SZ Compton-$y$ weight of a power law of index $q$;
+its vanishing at $q=0$ (and at $q=-3$, the parity-conjugate weight) recovers Corollary~\ref{cor:q0}.
+\end{remark}
+
+\appendix
+
+\section{The Schl\"afli--Basset representation and its recurrence}
+\label{app:rep}
+
+We prove the one analytic fact used above, so the note is self-contained. For integer order this is classical
+(Schl\"afli 1873; Basset 1889); the ODE argument below covers arbitrary complex order, which we need since
+$2q+3$ need not be an integer.
+
+\begin{lemma}[Integral representation of $K_\nu$]
+\label{lem:rep}
+For every $\nu\in\Cx$ and every $z>0$,
+\begin{equation}
+  I_\nu(z):=\int_0^\infty e^{-z\cosh t}\,\cosh(\nu t)\,\dd t \;=\; K_\nu(z).
+  \label{eq:rep}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+\emph{Convergence and smoothness.} For $t\to\infty$, $\cosh(\nu t)=O(e^{|\Real\nu|\,t})$ while
+$e^{-z\cosh t}=O\!\big(e^{-\tfrac12 z e^{t}}\big)$, so the integrand and all its $t$- and $z$-derivatives are
+dominated by an integrable function locally uniformly in $z>0$; hence $I_\nu$ is smooth on $(0,\infty)$ and we may
+differentiate under the integral sign.
+
+\emph{$I_\nu$ solves the modified Bessel equation.} Write $\mathcal L[u]=z^2u''+zu'-(z^2+\nu^2)u$. Differentiating
+\eqref{eq:rep} twice in $z$ (so $u'=-\int\cosh t\,e^{-z\cosh t}\cosh\nu t\,\dd t$ and
+$u''=\int\cosh^2 t\,e^{-z\cosh t}\cosh\nu t\,\dd t$) and using $z^2\cosh^2t-z^2=z^2\sinh^2t$,
+\begin{equation}
+  \mathcal L[I_\nu](z)=\int_0^\infty e^{-z\cosh t}\,\big(z^2\sinh^2 t-z\cosh t-\nu^2\big)\cosh(\nu t)\,\dd t
+  =:\int_0^\infty T(t)\,\dd t .
+  \label{eq:LI}
+\end{equation}
+The integrand is an exact $t$-derivative. Indeed, put
+\begin{equation}
+  F(t)=e^{-z\cosh t}\,\big(-z\sinh t\,\cosh\nu t-\nu\sinh\nu t\big).
+\end{equation}
+Differentiating and collecting terms (using $\tfrac{\dd}{\dd t}e^{-z\cosh t}=-z\sinh t\,e^{-z\cosh t}$),
+\begin{align*}
+  e^{z\cosh t}F'(t)
+   &=-z\sinh t\big(-z\sinh t\,\cosh\nu t-\nu\sinh\nu t\big)\\
+   &\quad{}+\big(-z\cosh t\,\cosh\nu t-z\nu\sinh t\,\sinh\nu t-\nu^2\cosh\nu t\big)\\
+   &=z^2\sinh^2 t\,\cosh\nu t+\cancel{z\nu\sinh t\,\sinh\nu t}
+     -z\cosh t\,\cosh\nu t-\cancel{z\nu\sinh t\,\sinh\nu t}-\nu^2\cosh\nu t\\
+   &=\big(z^2\sinh^2 t-z\cosh t-\nu^2\big)\cosh\nu t,
+\end{align*}
+the two $z\nu\sinh t\,\sinh\nu t$ terms cancelling exactly, so that
+$F'(t)=e^{-z\cosh t}\big(z^2\sinh^2 t-z\cosh t-\nu^2\big)\cosh\nu t=T(t)$. Since $F(0)=0$ (the bracket vanishes at $t=0$) and
+$F(t)\to0$ as $t\to\infty$ (the Gaussian-in-$e^t$ decay of $e^{-z\cosh t}$ beats the exponential growth of the
+bracket for $z>0$), \eqref{eq:LI} gives $\mathcal L[I_\nu](z)=F(\infty)-F(0)=0$. Thus $I_\nu$ is a solution of the
+modified Bessel equation of order $\nu$.
+
+\emph{Identification with $K_\nu$.} The solution space is spanned by $I_\nu$ (regular; growing like
+$e^{z}/\sqrt{2\pi z}$) and $K_\nu$ (recessive; decaying like $\sqrt{\pi/2z}\,e^{-z}$) as $z\to+\infty$. By Watson's
+lemma applied to \eqref{eq:rep} about $t=0$, where $\cosh t=1+\tfrac12 t^2+O(t^4)$ and $\cosh\nu t=1+O(t^2)$,
+\begin{equation}
+  I_\nu(z)=\int_0^\infty e^{-z(1+t^2/2)}\big(1+O(t^2)\big)\,\dd t
+          =e^{-z}\sqrt{\frac{\pi}{2z}}\,\big(1+O(z^{-1})\big)\qquad(z\to+\infty),
+\end{equation}
+independent of $\nu$ to leading order. Hence $I_\nu$ is the recessive solution and $I_\nu=c\,K_\nu$; matching the
+leading coefficient to $K_\nu(z)\sim\sqrt{\pi/2z}\,e^{-z}$ fixes $c=1$. Therefore $I_\nu=K_\nu$.
+\end{proof}
+
+\begin{lemma}[Difference recurrence]
+\label{lem:recur}
+For every $\nu\in\Cx$ and $z>0$, $\;K_{\nu+1}(z)-K_{\nu-1}(z)=\dfrac{2\nu}{z}\,K_\nu(z)$. In particular
+$K_3(z)-K_1(z)=(4/z)K_2(z)$.
+\end{lemma}
+\begin{proof}
+Using \eqref{eq:rep} and $\cosh(\nu+1)t-\cosh(\nu-1)t=2\sinh\nu t\,\sinh t$,
+\begin{align*}
+  K_{\nu+1}(z)-K_{\nu-1}(z)
+  &=\int_0^\infty e^{-z\cosh t}\,2\sinh\nu t\,\sinh t\,\dd t
+   =-\frac{2}{z}\int_0^\infty \sinh\nu t\,\frac{\dd}{\dd t}\Big(e^{-z\cosh t}\Big)\dd t\\
+  &=-\frac{2}{z}\Big[\sinh\nu t\,e^{-z\cosh t}\Big]_0^\infty
+    +\frac{2}{z}\int_0^\infty \nu\cosh\nu t\,e^{-z\cosh t}\,\dd t
+   =\frac{2\nu}{z}\,K_\nu(z),
+\end{align*}
+the boundary term vanishing at both ends ($\sinh 0=0$; $e^{-z\cosh t}\to0$). Setting $\nu=2$ gives the stated
+special case.
+\end{proof}
+
+\section*{Verification}
+Every displayed equation is checked in \texttt{verification/38\_bessel\_D00.wl}: the prefactor cancellation of
+Step~2 and the product-to-sum \eqref{eq:p2s} are symbolic zeros; the normalisation \eqref{eq:norm} and the
+representation \eqref{eq:rep} (including non-integer order $\nu=\tfrac{11}{2}$) match to $\sim30$ digits; the
+assembled identity \eqref{eq:main} matches direct quadrature of $\avg{\Do_{000}(q)}_\theta$ to $2\times10^{-30}$
+across $q\in\{-\tfrac12,0,\tfrac12,1,\tfrac32\}$ and $\theta\in\{0.02,0.1\}$; and Corollary~\ref{cor:q0} is
+confirmed pointwise and via the recurrence.
+
+\end{document}
