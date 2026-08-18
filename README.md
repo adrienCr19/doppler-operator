@@ -40,7 +40,8 @@ them. All steps verified to deviation 0 (harness 36).
 ## Contents
 
 - `index.html` — the catalog (§1 boost operator with citations, §2 Doppler operator, §3 core recursions,
-  §4 structure theory, §5 sectors & applications, §6 tables, §7 verification).
+  §4 structure theory, §5 sectors & applications, §6 tables — §6.0 **exact closed forms to `D555`**
+  (`proofs/closed-forms-catalog.html`, no truncation) and §6.1 truncated `O(p⁴)` series tables — §7 verification).
 - `proofs/` — one self-contained proof page per result (see site navigation).
 - `verification/` — 40 Wolfram-language harnesses + saved PASS logs (`out_*.txt`) + browsable per-script pages.
 - `data/` — machine-readable exact tables:
