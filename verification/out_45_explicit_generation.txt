@@ -1,0 +1,7 @@
+T1  explicit constants used: C_1..C_5 = {1/Sqrt[3], 2/Sqrt[15], 3/Sqrt[35], 4/(3*Sqrt[7]), 5/(3*Sqrt[11])}
+T2  axis tower from the seed (P0), a=0..5 vs kernel: 0.
+T3  border tower from the axis tower (P3), h,l'<=5 vs kernel: 0.
+T4  D_555 generated from the seed, vs kernel: 0.
+T5  ALL 216 elements generated from the seed, vs kernel: 0.
+T6  value check  D_555(q=0.37) = 0.00130304347871547389572580354313709274`16.
+--- explicit-generation harness done ---

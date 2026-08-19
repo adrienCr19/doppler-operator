@@ -15,6 +15,25 @@ window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]
 scheme: <strong>each operator written in terms of other Doppler operators</strong>, one index down the ladder. Every
 symbol on a right-hand side is a physical \(\Do\); the only scalars are \(\gamma\), \(p\), the Legendre constants
 \(C_\ell=\ell/\sqrt{4\ell^2-1}\), and elementary bracket <em>ratios</em>.</p>
+<div class="newbox" style="border-width:3px">
+  <div class="head"><span class="name">Everything the generation needs — nothing else</span>
+    <span class="badge pass">all 216 from the seed, dev 0 (harness 45)</span></div>
+  <p>The generation is <strong>self-contained</strong>. The complete input is:</p>
+  \[
+    \gamma=\cosh\eta,\qquad p=\sinh\eta,\qquad
+    J_w=\frac{2\sinh(w\eta)}{w},\qquad
+    C_\ell=\frac{\ell}{\sqrt{4\ell^2-1}},\qquad
+    \Do_{000}(q)=\frac{J_{q+1}J_{q+2}}{4\gamma p^{2}} ,
+  \]
+  <p>with the constants completely explicit,
+  \(C_1=\tfrac{1}{\sqrt3},\;C_2=\tfrac{2}{\sqrt{15}},\;C_3=\tfrac{3}{\sqrt{35}},\;
+  C_4=\tfrac{4}{3\sqrt7},\;C_5=\tfrac{5}{3\sqrt{11}}\), plus the four relations below. <strong>No auxiliary
+  coefficient family is required at any point</strong> — every symbol on a right-hand side is either one of the
+  elementary scalars above or a Doppler operator already obtained at a lower index. Starting from
+  \(\Do_{000}\) alone, this reproduces all 216 elements — \(\Do_{555}\) included — to deviation 0 against the
+  aberration-kernel definition.</p>
+</div>
+
 <div class="eqbox">
   <div class="head"><span class="name">The three one-step rules — complete coverage of all 216 elements</span>
     <span class="badge pass">each verified dev 0 (harness 43)</span></div>
@@ -73,7 +92,8 @@ reduction to bottom out.</p>
 <p class="note">Operator form: substitute \(q\to-\Oh\) throughout; shifts \(q\pm j\) become \(\Oh\mp j\) and the
 reflection argument \(-3-q\) becomes \(3-\Oh\).</p>
 
-<h3 id="seed">Bottom of the ladder — everything from the seed \(\Do_{000}\)</h3>
+<h3 id="seed">Structural corollary — collapsing the ladder onto the seed</h3>
+<p class="note"><strong>Not needed for generation.</strong> Everything above is already complete and explicit: the four relations plus the seed generate every element with no further input. What follows is a separate <em>structural</em> observation — that the repeated ladder steps can be summed in closed form — which is useful for understanding why the family has the shape it does, but introduces auxiliary weight families (\(U^{(\ell')},\rho^{(a)},\mathcal J_a\)) that you would otherwise have to compute. If you simply want the operators, use the explicit relations above and stop here.</p>
 <p>The axis ladder resums exactly like the middle one. Writing the normalised element
 \(\widehat{\Do}_a(q)=\Do_{a00}(q)/J_{q+1}\), unrolling (P0) gives</p>
 \[
