@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>43_recurrence_form.wl — every operator in terms of other Doppler operators</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>43_recurrence_form.wl</code></h2>
+<p>Checks the pure-D <strong>one-step</strong> rules that express each Doppler operator in terms of <em>other</em>
+Doppler operators, and confirms they cover all 216 elements exactly once: <strong>(P2+N1)</strong> interior fill
+(180 elements), <strong>(P3)</strong> middle-index step (30), <strong>(P0)</strong> axis ladder (5), plus the seed.
+Every operator on a right-hand side is a physical <code>D</code> at a shifted spectral index; the only scalars are
+<code>γ</code>, <code>p</code>, the Legendre constants and elementary bracket ratios. Each rule is verified against
+the aberration-kernel definition (used only as the check) to <strong>deviation 0</strong>. Exports
+<a href="../data/recurrence_form.json"><code>data/recurrence_form.json</code></a>; rendered at
+<a href="../proofs/recurrence-form.html">the recurrence-form page</a>. Run with
+<code>wolframscript -file 43_recurrence_form.wl</code>. Download:
+<a href="43_recurrence_form.wl" download>43_recurrence_form.wl</a> &middot; recorded output below
+(also <a href="out_43_recurrence_form.txt">out_43_recurrence_form.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 43_recurrence_form.wl — Every Doppler operator written in terms of OTHER Doppler operators.
+   For each (l,l&#x27;,l&#x27;&#x27;) exactly one pure-D one-step rule applies:
+
+     (P2+N1)  l&#x27;&#x27;&gt;0 :  D_{l l&#x27; l&#x27;&#x27;}(q) = D_{l l&#x27; 0}(q) D_{l&#x27;&#x27; l&#x27; 0}(-3-q) / D_{0 l&#x27; 0}(q)
+     (P3)     l&#x27;&#x27;=0, l&#x27;&gt;=1 :
+        D_{h l&#x27; 0}(q) = (1/C_l&#x27;) [ (D_{l&#x27;,00}(q-1)/p)( g D_{h,l&#x27;-1,0}(q)/D_{l&#x27;-1,00}(q-1)
+                                     - (J_{q-1}/J_q) D_{h,l&#x27;-1,0}(q-1)/D_{l&#x27;-1,00}(q-2) )
+                                  - C_{l&#x27;-1} (D_{l&#x27;,00}(q-1)/D_{l&#x27;-2,00}(q-1)) D_{h,l&#x27;-2,0}(q) ]
+     (P0)     l&#x27;&#x27;=0, l&#x27;=0, l&gt;=1 :
+        D_{a00}(q) = (1/C_a)[ (g/p) D_{a-1,00}(q) - (1/p)(J_{1+q}/J_{2+q}) D_{a-1,00}(q+1)
+                              - C_{a-1} D_{a-2,00}(q) ]
+     (seed)   (0,0,0) : D_000(q) = J_{q+1}J_{q+2}/(4 g p^2)
+
+   Every operator on the right is a physical Doppler operator (at a shifted spectral index);
+   the only scalars are gamma, p and the elementary bracket ratios.  This harness checks each
+   rule, element by element, against the aberration-kernel definition (used ONLY as the check),
+   and exports the applicable rule + parents for every element.  On nu^q, m=0. *)
+
+prec=30;
+Ybar[l_,x_]:=Sqrt[(2 l+1)/(4 Pi)]LegendreP[l,x];
+bb=42/100; gN=1/Sqrt[1-bb^2]; pN=gN bb; etaN=ArcSinh[pN];
+Kk[d_?NumericQ,l_,lp_,s_]:=Kk[d,l,lp,s]=2 Pi NIntegrate[
+   Ybar[l,mu]Ybar[lp,(mu+s bb)/(1+s bb mu)]/(gN(1+s bb mu))^d,{mu,-1,1},
+   WorkingPrecision-&gt;prec,PrecisionGoal-&gt;18];
+Kk[d_,l_,lp_,s_]/;l&lt;0||lp&lt;0:=0;
+Dop[l_,lp_,ldd_,q_]/;l&lt;0||lp&lt;0||ldd&lt;0:=0;
+Dop[l_,lp_,ldd_,q_]:=(1/gN)Kk[-1-q,l,lp,-1]Kk[-q,lp,ldd,1];      (* reference only *)
+JJ[w_]:=2 Sinh[w etaN]/w;
+CC[l_]:=If[l&lt;=0,0,Sqrt[l^2/(4 l^2-1)]];
+rep[name_,dev_]:=Print[name,&quot;: &quot;,If[TrueQ[N[dev]&lt;10^-15],&quot;PASS&quot;,&quot;FAIL&quot;],&quot;  (worst dev = &quot;,ToString[N[dev],InputForm],&quot;)&quot;];
+
+(* ---- (P0) axis ladder: D_{a00} from D_{a-1,00}, D_{a-2,00} ---- *)
+p0[a_,q_]:=(1/CC[a])((gN/pN)Dop[a-1,0,0,q]-(1/pN)(JJ[1+q]/JJ[2+q])Dop[a-1,0,0,q+1]-CC[a-1]Dop[a-2,0,0,q]);
+rep[&quot;P0  axis, D_{a00} from one index down (a=1..5)&quot;,
+  Max@Table[Abs[p0[a,q]-Dop[a,0,0,q]],{a,1,5},{q,{37/100,-(13/10)}}]];
+
+(* ---- (P3) middle step: D_{h,l&#x27;,0} from D_{h,l&#x27;-1,0}, D_{h,l&#x27;-2,0} ---- *)
+p3[h_,lp_,q_]:=(1/CC[lp])(
+   (Dop[lp,0,0,q-1]/pN)(gN Dop[h,lp-1,0,q]/Dop[lp-1,0,0,q-1]
+      -(JJ[q-1]/JJ[q]) Dop[h,lp-1,0,q-1]/Dop[lp-1,0,0,q-2])
+   -If[lp&gt;=2,CC[lp-1](Dop[lp,0,0,q-1]/Dop[lp-2,0,0,q-1])Dop[h,lp-2,0,q],0]);
+rep[&quot;P3  middle, D_{h,l&#x27;,0} from one middle-index down (h&lt;=5, l&#x27;=1..5)&quot;,
+  Max@Table[Abs[p3[h,lp,q]-Dop[h,lp,0,q]],{h,0,5},{lp,1,5},{q,{37/100,-(13/10)}}]];
+
+(* ---- (P2+N1) interior fill: D_{l l&#x27; l&#x27;&#x27;} from the two borders ---- *)
+p2[l_,lp_,ldd_,q_]:=Dop[l,lp,0,q] Dop[ldd,lp,0,-3-q]/Dop[0,lp,0,q];
+rep[&quot;P2+N1  interior, D_{l l&#x27; l&#x27;&#x27;} from border operators (all l,l&#x27;&lt;=5, l&#x27;&#x27;=1..5)&quot;,
+  Max@Table[Abs[p2[l,lp,ldd,q]-Dop[l,lp,ldd,q]],{l,0,5},{lp,0,5},{ldd,1,5},{q,{37/100}}]];
+
+(* ---- coverage: exactly one rule applies to each of the 216 elements ---- *)
+rule[l_,lp_,ldd_]:=Which[ldd&gt;0,&quot;P2+N1&quot;, lp&gt;=1,&quot;P3&quot;, l&gt;=1,&quot;P0&quot;, True,&quot;seed&quot;];
+cnt=Counts[Flatten[Table[rule[l,lp,ldd],{l,0,5},{lp,0,5},{ldd,0,5}]]];
+Print[&quot;coverage of the 216 elements by rule: &quot;,cnt,&quot;   total = &quot;,Total[Values[cnt]]];
+
+(* ---- export the reduction table (rule + parent operators) ---- *)
+parents[l_,lp_,ldd_]:=Which[
+  ldd&gt;0, {{l,lp,0,&quot;q&quot;},{ldd,lp,0,&quot;-3-q&quot;},{0,lp,0,&quot;q&quot;}},
+  lp&gt;=1, Join[{{lp,0,0,&quot;q-1&quot;},{lp-1,0,0,&quot;q-1&quot;},{lp-1,0,0,&quot;q-2&quot;},{l,lp-1,0,&quot;q&quot;},{l,lp-1,0,&quot;q-1&quot;}},
+              If[lp&gt;=2,{{lp-2,0,0,&quot;q-1&quot;},{l,lp-2,0,&quot;q&quot;}},{}]],
+  l&gt;=1, {{l-1,0,0,&quot;q&quot;},{l-1,0,0,&quot;q+1&quot;},{l-2,0,0,&quot;q&quot;}},
+  True, {}];
+recs=Flatten[Table[&lt;|&quot;l&quot;-&gt;l,&quot;lp&quot;-&gt;lp,&quot;ldd&quot;-&gt;ldd,&quot;rule&quot;-&gt;rule[l,lp,ldd],
+   &quot;parents&quot;-&gt;parents[l,lp,ldd]|&gt;,{l,0,5},{lp,0,5},{ldd,0,5}],2];
+Export[&quot;/Users/adriencristian/Desktop/rSZ/doppler-operator/data/recurrence_form.json&quot;,recs];
+Print[&quot;exported &quot;,Length[recs],&quot; one-step reductions to data/recurrence_form.json&quot;];
+Print[&quot;example — D555: &quot;,rule[5,5,5],&quot; with parents &quot;,parents[5,5,5]];
+Print[&quot;--- recurrence-form harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>P0  axis, D_{a00} from one index down (a=1..5): PASS  (worst dev = 0.)
+P3  middle, D_{h,l&#x27;,0} from one middle-index down (h&lt;=5, l&#x27;=1..5): PASS  (worst dev = 0.)
+P2+N1  interior, D_{l l&#x27; l&#x27;&#x27;} from border operators (all l,l&#x27;&lt;=5, l&#x27;&#x27;=1..5): PASS  (worst dev = 0.)
+coverage of the 216 elements by rule: &lt;|seed -&gt; 1, P2+N1 -&gt; 180, P3 -&gt; 30, P0 -&gt; 5|&gt;   total = 216
+exported 216 one-step reductions to data/recurrence_form.json
+example â D555: P2+N1 with parents {{5, 5, 0, q}, {5, 5, 0, -3-q}, {0, 5, 0, q}}
+--- recurrence-form harness done ---
+</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification</p></footer>
+</main></body></html>

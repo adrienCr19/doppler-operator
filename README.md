@@ -43,7 +43,7 @@ them. All steps verified to deviation 0 (harness 36).
   §4 structure theory, §5 sectors & applications, §6 tables — §6.0 **exact closed forms to `D555`**
   (`proofs/closed-forms-catalog.html`, no truncation) and §6.1 truncated `O(p⁴)` series tables — §7 verification).
 - `proofs/` — one self-contained proof page per result (see site navigation).
-- `verification/` — 42 Wolfram-language harnesses + saved PASS logs (`out_*.txt`) + browsable per-script pages.
+- `verification/` — 43 Wolfram-language harnesses + saved PASS logs (`out_*.txt`) + browsable per-script pages.
 - `data/` — machine-readable exact tables:
   `doppler_tables_p8.json` (501 scalar elements, O(p⁸), exact q-polynomial coefficients),
   `polarized_tables_p6.json` (81 polarized elements T(2,2), T(0,2), T(2,0), m = 0…2, O(p⁶)), and

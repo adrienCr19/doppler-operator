@@ -1,0 +1,7 @@
+P0  axis, D_{a00} from one index down (a=1..5): PASS  (worst dev = 0.)
+P3  middle, D_{h,l',0} from one middle-index down (h<=5, l'=1..5): PASS  (worst dev = 0.)
+P2+N1  interior, D_{l l' l''} from border operators (all l,l'<=5, l''=1..5): PASS  (worst dev = 0.)
+coverage of the 216 elements by rule: <|seed -> 1, P2+N1 -> 180, P3 -> 30, P0 -> 5|>   total = 216
+exported 216 one-step reductions to data/recurrence_form.json
+example â D555: P2+N1 with parents {{5, 5, 0, q}, {5, 5, 0, -3-q}, {0, 5, 0, q}}
+--- recurrence-form harness done ---
