@@ -1,0 +1,9 @@
+T1  W-weight counts (l'=0..5), expect l'+1: {1, 2, 3, 4, 5, 6}
+T2  border tower from AXIS elements alone, D_{h,l',0} (h,l'<=5) vs direct: 0.   (0 => weights are outer-index independent)
+T3  MASTER formula vs kernel, ALL 216 elements: 0.
+T4  normalised weights c^(l') are J-free (elementary in gamma,p): {True, True, True, True, True}
+T5  c^(1) = {1, -GAM^(-1)}   (expect {1, -1/gamma})
+    c^(2)*(3+2p^2) = {3 + 2*PP^2, -6*GAM, 3}   (expect {3+2p^2, -6 gamma, 3} = published D020 bracket coefficients)
+    c^(3)*gamma(5+2p^2) = {5*GAM + 2*GAM*PP^2, -15 - 12*PP^2, 15*GAM, (-25*GAM)/(5*GAM + 2*GAM*PP^2) - (10*GAM*PP^2)/(5*GAM + 2*GAM*PP^2)}
+T6  c^(2) coefficients match the published D020 bracket exactly: True
+--- general resummation harness done ---
