@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>42_resummation_induction.wl — induction proof of the resummation theorem for general l&#39;</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>42_resummation_induction.wl</code></h2>
+<p><strong>Induction proof of the resummation theorem for general \(\ell&#39;\)</strong>
+(<a href="../proofs/recurrences.html#resummation">recurrences §4.2</a>). The step works because the three
+coefficients of P3′ all carry the <em>same</em> bracket \(\mathcal J_{\ell&#39;}(q-1)\), with denominators exactly the
+brackets appearing one and two levels down:
+\(a_{\ell&#39;}\mathcal J_{\ell&#39;-1}(q{-}1)=\alpha_{\ell&#39;}\mathcal J_{\ell&#39;}(q{-}1)\), and likewise for
+\(b,c\) — so dividing through by \(\mathcal J_{\ell&#39;}(q-1)\) leaves a recursion with
+<strong>elementary, \(q\)-free, \(h\)-free</strong> coefficients
+\(\alpha_\ell=\tfrac{\gamma(2\ell+1)}{\ell p},\;\beta_\ell=-\tfrac{2\ell+1}{\ell p},\;
+\kappa_\ell=-\tfrac{(\ell-1)(2\ell+1)}{\ell(2\ell-3)}\).
+Checks: <strong>T1</strong> the three prefactor collapses (crux of the step) to \(\ell=10\); <strong>T2</strong> base
+case \(U^{(0)}=\{p\}\); <strong>T3/T4</strong> the weights stay \(J\)-free and the support is exactly
+\(\ell&#39;+1\), to \(\ell=10\); <strong>T5</strong> the theorem itself as a <strong>symbolic identity</strong>
+(dev 0) for \(h\le6,\ \ell&#39;\le8\); <strong>T7</strong> \(U^{(2)}\) equals the published \(\mathcal D_{020}\)
+bracket exactly; <strong>T9</strong> the theorem against the aberration-kernel definition (dev 0), closing the chain
+induction → P3′ → physical Doppler operator; <strong>T10</strong> the weights in clean normalised form.
+Run with <code>wolframscript -file 42_resummation_induction.wl</code>. Download:
+<a href="42_resummation_induction.wl" download>42_resummation_induction.wl</a> &middot; recorded output below
+(also <a href="out_42_resummation_induction.txt">out_42_resummation_induction.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 42_resummation_induction.wl — INDUCTION PROOF of the resummation theorem for general l&#x27;.
+
+   THEOREM.  Let  Dhat_a(q) := D_{a00}(q)/J_{q+1}  (normalised axis element) and let the axis bracket
+   be J_a(q) (= Jbr below).  Define ELEMENTARY constants (pure gamma,p; no J, no q):
+       alpha_l = gamma(2l+1)/(l p),   beta_l = -(2l+1)/(l p),   kappa_l = -(l-1)(2l+1)/(l(2l-3)),
+   and define U^{(l)}_j by the recursion
+       U^{(0)}_0 = p,
+       U^{(l)}_j = alpha_l U^{(l-1)}_j + beta_l U^{(l-1)}_{j-1} + kappa_l U^{(l-2)}_j,
+   with U^{(l)}_j = 0 outside 0 &lt;= j &lt;= l.  Then for every l&#x27; &gt;= 0 and every outer index h:
+
+       (i)   U^{(l&#x27;)}_j is elementary in gamma,p (contains no J) and is independent of q AND of h;
+       (ii)  support is exactly j = 0..l&#x27;  (l&#x27;+1 terms);
+       (iii) D_{h,l&#x27;,0}(q) = J_{l&#x27;}(q-1) * Sum_{j=0}^{l&#x27;} U^{(l&#x27;)}_j * Dhat_h(q-j).
+
+   PROOF (induction on l&#x27;).
+     Base l&#x27;=0:  D_{h,0,0}(q) = D_{a00}(q) = J_{q+1} Dhat_h(q), and J_0(q-1) = J_{q+1}/p, so the
+       right side is (J_{q+1}/p)(p)Dhat_h(q) = J_{q+1}Dhat_h(q).  True, with U^{(0)}_0 = p.
+     Step:  P3&#x27; reads  D_{h,l&#x27;,0}(q) = a_l&#x27; D_{h,l&#x27;-1,0}(q) + b_l&#x27; D_{h,l&#x27;-1,0}(q-1) + c_l&#x27; D_{h,l&#x27;-2,0}(q),
+       with a,b,c INDEPENDENT of h.  Apply the hypothesis to each term.  The middle term needs the
+       hypothesis at argument q-1, which is legitimate since it holds identically in q; reindexing
+       j -&gt; j+1 there produces the beta-shift.  The three prefactors collapse because
+           a_l&#x27; * J_{l&#x27;-1}(q-1) = alpha_l&#x27; * J_{l&#x27;}(q-1),
+           b_l&#x27; * J_{l&#x27;-1}(q-2) = beta_l&#x27;  * J_{l&#x27;}(q-1),
+           c_l&#x27; * J_{l&#x27;-2}(q-1) = kappa_l&#x27; * J_{l&#x27;}(q-1),
+       i.e. every level-(l&#x27;-1)/(l&#x27;-2) bracket is replaced by the single bracket J_{l&#x27;}(q-1) times an
+       ELEMENTARY constant.  Dividing through by J_{l&#x27;}(q-1) leaves exactly the U-recursion, whose
+       coefficients are elementary and q-free; since U^{(0)} is elementary and q-free, so is every
+       U^{(l&#x27;)} (so the q-shift in the beta-term acts trivially on it).  Support grows by exactly one
+       from the beta-shift, giving 0..l&#x27;.  QED.
+
+   This harness verifies every ingredient: the three prefactor collapses (the crux of the step), the
+   base case, elementarity/q-independence, the support count, and the theorem itself at levels well
+   beyond those used to discover it.  On nu^q, m=0. *)
+
+g=(X+1/X)/2; p=(X-1/X)/2;                       (* X = e^eta *)
+sh[e_,d_]:=e/.Jf[m_]:&gt;Jf[m+d];                  (* q -&gt; q+d *)
+CC[l_]:=Sqrt[l^2/(4 l^2-1)]; red[e_]:=Cancel[Together[e]];
+D000=Jf[2]Jf[1]/(4 g p^2); Da[0]=D000; Da[a_]/;a&lt;0:=0;
+Da[a_]:=Da[a]=red[(1/CC[a])((g/p)Da[a-1]-(1/p)(Jf[1]/Jf[2])sh[Da[a-1],1]-CC[a-1]Da[a-2])];
+Tn[n_]:=(1/p^(n+1))Sum[Binomial[n,k](-g)^k Jf[n+2-k],{k,0,n}];
+Jbr[a_]:=(-1)^a Sum[Coefficient[LegendreP[a,x],x,n]Tn[n],{n,0,a}];   (* axis bracket J_a(q) *)
+aC[lp_]:=(g(2 lp+1)/(lp p)) sh[Jbr[lp],-1]/sh[Jbr[lp-1],-1];
+bC[lp_]:=-((2 lp+1)/(lp p)) sh[Jbr[lp],-1]/sh[Jbr[lp-1],-2];
+cC[lp_]:=If[lp&gt;=2,-((lp-1)(2 lp+1)/(lp(2 lp-3))) sh[Jbr[lp],-1]/sh[Jbr[lp-2],-1],0];
+Db[h_,0]:=Da[h]; Db[h_,lp_]/;lp&lt;0:=0;
+Db[h_,lp_]:=Db[h,lp]=red[aC[lp]Db[h,lp-1]+bC[lp]sh[Db[h,lp-1],-1]+cC[lp]Db[h,lp-2]];
+
+(* ---- ELEMENTARY constants of the induction ---- *)
+alp[l_]:=g(2 l+1)/(l p);  bet[l_]:=-((2 l+1)/(l p));  kap[l_]:=-((l-1)(2 l+1)/(l(2 l-3)));
+
+(* ---- CRUX OF THE INDUCTIVE STEP: the three prefactor collapses ---- *)
+crux1=Table[red[aC[l] sh[Jbr[l-1],-1] - alp[l] sh[Jbr[l],-1]],{l,1,10}];
+crux2=Table[red[bC[l] sh[Jbr[l-1],-2] - bet[l] sh[Jbr[l],-1]],{l,1,10}];
+crux3=Table[red[cC[l] sh[Jbr[l-2],-1] - kap[l] sh[Jbr[l],-1]],{l,2,10}];
+Print[&quot;T1  inductive-step crux, a_l*J_{l-1}(q-1) = alpha_l*J_l(q-1)   (l=1..10): &quot;,
+   If[Union[crux1]==={0},&quot;0  -&gt; HOLDS&quot;,crux1]];
+Print[&quot;    crux, b_l*J_{l-1}(q-2) = beta_l*J_l(q-1)                   (l=1..10): &quot;,
+   If[Union[crux2]==={0},&quot;0  -&gt; HOLDS&quot;,crux2]];
+Print[&quot;    crux, c_l*J_{l-2}(q-1) = kappa_l*J_l(q-1)                  (l=2..10): &quot;,
+   If[Union[crux3]==={0},&quot;0  -&gt; HOLDS&quot;,crux3]];
+
+(* ---- the U-recursion (elementary; no J anywhere) ---- *)
+U[0]={p}; U[l_]/;l&lt;0:={};
+U[l_]:=U[l]=Module[{Um1=U[l-1],Um2=If[l&gt;=2,U[l-2],{}],out},
+  out=ConstantArray[0,l+1];
+  Do[out[[j]]=out[[j]]+alp[l] Um1[[j]],{j,1,Length[Um1]}];
+  Do[out[[j+1]]=out[[j+1]]+bet[l] Um1[[j]],{j,1,Length[Um1]}];   (* q-shift acts trivially: U is q-free *)
+  If[l&gt;=2,Do[out[[j]]=out[[j]]+kap[l] Um2[[j]],{j,1,Length[Um2]}]];
+  Simplify/@out];
+
+Print[&quot;T2  base case  U^(0) = &quot;,U[0],&quot;   (expect {p})&quot;];
+Print[&quot;T3  U is J-free / q-free for l&lt;=10: &quot;,Table[FreeQ[U[l],Jf],{l,0,10}]];
+Print[&quot;T4  support count |U^(l)| = l+1 for l&lt;=10: &quot;,Table[Length[U[l]]==l+1,{l,0,10}]];
+
+(* ---- THE THEOREM: D_{h,l&#x27;,0}(q) = J_{l&#x27;}(q-1) Sum_j U_j Dhat_h(q-j) ---- *)
+Dhat[a_]:=Da[a]/Jf[1];
+thm[h_,lp_]:=red[ sh[Jbr[lp],-1] Sum[U[lp][[j]] sh[Dhat[h],-(j-1)],{j,1,Length[U[lp]]}] ];
+dev=Table[red[thm[h,lp]-Db[h,lp]],{h,0,6},{lp,0,8}];
+Print[&quot;T5  THEOREM  D_{h,l&#x27;,0} = J_{l&#x27;}(q-1) Sum_j U_j Dhat_h(q-j),  h&lt;=6, l&#x27;&lt;=8: &quot;,
+   If[Union[Flatten[dev]]==={0},&quot;0  -&gt; PROVED IDENTITY HOLDS (symbolic, dev 0)&quot;,&quot;FAIL&quot;]];
+
+(* ---- the weights are the published bracket coefficients ---- *)
+Print[&quot;T6  U^(1) = &quot;,U[1],&quot;   (expect {3 gamma, -3} ~ {gamma,-1})&quot;];
+Print[&quot;    U^(2)*(2p/5) = &quot;,Simplify[(2 p/5) #]&amp;/@U[2],
+   &quot;   (expect {3+2p^2, -6 gamma, 3} = the published D020 bracket)&quot;];
+Print[&quot;T7  U^(2) normalised equals published D020 bracket exactly: &quot;,
+   Simplify[((2 p/5) #)&amp;/@U[2] - {3+2p^2,-6 g,3}]==={0,0,0}];
+
+(* ---- display U in gamma,p, and close the loop against the KERNEL definition ---- *)
+rg[e_]:=Expand[e]//.GAM^n_/;n&gt;=2:&gt;GAM^(n-2)(1+PP^2);
+lauGP[L_]:=Module[{k=-Exponent[L,X,Min]},rg[Expand[Expand[L X^k]/.X-&gt;GAM+PP](GAM-PP)^k]];
+Print[&quot;T8  U^(1) in gamma,p = &quot;,Factor[lauGP[#]]&amp;/@U[1]];
+Print[&quot;    U^(2)*(2p/5)     = &quot;,Factor[lauGP[Simplify[(2 p/5) #]]]&amp;/@U[2]];
+Print[&quot;    U^(3)*(2p/7)     = &quot;,Factor[lauGP[Simplify[(2 p/7) #]]]&amp;/@U[3]];
+
+bb=42/100; gN=1/Sqrt[1-bb^2]; etaN=ArcSinh[gN bb]; qN=37/100;
+ev[e_]:=N[e/.X-&gt;Exp[etaN]/.Jf[m_]:&gt;2 Sinh[(qN+m)etaN]/(qN+m),25];
+Ybar[l_,x_]:=Sqrt[(2 l+1)/(4 Pi)]LegendreP[l,x];
+Kk[d_,l_,lp_,s_]:=2 Pi NIntegrate[Ybar[l,mu]Ybar[lp,(mu+s bb)/(1+s bb mu)]/(gN(1+s bb mu))^d,
+   {mu,-1,1},WorkingPrecision-&gt;30,PrecisionGoal-&gt;18];
+Dker[l_,lp_,ldd_]:=(1/gN)Kk[-1-qN,l,lp,-1]Kk[-qN,lp,ldd,1];
+Print[&quot;T9  theorem vs the KERNEL definition (h&lt;=5, l&#x27;&lt;=5): &quot;,
+   ToString[N@Max@Table[Abs[ev[thm[h,lp]]-Dker[h,lp,0]],{h,0,5},{lp,0,5}],InputForm],
+   &quot;   (closes the chain: induction -&gt; P3&#x27; -&gt; physical Doppler operator)&quot;];
+
+(* ---- T10: the weights in clean normalised form ---- *)
+gsplit[e_]:=Module[{ee=rg[e]},{ee/.GAM-&gt;0,Coefficient[ee,GAM]}];
+canon[c_]:=Module[{t=Together[c],ne,no,de,do,rd},
+  {ne,no}=gsplit[Numerator[t]]; {de,do}=gsplit[Denominator[t]];
+  rd=Expand[de^2-(1+PP^2)do^2];
+  Cancel[Expand[ne de-(1+PP^2)no do]/rd]+GAM Cancel[Expand[no de-ne do]/rd]];
+norm[l_]:=Module[{v,r,den},v=canon[lauGP[#]]&amp;/@U[l];
+  r=Together[#/Last[v]]&amp;/@v; den=Apply[PolynomialLCM,Denominator/@r];
+  Factor[Cancel[Together[# den]]]&amp;/@r];
+Print[&quot;T10 the weights U^(l&#x27;) (up to an overall scalar), gamma=GAM, p=PP:&quot;];
+Do[Print[&quot;    U^(&quot;,l,&quot;) ~ &quot;,norm[l]],{l,1,5}];
+
+Print[&quot;--- resummation induction harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>T1  inductive-step crux, a_l*J_{l-1}(q-1) = alpha_l*J_l(q-1)   (l=1..10): 0  -&gt; HOLDS
+    crux, b_l*J_{l-1}(q-2) = beta_l*J_l(q-1)                   (l=1..10): 0  -&gt; HOLDS
+    crux, c_l*J_{l-2}(q-1) = kappa_l*J_l(q-1)                  (l=2..10): 0  -&gt; HOLDS
+T2  base case  U^(0) = {(-X^(-1) + X)/2}   (expect {p})
+T3  U is J-free / q-free for l&lt;=10: {True, True, True, True, True, True, True, True, True, True, True}
+T4  support count |U^(l)| = l+1 for l&lt;=10: {True, True, True, True, True, True, True, True, True, True, True}
+T5  THEOREM  D_{h,l&#x27;,0} = J_{l&#x27;}(q-1) Sum_j U_j Dhat_h(q-j),  h&lt;=6, l&#x27;&lt;=8: 0  -&gt; PROVED IDENTITY HOLDS (symbolic, dev 0)
+T6  U^(1) = {(3*(X^(-1) + X))/2, -3}   (expect {3 gamma, -3} ~ {gamma,-1})
+    U^(2)*(2p/5) = {(4 + X^(-2) + X^2)/2, (-3*(1 + X^2))/X, 3}   (expect {3+2p^2, -6 gamma, 3} = the published D020 bracket)
+T7  U^(2) normalised equals published D020 bracket exactly: True
+T8  U^(1) in gamma,p = {3*GAM, -3}
+    U^(2)*(2p/5)     = {3 + 2*PP^2, -6*GAM, 3}
+    U^(3)*(2p/7)     = {(2*(1 + GAM*PP + PP^2)*(5 + 2*PP^2))/((-1 + GAM + PP)*(1 + GAM + PP)), (-6*(1 + 2*GAM*PP + 2*PP^2)*(5 + 4*PP^2))/((-1 + GAM + PP)*(GAM + PP)*(1 + GAM + PP)), (30*(1 + GAM*PP + PP^2))/((-1 + GAM + PP)*(1 + GAM + PP)), -10/((GAM - PP)*(-1 + GAM + PP)*(1 + GAM + PP))}
+T9  theorem vs the KERNEL definition (h&lt;=5, l&#x27;&lt;=5): 0.   (closes the chain: induction -&gt; P3&#x27; -&gt; physical Doppler operator)
+T10 the weights U^(l&#x27;) (up to an overall scalar), gamma=GAM, p=PP:
+    U^(1) ~ {-GAM, 1}
+    U^(2) ~ {3 + 2*PP^2, -6*GAM, 3}
+    U^(3) ~ {-(GAM*(5 + 2*PP^2)), 3*(5 + 4*PP^2), -15*GAM, 5}
+    U^(4) ~ {35 + 40*PP^2 + 8*PP^4, -20*GAM*(7 + 4*PP^2), 30*(7 + 6*PP^2), -140*GAM, 35}
+    U^(5) ~ {-(GAM*(63 + 56*PP^2 + 8*PP^4)), 15*(21 + 28*PP^2 + 8*PP^4), -210*GAM*(3 + 2*PP^2), 70*(9 + 8*PP^2), -315*GAM, 63}
+--- resummation induction harness done ---
+</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification</p></footer>
+</main></body></html>

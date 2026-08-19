@@ -1,0 +1,21 @@
+T1  inductive-step crux, a_l*J_{l-1}(q-1) = alpha_l*J_l(q-1)   (l=1..10): 0  -> HOLDS
+    crux, b_l*J_{l-1}(q-2) = beta_l*J_l(q-1)                   (l=1..10): 0  -> HOLDS
+    crux, c_l*J_{l-2}(q-1) = kappa_l*J_l(q-1)                  (l=2..10): 0  -> HOLDS
+T2  base case  U^(0) = {(-X^(-1) + X)/2}   (expect {p})
+T3  U is J-free / q-free for l<=10: {True, True, True, True, True, True, True, True, True, True, True}
+T4  support count |U^(l)| = l+1 for l<=10: {True, True, True, True, True, True, True, True, True, True, True}
+T5  THEOREM  D_{h,l',0} = J_{l'}(q-1) Sum_j U_j Dhat_h(q-j),  h<=6, l'<=8: 0  -> PROVED IDENTITY HOLDS (symbolic, dev 0)
+T6  U^(1) = {(3*(X^(-1) + X))/2, -3}   (expect {3 gamma, -3} ~ {gamma,-1})
+    U^(2)*(2p/5) = {(4 + X^(-2) + X^2)/2, (-3*(1 + X^2))/X, 3}   (expect {3+2p^2, -6 gamma, 3} = the published D020 bracket)
+T7  U^(2) normalised equals published D020 bracket exactly: True
+T8  U^(1) in gamma,p = {3*GAM, -3}
+    U^(2)*(2p/5)     = {3 + 2*PP^2, -6*GAM, 3}
+    U^(3)*(2p/7)     = {(2*(1 + GAM*PP + PP^2)*(5 + 2*PP^2))/((-1 + GAM + PP)*(1 + GAM + PP)), (-6*(1 + 2*GAM*PP + 2*PP^2)*(5 + 4*PP^2))/((-1 + GAM + PP)*(GAM + PP)*(1 + GAM + PP)), (30*(1 + GAM*PP + PP^2))/((-1 + GAM + PP)*(1 + GAM + PP)), -10/((GAM - PP)*(-1 + GAM + PP)*(1 + GAM + PP))}
+T9  theorem vs the KERNEL definition (h<=5, l'<=5): 0.   (closes the chain: induction -> P3' -> physical Doppler operator)
+T10 the weights U^(l') (up to an overall scalar), gamma=GAM, p=PP:
+    U^(1) ~ {-GAM, 1}
+    U^(2) ~ {3 + 2*PP^2, -6*GAM, 3}
+    U^(3) ~ {-(GAM*(5 + 2*PP^2)), 3*(5 + 4*PP^2), -15*GAM, 5}
+    U^(4) ~ {35 + 40*PP^2 + 8*PP^4, -20*GAM*(7 + 4*PP^2), 30*(7 + 6*PP^2), -140*GAM, 35}
+    U^(5) ~ {-(GAM*(63 + 56*PP^2 + 8*PP^4)), 15*(21 + 28*PP^2 + 8*PP^4), -210*GAM*(3 + 2*PP^2), 70*(9 + 8*PP^2), -315*GAM, 63}
+--- resummation induction harness done ---
