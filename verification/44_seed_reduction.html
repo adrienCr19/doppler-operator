@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>44_seed_reduction.wl — every operator reduced to the seed alone</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']], tags: 'none',
+  macros: { Do:"\\hat{\\mathcal{D}}", Oh:"\\hat{O}_\\nu", dd:"\\mathrm{d}" } } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>44_seed_reduction.wl</code></h2>
+<p><strong>All the way down to the seed.</strong> Both ladders resum in the normalised variable
+\(\widehat{\Do}_a(q)=\Do_{a00}(q)/J_{q+1}\): the axis ladder (P0) unrolls to
+\(\widehat{\Do}_a(q)=\sum_k\rho^{(a)}_k\widehat{\Do}_0(q+k)\), and the middle ladder (P3′) to
+\(\Do_{h\ell'0}(q)=\mathcal J_{\ell'}(q-1)\sum_j U^{(\ell')}_j\widehat{\Do}_h(q-j)\), with both weight
+families elementary in \(\gamma,p\). Composing them expresses every element as a finite combination of the
+<strong>single seed</strong> at integer-shifted spectral index. Checks: <strong>T1–T3</strong> the axis unrolling and
+the elementarity/support of \(\rho\) to \(a=8\); <strong>T4</strong> the border tower from the seed alone
+(symbolic, dev 0); <strong>T5/T6</strong> the full element, and \(\Do_{555}\) specifically, from the seed alone
+(symbolic, dev 0); <strong>T8</strong> the two weight families are <em>proportional</em>,
+\(\rho^{(n)}=U^{(n)}/(\sqrt{2n+1}\,p)\); <strong>T9</strong> the double sum collapses to a
+<em>cross-correlation</em> of the two weight vectors, cutting \(\Do_{550}\) from 36 terms to 11.
+Run with <code>wolframscript -file 44_seed_reduction.wl</code>. Download:
+<a href="44_seed_reduction.wl" download>44_seed_reduction.wl</a> &middot; recorded output below
+(also <a href="out_44_seed_reduction.txt">out_44_seed_reduction.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 44_seed_reduction.wl — ALL THE WAY DOWN: every Doppler operator reduced to the SEED alone.
+
+   Both ladders resum in the normalised variable  Dhat_a(q) := D_{a00}(q)/J_{q+1} :
+
+     AXIS   (P0 unrolled):   Dhat_a(q) = Sum_{k=0}^{a} rho^{(a)}_k Dhat_0(q+k)
+     MIDDLE (P3&#x27; unrolled):  D_{h,l&#x27;,0}(q) = J_{l&#x27;}(q-1) Sum_{j=0}^{l&#x27;} U^{(l&#x27;)}_j Dhat_h(q-j)
+
+   with BOTH weight families rho^{(a)}_k and U^{(l&#x27;)}_j ELEMENTARY in gamma,p (no J, no q).
+   Composing them, and closing with the rank-one fill (P2) + reflection (N1), every element is an
+   explicit finite combination of the SEED  Dhat_0(x) = D_{000}(x)/J_{x+1}  at integer-shifted x:
+
+     D_{h,l&#x27;,0}(q) = J_{l&#x27;}(q-1) Sum_{j,k} U^{(l&#x27;)}_j rho^{(h)}_k Dhat_0(q-j+k)
+     D_{l l&#x27; l&#x27;&#x27;}(q) = D_{l l&#x27; 0}(q) D_{l&#x27;&#x27; l&#x27; 0}(-3-q) / D_{0 l&#x27; 0}(q)
+
+   and the common prefactor J_{l&#x27;}(q-1) CANCELS in the last line, leaving for the top element
+
+     D_555(q) = J_5(-4-q) * [Sum_{j,k} U_j rho_k Dhat_0(q-j+k)]
+                          * [Sum_{j,k} U_j rho_k Dhat_0(-3-q-j+k)]
+                          / [Sum_m U_m Dhat_0(q-m)] .
+
+   On nu^q, m=0.  (Operator form: q -&gt; -Ohat.) *)
+
+g=(X+1/X)/2; p=(X-1/X)/2;
+sh[e_,d_]:=e/.Jf[m_]:&gt;Jf[m+d];
+CC[l_]:=Sqrt[l^2/(4 l^2-1)]; red[e_]:=Cancel[Together[e]];
+D000=Jf[2]Jf[1]/(4 g p^2); Da[0]=D000; Da[a_]/;a&lt;0:=0;
+Da[a_]:=Da[a]=red[(1/CC[a])((g/p)Da[a-1]-(1/p)(Jf[1]/Jf[2])sh[Da[a-1],1]-CC[a-1]Da[a-2])];
+Tn[n_]:=(1/p^(n+1))Sum[Binomial[n,k](-g)^k Jf[n+2-k],{k,0,n}];
+Jbr[a_]:=(-1)^a Sum[Coefficient[LegendreP[a,x],x,n]Tn[n],{n,0,a}];
+aC[lp_]:=(g(2 lp+1)/(lp p)) sh[Jbr[lp],-1]/sh[Jbr[lp-1],-1];
+bC[lp_]:=-((2 lp+1)/(lp p)) sh[Jbr[lp],-1]/sh[Jbr[lp-1],-2];
+cC[lp_]:=If[lp&gt;=2,-((lp-1)(2 lp+1)/(lp(2 lp-3))) sh[Jbr[lp],-1]/sh[Jbr[lp-2],-1],0];
+Db[h_,0]:=Da[h]; Db[h_,lp_]/;lp&lt;0:=0;
+Db[h_,lp_]:=Db[h,lp]=red[aC[lp]Db[h,lp-1]+bC[lp]sh[Db[h,lp-1],-1]+cC[lp]Db[h,lp-2]];
+Dfull[l_,lp_,ldd_]:=red[Db[l,lp] (Db[ldd,lp]/.Jf[m_]:&gt;Jf[3-m])/Db[0,lp]];
+
+(* ---- middle weights U (elementary; harness 42) ---- *)
+alp[l_]:=g(2 l+1)/(l p); bet[l_]:=-((2 l+1)/(l p)); kap[l_]:=-((l-1)(2 l+1)/(l(2 l-3)));
+U[0]={p}; U[l_]/;l&lt;0:={};
+U[l_]:=U[l]=Module[{Um1=U[l-1],Um2=If[l&gt;=2,U[l-2],{}],out},out=ConstantArray[0,l+1];
+  Do[out[[j]]=out[[j]]+alp[l] Um1[[j]],{j,1,Length[Um1]}];
+  Do[out[[j+1]]=out[[j+1]]+bet[l] Um1[[j]],{j,1,Length[Um1]}];
+  If[l&gt;=2,Do[out[[j]]=out[[j]]+kap[l] Um2[[j]],{j,1,Length[Um2]}]];Simplify/@out];
+
+(* ---- AXIS: unroll P0 into shift coefficients R, then normalise to rho ---- *)
+R[0]={1}; R[a_]/;a&lt;0:={};
+R[a_]:=R[a]=Module[{Rm1=R[a-1],Rm2=If[a&gt;=2,R[a-2],{}],out},out=ConstantArray[0,a+1];
+  Do[out[[k]]=out[[k]]+(1/CC[a])(g/p) Rm1[[k]],{k,1,Length[Rm1]}];
+  Do[out[[k+1]]=out[[k+1]]-(1/CC[a])(1/p)(Jf[1]/Jf[2]) sh[Rm1[[k]],1],{k,1,Length[Rm1]}];
+  If[a&gt;=2,Do[out[[k]]=out[[k]]-(1/CC[a])CC[a-1] Rm2[[k]],{k,1,Length[Rm2]}]];
+  red/@out];
+rho[a_]:=rho[a]=Table[red[R[a][[k]] Jf[1+(k-1)]/Jf[1]],{k,1,Length[R[a]]}];
+
+Print[&quot;T1  axis unrolled: D_{a00}(q) = Sum_k R^(a)_k D_000(q+k), a=0..5: &quot;,
+  If[Union[Table[red[Sum[R[a][[k]] sh[D000,(k-1)],{k,1,Length[R[a]]}]-Da[a]],{a,0,5}]]==={0},
+     &quot;0 -&gt; EXACT&quot;,&quot;MISMATCH&quot;]];
+Print[&quot;T2  normalised axis weights rho^(a) are J-free (elementary in gamma,p), a=0..8: &quot;,
+  Table[FreeQ[rho[a],Jf],{a,0,8}]];
+Print[&quot;T3  support |rho^(a)| = a+1, a=0..8: &quot;,Table[Length[rho[a]]==a+1,{a,0,8}]];
+
+(* ---- seed-only reduction ---- *)
+Dhat0[x_]:=sh[D000,x]/sh[Jf[1],x];                       (* Dhat_0(q+x) *)
+Dhat[a_,x_]:=Sum[rho[a][[k]] Dhat0[x+(k-1)],{k,1,Length[rho[a]]}];
+border[h_,lp_]:=red[ sh[Jbr[lp],-1] Sum[U[lp][[j]] Dhat[h,-(j-1)],{j,1,Length[U[lp]]}] ];
+Print[&quot;T4  border tower from the SEED alone, D_{h,l&#x27;,0} (h&lt;=5, l&#x27;&lt;=5): &quot;,
+  If[Union[Flatten[Table[red[border[h,lp]-Db[h,lp]],{h,0,5},{lp,0,5}]]]==={0},
+     &quot;0 -&gt; EXACT (symbolic)&quot;,&quot;MISMATCH&quot;]];
+
+full[l_,lp_,ldd_]:=red[ border[l,lp] (border[ldd,lp]/.Jf[m_]:&gt;Jf[3-m]) / border[0,lp] ];
+Print[&quot;T5  FULL element from the seed alone, all l,l&#x27;,l&#x27;&#x27;&lt;=3: &quot;,
+  If[Union[Flatten[Table[red[full[l,lp,ldd]-Dfull[l,lp,ldd]],{l,0,3},{lp,0,3},{ldd,0,3}]]]==={0},
+     &quot;0 -&gt; EXACT (symbolic)&quot;,&quot;MISMATCH&quot;]];
+Print[&quot;T6  D_555 from the seed alone: &quot;,
+  If[red[full[5,5,5]-Dfull[5,5,5]]===0,&quot;0 -&gt; EXACT (symbolic)&quot;,&quot;MISMATCH&quot;]];
+
+(* ---- display the two elementary weight families ---- *)
+rg[e_]:=Expand[e]//.GAM^n_/;n&gt;=2:&gt;GAM^(n-2)(1+PP^2);
+lauGP[L_]:=Module[{k=-Exponent[L,X,Min]},rg[Expand[Expand[L X^k]/.X-&gt;GAM+PP](GAM-PP)^k]];
+gsplit[e_]:=Module[{ee=rg[e]},{ee/.GAM-&gt;0,Coefficient[ee,GAM]}];
+canon[c_]:=Module[{t=Together[c],ne,no,de,do,rd},{ne,no}=gsplit[Numerator[t]];{de,do}=gsplit[Denominator[t]];
+  rd=Expand[de^2-(1+PP^2)do^2];
+  Factor[Cancel[Expand[ne de-(1+PP^2)no do]/rd]]+GAM Factor[Cancel[Expand[no de-ne do]/rd]]];
+nrm[v_]:=Module[{c=canon[lauGP[#]]&amp;/@v,r,den},r=Together[#/Last[c]]&amp;/@c;
+  den=Apply[PolynomialLCM,Denominator/@r]; Factor[Cancel[Together[# den]]]&amp;/@r];
+Print[&quot;T7  axis weights rho^(a) (up to an overall scalar):&quot;];
+Do[Print[&quot;      rho^(&quot;,a,&quot;) ~ &quot;,nrm[rho[a]]],{a,1,4}];
+Print[&quot;    middle weights U^(l&#x27;) (up to an overall scalar):&quot;];
+Do[Print[&quot;      U^(&quot;,l,&quot;) ~ &quot;,nrm[U[l]]],{l,1,4}];
+(* ---- T8: the two weight families are PROPORTIONAL; the double sum is a cross-correlation ---- *)
+prop[n_]:=Module[{r=Simplify[rho[n]/U[n]]},{Length[Union[r]]==1,Simplify[First[r]]}];
+Print[&quot;T8  rho^(n) proportional to U^(n)?  {proportional, ratio}, n=1..6:&quot;];
+Do[Print[&quot;      n=&quot;,n,&quot;: &quot;,prop[n]],{n,1,6}];
+(* border = J_l&#x27;(q-1) Sum_{j,k} U^{(l&#x27;)}_j rho^{(h)}_k Dhat_0(q+k-j) = J Sum_m A_m Dhat_0(q+m),
+   A_m = Sum_j U^{(l&#x27;)}_j rho^{(h)}_{j+m}   (cross-correlation of the two weight vectors)      *)
+cross[h_,lp_]:=Table[Sum[If[1&lt;=j+m&lt;=h+1,U[lp][[j]] rho[h][[j+m]],0],{j,1,lp+1}],{m,-lp,h}];
+borderX[h_,lp_]:=red[sh[Jbr[lp],-1] Sum[cross[h,lp][[m+lp+1]] Dhat0[m],{m,-lp,h}]];
+Print[&quot;T9  cross-correlation form  D_{h,l&#x27;,0}(q) = J_{l&#x27;}(q-1) Sum_m A_m Dhat_0(q+m), h,l&#x27;&lt;=5: &quot;,
+  If[Union[Flatten[Table[red[borderX[h,lp]-Db[h,lp]],{h,0,5},{lp,0,5}]]]==={0},
+     &quot;0 -&gt; EXACT (symbolic)&quot;,&quot;MISMATCH&quot;]];
+Print[&quot;    for h=l&#x27;=5 the shift range is m = -5..5 (11 terms) vs 36 in the double sum&quot;];
+
+Print[&quot;--- seed-reduction harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>T1  axis unrolled: D_{a00}(q) = Sum_k R^(a)_k D_000(q+k), a=0..5: 0 -&gt; EXACT
+T2  normalised axis weights rho^(a) are J-free (elementary in gamma,p), a=0..8: {True, True, True, True, True, True, True, True, True}
+T3  support |rho^(a)| = a+1, a=0..8: {True, True, True, True, True, True, True, True, True}
+T4  border tower from the SEED alone, D_{h,l&#x27;,0} (h&lt;=5, l&#x27;&lt;=5): 0 -&gt; EXACT (symbolic)
+T5  FULL element from the seed alone, all l,l&#x27;,l&#x27;&#x27;&lt;=3: 0 -&gt; EXACT (symbolic)
+T6  D_555 from the seed alone: 0 -&gt; EXACT (symbolic)
+T7  axis weights rho^(a) (up to an overall scalar):
+      rho^(1) ~ {-GAM, 1}
+      rho^(2) ~ {3 + 2*PP^2, -6*GAM, 3}
+      rho^(3) ~ {-(GAM*(5 + 2*PP^2)), 3*(5 + 4*PP^2), -15*GAM, 5}
+      rho^(4) ~ {35 + 40*PP^2 + 8*PP^4, -20*GAM*(7 + 4*PP^2), 30*(7 + 6*PP^2), -140*GAM, 35}
+    middle weights U^(l&#x27;) (up to an overall scalar):
+      U^(1) ~ {-GAM, 1}
+      U^(2) ~ {3 + 2*PP^2, -6*GAM, 3}
+      U^(3) ~ {-(GAM*(5 + 2*PP^2)), 3*(5 + 4*PP^2), -15*GAM, 5}
+      U^(4) ~ {35 + 40*PP^2 + 8*PP^4, -20*GAM*(7 + 4*PP^2), 30*(7 + 6*PP^2), -140*GAM, 35}
+T8  rho^(n) proportional to U^(n)?  {proportional, ratio}, n=1..6:
+      n=1: {True, (2*X)/(Sqrt[3]*(-1 + X^2))}
+      n=2: {True, (2*X)/(Sqrt[5]*(-1 + X^2))}
+      n=3: {True, (2*X)/(Sqrt[7]*(-1 + X^2))}
+      n=4: {True, (2*X)/(3*(-1 + X^2))}
+      n=5: {True, (2*X)/(Sqrt[11]*(-1 + X^2))}
+      n=6: {True, (2*X)/(Sqrt[13]*(-1 + X^2))}
+T9  cross-correlation form  D_{h,l&#x27;,0}(q) = J_{l&#x27;}(q-1) Sum_m A_m Dhat_0(q+m), h,l&#x27;&lt;=5: 0 -&gt; EXACT (symbolic)
+    for h=l&#x27;=5 the shift range is m = -5..5 (11 terms) vs 36 in the double sum
+--- seed-reduction harness done ---
+</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification</p></footer>
+</main></body></html>

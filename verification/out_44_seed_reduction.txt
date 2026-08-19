@@ -1,0 +1,26 @@
+T1  axis unrolled: D_{a00}(q) = Sum_k R^(a)_k D_000(q+k), a=0..5: 0 -> EXACT
+T2  normalised axis weights rho^(a) are J-free (elementary in gamma,p), a=0..8: {True, True, True, True, True, True, True, True, True}
+T3  support |rho^(a)| = a+1, a=0..8: {True, True, True, True, True, True, True, True, True}
+T4  border tower from the SEED alone, D_{h,l',0} (h<=5, l'<=5): 0 -> EXACT (symbolic)
+T5  FULL element from the seed alone, all l,l',l''<=3: 0 -> EXACT (symbolic)
+T6  D_555 from the seed alone: 0 -> EXACT (symbolic)
+T7  axis weights rho^(a) (up to an overall scalar):
+      rho^(1) ~ {-GAM, 1}
+      rho^(2) ~ {3 + 2*PP^2, -6*GAM, 3}
+      rho^(3) ~ {-(GAM*(5 + 2*PP^2)), 3*(5 + 4*PP^2), -15*GAM, 5}
+      rho^(4) ~ {35 + 40*PP^2 + 8*PP^4, -20*GAM*(7 + 4*PP^2), 30*(7 + 6*PP^2), -140*GAM, 35}
+    middle weights U^(l') (up to an overall scalar):
+      U^(1) ~ {-GAM, 1}
+      U^(2) ~ {3 + 2*PP^2, -6*GAM, 3}
+      U^(3) ~ {-(GAM*(5 + 2*PP^2)), 3*(5 + 4*PP^2), -15*GAM, 5}
+      U^(4) ~ {35 + 40*PP^2 + 8*PP^4, -20*GAM*(7 + 4*PP^2), 30*(7 + 6*PP^2), -140*GAM, 35}
+T8  rho^(n) proportional to U^(n)?  {proportional, ratio}, n=1..6:
+      n=1: {True, (2*X)/(Sqrt[3]*(-1 + X^2))}
+      n=2: {True, (2*X)/(Sqrt[5]*(-1 + X^2))}
+      n=3: {True, (2*X)/(Sqrt[7]*(-1 + X^2))}
+      n=4: {True, (2*X)/(3*(-1 + X^2))}
+      n=5: {True, (2*X)/(Sqrt[11]*(-1 + X^2))}
+      n=6: {True, (2*X)/(Sqrt[13]*(-1 + X^2))}
+T9  cross-correlation form  D_{h,l',0}(q) = J_{l'}(q-1) Sum_m A_m Dhat_0(q+m), h,l'<=5: 0 -> EXACT (symbolic)
+    for h=l'=5 the shift range is m = -5..5 (11 terms) vs 36 in the double sum
+--- seed-reduction harness done ---

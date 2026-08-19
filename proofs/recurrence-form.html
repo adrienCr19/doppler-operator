@@ -72,6 +72,43 @@ combinations of spectral shifts of \(\Do_{000}\), which is why the axis tower is
 reduction to bottom out.</p>
 <p class="note">Operator form: substitute \(q\to-\Oh\) throughout; shifts \(q\pm j\) become \(\Oh\mp j\) and the
 reflection argument \(-3-q\) becomes \(3-\Oh\).</p>
+
+<h3 id="seed">Bottom of the ladder — everything from the seed \(\Do_{000}\)</h3>
+<p>The axis ladder resums exactly like the middle one. Writing the normalised element
+\(\widehat{\Do}_a(q)=\Do_{a00}(q)/J_{q+1}\), unrolling (P0) gives</p>
+\[
+  \widehat{\Do}_a(q)=\sum_{k=0}^{a}\rho^{(a)}_k\,\widehat{\Do}_0(q+k),
+\]
+<p>and the two weight families turn out to be the <em>same</em> one up to a trivial scalar,</p>
+\[
+  \rho^{(n)}=\frac{U^{(n)}}{\sqrt{2n+1}\;p},
+\]
+<p>so a single elementary family governs both ladders. Composing the axis and middle resummations, the double sum
+collapses to a <strong>cross-correlation</strong> of the two weight vectors:</p>
+\[
+  \boxed{\;\Do_{h\ell'0}(q)=\mathcal J_{\ell'}(q-1)\sum_{m=-\ell'}^{h}A^{(h,\ell')}_m\,\widehat{\Do}_0(q+m),
+  \qquad A^{(h,\ell')}_m=\sum_{j}U^{(\ell')}_j\,\rho^{(h)}_{j+m}\;}
+  \tag{S}
+\]
+<p>Every element is therefore a finite, explicit combination of the <strong>single seed</strong>
+\(\widehat{\Do}_0(x)=\Do_{000}(x)/J_{x+1}\) at integer-shifted spectral index. Closing with (P2)+(N1) — where the
+prefactor \(\mathcal J_{\ell'}(q-1)\) cancels between the first border and the denominator — the top element reads</p>
+\[
+  \boxed{\;\Do_{555}(q)=\mathcal J_{5}(-4-q)\,
+  \frac{\Big[\sum_{m=-5}^{5}A_m\widehat{\Do}_0(q+m)\Big]\Big[\sum_{m=-5}^{5}A_m\widehat{\Do}_0(-3-q+m)\Big]}
+       {\sum_{j=0}^{5}U^{(5)}_j\,\widehat{\Do}_0(q-j)}\;}
+\]
+<p>with \(A_m=\sum_j U^{(5)}_j\rho^{(5)}_{j+m}\) and</p>
+\[
+  U^{(5)}\propto\big\{\gamma(63{+}56p^2{+}8p^4),\;-15(21{+}28p^2{+}8p^4),\;210\gamma(3{+}2p^2),\;
+  -70(9{+}8p^2),\;315\gamma,\;-63\big\}.
+\]
+<p>So \(\Do_{555}\) — like every other element — is written entirely in terms of \(\Do_{000}\) evaluated at
+\(q,\,q\pm1,\dots,q\pm5\) (and the reflected arguments), with elementary \(\gamma,p\) coefficients. The
+cross-correlation cuts the border sum from \(36\) terms to \(11\).
+<span class="badge pass">harness 44: axis unrolling and elementarity to \(a=8\); border tower, general element and
+\(\Do_{555}\) from the seed alone, all symbolic dev 0; proportionality of the weight families; cross-correlation form
+exact for \(h,\ell'\le5\)</span></p>
 <h3 id="ruleP0">Axis ladder (P0) — \(\ell'=\ell''=0\) &nbsp;<span style="font-weight:normal;font-size:0.8em;color:#888">(5 elements)</span></h3>
 \[\Do_{100}(q)=\frac{1}{C_{1}}\left[\frac{\gamma}{p}\Do_{000}(q)-\frac{1}{p}\frac{J_{q+1}}{J_{q+2}}\Do_{000}(q+1)\right]\]
 \[\Do_{200}(q)=\frac{1}{C_{2}}\left[\frac{\gamma}{p}\Do_{100}(q)-\frac{1}{p}\frac{J_{q+1}}{J_{q+2}}\Do_{100}(q+1)-C_{1}\,\Do_{000}(q)\right]\]
