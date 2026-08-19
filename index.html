@@ -923,21 +923,25 @@ machine-readable tables.</p>
 </ul>
 
 <div class="newbox" style="border-width:3px" id="exact-catalog">
-  <div class="head"><span class="name">6.0 &nbsp;Exact closed-form catalog — every \(\Do_{\ell\ell'\ell''}(q)\) up to \(\Do_{555}\)</span>
+  <div class="head"><span class="name">6.0 &nbsp;Exact closed-form catalog — every \(\Do_{\ell\ell'\ell''}\) up to \(\Do_{555}\)</span>
     <span class="badge new">new</span> <span class="badge pass">216 elements, verified dev 0</span>
     <span class="prooflink"><a href="proofs/closed-forms-catalog.html">open the catalog →</a></span></div>
-  <p>All 216 elements \(\ell,\ell',\ell''=0\ldots5\), each an <strong>exact closed form</strong> — a finite
-  combination of the brackets \(J_{q+k}=2\sinh\!\big((q{+}k)\eta\big)/(q{+}k)\) with rational \(\gamma,p\)
-  coefficients, valid at <em>every</em> speed (verified against the defining kernel integrals to deviation \(0\)
-  out to \(\beta=0.99\)). These are <em>not</em> \(p\)-series: nothing is truncated.</p>
+  <p>All 216 elements \(\ell,\ell',\ell''=0\ldots5\), each an <strong>exact closed form</strong> — and each an
+  <em>operator</em> identity in \(\Oh=-\nu\partial_\nu\), written with the operator bracket
+  \(J_{w-\Oh}\,g(\nu)=\int_{-\eta}^{\eta}e^{wu}g(e^{u}\nu)\,\dd u\), so the forms apply to an arbitrary spectrum and
+  not merely to power laws. On a power law they collapse by \(\Oh\to-q\), i.e. \(J_{w-\Oh}\to J_{w+q}\)
+  (<a href="proofs/power-law-reduction.html">Lemma&nbsp;L1</a>); the dictionary is faithful, and the \(\gamma,p\)
+  coefficients carry no \(\Oh\), so all factors commute. Valid at <em>every</em> speed (verified against the defining
+  kernel integrals to deviation \(0\) out to \(\beta=0.999\)) — these are <em>not</em> \(p\)-series: nothing is
+  truncated.</p>
   <p>They are generated from the single seed \(\Do_{000}\) by the <strong>recurrence ladder of the Doppler operator
   itself</strong> — P0 (outer axis), P3′ (middle index), N1 (reflection), P2 (rank-one fill) — with the aberration
   kernel never entering the generation, only the independent check. Every element follows from the border tower via
-  \(\Do_{\ell\ell'\ell''}(q)=\Do_{\ell\ell'0}(q)\,\Do_{\ell''\ell'0}(-3-q)/\Do_{0\ell'0}(q)\).
+  \(\Do_{\ell\ell'\ell''}=\Do_{\ell\ell'0}(\Oh)\,\Do_{\ell''\ell'0}(3-\Oh)/\Do_{0\ell'0}(\Oh)\).
   The seed reproduces the published monopole closed form,
-  \(\Do_{000}(q)=\tfrac{J_{q+1}J_{q+2}}{4\gamma p^{2}}
-   =\tfrac{(\gamma+p)^{3+2q}+(\gamma-p)^{3+2q}-2\gamma}{4(1+q)(2+q)\gamma p^{2}}\)
-  [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;10a at \(\Oh\to-q\)].</p>
+  \(\Do_{000}=\tfrac{J_{1-\Oh}J_{2-\Oh}}{4\gamma p^{2}}
+   =\tfrac{(\gamma+p)^{3-2\Oh}+(\gamma-p)^{3-2\Oh}-2\gamma}{4(2-\Oh)(1-\Oh)\gamma p^{2}}\)
+  [<a href="#ref-CR26">CR26</a>, Eq.&nbsp;10a] — the bracket weights \(w\) are exactly the printed denominators.</p>
   <p><a href="proofs/closed-forms-catalog.html"><strong>→ Browse the full catalog</strong></a> ·
   machine-readable: <a href="data/closed_forms_pureD.json"><code>data/closed_forms_pureD.json</code></a> ·
   generated and verified in <a href="verification/40_pure_D_catalog.html">harness&nbsp;40</a>.</p>
