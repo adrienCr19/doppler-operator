@@ -44,6 +44,7 @@ window.MathJax = {
   <a href="proofs/unified.html">★ Generation guide</a>
   <a href="proofs/closed-forms-catalog.html">★ Closed forms → D555</a>
   <a href="proofs/recurrence-form.html">★ Recurrence form</a>
+  <a href="proofs/resummation.html">Structure theory</a>
   <a href="#structure">4. Structure theory</a>
   <a href="#extensions">5. Sectors &amp; applications</a>
   <a href="#tables">6. Tables</a>
@@ -584,9 +585,9 @@ and are grouped here by role, not by number.</p>
   \(\Do_{020}\) and \(\Do_{121}\), proved <em>identical</em> to the N8 (Eq.&nbsp;1.3) and N16 boxed forms as exact
   symbolic identities (<a href="verification/35_rederive_closed_forms.html">harness 35</a>). Full derivation:
   <a href="proofs/recurrences.html">the recurrences page</a> and <a href="proofs/pure-d-index.html">N25</a>.</p>
-  <p>The middle step P3 looks nonlinear, but its \(\Do\)-ratios are only ever <em>axis</em> elements
-  \(\Do_{a00}=\tfrac{\sqrt{2a+1}}{4\gamma p}J_{1+q}\mathcal J_a(q)\), which are closed in \(J_w\). Substituting them
-  turns P3 into an <strong>explicit linear recurrence with elementary coefficients</strong> for general \(\ell'\)
+  <p>The middle step P3 looks nonlinear, but its \(\Do\)-ratios are only ever <em>axis</em> elements, which the
+  ladder has already produced — so (P3) is used exactly as written, with no extra input. Those ratios are moreover
+  <em>elementary</em>, making P3 a linear recurrence in \(J_w\) for general \(\ell'\)
   (<a href="proofs/recurrences.html#middle-elementary">recurrences §4.1</a>), collapsing at \(\ell'{=}1\) to the
   two-term \(\Do_{h,1,0}(q)=\tfrac{3}{p^2}(\gamma J_{1+q}{-}J_{2+q})[\tfrac{\gamma}{J_{1+q}}\Do_{h00}(q){-}\tfrac{1}{J_q}\Do_{h00}(q{-}1)]\).
   Two obstructions are proved: no fixed-\(q\) middle recurrence exists (the shift \(q\to q{-}1\) is essential) and the
@@ -597,14 +598,12 @@ and are grouped here by role, not by number.</p>
   \(\Do_{\ell\ell'\ell''}(q)=\Do_{\ell\ell'0}(q)\,\Do_{\ell''\ell'0}(-3-q)/\Do_{0\ell'0}(q)\). All 216 forms are
   tabulated in the <a href="proofs/closed-forms-catalog.html"><strong>closed-form catalog</strong></a> (machine-verified
   to deviation 0, <a href="verification/40_pure_D_catalog.html">harness 40</a>).</p>
-  <p>The ladder can moreover be <strong>solved in closed form</strong>: P3′ unrolls into a finite spectral-shift sum
-  over the axis family, \(\Do_{h\ell'0}(q)=A_{\ell'}(q)\sum_j c^{(\ell')}_j\widehat{\Do}_h(q-j)\) with
-  \(\widehat{\Do}_a=\Do_{a00}/J_{q+1}\) and weights \(c^{(\ell')}_j\) elementary in \(\gamma,p\) and independent
-  of the outer index. Combined with P2/N1 this gives a <strong>master formula for arbitrary
-  \((\ell,\ell',\ell'')\) straight from the one-index axis family</strong> — no ladder stepping
-  (<a href="proofs/recurrences.html#resummation">§4.2</a>; all 216 verified dev 0,
-  <a href="verification/41_general_resummation.html">harness 41</a>). The weights are the published bracket
-  coefficients: \(c^{(2)}\propto\{3+2p^2,-6\gamma,3\}\) is the \(\Do_{020}\) bracket.</p>
+  <p>Applying the relations repeatedly and back-substituting eliminates every intermediate operator, writing
+  any element in terms of the single lowest one, \(\Do_{000}\), at integer-shifted spectral index — for the top
+  element, \(\Do_{555}\) in terms of \(\Do_{000}(q),\Do_{000}(q\pm1),\dots,\Do_{000}(q\pm5)\), with the
+  coefficients written out explicitly (<a href="proofs/recurrence-form.html#cm550">recurrence-form page</a>,
+  harness 46). The generation itself needs only \(\gamma,p\), the brackets \(J_w\) and the constants \(C_\ell\)
+  — no auxiliary coefficient family at any point (<a href="verification/45_explicit_generation.html">harness 45</a>).</p>
 </div>
 
 <div class="newbox">
