@@ -92,6 +92,41 @@ reduction to bottom out.</p>
 <p class="note">Operator form: substitute \(q\to-\Oh\) throughout; shifts \(q\pm j\) become \(\Oh\mp j\) and the
 reflection argument \(-3-q\) becomes \(3-\Oh\).</p>
 
+<h3 id="substituted">Fully substituted — \(\Do_{555}\) in terms of \(\Do_{000}\) alone</h3>
+<p>Applying the relations repeatedly and back-substituting eliminates every intermediate operator. Unrolling (P0)
+and then (P3) writes each border element as a finite combination of the <strong>seed at integer-shifted spectral
+index</strong>,</p>
+\[
+  \Do_{h\ell'0}(q)=\sum_{m=-\ell'}^{h}c^{(h,\ell')}_m(q)\,\Do_{000}(q+m),
+  \tag{E}
+\]
+<p>with \(c\) elementary in \(\gamma,p\) and the brackets \(J_w\). The step that closes the argument is that the
+<strong>seed is reflection-symmetric</strong> — (N1) at zero indices gives \(\Do_{000}(-3-q)=\Do_{000}(q)\) — so the
+reflected factor in (P2) folds back onto the same set of shifts,
+\(\Do_{h\ell'0}(-3-q)=\sum_m c^{(h,\ell')}_m(-3-q)\,\Do_{000}(q-m)\). Hence</p>
+\[
+  \boxed{\;\Do_{555}(q)=
+  \frac{\Big[\sum_{m=-5}^{5}c^{(5,5)}_m(q)\,\Do_{000}(q+m)\Big]\;
+        \Big[\sum_{m=-5}^{5}c^{(5,5)}_m(-3-q)\,\Do_{000}(q-m)\Big]}
+       {\sum_{m=-5}^{0}c^{(0,5)}_m(q)\,\Do_{000}(q+m)}\;}
+\]
+<p>— the top element written entirely in terms of the <em>lowest</em> operator, \(\Do_{000}\), evaluated at
+\(q,\,q\pm1,\dots,q\pm5\). The numerator brackets carry \(11\) seed terms each, the denominator \(6\).</p>
+<p>The lowest cases show the pattern, and reproduce the boxed relations of the
+<a href="recurrences.html">recurrences page</a> exactly:</p>
+\[
+  \begin{aligned}
+  \Do_{100}(q)&=\frac{\sqrt3\,\gamma}{p}\,\Do_{000}(q)-\frac{\sqrt3}{p}\frac{J_{q+1}}{J_{q+2}}\,\Do_{000}(q{+}1),\\[4pt]
+  \Do_{010}(q)&=\frac{3\big(\gamma J_{q+1}-J_{q+2}\big)}{p^{2}}
+     \left[\frac{\gamma}{J_{q+1}}\Do_{000}(q)-\frac{1}{J_{q}}\Do_{000}(q{-}1)\right].
+  \end{aligned}
+\]
+<p><span class="badge pass">harness 46: expansion (E) exact for \((h,\ell')\) up to \((5,5)\); seed reflection
+symmetry; \(\Do_{555}\) assembled from seed shifts equals the direct product form (symbolic); and matches the
+aberration-kernel definition to deviation 0</span></p>
+<p class="note">This is the end of the ladder: \(\Do_{000}\) has no lower index to reduce to, and its own closed form
+\(J_{q+1}J_{q+2}/(4\gamma p^{2})\) is the single input of the whole scheme.</p>
+
 <h3 id="seed">Structural corollary — collapsing the ladder onto the seed</h3>
 <p class="note"><strong>Not needed for generation.</strong> Everything above is already complete and explicit: the four relations plus the seed generate every element with no further input. What follows is a separate <em>structural</em> observation — that the repeated ladder steps can be summed in closed form — which is useful for understanding why the family has the shape it does, but introduces auxiliary weight families (\(U^{(\ell')},\rho^{(a)},\mathcal J_a\)) that you would otherwise have to compute. If you simply want the operators, use the explicit relations above and stop here.</p>
 <p>The axis ladder resums exactly like the middle one. Writing the normalised element

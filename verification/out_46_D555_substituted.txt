@@ -1,0 +1,18 @@
+T1  border as a combination of the SEED at shifted q:
+      D_{1,0,0}(q) = Sum_m coef_m D_000(q+m),  m in {0, 1}   exact: True
+      D_{0,1,0}(q) = Sum_m coef_m D_000(q+m),  m in {-1, 0}   exact: True
+      D_{1,1,0}(q) = Sum_m coef_m D_000(q+m),  m in {-1, 0, 1}   exact: True
+      D_{5,5,0}(q) = Sum_m coef_m D_000(q+m),  m in {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5}   exact: True
+      D_{0,5,0}(q) = Sum_m coef_m D_000(q+m),  m in {-5, -4, -3, -2, -1, 0}   exact: True
+T2  seed reflection symmetry  D_000(-3-q) = D_000(q): True
+T3  D_555 assembled from D_000 shifts equals the direct product form: True
+T4  vs aberration kernel: 0.
+T5  simplest fully-substituted borders (coefficients of D_000(q+m)):
+      D_{1,0,0}: shifts {0, 1}
+         coefficients {(Sqrt[3]*(1 + GAM*PP + PP^2))/(PP*(GAM + PP)), -((Sqrt[3]*Jf[1])/((GAM - PP)*PP*(GAM + PP)*Jf[2]))}
+      D_{0,1,0}: shifts {-1, 0}
+         coefficients {(-3*(Jf[1] + GAM*PP*Jf[1] + PP^2*Jf[1] - GAM*Jf[2] - PP*Jf[2]))/((GAM - PP)*PP^2*(1 + 2*GAM*PP + 2*PP^2)*Jf[0]), (3*(Jf[1] + 2*GAM*PP*Jf[1] + 3*PP^2*Jf[1] + 2*GAM*PP^3*Jf[1] + 2*PP^4*Jf[1] - GAM*Jf[2] - 2*PP*Jf[2] - 2*GAM*PP^2*Jf[2] - 2*PP^3*Jf[2]))/(PP^2*(1 + 2*GAM*PP + 2*PP^2)*Jf[1])}
+      D_{1,1,0}: shifts {-1, 0, 1}
+         coefficients {(-3*Sqrt[3]*(Jf[1] + 2*GAM*PP*Jf[1] + 3*PP^2*Jf[1] + 2*GAM*PP^3*Jf[1] + 2*PP^4*Jf[1] - GAM*Jf[2] - 2*PP*Jf[2] - 2*GAM*PP^2*Jf[2] - 2*PP^3*Jf[2]))/((GAM - PP)*PP^3*(GAM + 3*PP + 4*GAM*PP^2 + 4*PP^3)*Jf[0]), (3*Sqrt[3]*(2 + PP^2)*(Jf[1] + 3*GAM*PP*Jf[1] + 5*PP^2*Jf[1] + 4*GAM*PP^3*Jf[1] + 4*PP^4*Jf[1] - GAM*Jf[2] - 3*PP*Jf[2] - 4*GAM*PP^2*Jf[2] - 4*PP^3*Jf[2]))/(PP^3*(GAM + 3*PP + 4*GAM*PP^2 + 4*PP^3)*Jf[1]), (-3*Sqrt[3]*(Jf[1] + 2*GAM*PP*Jf[1] + 3*PP^2*Jf[1] + 2*GAM*PP^3*Jf[1] + 2*PP^4*Jf[1] - GAM*Jf[2] - 2*PP*Jf[2] - 2*GAM*PP^2*Jf[2] - 2*PP^3*Jf[2]))/((GAM - PP)*PP^3*(GAM + 3*PP + 4*GAM*PP^2 + 4*PP^3)*Jf[2])}
+T6  number of seed terms: D_{5,5,0} -> 11 (shifts -5..5);  D_{0,5,0} -> 6
+--- D555 substitution harness done ---

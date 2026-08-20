@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>46_D555_substituted.wl — D555 fully substituted down to the lowest index</title><link rel="stylesheet" href="../style.css"></head>
+<body><main>
+<a class="backlink" href="../index.html#verification">← back to main page</a>
+<h2><code>46_D555_substituted.wl</code></h2>
+<p>Unrolls every relation to the bottom and substitutes the result back into <code>D555</code>, giving it in terms
+of the <strong>lowest index operator only</strong>, <code>D000</code>. Unrolling (P0) then (P3) writes each border
+element as a finite combination of the seed at integer-shifted spectral index,
+<code>D_(h,l',0)(q) = Sum_m c_m(q) D000(q+m)</code> with <code>c</code> elementary. The step that closes it is that
+the seed is <strong>reflection-symmetric</strong>, <code>D000(-3-q) = D000(q)</code> (N1 at zero indices), so the
+reflected border in (P2) folds back onto the same set of shifts. Checks: <strong>T1</strong> the border-to-seed
+expansion is exact for representative <code>(h,l')</code> including <code>(5,5)</code>; <strong>T2</strong> the seed
+reflection symmetry; <strong>T3</strong> <code>D555</code> assembled purely from seed shifts equals the direct
+product form (symbolic); <strong>T4</strong> the same against the aberration-kernel definition, deviation 0;
+<strong>T5</strong> the explicit coefficients for the simplest cases; <strong>T6</strong> the term counts —
+<code>D_(5,5,0)</code> needs 11 seed terms (shifts -5..5), <code>D_(0,5,0)</code> needs 6. Run with
+<code>wolframscript -file 46_D555_substituted.wl</code>. Download:
+<a href="46_D555_substituted.wl" download>46_D555_substituted.wl</a> &middot; recorded output below
+(also <a href="out_46_D555_substituted.txt">out_46_D555_substituted.txt</a>)</p>
+<h3>Source</h3><pre><code>(* ::Package:: *)
+(* 46_D555_substituted.wl — FULL SUBSTITUTION: unroll every relation to the bottom and put the
+   result back into D_555, giving it in terms of the LOWEST index operator only, D_000.
+
+   Unrolling (P0) then (P3) expresses each border element as a finite combination of the seed at
+   integer-shifted spectral index,
+        D_{h,l&#x27;,0}(q) = Sum_m c^{(h,l&#x27;)}_m(q) D_000(q+m),
+   with c elementary (built from gamma, p and the brackets J_w).  Because the seed is
+   reflection-symmetric, D_000(-3-q) = D_000(q) (N1 at l=l&#x27;=l&#x27;&#x27;=0), the reflected border also
+   collapses onto D_000 at shifted q:
+        D_{h,l&#x27;,0}(-3-q) = Sum_m c^{(h,l&#x27;)}_m(-3-q) D_000(q-m).
+   Hence, from (P2)+(N1),
+
+     D_555(q) = [Sum_m c^{(5,5)}_m(q) D_000(q+m)] [Sum_m c^{(5,5)}_m(-3-q) D_000(q-m)]
+                / [Sum_m c^{(0,5)}_m(q) D_000(q+m)] .
+
+   Everything on the right is the single lowest operator D_000 at q, q+-1, ..., q+-5, times
+   elementary coefficients.  The aberration kernel is used ONLY as the independent check. *)
+
+g=(X+1/X)/2; p=(X-1/X)/2;                       (* X = e^eta *)
+sh[e_,d_]:=e/.Jf[m_]:&gt;Jf[m+d];
+refl[e_]:=e/.Jf[m_]:&gt;Jf[3-m];                   (* q -&gt; -3-q *)
+CC[l_]:=Sqrt[l^2/(4 l^2-1)]; red[e_]:=Cancel[Together[e]];
+D000=Jf[2]Jf[1]/(4 g p^2);
+
+(* ---------- 1. the ladders, symbolically ---------- *)
+Da[0]=D000; Da[a_]/;a&lt;0:=0;
+Da[a_]:=Da[a]=red[(1/CC[a])((g/p)Da[a-1]-(1/p)(Jf[1]/Jf[2])sh[Da[a-1],1]-CC[a-1]Da[a-2])];
+Tn[n_]:=(1/p^(n+1))Sum[Binomial[n,k](-g)^k Jf[n+2-k],{k,0,n}];
+Jbr[a_]:=(-1)^a Sum[Coefficient[LegendreP[a,x],x,n]Tn[n],{n,0,a}];
+aC[lp_]:=(g(2 lp+1)/(lp p)) sh[Jbr[lp],-1]/sh[Jbr[lp-1],-1];
+bC[lp_]:=-((2 lp+1)/(lp p)) sh[Jbr[lp],-1]/sh[Jbr[lp-1],-2];
+cC[lp_]:=If[lp&gt;=2,-((lp-1)(2 lp+1)/(lp(2 lp-3))) sh[Jbr[lp],-1]/sh[Jbr[lp-2],-1],0];
+Db[h_,0]:=Da[h]; Db[h_,lp_]/;lp&lt;0:=0;
+Db[h_,lp_]:=Db[h,lp]=red[aC[lp]Db[h,lp-1]+bC[lp]sh[Db[h,lp-1],-1]+cC[lp]Db[h,lp-2]];
+
+(* ---------- 2. unroll onto D_000 shifts ---------- *)
+(* axis:   Dhat_a(q)=Sum_k rho_k Dhat_0(q+k);  middle: D_{h,l&#x27;,0}=J_l&#x27;(q-1) Sum_j U_j Dhat_h(q-j) *)
+alp[l_]:=g(2 l+1)/(l p); bet[l_]:=-((2 l+1)/(l p)); kap[l_]:=-((l-1)(2 l+1)/(l(2 l-3)));
+U[0]={p}; U[l_]/;l&lt;0:={};
+U[l_]:=U[l]=Module[{Um1=U[l-1],Um2=If[l&gt;=2,U[l-2],{}],out},out=ConstantArray[0,l+1];
+  Do[out[[j]]=out[[j]]+alp[l] Um1[[j]],{j,1,Length[Um1]}];
+  Do[out[[j+1]]=out[[j+1]]+bet[l] Um1[[j]],{j,1,Length[Um1]}];
+  If[l&gt;=2,Do[out[[j]]=out[[j]]+kap[l] Um2[[j]],{j,1,Length[Um2]}]];Simplify/@out];
+R[0]={1}; R[a_]/;a&lt;0:={};
+R[a_]:=R[a]=Module[{Rm1=R[a-1],Rm2=If[a&gt;=2,R[a-2],{}],out},out=ConstantArray[0,a+1];
+  Do[out[[k]]=out[[k]]+(1/CC[a])(g/p) Rm1[[k]],{k,1,Length[Rm1]}];
+  Do[out[[k+1]]=out[[k+1]]-(1/CC[a])(1/p)(Jf[1]/Jf[2]) sh[Rm1[[k]],1],{k,1,Length[Rm1]}];
+  If[a&gt;=2,Do[out[[k]]=out[[k]]-(1/CC[a])CC[a-1] Rm2[[k]],{k,1,Length[Rm2]}]];red/@out];
+rho[a_]:=rho[a]=Table[red[R[a][[k]] Jf[1+(k-1)]/Jf[1]],{k,1,Length[R[a]]}];
+Dhat0[x_]:=sh[D000,x]/sh[Jf[1],x];
+Dhat[a_,x_]:=Sum[rho[a][[k]] Dhat0[x+(k-1)],{k,1,Length[rho[a]]}];
+border[h_,lp_]:=red[sh[Jbr[lp],-1] Sum[U[lp][[j]] Dhat[h,-(j-1)],{j,1,Length[U[lp]]}]];
+
+(* extract the coefficient of D_000(q+m):  coef_m = J_l&#x27;(q-1) * A_m / J_{q+1+m} *)
+cross[h_,lp_]:=Table[Sum[If[1&lt;=j+m&lt;=h+1,U[lp][[j]] rho[h][[j+m]],0],{j,1,lp+1}],{m,-lp,h}];
+coef[h_,lp_]:=Table[red[sh[Jbr[lp],-1] cross[h,lp][[m+lp+1]]/sh[Jf[1],m]],{m,-lp,h}];
+shiftsOf[h_,lp_]:=Range[-lp,h];
+
+Print[&quot;T1  border as a combination of the SEED at shifted q:&quot;];
+Do[With[{h=c[[1]],lp=c[[2]]},
+   Print[&quot;      D_{&quot;,h,&quot;,&quot;,lp,&quot;,0}(q) = Sum_m coef_m D_000(q+m),  m in &quot;,shiftsOf[h,lp],
+    &quot;   exact: &quot;,red[Sum[coef[h,lp][[i]] sh[D000,shiftsOf[h,lp][[i]]],{i,1,Length[coef[h,lp]]}]-Db[h,lp]]===0]],
+  {c,{{1,0},{0,1},{1,1},{5,5},{0,5}}}];
+
+(* ---------- 3. the seed is reflection-symmetric ---------- *)
+Print[&quot;T2  seed reflection symmetry  D_000(-3-q) = D_000(q): &quot;,red[refl[D000]-D000]===0];
+
+(* ---------- 4. assemble D_555 purely from D_000 shifts ---------- *)
+num1=Sum[coef[5,5][[i]] sh[D000,shiftsOf[5,5][[i]]],{i,1,Length[coef[5,5]]}];
+num2=refl[num1];                                   (* q -&gt; -3-q; seed shifts fold back by T2 *)
+den =Sum[coef[0,5][[i]] sh[D000,shiftsOf[0,5][[i]]],{i,1,Length[coef[0,5]]}];
+D555sub=red[num1 num2/den];
+D555dir=red[Db[5,5] refl[Db[5,5]]/Db[0,5]];
+Print[&quot;T3  D_555 assembled from D_000 shifts equals the direct product form: &quot;,red[D555sub-D555dir]===0];
+
+(* ---------- 5. independent numerical check against the kernel ---------- *)
+bb=42/100; gN=1/Sqrt[1-bb^2]; etaN=ArcSinh[gN bb]; qN=37/100;
+ev[e_]:=N[e/.X-&gt;Exp[etaN]/.Jf[m_]:&gt;2 Sinh[(qN+m)etaN]/(qN+m),25];
+Ybar[l_,x_]:=Sqrt[(2 l+1)/(4 Pi)]LegendreP[l,x];
+Kk[d_,l_,lp_,s_]:=Kk[d,l,lp,s]=2 Pi NIntegrate[Ybar[l,mu]Ybar[lp,(mu+s bb)/(1+s bb mu)]/(gN(1+s bb mu))^d,
+   {mu,-1,1},WorkingPrecision-&gt;30,PrecisionGoal-&gt;18];
+Print[&quot;T4  vs aberration kernel: &quot;,ToString[N[Abs[ev[D555sub]-(1/gN)Kk[-1-qN,5,5,-1]Kk[-qN,5,5,1]]],InputForm]];
+
+(* ---------- 6. show the simplest fully-substituted cases explicitly ---------- *)
+rg[e_]:=Expand[e]//.GAM^n_/;n&gt;=2:&gt;GAM^(n-2)(1+PP^2);
+lauGP[L_]:=Module[{k=-Exponent[L,X,Min]},rg[Expand[Expand[L X^k]/.X-&gt;GAM+PP](GAM-PP)^k]];
+cv[e_]:=Module[{t=Together[e]},Factor[Cancel[lauGP[Numerator[t]]/lauGP[Denominator[t]]]]];
+Print[&quot;T5  simplest fully-substituted borders (coefficients of D_000(q+m)):&quot;];
+Do[With[{h=c[[1]],lp=c[[2]]},
+   Print[&quot;      D_{&quot;,h,&quot;,&quot;,lp,&quot;,0}: shifts &quot;,shiftsOf[h,lp]];
+   Print[&quot;         coefficients &quot;,cv/@coef[h,lp]]],
+  {c,{{1,0},{0,1},{1,1}}}];
+Print[&quot;T6  number of seed terms: D_{5,5,0} -&gt; &quot;,Length[coef[5,5]],
+      &quot; (shifts &quot;,First[shiftsOf[5,5]],&quot;..&quot;,Last[shiftsOf[5,5]],&quot;);  D_{0,5,0} -&gt; &quot;,Length[coef[0,5]]];
+Print[&quot;--- D555 substitution harness done ---&quot;];
+</code></pre>
+<h3>Recorded output</h3><pre><code>T1  border as a combination of the SEED at shifted q:
+      D_{1,0,0}(q) = Sum_m coef_m D_000(q+m),  m in {0, 1}   exact: True
+      D_{0,1,0}(q) = Sum_m coef_m D_000(q+m),  m in {-1, 0}   exact: True
+      D_{1,1,0}(q) = Sum_m coef_m D_000(q+m),  m in {-1, 0, 1}   exact: True
+      D_{5,5,0}(q) = Sum_m coef_m D_000(q+m),  m in {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5}   exact: True
+      D_{0,5,0}(q) = Sum_m coef_m D_000(q+m),  m in {-5, -4, -3, -2, -1, 0}   exact: True
+T2  seed reflection symmetry  D_000(-3-q) = D_000(q): True
+T3  D_555 assembled from D_000 shifts equals the direct product form: True
+T4  vs aberration kernel: 0.
+T5  simplest fully-substituted borders (coefficients of D_000(q+m)):
+      D_{1,0,0}: shifts {0, 1}
+         coefficients {(Sqrt[3]*(1 + GAM*PP + PP^2))/(PP*(GAM + PP)), -((Sqrt[3]*Jf[1])/((GAM - PP)*PP*(GAM + PP)*Jf[2]))}
+      D_{0,1,0}: shifts {-1, 0}
+         coefficients {(-3*(Jf[1] + GAM*PP*Jf[1] + PP^2*Jf[1] - GAM*Jf[2] - PP*Jf[2]))/((GAM - PP)*PP^2*(1 + 2*GAM*PP + 2*PP^2)*Jf[0]), (3*(Jf[1] + 2*GAM*PP*Jf[1] + 3*PP^2*Jf[1] + 2*GAM*PP^3*Jf[1] + 2*PP^4*Jf[1] - GAM*Jf[2] - 2*PP*Jf[2] - 2*GAM*PP^2*Jf[2] - 2*PP^3*Jf[2]))/(PP^2*(1 + 2*GAM*PP + 2*PP^2)*Jf[1])}
+      D_{1,1,0}: shifts {-1, 0, 1}
+         coefficients {(-3*Sqrt[3]*(Jf[1] + 2*GAM*PP*Jf[1] + 3*PP^2*Jf[1] + 2*GAM*PP^3*Jf[1] + 2*PP^4*Jf[1] - GAM*Jf[2] - 2*PP*Jf[2] - 2*GAM*PP^2*Jf[2] - 2*PP^3*Jf[2]))/((GAM - PP)*PP^3*(GAM + 3*PP + 4*GAM*PP^2 + 4*PP^3)*Jf[0]), (3*Sqrt[3]*(2 + PP^2)*(Jf[1] + 3*GAM*PP*Jf[1] + 5*PP^2*Jf[1] + 4*GAM*PP^3*Jf[1] + 4*PP^4*Jf[1] - GAM*Jf[2] - 3*PP*Jf[2] - 4*GAM*PP^2*Jf[2] - 4*PP^3*Jf[2]))/(PP^3*(GAM + 3*PP + 4*GAM*PP^2 + 4*PP^3)*Jf[1]), (-3*Sqrt[3]*(Jf[1] + 2*GAM*PP*Jf[1] + 3*PP^2*Jf[1] + 2*GAM*PP^3*Jf[1] + 2*PP^4*Jf[1] - GAM*Jf[2] - 2*PP*Jf[2] - 2*GAM*PP^2*Jf[2] - 2*PP^3*Jf[2]))/((GAM - PP)*PP^3*(GAM + 3*PP + 4*GAM*PP^2 + 4*PP^3)*Jf[2])}
+T6  number of seed terms: D_{5,5,0} -&gt; 11 (shifts -5..5);  D_{0,5,0} -&gt; 6
+--- D555 substitution harness done ---
+</code></pre>
+<footer><p><a href="../index.html">The Doppler Operator Project</a> — verification</p></footer>
+</main></body></html>
